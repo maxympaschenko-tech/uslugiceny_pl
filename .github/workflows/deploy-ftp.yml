@@ -1,6 +1,11 @@
-# Budowa strony i wysylka na hosting przez FTP.
+# Budowa strony i wysylka na hosting.
 # Hosting: ukraine.com.ua, panel adm.tools, konto uageek, serwer Apache.
-# Katalog strony na serwerze: /home/uageek/uslugiceny.pl/www/
+# Katalog strony: /home/uageek/uslugiceny.pl/www/
+#
+# Wysylka przez lftp, a nie przez zwykla akcje FTP: serwer zrywa polaczenie
+# przy dlugim jednowatkowym transferze (Server sent FIN packet unexpectedly).
+# lftp trzyma kilka rownoleglych polaczen, sam ponawia proby i wysyla
+# tylko pliki nowsze od tych na serwerze.
 #
 # Sekrety: Settings > Secrets and variables > Actions
 #   FTP_SERVER    uageek.ftp.tools
@@ -16,11 +21,12 @@ on:
 
 concurrency:
   group: deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -38,17 +44,35 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/sitemap.xml
+          test -f dist/.htaccess
           echo "Stron: $(find dist -name index.html | wc -l)"
 
+      - name: Instalacja lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
       - name: Wyslij na hosting
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_DIR }}
-          local-dir: ./dist/
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
+        env:
+          HOST: ${{ secrets.FTP_SERVER }}
+          USER: ${{ secrets.FTP_USER }}
+          PASS: ${{ secrets.FTP_PASSWORD }}
+          DIR: ${{ secrets.FTP_DIR }}
+        run: |
+          lftp -c "
+            set ftp:ssl-allow true;
+            set ssl:verify-certificate no;
+            set ftp:passive-mode true;
+            set net:max-retries 5;
+            set net:reconnect-interval-base 5;
+            set net:timeout 30;
+            set mirror:parallel-transfer-count 4;
+            set cmd:fail-exit true;
+            open -u '$USER','$PASS' '$HOST';
+            mirror -R --only-newer --no-perms --verbose=1 dist/ '$DIR';
+            bye
+          "
+
+      - name: Sprawdzenie strony
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://uslugiceny.pl/)
+          echo "Strona glowna: $code"
+          test "$code" = "200"
