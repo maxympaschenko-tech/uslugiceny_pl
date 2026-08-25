@@ -1,0 +1,54 @@
+# Budowa strony i wysylka na hosting przez FTP.
+# Hosting: ukraine.com.ua, panel adm.tools, konto uageek, serwer Apache.
+# Katalog strony na serwerze: /home/uageek/uslugiceny.pl/www/
+#
+# Sekrety: Settings > Secrets and variables > Actions
+#   FTP_SERVER    uageek.ftp.tools
+#   FTP_USER      uageek_usl
+#   FTP_PASSWORD  haslo tego uzytkownika
+#   FTP_DIR       ./
+name: Build and deploy (FTP)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build
+        env:
+          SITE_URL: https://uslugiceny.pl
+          BASE_PATH: /
+        run: node build.mjs
+
+      - name: Kontrola wyniku budowy
+        run: |
+          test -f dist/index.html
+          test -f dist/sitemap.xml
+          echo "Stron: $(find dist -name index.html | wc -l)"
+
+      - name: Wyslij na hosting
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_DIR }}
+          local-dir: ./dist/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
