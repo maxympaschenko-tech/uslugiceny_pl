@@ -1,4 +1,4 @@
-# Apache: kompresja, cache, HTTPS i strona 404.
+# Apache: przekierowania, kompresja, cache, strona 404.
 # Generator kopiuje ten plik do katalogu glownego dist/.
 
 Options -Indexes
@@ -6,11 +6,19 @@ DirectoryIndex index.html
 
 ErrorDocument 404 /404.html
 
-# wymuszenie HTTPS i wersji bez www
+# Wymuszenie HTTPS.
+# Uwaga: hosting konczy SSL na proxy, wiec Apache widzi zwykly HTTP.
+# Sam warunek %{HTTPS} !=on dawalby petle przekierowan, dlatego sprawdzamy
+# dodatkowo naglowek X-Forwarded-Proto: przekierowujemy tylko wtedy,
+# gdy zadne ze zrodel nie mowi, ze polaczenie jest szyfrowane.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
   RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteCond %{HTTP:X-Forwarded-SSL} !=on
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 </IfModule>
