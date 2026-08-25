@@ -1,0 +1,573 @@
+import { mkdir, writeFile, cp, rm } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import cities from './src/data/cities.json' with { type: 'json' };
+import worksFile from './src/data/works.json' with { type: 'json' };
+import { SITE } from './src/config.mjs';
+import { layout, estimateSheet, calcScript, field, select, check, money } from './src/templates.mjs';
+import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
+
+const OUT = 'dist';
+const R = SITE.root;
+const YEAR = new Date().getFullYear();
+const { works, categories, units, levels, meta, standardScope } = worksFile;
+const byId = Object.fromEntries(works.map((w) => [w.id, w]));
+const W_JSON = JSON.stringify({ byId, categories, units, levels });
+const CITY_MAP = JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])));
+const cityOptions = cities.map((c) => ({ v: c.slug, t: c.name }));
+
+await rm(OUT, { recursive: true, force: true });
+await mkdir(OUT, { recursive: true });
+
+const write = async (path, html) => {
+  const file = join(OUT, path, 'index.html');
+  await mkdir(dirname(file), { recursive: true });
+  await writeFile(file, html);
+};
+
+/* ---------- ten sam silnik po stronie serwera ---------- */
+
+const unitPrice = (id, coef, k, cm) => {
+  const w = byId[id];
+  const mult = w.perCm && cm ? cm : 1;
+  return {
+    labour: w.labour * coef * (1 + (k - 1) * 0.35),
+    material: w.material * mult * (1 + (coef - 1) * 0.2) * k,
+  };
+};
+
+const turnkeyPerM2 = (coef, k) =>
+  Object.entries(standardScope.items).reduce((s, [id, q]) => {
+    const p = unitPrice(id, coef, k, 5);
+    return s + (p.labour + p.material) * q;
+  }, 0);
+
+const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+
+const draftFlag =
+  meta.status === 'draft'
+    ? `<p class="draft-flag"><strong>Wersja robocza cennika.</strong> Stawki bazowe pochodzą z rynkowego przedziału i nie zostały jeszcze zweryfikowane z cennikami ekip. Rząd wielkości jest właściwy, konkretne kwoty jeszcze się zmienią.</p>`
+    : '';
+
+/* ================= strona główna ================= */
+
+const perM2 = cities.map((c) => ({ c, v: turnkeyPerM2(c.coef, 1) }));
+const maxM2 = perM2.reduce((a, b) => (b.v > a.v ? b : a));
+const minM2 = perM2.reduce((a, b) => (b.v < a.v ? b : a));
+
+const boardRows = [...perM2]
+  .sort((a, b) => b.v - a.v)
+  .map(({ c, v }, i) => `<tr>
+<td data-v="${c.name}"><span class="rank">${i + 1}</span><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(turnkeyPerM2(c.coef, lvl.ekonom))}">${money(Math.round(turnkeyPerM2(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(v)}">${money(Math.round(v))}</td>
+<td class="num" data-v="${Math.round(turnkeyPerM2(c.coef, lvl.premium))}">${money(Math.round(turnkeyPerM2(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(v * 50)}">${money(Math.round(v * 50))}</td>
+</tr>`)
+  .join('');
+
+await write(
+  '',
+  layout({
+    title: `Ile kosztuje remont mieszkania ${YEAR}: ceny za m² w 10 miastach`,
+    description:
+      'Ceny remontu w Polsce: stawka za m² pod klucz, cennik robót remontowych w 10 największych miastach i kalkulatory wylewki, łazienki oraz remontu mieszkania.',
+    path: '/',
+    body: `
+<section class="hero"><div class="wrap hero-grid">
+  <div>
+    <p class="eyebrow">Aktualizacja ${meta.updated} · ceny w PLN z VAT</p>
+    <h1>Policz remont, zanim zadzwonisz po ekipę</h1>
+    <p class="lede">Cennik robót w dziesięciu największych miastach i kalkulatory, które dają kosztorys pozycja po pozycji, a nie jedną kwotę z sufitu.</p>
+    <p class="hero-note">Remont pod klucz w wariancie standardowym kosztuje od ${money(Math.round(minM2.v))} zł za m² (${minM2.c.name}) do ${money(Math.round(maxM2.v))} zł za m² (${maxM2.c.name}). Różnica siedzi niemal w całości w robociźnie: worek kleju kosztuje w całym kraju podobnie, godzina fachowca już nie.</p>
+    ${draftFlag}
+  </div>
+  <div>
+    <div class="panel">
+      <h2>Szybka wycena</h2>
+      <p class="panel-note">Podaj metraż, a kalkulator złoży kosztorys z typowego zakresu robót.</p>
+      <form id="quick">
+        ${field({ name: 'area', label: 'Powierzchnia mieszkania', value: 50, min: 10, max: 300, suffix: 'm²' })}
+        <div class="fields-2">
+          ${select({ name: 'city', label: 'Miasto', options: cityOptions })}
+          ${select({ name: 'level', label: 'Standard', options: levels.map((l) => ({ v: l.id, t: l.name, sel: l.id === 'standard' })) })}
+        </div>
+      </form>
+      <div class="total"><span class="t-label">Remont pod klucz</span><span class="t-val" data-quick>0 <small>PLN</small></span></div>
+      <p class="range-note" data-quick-note></p>
+      <p class="receipt-foot"><a href="${R}kalkulator/remont-mieszkania/">Rozwiń do pełnego kosztorysu z podziałem na roboty</a></p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Remont pod klucz, zł za m²</h2>
+  <p class="section-note">Wyliczenie dla typowego mieszkania: demontaże, tynki, gładzie, malowanie, wylewka, panele, płytki w strefach mokrych, instalacja elektryczna, drzwi i sprzątanie. Kliknij nagłówek kolumny, żeby posortować.</p>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>Mieszkanie 50 m²</th></tr></thead>
+    <tbody>${boardRows}</tbody>
+  </table></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Katalog robót</h2>
+  <p class="section-note">Każda pozycja ma własną stronę z rozbiciem stawki na robociznę i materiał, listą czynników cenotwórczych i cenami w dziesięciu miastach.</p>
+  <div class="cards">${categories
+    .map((c) => {
+      const n = works.filter((w) => w.cat === c.id).length;
+      return `<div class="card"><h3><a href="${R}uslugi/${c.slug}/">${c.name}</a></h3><p class="big">${n}</p><p>${c.lead}</p></div>`;
+    })
+    .join('')}</div>
+  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}uslugi/">Zobacz wszystkie ${works.length} pozycji</a></p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Kalkulatory</h2>
+  <div class="cards">
+    <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania pod klucz</a></h3><p>Metraż, standard wykończenia i zakres demontaży. Na wyjściu kosztorys po kategoriach z rozbiciem na robociznę i materiały.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/lazienka/">Remont łazienki</a></h3><p>Płytki, hydroizolacja i armatura liczone sztuka po sztuce. Najdroższe pomieszczenie w mieszkaniu w przeliczeniu na metr.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/wylewka/">Wylewka podłogowa</a></h3><p>Powierzchnia i grubość dają objętość zaprawy, liczbę worków i cenę robocizny osobno od materiału.</p></div>
+  </div>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Kosztorys.pl',
+      inLanguage: 'pl',
+      about: 'Ceny robót remontowych w Polsce',
+    },
+    script: `${calcScript}
+const W = ${W_JSON};
+const CITIES = ${CITY_MAP};
+const SCOPE = ${JSON.stringify(standardScope.items)};
+(function(){
+  const f = document.getElementById('quick');
+  const out = document.querySelector('[data-quick]');
+  const note = document.querySelector('[data-quick-note]');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const coef = CITIES[v.city][0], k = W.levels.find(l => l.id === v.level).k;
+    const lines = Object.entries(SCOPE).map(([id, q]) => ({ id, qty: q * (v.area || 0), cm: 5 }));
+    const est = estimate(W, lines, coef, k);
+    out.innerHTML = F(R(est.total)) + ' <small>PLN</small>';
+    note.textContent = v.area
+      ? F(R(est.total / v.area)) + ' zł za m². Robocizna ' + F(R(est.labour)) + ', materiały ' + F(R(est.material)) + '.'
+      : '';
+  });
+  bindSort(document.getElementById('board'));
+})();`,
+  })
+);
+
+/* ================= cenniki miast ================= */
+
+for (const city of cities) {
+  const rows = categories
+    .map((cat) => {
+      const trs = works
+        .filter((w) => w.cat === cat.id)
+        .map((w) => {
+          const p = unitPrice(w.id, city.coef, 1, 1);
+          const tot = p.labour + p.material;
+          return `<tr><td data-v="${w.name}">${w.name}${w.perCm ? ' <span class="qty">za 1 cm grubości</span>' : ''}</td>
+<td class="num" data-v="${units[w.unit].name}">${units[w.unit].name}</td>
+<td class="num" data-v="${p.labour}">${money(Math.round(p.labour))}</td>
+<td class="num" data-v="${p.material}">${p.material ? money(Math.round(p.material)) : 'własny'}</td>
+<td class="num" data-v="${tot}"><b>${money(Math.round(tot))}</b></td></tr>`;
+        })
+        .join('');
+      return `<h3 class="group-title">${cat.name}</h3>
+<div class="board-wrap"><table class="board">
+<thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Robocizna</th><th>Materiał</th><th>Razem</th></tr></thead>
+<tbody>${trs}</tbody></table></div>`;
+    })
+    .join('');
+
+  const std = turnkeyPerM2(city.coef, 1);
+  const med = turnkeyPerM2(1, 1);
+  const diff = Math.round((std / med - 1) * 100);
+
+  await write(
+    `ceny/${city.slug}`,
+    layout({
+      title: `Cennik robót remontowych ${city.loc} ${YEAR}: stawki za m² i za punkt`,
+      description: `Ile kosztują roboty remontowe ${city.loc}: tynki, gładzie, wylewka, płytki, elektryka, hydraulika. Robocizna i materiał osobno, ceny w zł.`,
+      path: `/ceny/${city.slug}/`,
+      breadcrumb: `<a href="${R}">Cennik</a> · ${city.name}`,
+      body: `
+<section><div class="wrap">
+  <p class="eyebrow">Województwo ${city.voivodeship} · współczynnik cen ${city.coef.toFixed(2)}</p>
+  <h1>Roboty remontowe ${city.loc}</h1>
+  <p class="lede">Remont pod klucz wychodzi tu około ${money(Math.round(std))} zł za m², czyli ${diff === 0 ? 'dokładnie tyle, co średnio w kraju' : diff > 0 ? `o ${diff}% powyżej` : `o ${Math.abs(diff)}% poniżej`} średniej krajowej stawki.</p>
+  ${draftFlag}
+  <p class="section-note">Słowo „własny” w kolumnie Materiał oznacza, że tę pozycję zwykle kupuje inwestor, a ekipa liczy wyłącznie robociznę. Kliknięcie nagłówka sortuje tabelę.</p>
+  ${rows}
+  <p class="receipt-foot" style="margin-top:1.4rem">Policz konkretny zakres: <a href="${R}kalkulator/remont-mieszkania/">mieszkanie pod klucz</a>, <a href="${R}kalkulator/lazienka/">łazienka</a>, <a href="${R}kalkulator/wylewka/">wylewka</a>.</p>
+</div></section>`,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'Place',
+        name: city.name,
+        address: { '@type': 'PostalAddress', addressCountry: 'PL', addressLocality: city.name },
+      },
+      script: `${calcScript}
+document.querySelectorAll('table.board').forEach(bindSort);`,
+    })
+  );
+}
+
+/* ================= kalkulator: mieszkanie ================= */
+
+await write(
+  'kalkulator/remont-mieszkania',
+  layout({
+    title: 'Kalkulator remontu mieszkania: kosztorys według metrażu',
+    description: 'Policz koszt remontu mieszkania pod klucz: metraż, standard wykończenia, demontaże, elektryka. Kosztorys z podziałem na roboty, ceny w zł.',
+    path: '/kalkulator/remont-mieszkania/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulator remontu mieszkania`,
+    body: `
+<section><div class="wrap">
+  <h1>Remont mieszkania pod klucz</h1>
+  <p class="lede">Ilości liczone są z metrażu według typowych proporcji: ścian i sufitów jest mniej więcej trzy razy więcej niż podłogi, a strefy mokre zajmują około jednej czwartej powierzchni.</p>
+  ${draftFlag}
+  <div class="calc-grid" style="margin-top:1.5rem">
+    <div class="panel">
+      <h2>Parametry</h2>
+      <form id="calc">
+        ${field({ name: 'area', label: 'Powierzchnia mieszkania', value: 50, min: 10, max: 300, suffix: 'm²' })}
+        <div class="fields-2">
+          ${select({ name: 'city', label: 'Miasto', options: cityOptions })}
+          ${select({ name: 'level', label: 'Standard wykończenia', options: levels.map((l) => ({ v: l.id, t: l.name, sel: l.id === 'standard' })) })}
+        </div>
+        ${field({ name: 'doors', label: 'Drzwi wewnętrzne', value: 3, min: 0, max: 12, step: 1, suffix: 'szt.' })}
+        <p class="group-title">Zakres prac</p>
+        ${check({ name: 'demont', label: 'Demontaż starego wykończenia i wywóz gruzu', checked: true })}
+        ${check({ name: 'tynk', label: 'Tynkowanie ścian', checked: true })}
+        ${check({ name: 'wylewka', label: 'Nowa wylewka podłogowa', checked: true })}
+        ${check({ name: 'elektryka', label: 'Wymiana instalacji elektrycznej', checked: true })}
+        ${check({ name: 'lazienka', label: 'Płytki i biały montaż w łazience', checked: true })}
+        ${check({ name: 'sufit', label: 'Sufity podwieszane i zabudowy', checked: true })}
+      </form>
+      <p class="panel-note" data-level-note></p>
+    </div>
+    <div class="sticky-sheet">${estimateSheet({ title: 'Mieszkanie', sub: '' })}</div>
+  </div>
+</div></section>`,
+    script: `${calcScript}
+const W = ${W_JSON};
+const CITIES = ${CITY_MAP};
+const SCOPE = ${JSON.stringify(standardScope)};
+(function(){
+  const f = document.getElementById('calc');
+  const sheet = document.getElementById('sheet');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const a = v.area || 0;
+    const [coef, cityName] = CITIES[v.city];
+    const level = W.levels.find(l => l.id === v.level);
+    const off = new Set();
+    for (const [g, ids] of Object.entries(SCOPE.groups)) if (v[g] === false) ids.forEach(i => off.add(i));
+    const L = [];
+    for (const [id, q] of Object.entries(SCOPE.items)){
+      if (off.has(id)) continue;
+      const qty = id === SCOPE.doorsItem ? (v.doors || 0) : q * a;
+      L.push({ id, qty: Math.round(qty * 100) / 100, cm: 5 });
+    }
+    const est = estimate(W, L, coef, level.k);
+    drawEstimate(sheet, W, est, { perM2: a });
+    sheet.querySelector('[data-sheet-title]').textContent = cityName + ', ' + F(a) + ' m²';
+    sheet.querySelector('[data-sheet-sub]').textContent = 'standard ' + level.name.toLowerCase();
+    document.querySelector('[data-level-note]').textContent = level.note;
+  });
+})();`,
+  })
+);
+
+/* ================= kalkulator: łazienka ================= */
+
+await write(
+  'kalkulator/lazienka',
+  layout({
+    title: 'Kalkulator remontu łazienki: ile kosztują płytki i biały montaż',
+    description: 'Ile kosztuje remont łazienki: płytki, hydroizolacja, montaż wanny, kabiny, WC i umywalki. Kosztorys pozycja po pozycji, ceny w zł.',
+    path: '/kalkulator/lazienka/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulator remontu łazienki`,
+    body: `
+<section><div class="wrap">
+  <h1>Remont łazienki</h1>
+  <p class="lede">Najdroższe pomieszczenie w mieszkaniu w przeliczeniu na metr: na pięciu metrach spotykają się hydroizolacja, płytki, hydraulika i elektryka.</p>
+  ${draftFlag}
+  <div class="calc-grid" style="margin-top:1.5rem">
+    <div class="panel">
+      <h2>Wymiary</h2>
+      <form id="calc">
+        <div class="fields-2">
+          ${field({ name: 'len', label: 'Długość', value: 2.4, min: 1, max: 8, step: 0.1, suffix: 'm' })}
+          ${field({ name: 'wid', label: 'Szerokość', value: 1.8, min: 1, max: 8, step: 0.1, suffix: 'm' })}
+        </div>
+        <div class="fields-2">
+          ${field({ name: 'tileH', label: 'Wysokość płytek', value: 2.4, min: 0, max: 3.2, step: 0.1, suffix: 'm' })}
+          ${select({ name: 'city', label: 'Miasto', options: cityOptions })}
+        </div>
+        ${select({ name: 'level', label: 'Klasa materiałów', options: levels.map((l) => ({ v: l.id, t: l.name, sel: l.id === 'standard' })) })}
+        ${check({ name: 'big', label: 'Płytki wielkoformatowe zamiast zwykłych' })}
+        <p class="group-title">Przygotowanie</p>
+        ${check({ name: 'demont', label: 'Skucie starych płytek', checked: true })}
+        ${check({ name: 'hydro', label: 'Hydroizolacja podpłytkowa', checked: true })}
+        ${check({ name: 'zabudowa', label: 'Zabudowa pionu', checked: true, qty: 3 })}
+        ${check({ name: 'podloga', label: 'Ogrzewanie podłogowe' })}
+        <p class="group-title">Biały montaż</p>
+        ${check({ name: 'wanna', label: 'Wanna', checked: true })}
+        ${check({ name: 'kabina', label: 'Kabina prysznicowa' })}
+        ${check({ name: 'odplyw', label: 'Odpływ liniowy (prysznic bez brodzika)' })}
+        ${check({ name: 'wc', label: 'WC ze stelażem', checked: true })}
+        ${check({ name: 'umywalka', label: 'Umywalka', checked: true })}
+        ${check({ name: 'pralka', label: 'Podłączenie pralki', checked: true })}
+        ${check({ name: 'grzejnik', label: 'Grzejnik drabinkowy', checked: true })}
+        ${check({ name: 'punkty', label: 'Punkty elektryczne', checked: true, qty: 4 })}
+      </form>
+    </div>
+    <div class="sticky-sheet">${estimateSheet({ title: 'Łazienka', sub: '' })}</div>
+  </div>
+</div></section>`,
+    script: `${calcScript}
+const W = ${W_JSON};
+const CITIES = ${CITY_MAP};
+(function(){
+  const f = document.getElementById('calc');
+  const sheet = document.getElementById('sheet');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const floor = (v.len || 0) * (v.wid || 0);
+    const perim = 2 * ((v.len || 0) + (v.wid || 0));
+    const wall = perim * (v.tileH || 0);
+    const [coef, cityName] = CITIES[v.city];
+    const level = W.levels.find(l => l.id === v.level);
+    const L = [];
+    const add = (id, qty) => L.push({ id, qty: Math.round(qty * 100) / 100 });
+    if (v.demont){ add('skuwanie_plytek', wall + floor); add('wywoz_gruzu', (wall + floor) * 0.03); }
+    if (v.hydro) add('hydroizolacja', floor + perim * 0.6);
+    if (v.podloga) add('ogrzewanie_podlogowe', floor * 0.85);
+    add(v.big ? 'plytki_wielkoformat' : 'plytki_podloga', floor);
+    add(v.big ? 'plytki_wielkoformat' : 'plytki_sciana', wall);
+    add('silikonowanie', perim + 4);
+    if (v.zabudowa) add('zabudowa_rury', v.zabudowa_qty || 0);
+    if (v.wanna){ add('montaz_wanny', 1); add('montaz_baterii', 1); add('punkt_wod_kan', 1); }
+    if (v.kabina){ add('montaz_kabiny', 1); add('montaz_baterii', 1); add('punkt_wod_kan', 1); }
+    if (v.odplyw) add('odplyw_liniowy', 1);
+    if (v.wc){ add('montaz_wc', 1); add('punkt_wod_kan', 1); }
+    if (v.umywalka){ add('montaz_umywalki', 1); add('montaz_baterii', 1); add('punkt_wod_kan', 1); }
+    if (v.pralka){ add('podlaczenie_pralki', 1); add('punkt_wod_kan', 1); }
+    if (v.grzejnik) add('grzejnik', 1);
+    if (v.punkty) add('punkt_elektryczny', v.punkty_qty || 0);
+    const est = estimate(W, L, coef, level.k);
+    drawEstimate(sheet, W, est, { perM2: floor });
+    sheet.querySelector('[data-sheet-title]').textContent = cityName + ', ' + F(Math.round(floor * 10) / 10) + ' m²';
+    sheet.querySelector('[data-sheet-sub]').textContent = F(Math.round(wall)) + ' m² płytek na ścianach';
+  });
+})();`,
+  })
+);
+
+/* ================= kalkulator: wylewka ================= */
+
+await write(
+  'kalkulator/wylewka',
+  layout({
+    title: 'Kalkulator wylewki: cena za m² i ilość materiału',
+    description: 'Policz wylewkę podłogową: objętość zaprawy, liczba worków, cena robocizny i materiału za m² w polskich miastach. Cementowa, anhydrytowa, samopoziomująca.',
+    path: '/kalkulator/wylewka/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulator wylewki`,
+    body: `
+<section><div class="wrap">
+  <h1>Wylewka podłogowa</h1>
+  <p class="lede">Cena wylewki zależy nie tyle od powierzchni, ile od grubości warstwy: materiał liczy się w metrach sześciennych, robocizna w kwadratowych.</p>
+  ${draftFlag}
+  <div class="calc-grid" style="margin-top:1.5rem">
+    <div class="panel">
+      <h2>Parametry</h2>
+      <form id="calc">
+        ${field({ name: 'area', label: 'Powierzchnia', value: 40, min: 1, max: 500, suffix: 'm²' })}
+        ${field({ name: 'cm', label: 'Grubość warstwy', value: 5, min: 2, max: 20, step: 0.5, suffix: 'cm', hint: 'Minimum dla wylewki cementowej na stropie to 4 cm, na warstwie izolacji 5 cm.' })}
+        ${select({
+          name: 'type',
+          label: 'Rodzaj wylewki',
+          options: [
+            { v: 'wylewka_cem', t: 'Cementowa', sel: true },
+            { v: 'wylewka_anhydryt', t: 'Anhydrytowa (mixokret)' },
+          ],
+        })}
+        ${select({ name: 'city', label: 'Miasto', options: cityOptions })}
+        ${check({ name: 'styropian', label: 'Izolacja ze styropianu pod wylewką' })}
+        ${check({ name: 'samopoziom', label: 'Masa samopoziomująca na wierzchu' })}
+        ${check({ name: 'demont', label: 'Demontaż starej podłogi i wywóz', checked: true })}
+      </form>
+      <p class="panel-note" data-volume></p>
+    </div>
+    <div class="sticky-sheet">${estimateSheet({ title: 'Wylewka', sub: '' })}</div>
+  </div>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: 'Jak policzyć koszt wylewki podłogowej',
+      inLanguage: 'pl',
+      step: [
+        { '@type': 'HowToStep', text: 'Zmierz powierzchnię pomieszczenia w metrach kwadratowych.' },
+        { '@type': 'HowToStep', text: 'Ustal grubość warstwy: minimum 4 cm na stropie, 5 cm na izolacji.' },
+        { '@type': 'HowToStep', text: 'Pomnóż powierzchnię przez grubość, aby otrzymać objętość zaprawy w metrach sześciennych.' },
+        { '@type': 'HowToStep', text: 'Dodaj koszt robocizny za metr kwadratowy i materiału za metr sześcienny.' },
+      ],
+    },
+    script: `${calcScript}
+const W = ${W_JSON};
+const CITIES = ${CITY_MAP};
+(function(){
+  const f = document.getElementById('calc');
+  const sheet = document.getElementById('sheet');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const a = v.area || 0, cm = v.cm || 0;
+    const [coef, cityName] = CITIES[v.city];
+    const L = [{ id: v.type, qty: a, cm }];
+    if (v.styropian) L.push({ id: 'izolacja_styropian', qty: a });
+    if (v.samopoziom) L.push({ id: 'samopoziomujaca', qty: a });
+    if (v.demont){ L.push({ id: 'demontaz_podlogi', qty: a }); L.push({ id: 'wywoz_gruzu', qty: a * 0.05 }); }
+    const est = estimate(W, L, coef, 1);
+    drawEstimate(sheet, W, est, { perM2: a });
+    sheet.querySelector('[data-sheet-title]').textContent = cityName + ', ' + F(a) + ' m²';
+    sheet.querySelector('[data-sheet-sub]').textContent = 'warstwa ' + F(cm) + ' cm';
+    const vol = a * cm / 100;
+    document.querySelector('[data-volume]').textContent =
+      'Objętość zaprawy ' + F(Math.round(vol * 100) / 100) + ' m³, czyli około ' + Math.ceil(vol * 2000 / 25) +
+      ' worków suchej mieszanki po 25 kg albo ' + F(Math.round(vol * 1.6 * 10) / 10) + ' t piasku z cementem przy mieszaniu na miejscu.';
+  });
+})();`,
+  })
+);
+
+/* ================= metodologia ================= */
+
+await write(
+  'jak-liczymy',
+  layout({
+    title: 'Jak liczymy ceny remontu',
+    description: 'Metodyka: stawki bazowe dla Polski, współczynniki miast, standardy wykończenia, co wchodzi w kosztorys i czego w nim nie ma.',
+    path: '/jak-liczymy/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Jak liczymy`,
+    body: `
+<section><div class="wrap">
+  <h1>Jak liczymy</h1>
+  ${draftFlag}
+  <h2>Stawka bazowa razy współczynnik miasta</h2>
+  <p class="section-note">Każda robota ma jedną stawkę bazową, czyli medianę dla Polski. Cena w konkretnym mieście to stawka bazowa pomnożona przez współczynnik. Współczynnik obciąża przede wszystkim robociznę: worek kleju kosztuje tyle samo w Warszawie i Białymstoku, godzina fachowca już nie. Dzięki temu kilkaset pozycji da się trzymać w jednym pliku i aktualizować naraz, zamiast budować osobny cennik dla każdego miasta.</p>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Współczynnik</th><th>Pod klucz, zł/m²</th></tr></thead>
+    <tbody>${[...cities]
+      .sort((a, b) => b.coef - a.coef)
+      .map((c) => `<tr><td>${c.name}</td><td class="num" data-v="${c.coef}">${c.coef.toFixed(2)}</td><td class="num" data-v="${Math.round(turnkeyPerM2(c.coef, 1))}">${money(Math.round(turnkeyPerM2(c.coef, 1)))}</td></tr>`)
+      .join('')}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">Standardy wykończenia</h2>
+  <div class="cards">${levels
+    .map((l) => `<div class="card"><h3>${l.name}</h3><p class="big">×${l.k}</p><p>${l.note}</p></div>`)
+    .join('')}</div>
+  <p class="section-note" style="margin-top:1rem">Współczynnik standardu w całości przekłada się na materiały, a na robociznę tylko w jednej trzeciej: ułożenie drogiej płytki jest nieco trudniejsze niż taniej, ale nie półtora raza.</p>
+
+  <h2 style="margin-top:2rem">Co wchodzi w cenę za metr</h2>
+  <p class="section-note">${standardScope.note} Dlatego nasza kwota jest niższa od tych 2500 zł za metr, które padają w reklamach: tam w środku siedzi już płytka z górnej półki, meble i sprzęt AGD.</p>
+
+  <h2 style="margin-top:2rem">Czego w kosztorysie nie ma</h2>
+  <p class="section-note">Armatura, baterie, drzwi, oprawy oświetleniowe i meble liczone są wyłącznie jako montaż, bo zwykle kupuje je inwestor. Nie ma tu również projektu, pozwoleń, wynajmu mieszkania na czas remontu ani prac nieprzewidzianych, na które warto doliczyć od 10 do 15 procent.</p>
+
+  <h2 style="margin-top:2rem">Źródła</h2>
+  <div class="cards">
+    <div class="card"><h3>Cenniki ekip</h3><p>Publiczne cenniki wykonawców w każdym z dziesięciu miast, z datą zebrania.</p></div>
+    <div class="card"><h3>Ceny materiałów</h3><p>Ceny detaliczne sieci budowlanych, przeliczone na jednostkę roboty z uwzględnieniem zużycia i docinki.</p></div>
+    <div class="card"><h3>GUS</h3><p>Statystyka cen w budownictwie do kontroli dynamiki, nie wartości bezwzględnych. Otwarte API, licencja CC BY 4.0.</p></div>
+  </div>
+</div></section>`,
+    script: `${calcScript}
+document.querySelectorAll('table.board').forEach(bindSort);`,
+  })
+);
+
+/* ================= strony usług: /kategoria/usluga/ i /kategoria/usluga/miasto/ ================= */
+
+const serviceUrls = [];
+const catById = Object.fromEntries(categories.map((c) => [c.id, c]));
+
+await write('uslugi', servicesIndex({ categories, works, units, unitPrice }));
+serviceUrls.push('/uslugi/');
+
+for (const cat of categories) {
+  const list = works.filter((w) => w.cat === cat.id);
+  await write(`uslugi/${cat.slug}`, categoryPage({ cat, works: list, units, unitPrice }));
+  serviceUrls.push(`/uslugi/${cat.slug}/`);
+
+  for (const w of list) {
+    const wSlug = slugify(w.name);
+    const related = list.filter((r) => r.id !== w.id).slice(0, 3);
+    await write(
+      `${cat.slug}/${wSlug}`,
+      servicePage({ w, cat, units, cities, unitPrice, related, cityOptions })
+    );
+    serviceUrls.push(`/${cat.slug}/${wSlug}/`);
+
+    for (const city of cities) {
+      await write(
+        `${cat.slug}/${wSlug}/${city.slug}`,
+        serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions })
+      );
+      serviceUrls.push(`/${cat.slug}/${wSlug}/${city.slug}/`);
+    }
+  }
+}
+
+/* ================= 404 ================= */
+
+await writeFile(
+  join(OUT, '404.html'),
+  layout({
+    title: 'Nie znaleziono strony',
+    description: 'Ta strona nie istnieje. Sprawdź cennik robót remontowych albo skorzystaj z kalkulatora.',
+    path: '/404.html',
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Błąd 404</p>
+  <h1>Tej strony tu nie ma</h1>
+  <p class="lede">Adres jest nieaktualny albo zawiera literówkę. Poniżej skróty do tego, czego zwykle szukają odwiedzający.</p>
+  <div class="cards" style="margin-top:1.4rem">
+    <div class="card"><h3><a href="${R}uslugi/">Katalog robót</a></h3><p>Wszystkie pozycje ze stawkami za jednostkę.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Kalkulator remontu</a></h3><p>Kosztorys mieszkania według metrażu.</p></div>
+    <div class="card"><h3><a href="${R}">Ceny w miastach</a></h3><p>Stawki w dziesięciu największych miastach.</p></div>
+  </div>
+</div></section>`,
+  })
+);
+
+/* ================= sitemap ================= */
+
+const urls = [
+  '/',
+  '/jak-liczymy/',
+  '/kalkulator/remont-mieszkania/',
+  '/kalkulator/lazienka/',
+  '/kalkulator/wylewka/',
+  ...cities.map((c) => `/ceny/${c.slug}/`),
+  ...serviceUrls,
+];
+await writeFile(
+  join(OUT, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${SITE.base}${u}</loc></url>`).join('\n')}
+</urlset>`
+);
+await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.base}/sitemap.xml\n`);
+await writeFile(join(OUT, '.nojekyll'), '');
+await cp('src/assets', join(OUT, 'assets'), { recursive: true });
+await cp('src/assets/.htaccess', join(OUT, '.htaccess'));
+await rm(join(OUT, 'assets', '.htaccess'), { force: true });
+
+console.log(`Gotowe: ${urls.length} stron w ${OUT}/`);

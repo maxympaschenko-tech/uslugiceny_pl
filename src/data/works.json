@@ -1,0 +1,555 @@
+{
+  "meta": {
+    "currency": "PLN",
+    "updated": "2026-08",
+    "status": "draft",
+    "basis": "Stawka bazowa = mediana dla Polski. Cena w mieście = stawka bazowa × współczynnik miasta z cities.json.",
+    "note": "WERSJA ROBOCZA. Rząd wielkości jest rynkowy, konkretne stawki wymagają weryfikacji z cennikami ekip."
+  },
+  "levels": [
+    {
+      "id": "ekonom",
+      "k": 0.82,
+      "note": "Proste materiały, ściany bez wyrównywania pod idealnie gładką powierzchnię, farba podstawowa.",
+      "name": "Ekonomiczny"
+    },
+    {
+      "id": "standard",
+      "k": 1,
+      "note": "Typowy remont pod klucz: gładzie, panele, płytki ze średniej półki.",
+      "name": "Standardowy"
+    },
+    {
+      "id": "premium",
+      "k": 1.45,
+      "note": "Wyrównanie pod malowanie, deska podłogowa, płytki wielkoformatowe, ukryte zabudowy.",
+      "name": "Premium"
+    }
+  ],
+  "categories": [
+    {
+      "id": "demont",
+      "slug": "demontaz-i-wywoz",
+      "lead": "Prace rozbiórkowe, skuwanie starych warstw i wywóz gruzu.",
+      "name": "Demontaż i wywóz"
+    },
+    {
+      "id": "walls",
+      "slug": "sciany-i-sufity",
+      "lead": "Tynki, gładzie, malowanie i zabudowy z płyt gipsowo-kartonowych.",
+      "name": "Ściany i sufity"
+    },
+    {
+      "id": "floor",
+      "slug": "podlogi",
+      "lead": "Wylewki, izolacje, panele, deska i listwy przypodłogowe.",
+      "name": "Podłogi"
+    },
+    {
+      "id": "tiles",
+      "slug": "plytki-i-hydroizolacja",
+      "lead": "Hydroizolacja, płytki na podłodze i ścianach, fugowanie i silikonowanie.",
+      "name": "Płytki i hydroizolacja"
+    },
+    {
+      "id": "plumbing",
+      "slug": "hydraulika",
+      "lead": "Punkty wodno-kanalizacyjne i biały montaż w łazience oraz kuchni.",
+      "name": "Hydraulika"
+    },
+    {
+      "id": "electric",
+      "slug": "elektryka",
+      "lead": "Instalacja elektryczna: punkty, bruzdy, rozdzielnica, ogrzewanie podłogowe.",
+      "name": "Elektryka"
+    },
+    {
+      "id": "finish",
+      "slug": "stolarka-i-wykonczenia",
+      "lead": "Drzwi, parapety, zabudowy pionów i sprzątanie po remoncie.",
+      "name": "Stolarka i wykończenia"
+    }
+  ],
+  "units": {
+    "m2": {
+      "name": "m²"
+    },
+    "mb": {
+      "name": "mb"
+    },
+    "szt": {
+      "name": "szt."
+    },
+    "pkt": {
+      "name": "punkt"
+    },
+    "m3": {
+      "name": "m³"
+    }
+  },
+  "works": [
+    {
+      "id": "skucie_tynkow",
+      "cat": "demont",
+      "unit": "m2",
+      "labour": 26,
+      "material": 0,
+      "name": "Skucie starych tynków"
+    },
+    {
+      "id": "skuwanie_plytek",
+      "cat": "demont",
+      "unit": "m2",
+      "labour": 32,
+      "material": 0,
+      "name": "Skuwanie starych płytek"
+    },
+    {
+      "id": "wyburzenie_scianki",
+      "cat": "demont",
+      "unit": "m2",
+      "labour": 65,
+      "material": 0,
+      "name": "Wyburzenie ścianki działowej"
+    },
+    {
+      "id": "demontaz_podlogi",
+      "cat": "demont",
+      "unit": "m2",
+      "labour": 22,
+      "material": 0,
+      "name": "Demontaż starej podłogi"
+    },
+    {
+      "id": "wywoz_gruzu",
+      "cat": "demont",
+      "unit": "m3",
+      "labour": 190,
+      "material": 90,
+      "spread": 0.3,
+      "name": "Wywóz gruzu z kontenerem",
+      "materialLabel": "kontener i utylizacja"
+    },
+    {
+      "id": "tynk_gipsowy",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 46,
+      "material": 17,
+      "name": "Tynk gipsowy maszynowy"
+    },
+    {
+      "id": "gladz",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 34,
+      "material": 8,
+      "factors": [
+        "Standard wykończenia: gładź pod tapetę wymaga mniej pracy niż pod farbę z połyskiem.",
+        "Stan podłoża: krzywe tynki oznaczają grubszą warstwę i dodatkową robociznę.",
+        "Wysokość pomieszczenia powyżej 3 m, gdzie potrzebne są rusztowania.",
+        "Liczba narożników i skosów: gładź na otwartej ścianie idzie szybciej niż w wąskim korytarzu."
+      ],
+      "name": "Gładź gipsowa, 2 warstwy"
+    },
+    {
+      "id": "malowanie",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 21,
+      "material": 7,
+      "factors": [
+        "Liczba warstw i kryjność koloru: intensywne barwy wymagają trzeciej warstwy.",
+        "Rodzaj farby: lateksowa do mycia schnie i rozprowadza się inaczej niż akrylowa.",
+        "Zabezpieczenie podłóg, okien i mebli, gdy remont odbywa się w zamieszkanym lokalu.",
+        "Konieczność gruntowania i drobnych napraw powierzchni przed malowaniem."
+      ],
+      "name": "Malowanie, 2 warstwy"
+    },
+    {
+      "id": "gk_sciana",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 95,
+      "material": 48,
+      "name": "Zabudowa ściany z płyty GK"
+    },
+    {
+      "id": "gk_sufit",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 115,
+      "material": 55,
+      "spread": 0.2,
+      "name": "Sufit podwieszany z GK"
+    },
+    {
+      "id": "scianka_gk",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 125,
+      "material": 62,
+      "spread": 0.2,
+      "name": "Ścianka działowa GK"
+    },
+    {
+      "id": "gruntowanie",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 7,
+      "material": 3,
+      "name": "Gruntowanie"
+    },
+    {
+      "id": "wylewka_cem",
+      "cat": "floor",
+      "unit": "m2",
+      "labour": 48,
+      "material": 11,
+      "perCm": true,
+      "factors": [
+        "Grubość warstwy: każdy dodatkowy centymetr to więcej zaprawy, a nie więcej robocizny.",
+        "Sposób podania: mixokret podaje zaprawę na piętro wężem, ręczne wnoszenie worków podnosi stawkę.",
+        "Powierzchnia zlecenia: przy metrażu poniżej 20 m² ekipy doliczają dojazd i rozruch sprzętu.",
+        "Konieczność wypoziomowania dużych spadków lub wykonania dylatacji przy ogrzewaniu podłogowym."
+      ],
+      "name": "Wylewka cementowa"
+    },
+    {
+      "id": "wylewka_anhydryt",
+      "cat": "floor",
+      "unit": "m2",
+      "labour": 42,
+      "material": 14,
+      "perCm": true,
+      "name": "Wylewka anhydrytowa (mixokret)"
+    },
+    {
+      "id": "samopoziomujaca",
+      "cat": "floor",
+      "unit": "m2",
+      "labour": 32,
+      "material": 22,
+      "name": "Masa samopoziomująca"
+    },
+    {
+      "id": "izolacja_styropian",
+      "cat": "floor",
+      "unit": "m2",
+      "labour": 18,
+      "material": 26,
+      "name": "Izolacja podłogi ze styropianu"
+    },
+    {
+      "id": "panele",
+      "cat": "floor",
+      "unit": "m2",
+      "labour": 46,
+      "material": 62,
+      "name": "Montaż paneli podłogowych"
+    },
+    {
+      "id": "parkiet",
+      "cat": "floor",
+      "unit": "m2",
+      "labour": 125,
+      "material": 185,
+      "spread": 0.24,
+      "name": "Montaż deski podłogowej"
+    },
+    {
+      "id": "listwy",
+      "cat": "floor",
+      "unit": "mb",
+      "labour": 19,
+      "material": 16,
+      "name": "Montaż listew przypodłogowych"
+    },
+    {
+      "id": "hydroizolacja",
+      "cat": "tiles",
+      "unit": "m2",
+      "labour": 46,
+      "material": 29,
+      "name": "Hydroizolacja podpłytkowa"
+    },
+    {
+      "id": "plytki_podloga",
+      "cat": "tiles",
+      "unit": "m2",
+      "labour": 128,
+      "material": 92,
+      "factors": [
+        "Format i rodzaj płytki: gres wielkoformatowy wymaga dwóch osób i innych narzędzi.",
+        "Konieczność wcześniejszego wypoziomowania podłoża masą samopoziomującą.",
+        "Układ ukośny lub wzór, które zwiększają liczbę docinków i odpad materiału.",
+        "Powierzchnia pomieszczenia: łazienka 4 m² wychodzi drożej za metr niż salon 30 m²."
+      ],
+      "name": "Płytki na podłodze"
+    },
+    {
+      "id": "plytki_sciana",
+      "cat": "tiles",
+      "unit": "m2",
+      "labour": 148,
+      "material": 92,
+      "factors": [
+        "Format płytki: im większa, tym trudniejsze ułożenie i wyższa stawka za metr.",
+        "Układ: cegiełka i jodła kosztują więcej niż prosty układ krzyżowy.",
+        "Docinki wokół gniazd, rur i wnęk, liczone czasem osobno za sztukę.",
+        "Wymagana płaskość podłoża: nierówna ściana oznacza wcześniejsze wyrównanie."
+      ],
+      "name": "Płytki na ścianie"
+    },
+    {
+      "id": "plytki_wielkoformat",
+      "cat": "tiles",
+      "unit": "m2",
+      "labour": 210,
+      "material": 165,
+      "spread": 0.25,
+      "name": "Płytki wielkoformatowe"
+    },
+    {
+      "id": "silikonowanie",
+      "cat": "tiles",
+      "unit": "mb",
+      "labour": 22,
+      "material": 6,
+      "name": "Silikonowanie"
+    },
+    {
+      "id": "punkt_wod_kan",
+      "cat": "plumbing",
+      "unit": "pkt",
+      "labour": 330,
+      "material": 125,
+      "spread": 0.25,
+      "name": "Punkt wodno-kanalizacyjny"
+    },
+    {
+      "id": "montaz_wanny",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 420,
+      "material": 0,
+      "spread": 0.22,
+      "name": "Montaż wanny z obudową"
+    },
+    {
+      "id": "montaz_kabiny",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 460,
+      "material": 0,
+      "name": "Montaż kabiny prysznicowej"
+    },
+    {
+      "id": "odplyw_liniowy",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 520,
+      "material": 0,
+      "spread": 0.22,
+      "name": "Montaż odpływu liniowego"
+    },
+    {
+      "id": "montaz_wc",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 360,
+      "material": 0,
+      "factors": [
+        "Rodzaj miski: kompakt stojący jest tańszy w montażu niż WC podwieszane ze stelażem.",
+        "Konieczność przesunięcia odpływu i przerobienia podejścia kanalizacyjnego.",
+        "Zabudowa stelaża płytą g-k i późniejsze obłożenie płytkami, liczone osobno.",
+        "Dostęp do pionu i to, czy trzeba kuć ścianę nośną."
+      ],
+      "name": "Montaż WC ze stelażem"
+    },
+    {
+      "id": "montaz_umywalki",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 240,
+      "material": 0,
+      "name": "Montaż umywalki"
+    },
+    {
+      "id": "montaz_baterii",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 115,
+      "material": 0,
+      "name": "Montaż baterii"
+    },
+    {
+      "id": "podlaczenie_pralki",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 190,
+      "material": 0,
+      "name": "Podłączenie pralki"
+    },
+    {
+      "id": "grzejnik",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 280,
+      "material": 0,
+      "name": "Montaż grzejnika"
+    },
+    {
+      "id": "punkt_elektryczny",
+      "cat": "electric",
+      "unit": "pkt",
+      "labour": 88,
+      "material": 34,
+      "factors": [
+        "Materiał ścian: beton wymaga dłuższego bruzdowania niż płyta g-k.",
+        "Rodzaj punktu: gniazdo, włącznik i punkt oświetleniowy różnią się nakładem pracy.",
+        "Długość trasy kabla od rozdzielnicy do punktu.",
+        "Czy w cenie jest osprzęt, czy tylko ułożenie przewodu i puszka."
+      ],
+      "name": "Punkt elektryczny"
+    },
+    {
+      "id": "bruzdowanie",
+      "cat": "electric",
+      "unit": "mb",
+      "labour": 28,
+      "material": 0,
+      "name": "Bruzdowanie pod instalację"
+    },
+    {
+      "id": "rozdzielnica",
+      "cat": "electric",
+      "unit": "szt",
+      "labour": 720,
+      "material": 420,
+      "spread": 0.28,
+      "name": "Montaż rozdzielnicy"
+    },
+    {
+      "id": "montaz_lampy",
+      "cat": "electric",
+      "unit": "szt",
+      "labour": 95,
+      "material": 0,
+      "name": "Montaż oprawy oświetleniowej"
+    },
+    {
+      "id": "ogrzewanie_podlogowe",
+      "cat": "electric",
+      "unit": "m2",
+      "labour": 85,
+      "material": 105,
+      "spread": 0.22,
+      "name": "Ogrzewanie podłogowe elektryczne"
+    },
+    {
+      "id": "montaz_drzwi",
+      "cat": "finish",
+      "unit": "szt",
+      "labour": 340,
+      "material": 0,
+      "name": "Montaż drzwi wewnętrznych"
+    },
+    {
+      "id": "parapet",
+      "cat": "finish",
+      "unit": "szt",
+      "labour": 165,
+      "material": 0,
+      "name": "Montaż parapetu"
+    },
+    {
+      "id": "zabudowa_rury",
+      "cat": "finish",
+      "unit": "mb",
+      "labour": 145,
+      "material": 55,
+      "spread": 0.2,
+      "name": "Zabudowa pionu / rur"
+    },
+    {
+      "id": "sprzatanie",
+      "cat": "finish",
+      "unit": "m2",
+      "labour": 16,
+      "material": 0,
+      "name": "Sprzątanie po remoncie"
+    }
+  ],
+  "standardScope": {
+    "note": "Ilość na 1 m² powierzchni mieszkania. Robocizna plus materiały budowlane i wykończeniowe. Bez ceny samej armatury, drzwi, opraw i mebli: te pozycje liczone są wyłącznie jako montaż.",
+    "items": {
+      "skucie_tynkow": 0.5,
+      "demontaz_podlogi": 1,
+      "wywoz_gruzu": 0.06,
+      "tynk_gipsowy": 2.6,
+      "gladz": 3.3,
+      "gruntowanie": 3.3,
+      "malowanie": 3.3,
+      "gk_sufit": 0.25,
+      "zabudowa_rury": 0.06,
+      "wylewka_cem": 0.85,
+      "samopoziomujaca": 0.85,
+      "panele": 0.62,
+      "listwy": 0.75,
+      "hydroizolacja": 0.2,
+      "plytki_podloga": 0.28,
+      "plytki_sciana": 0.58,
+      "silikonowanie": 0.2,
+      "punkt_elektryczny": 0.45,
+      "bruzdowanie": 0.6,
+      "rozdzielnica": 0.02,
+      "montaz_lampy": 0.14,
+      "punkt_wod_kan": 0.1,
+      "montaz_wc": 0.02,
+      "montaz_umywalki": 0.02,
+      "montaz_wanny": 0.02,
+      "montaz_baterii": 0.06,
+      "podlaczenie_pralki": 0.02,
+      "grzejnik": 0.06,
+      "montaz_drzwi": 0.06,
+      "parapet": 0.06,
+      "sprzatanie": 1
+    },
+    "groups": {
+      "demont": [
+        "skucie_tynkow",
+        "demontaz_podlogi",
+        "wywoz_gruzu"
+      ],
+      "tynk": [
+        "tynk_gipsowy"
+      ],
+      "wylewka": [
+        "wylewka_cem",
+        "samopoziomujaca"
+      ],
+      "elektryka": [
+        "punkt_elektryczny",
+        "bruzdowanie",
+        "rozdzielnica",
+        "montaz_lampy"
+      ],
+      "lazienka": [
+        "hydroizolacja",
+        "plytki_podloga",
+        "plytki_sciana",
+        "silikonowanie",
+        "montaz_wc",
+        "montaz_umywalki",
+        "montaz_wanny",
+        "montaz_baterii",
+        "podlaczenie_pralki"
+      ],
+      "sufit": [
+        "gk_sufit"
+      ]
+    },
+    "doorsItem": "montaz_drzwi"
+  }
+}

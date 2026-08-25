@@ -1,0 +1,13 @@
+{
+  "name": "kosztorys-pl",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Baza cen robót remontowych w 10 największych miastach Polski",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs && node --run serve",
+    "serve": "node --experimental-strip-types -e \"import('node:http').then(async h=>{const {createReadStream,existsSync,statSync}=await import('node:fs');const p=await import('node:path');h.createServer((q,s)=>{let f=p.join('dist',decodeURIComponent(q.url.split('?')[0]));if(existsSync(f)&&statSync(f).isDirectory())f=p.join(f,'index.html');if(!existsSync(f)){s.statusCode=404;return s.end('404');}s.setHeader('content-type',f.endsWith('.css')?'text/css':f.endsWith('.xml')?'application/xml':'text/html; charset=utf-8');createReadStream(f).pipe(s);}).listen(4321,()=>console.log('http://localhost:4321'));})\""
+  },
+  "engines": { "node": ">=20" }
+}

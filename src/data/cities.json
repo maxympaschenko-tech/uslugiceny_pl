@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "warszawa",
+    "name": "Warszawa",
+    "loc": "w Warszawie",
+    "voivodeship": "mazowieckie",
+    "population": 1862000,
+    "teryt": "1465",
+    "coef": 1.25
+  },
+  {
+    "slug": "krakow",
+    "name": "Kraków",
+    "loc": "w Krakowie",
+    "voivodeship": "małopolskie",
+    "population": 804000,
+    "teryt": "1261",
+    "coef": 1.12
+  },
+  {
+    "slug": "wroclaw",
+    "name": "Wrocław",
+    "loc": "we Wrocławiu",
+    "voivodeship": "dolnośląskie",
+    "population": 674000,
+    "teryt": "0264",
+    "coef": 1.1
+  },
+  {
+    "slug": "lodz",
+    "name": "Łódź",
+    "loc": "w Łodzi",
+    "voivodeship": "łódzkie",
+    "population": 648000,
+    "teryt": "1061",
+    "coef": 0.95
+  },
+  {
+    "slug": "poznan",
+    "name": "Poznań",
+    "loc": "w Poznaniu",
+    "voivodeship": "wielkopolskie",
+    "population": 540000,
+    "teryt": "3064",
+    "coef": 1.08
+  },
+  {
+    "slug": "gdansk",
+    "name": "Gdańsk",
+    "loc": "w Gdańsku",
+    "voivodeship": "pomorskie",
+    "population": 486000,
+    "teryt": "2261",
+    "coef": 1.12
+  },
+  {
+    "slug": "szczecin",
+    "name": "Szczecin",
+    "loc": "w Szczecinie",
+    "voivodeship": "zachodniopomorskie",
+    "population": 391000,
+    "teryt": "3262",
+    "coef": 0.98
+  },
+  {
+    "slug": "lublin",
+    "name": "Lublin",
+    "loc": "w Lublinie",
+    "voivodeship": "lubelskie",
+    "population": 328000,
+    "teryt": "0663",
+    "coef": 0.92
+  },
+  {
+    "slug": "bydgoszcz",
+    "name": "Bydgoszcz",
+    "loc": "w Bydgoszczy",
+    "voivodeship": "kujawsko-pomorskie",
+    "population": 325000,
+    "teryt": "0461",
+    "coef": 0.9
+  },
+  {
+    "slug": "bialystok",
+    "name": "Białystok",
+    "loc": "w Białymstoku",
+    "voivodeship": "podlaskie",
+    "population": 291000,
+    "teryt": "2061",
+    "coef": 0.88
+  }
+]
