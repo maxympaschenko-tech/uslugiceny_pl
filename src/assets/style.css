@@ -69,35 +69,70 @@ a:hover { color: var(--ink); }
 .site-head {
   background: var(--surface);
   border-bottom: 1px solid var(--line);
-  position: sticky; top: 0; z-index: 20;
+  position: sticky; top: 0; z-index: 40;
   box-shadow: 0 1px 0 rgba(12, 20, 32, .04), 0 6px 16px -14px rgba(12, 20, 32, .6);
 }
 .site-head .wrap {
-  display: flex; flex-wrap: wrap; gap: .35rem 1.5rem;
-  align-items: center; justify-content: space-between;
-  min-height: 3.75rem; padding-block: .5rem;
-}
-/* Na waskim ekranie naglowek lamie sie na dwa wiersze, wiec musi byc oszczedny:
-   inaczej przyklejony pasek zabiera jedna trzecia widocznej strony. */
-@media (max-width: 34rem) {
-  .site-head .wrap { min-height: 0; padding-block: .55rem; gap: .15rem 1rem; }
-  .brand { font-size: 1.05rem; }
-  .nav { gap: 1.05rem; font-size: var(--step--2); width: 100%; }
-  .nav a { padding: .2rem 0; }
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; min-height: 3.5rem;
 }
 .brand {
   font-family: var(--f-display);
   font-weight: 700; font-size: 1.24rem; letter-spacing: -0.025em;
-  text-decoration: none; color: var(--ink);
+  text-decoration: none; color: var(--ink); white-space: nowrap;
 }
 .brand span { color: var(--ink-soft); font-weight: 600; }
-.nav { display: flex; gap: 1.5rem; font-size: var(--step--1); }
+
+.nav { display: flex; gap: 1.4rem; font-size: var(--step--1); }
 .nav a {
   color: var(--ink-soft); text-decoration: none; font-weight: 600;
-  padding: .35rem 0; border-bottom: 2px solid transparent;
+  padding: .35rem 0; border-bottom: 2px solid transparent; white-space: nowrap;
 }
 .nav a:hover { color: var(--ink); }
 .nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--signal); }
+
+/* Na szerokim ekranie menu jest zawsze rozwiniete, wiec znacznik details
+   zachowuje sie jak zwykly pojemnik, a przycisk znika. */
+.menu > summary { display: none; }
+.menu[open] > .nav, .menu > .nav { display: flex; }
+
+@media (max-width: 52rem) {
+  /* Na telefonie szesc pozycji nie miesci sie w jednym wierszu, wiec chowamy je
+     pod przyciskiem. Bez javascriptu: caly mechanizm to znacznik details. */
+  .menu { position: relative; }
+  .menu > summary {
+    display: flex; align-items: center; gap: .5rem; cursor: pointer;
+    list-style: none; padding: .45rem .8rem;
+    border: 1px solid var(--line); border-radius: var(--r-s);
+    font-size: var(--step--1); font-weight: 600; color: var(--ink);
+    background: var(--surface);
+  }
+  .menu > summary::-webkit-details-marker { display: none; }
+  .menu-kreski { position: relative; width: 16px; height: 2px; background: var(--ink); border-radius: 2px; }
+  .menu-kreski::before, .menu-kreski::after {
+    content: ""; position: absolute; left: 0; width: 16px; height: 2px;
+    background: var(--ink); border-radius: 2px;
+  }
+  .menu-kreski::before { top: -5px; }
+  .menu-kreski::after { top: 5px; }
+  .menu[open] > summary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .menu[open] .menu-kreski, .menu[open] .menu-kreski::before, .menu[open] .menu-kreski::after { background: #fff; }
+
+  .menu > .nav {
+    display: none;
+    position: absolute; right: 0; top: calc(100% + .5rem); z-index: 50;
+    flex-direction: column; gap: 0; min-width: 13rem;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r); box-shadow: var(--shadow); padding: .35rem;
+  }
+  .menu[open] > .nav { display: flex; }
+  .menu .nav a {
+    padding: .6rem .7rem; border-bottom: 0; border-radius: var(--r-s);
+    color: var(--ink); font-size: var(--step-0);
+  }
+  .menu .nav a:hover { background: var(--line-2); }
+  .menu .nav a[aria-current="page"] { background: var(--line-2); box-shadow: inset 3px 0 0 var(--signal); }
+}
 
 .crumbs {
   font-size: var(--step--1); color: var(--ink-soft);
@@ -407,21 +442,52 @@ ul.factors li::before {
 /* ---------- stopka ---------- */
 
 .site-foot {
-  background: var(--ink); color: #97A3B4;
-  margin-top: 2.5rem; padding-block: 2rem 2.5rem;
+  background: var(--ink); color: #8D9AAC;
+  margin-top: 3rem; padding-block: 2.5rem 1.75rem;
   font-size: var(--step--1);
 }
-.site-foot a { color: #D6DDE6; text-decoration: none; }
+.site-foot a { color: #CBD4DF; text-decoration: none; }
 .site-foot a:hover { color: var(--signal); }
-.site-foot p { max-width: 68ch; line-height: 1.55; }
+.site-foot .brand { color: #fff; }
+.site-foot .brand span { color: #6C7A8C; }
+
+.foot-siatka {
+  display: grid; gap: 2rem 1.5rem;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  align-items: start;
+}
+@media (max-width: 60rem) { .foot-siatka { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 34rem) { .foot-siatka { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+.foot-marka p { margin: .7rem 0 0; max-width: 34ch; line-height: 1.55; color: #7E8B9D; }
+
 .foot-h {
   font-family: var(--f-mono); font-size: var(--step--2); text-transform: uppercase;
-  letter-spacing: .12em; margin: 1.4rem 0 .5rem; color: #6C7A8C;
+  letter-spacing: .12em; margin: 0 0 .7rem; color: #fff;
 }
-.city-links { display: flex; flex-wrap: wrap; gap: .45rem 1.15rem; margin: 0 0 .4rem; }
+.site-foot ul { list-style: none; margin: 0; padding: 0; }
+.site-foot li { margin-bottom: .45rem; }
+
+.foot-miasta { margin-top: 2rem; border-top: 1px solid #1E293B; padding-top: 1.1rem; }
+.foot-miasta summary {
+  cursor: pointer; list-style: none; color: #CBD4DF;
+  font-family: var(--f-mono); font-size: var(--step--2);
+  text-transform: uppercase; letter-spacing: .12em;
+}
+.foot-miasta summary::-webkit-details-marker { display: none; }
+.foot-miasta summary::before { content: "+ "; }
+.foot-miasta[open] summary::before { content: "− "; }
+.foot-miasta .city-links { margin-top: .9rem; }
+
+.city-links { display: flex; flex-wrap: wrap; gap: .5rem 1.15rem; }
 .city-links a b { font-family: var(--f-mono); color: var(--ink-soft); }
 
-/* w treści strony lista miast jest jasna, a nie ciemna jak w stopce */
+.foot-dol {
+  margin: 1.6rem 0 0; padding-top: 1.1rem; border-top: 1px solid #1E293B;
+  font-size: var(--step--2); line-height: 1.55; color: #6C7A8C; max-width: 78ch;
+}
+
+/* w tresci strony lista miast jest jasna, a nie ciemna jak w stopce */
 main .city-links a {
   color: var(--ink); text-decoration: none;
   background: var(--surface); border: 1px solid var(--line); border-radius: 999px;

@@ -92,14 +92,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="site-head">
   <div class="wrap">
     <a class="brand" href="${R}">uslugiceny<span>.pl</span></a>
-    <nav class="nav">
-      <a href="${R}"${path === '/' ? ' aria-current="page"' : ''}>Cennik</a>
-      <a href="${R}uslugi/"${path.startsWith('/uslugi') ? ' aria-current="page"' : ''}>Usługi</a>
-      <a href="${R}kalkulator/remont-mieszkania/"${path.startsWith('/kalkulator') ? ' aria-current="page"' : ''}>Kalkulatory</a>
-      <a href="${R}poradnik/"${path.startsWith('/poradnik') ? ' aria-current="page"' : ''}>Poradniki</a>
-      <a href="${R}sprawdz-oferte/"${path.startsWith('/sprawdz-oferte') ? ' aria-current="page"' : ''}>Sprawdź ofertę</a>
-      <a href="${R}szukaj/" aria-label="Szukaj" class="nav-szukaj">Szukaj</a>
-    </nav>
+    <details class="menu">
+      <summary aria-label="Menu"><span class="menu-kreski"></span><span class="menu-napis">Menu</span></summary>
+      <nav class="nav">
+        <a href="${R}"${path === '/' ? ' aria-current="page"' : ''}>Cennik</a>
+        <a href="${R}uslugi/"${path.startsWith('/uslugi') ? ' aria-current="page"' : ''}>Usługi</a>
+        <a href="${R}kalkulator/remont-mieszkania/"${path.startsWith('/kalkulator') ? ' aria-current="page"' : ''}>Kalkulatory</a>
+        <a href="${R}poradnik/"${path.startsWith('/poradnik') ? ' aria-current="page"' : ''}>Poradniki</a>
+        <a href="${R}sprawdz-oferte/"${path.startsWith('/sprawdz-oferte') ? ' aria-current="page"' : ''}>Sprawdź ofertę</a>
+        <a href="${R}szukaj/"${path.startsWith('/szukaj') ? ' aria-current="page"' : ''}>Szukaj</a>
+      </nav>
+    </details>
   </div>
 </header>
 ${breadcrumb ? `<div class="wrap"><nav class="crumbs">${breadcrumb}</nav></div>` : ''}
@@ -108,41 +111,49 @@ ${body}
 </main>
 <footer class="site-foot">
   <div class="wrap">
-    <p class="foot-h">Ceny robót w miastach</p>
-    <div class="city-links">${SITE.cityLinks}</div>
-    <p class="foot-h">Kalkulatory</p>
-    <div class="city-links">
-      <a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania pod klucz</a>
-      <a href="${R}kalkulator/lazienka/">Remont łazienki</a>
-      <a href="${R}kalkulator/wylewka/">Wylewka podłogowa</a>
-      <a href="${R}kalkulator/malowanie/">Malowanie</a>
-      <a href="${R}kalkulator/plytki/">Układanie płytek</a>
-      <a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a>
-      <a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a>
-      <a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a>
-      <a href="${R}kalkulator/dach/">Pokrycie dachu</a>
-      <a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a>
-      <a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a>
+    <div class="foot-siatka">
+      <div class="foot-marka">
+        <a class="brand" href="${R}">uslugiceny<span>.pl</span></a>
+        <p>Stawki robót remontowych i budowlanych z podziałem na robociznę i materiał. Bez pośrednictwa w zleceniach i bez płatnych miejsc w rankingach.</p>
+      </div>
+      <div>
+        <p class="foot-h">Kalkulatory</p>
+        <ul>
+          <li><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania</a></li>
+          <li><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></li>
+          <li><a href="${R}kalkulator/lazienka/">Łazienka</a></li>
+          <li><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></li>
+          <li><a href="${R}kalkulator/dach/">Pokrycie dachu</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot-h">Przydatne</p>
+        <ul>
+          <li><a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a></li>
+          <li><a href="${R}kiedy-remontowac/">Kiedy remontować taniej</a></li>
+          <li><a href="${R}poradnik/">Poradniki krok po kroku</a></li>
+          <li><a href="${R}porownanie/">Porównania rozwiązań</a></li>
+          <li><a href="${R}slownik/">Słownik pojęć</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot-h">Serwis</p>
+        <ul>
+          <li><a href="${R}o-nas/">O serwisie</a></li>
+          <li><a href="${R}jak-liczymy/">Jak liczymy</a></li>
+          <li><a href="${R}kontakt/">Kontakt</a></li>
+          <li><a href="${R}polityka-prywatnosci/">Polityka prywatności</a></li>
+          <li><a href="#" id="zmien-zgode">Zmień zgodę na cookies</a></li>
+        </ul>
+      </div>
     </div>
-    <p class="foot-h">Przydatne</p>
-    <div class="city-links">
-      <a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a>
-      <a href="${R}kiedy-remontowac/">Kiedy remontować taniej</a>
-      <a href="${R}poradnik/">Poradniki</a>
-      <a href="${R}porownanie/">Porównania</a>
-      <a href="${R}slownik/">Słownik pojęć</a>
-      <a href="${R}szukaj/">Szukaj</a>
-    </div>
-    <p class="foot-h">Serwis</p>
-    <div class="city-links">
-      <a href="${R}o-nas/">O serwisie</a>
-      <a href="${R}jak-liczymy/">Jak liczymy</a>
-      <a href="${R}jak-liczymy/">Jak liczymy</a>
-      <a href="${R}kontakt/">Kontakt</a>
-      <a href="${R}polityka-prywatnosci/">Polityka prywatności</a>
-      <a href="#" id="zmien-zgode">Zmień zgodę na cookies</a>
-    </div>
-    <p>Ceny w złotych z VAT, aktualizacja: ${SITE.updated}. To punkt odniesienia do rozmowy z wykonawcą, a nie oferta handlowa: ostateczną cenę podaje ekipa po obejrzeniu lokalu.</p>
+
+    <details class="foot-miasta">
+      <summary>Cenniki robót w miastach</summary>
+      <div class="city-links">${SITE.cityLinks}</div>
+    </details>
+
+    <p class="foot-dol">Ceny w złotych z VAT, aktualizacja ${SITE.updated}. Wyliczenia mają charakter orientacyjny i nie są ofertą handlową: ostateczną cenę podaje wykonawca po obejrzeniu obiektu.</p>
   </div>
 </footer>
 <div class="zgoda" id="zgoda" hidden>
