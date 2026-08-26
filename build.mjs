@@ -714,7 +714,16 @@ ${urls.map((u) => `  <url><loc>${SITE.base}${u}</loc></url>`).join('\n')}
 await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.base}/sitemap.xml\n`);
 await writeFile(join(OUT, '.nojekyll'), '');
 await cp('src/assets', join(OUT, 'assets'), { recursive: true });
-await cp('src/assets/.htaccess', join(OUT, '.htaccess'));
-await rm(join(OUT, 'assets', '.htaccess'), { force: true });
+
+// Pliki, ktore przegladarki i systemy pobieraja z katalogu glownego, a nie z assets:
+// .htaccess czyta serwer, ikony i manifest sa szukane pod stalymi adresami.
+const doKorzenia = [
+  '.htaccess', 'favicon.ico', 'favicon.svg', 'favicon-32.png', 'favicon-96.png',
+  'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest',
+];
+for (const f of doKorzenia) {
+  await cp(join('src/assets', f), join(OUT, f));
+  await rm(join(OUT, 'assets', f), { force: true });
+}
 
 console.log(`Gotowe: ${urls.length} stron w ${OUT}/`);

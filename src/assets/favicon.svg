@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="uslugiceny.pl">
+  <rect width="512" height="512" rx="112" fill="#0C1420"/>
+  <path d="M172 120 V300 A84 84 0 0 0 340 300 V120"
+        fill="none" stroke="#FFFFFF" stroke-width="52" stroke-linecap="butt"/>
+  <rect x="146" y="442" width="220" height="28" rx="14" fill="#FFC93D"/>
+</svg>

@@ -28,6 +28,10 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="${R}favicon.ico" sizes="32x32">
+<link rel="icon" href="${R}favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="${R}apple-touch-icon.png">
+<link rel="manifest" href="${R}site.webmanifest">
 <link rel="stylesheet" href="${R}assets/style.css">
 ${jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n') : ''}
 <!-- Zgoda: stan domyslny musi byc ustawiony przed kontenerem GTM -->
