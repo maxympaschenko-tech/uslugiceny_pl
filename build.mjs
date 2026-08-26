@@ -7,6 +7,7 @@ import { layout, estimateSheet, calcScript, field, select, check, money } from '
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
+import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
 
 const OUT = 'dist';
 const R = SITE.root;
@@ -126,7 +127,7 @@ await write(
   <h2>Ile kosztuje remont mieszkania o powierzchni</h2>
   <p class="section-note">Gotowe wyliczenia dla najczęstszych metraży, w trzech standardach i dziesięciu miastach.</p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="receipt-foot" style="margin-top:1rem">Przed decyzją zajrzyj też do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
+  <p class="receipt-foot" style="margin-top:1rem">Zajrzyj też do <a href="${R}poradnik/">poradników</a> o kolejności prac i do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
 </div></section>
 
 <section><div class="wrap">
@@ -595,6 +596,16 @@ extraUrls.push('/porownanie/');
 for (const p of POROWNANIA) {
   await write(`porownanie/${p.slug}`, porownaniePage({ p, byId, units, unitPrice, sourceFlag: draftFlag }));
   extraUrls.push(`/porownanie/${p.slug}/`);
+}
+
+/* ================= poradniki ================= */
+
+const catSlug = (id) => categories.find((c) => c.id === id).slug;
+await write('poradnik', poradnikiIndex(PORADNIKI));
+extraUrls.push('/poradnik/');
+for (const p of PORADNIKI) {
+  await write(`poradnik/${p.slug}`, poradnikPage({ p, byId, units, unitPrice, catSlug, slugify }));
+  extraUrls.push(`/poradnik/${p.slug}/`);
 }
 
 /* ================= strony zaufania ================= */
