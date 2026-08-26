@@ -100,6 +100,10 @@ ${body}
       <a href="${R}kalkulator/malowanie/">Malowanie</a>
       <a href="${R}kalkulator/plytki/">Układanie płytek</a>
       <a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a>
+      <a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a>
+      <a href="${R}kalkulator/dach/">Pokrycie dachu</a>
+      <a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a>
+      <a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a>
     </div>
     <p class="foot-h">Serwis</p>
     <div class="city-links">

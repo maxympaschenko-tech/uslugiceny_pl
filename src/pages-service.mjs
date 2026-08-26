@@ -16,6 +16,30 @@ export const slugify = (s) =>
 
 const unitPl = (units, w) => units[w.unit].name;
 
+// Strona usługi bez wyjścia do kalkulatora jest ślepym zaułkiem: czytelnik pozna
+// stawkę za jednostkę, ale nie dowie się, ile wyjdzie u niego. Ta mapa łączy
+// kategorię z kalkulatorem, który liczy jej zakres.
+const KALKULATORY = {
+  demont:   [['remont-mieszkania', 'kalkulatorze remontu mieszkania']],
+  walls:    [['gladzie-i-tynki', 'kalkulatorze gładzi i tynków'], ['malowanie', 'kalkulatorze malowania']],
+  floor:    [['wylewka', 'kalkulatorze wylewki'], ['remont-mieszkania', 'kalkulatorze remontu mieszkania']],
+  tiles:    [['plytki', 'kalkulatorze płytek'], ['lazienka', 'kalkulatorze łazienki']],
+  plumbing: [['lazienka', 'kalkulatorze łazienki']],
+  electric: [['remont-mieszkania', 'kalkulatorze remontu mieszkania']],
+  finish:   [['remont-mieszkania', 'kalkulatorze remontu mieszkania']],
+  elewacja: [['ocieplenie-elewacji', 'kalkulatorze ocieplenia elewacji']],
+  teren:    [['kostka-brukowa', 'kalkulatorze kostki brukowej'], ['ogrodzenie', 'kalkulatorze ogrodzenia']],
+  dach:     [['dach', 'kalkulatorze dachu']],
+};
+const doKalkulatora = (catId) => {
+  const l = KALKULATORY[catId] || [];
+  if (!l.length) return '';
+  return `<p class="krok-cena" style="margin-top:1.2rem">Policz swój zakres w ${l
+    .map(([slug, nazwa]) => `<a href="${R}kalkulator/${slug}/">${nazwa}</a>`)
+    .join(' albo w ')}.</p>`;
+};
+
+
 const crumbLd = (items) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -114,6 +138,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     <div>
       <h2>Z czego składa się stawka</h2>
       ${splitTable(w, units, base.labour, base.material)}
+      ${doKalkulatora(cat.id)}
       ${factorsBlock(w)}
     </div>
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions)}</div>
@@ -210,6 +235,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     <div>
       <h2>Robocizna i materiał ${city.loc}</h2>
       ${splitTable(w, units, p.labour, p.material)}
+      ${doKalkulatora(cat.id)}
       ${factorsBlock(w)}
       <p class="section-note">Pełny cennik robót ${city.loc}: <a href="${R}ceny/${city.slug}/">zobacz wszystkie pozycje</a>.</p>
     </div>

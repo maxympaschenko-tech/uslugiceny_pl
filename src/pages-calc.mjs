@@ -108,6 +108,157 @@ export const CALCS = [
       window.__area = a;
       window.__sub = F(a) + ' m² powierzchni';`,
   },
+  {
+    slug: 'ocieplenie-elewacji',
+    h1: 'Ocieplenie i elewacja',
+    title: `Kalkulator ocieplenia elewacji ${YEAR}: koszt za m² w systemie ETICS`,
+    desc: 'Policz koszt ocieplenia domu: styropian albo wełna, warstwa zbrojona, tynk silikonowy lub mineralny, rusztowanie i cokół. Ceny w zł za m².',
+    lede: 'Ocieplenie liczy się od powierzchni ścian, a nie od metrażu domu. Podaj obwód i wysokość, a kalkulator odejmie typową powierzchnię okien.',
+    faq: [
+      ['Styropian czy wełna mineralna?', 'Styropian jest tańszy i lżejszy, wełna niepalna i lepiej tłumi dźwięki. Przy domu jednorodzinnym w suchej technologii wybiera się zwykle styropian grafitowy, przy starym murze i wymaganiach przeciwpożarowych wełnę. Porównanie obu rozwiązań mamy w osobnym zestawieniu.'],
+      ['Jaka grubość ocieplenia w 2026 roku?', 'Standardem jest 20 cm styropianu na ścianie zewnętrznej. Piętnaście centymetrów bywa jeszcze spotykane przy termomodernizacji budynku, który już był ocieplony, ale przy nowym ociepleniu schodzenie poniżej dwudziestu przestało się opłacać.'],
+      ['Czy rusztowanie jest wliczone w cenę?', 'W naszym wyliczeniu jest osobną pozycją, bo rozlicza się je za metr i za dobę postoju. Część ekip wlicza je w stawkę za ocieplenie, dlatego przy porównywaniu ofert trzeba dopytać, co dokładnie obejmuje cena.'],
+    ],
+    fields: (opts) => `
+      <div class="fields-2">
+        ${field({ name: 'obwod', label: 'Obwód budynku', value: 38, min: 4, max: 300, step: .5, suffix: 'm' })}
+        ${field({ name: 'h', label: 'Wysokość ściany', value: 6, min: 2, max: 20, step: .1, suffix: 'm' })}
+      </div>
+      ${field({ name: 'otwory', label: 'Powierzchnia okien i drzwi', value: 22, min: 0, max: 200, step: 1, suffix: 'm²', hint: 'Ta powierzchnia jest odejmowana od ścian.' })}
+      <div class="fields-2">
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+        ${select({ name: 'material', label: 'Materiał', options: [{ v: 'ocieplenie_styropian', t: 'Styropian', sel: true }, { v: 'ocieplenie_welna', t: 'Wełna mineralna' }] })}
+      </div>
+      ${select({ name: 'tynk', label: 'Tynk elewacyjny', options: [{ v: 'tynk_silikonowy', t: 'Silikonowy', sel: true }, { v: 'tynk_mineralny', t: 'Mineralny' }] })}
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'siatka', label: 'Warstwa zbrojona z siatką', checked: true })}
+      ${check({ name: 'rusztowanie', label: 'Rusztowanie', checked: true })}
+      ${check({ name: 'mycie', label: 'Mycie i przygotowanie podłoża', checked: true })}
+      ${check({ name: 'cokol', label: 'Cokół XPS z tynkiem mozaikowym', qty: 30 })}
+      ${check({ name: 'parapety', label: 'Parapety zewnętrzne', qty: 8 })}`,
+    logic: `
+      const sciany = Math.max(0, (v.obwod || 0) * (v.h || 0) - (v.otwory || 0));
+      add(v.material, sciany);
+      if (v.siatka) add('siatka_zbrojaca', sciany);
+      add(v.tynk, sciany);
+      if (v.rusztowanie) add('rusztowanie', sciany);
+      if (v.mycie) add('mycie_elewacji', sciany);
+      if (v.cokol) add('cokol_xps', v.cokol_qty || 0);
+      if (v.parapety) add('parapet_zewnetrzny', v.parapety_qty || 0);
+      window.__area = sciany;
+      window.__sub = F(Math.round(sciany)) + ' m² ścian do ocieplenia';`,
+  },
+  {
+    slug: 'kostka-brukowa',
+    h1: 'Kostka brukowa',
+    title: `Kalkulator kostki brukowej ${YEAR}: cena ułożenia za m² z podbudową`,
+    desc: 'Policz koszt ułożenia kostki brukowej: podbudowa, obrzeża, krawężniki, odwodnienie liniowe i niwelacja terenu. Ceny w zł za m².',
+    lede: 'Największa część kosztu bruku siedzi pod spodem. Podbudowa i wywóz urobku potrafią kosztować tyle samo co sama kostka.',
+    faq: [
+      ['Jak gruba powinna być podbudowa?', 'Pod ścieżkę dla pieszych wystarczy około dwudziestu centymetrów kruszywa, pod podjazd dla samochodu osobowego trzydzieści, a przy gruncie gliniastym dochodzi geowłóknina. Oszczędność na tym etapie kończy się koleinami po pierwszej zimie.'],
+      ['Ile kosztuje kostka z ułożeniem?', 'Przy kostce betonowej i prostym układzie liczy się średnio około stu dziewięćdziesięciu złotych za metr razem z podbudową i materiałem. Wzory typu jodełka podnoszą robociznę o dwadzieścia do czterdziestu procent i zwiększają ilość odpadu.'],
+      ['Czy trzeba obrzeża?', 'Tak. Bez krawężnika albo obrzeża kostka z czasem rozjeżdża się na bokach, a piasek ze spoin wypłukuje się na zewnątrz. To najtańsze zabezpieczenie całej nawierzchni.'],
+    ],
+    fields: (opts) => `
+      ${field({ name: 'pow', label: 'Powierzchnia nawierzchni', value: 60, min: 1, max: 2000, step: 1, suffix: 'm²' })}
+      ${field({ name: 'obrzeza', label: 'Długość obrzeży i krawężników', value: 40, min: 0, max: 500, step: 1, suffix: 'mb' })}
+      <div class="fields-2">
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+        ${select({ name: 'rodzaj', label: 'Rodzaj kostki', options: [{ v: 'kostka_brukowa', t: 'Betonowa', sel: true }, { v: 'kostka_granitowa', t: 'Granitowa' }] })}
+      </div>
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'podbudowa', label: 'Podbudowa z kruszywa', checked: true })}
+      ${check({ name: 'niwelacja', label: 'Niwelacja i przygotowanie terenu', checked: true })}
+      ${check({ name: 'krawezniki', label: 'Krawężniki zamiast obrzeży' })}
+      ${check({ name: 'odwodnienie', label: 'Odwodnienie liniowe', qty: 4 })}
+      ${check({ name: 'schody', label: 'Schody zewnętrzne', qty: 3 })}`,
+    logic: `
+      const pow = v.pow || 0;
+      if (v.niwelacja) add('niwelacja_terenu', pow);
+      if (v.podbudowa) add('podbudowa', pow);
+      add(v.rodzaj, pow);
+      add(v.krawezniki ? 'krawezniki' : 'obrzeza', v.obrzeza || 0);
+      if (v.odwodnienie) add('odwodnienie_liniowe', v.odwodnienie_qty || 0);
+      if (v.schody) add('schody_zewnetrzne', v.schody_qty || 0);
+      window.__area = pow;
+      window.__sub = F(pow) + ' m² nawierzchni';`,
+  },
+  {
+    slug: 'ogrodzenie',
+    h1: 'Ogrodzenie posesji',
+    title: `Kalkulator ogrodzenia ${YEAR}: cena za metr bieżący z montażem`,
+    desc: 'Policz koszt ogrodzenia panelowego: przęsła, podmurówka, brama przesuwna i furtka. Ceny w zł za metr bieżący.',
+    lede: 'Ogrodzenie wycenia się na metry bieżące, ale prawdziwe pieniądze robią brama i podmurówka. Dwie pozycje potrafią przebić koszt wszystkich przęseł razem.',
+    faq: [
+      ['Ile kosztuje ogrodzenie panelowe za metr?', 'Z materiałem i montażem liczy się średnio około stu pięćdziesięciu złotych za metr bieżący przęseł. Podmurówka to drugie tyle, a brama przesuwna z montażem zamyka się zwykle w granicach tysiąca złotych za samą robociznę.'],
+      ['Czy podmurówka jest konieczna?', 'Nie, ale bez niej pod ogrodzeniem zostaje szczelina, przez którą przechodzą małe zwierzęta i wypłukuje się grunt. Prefabrykowana płyta jest wyraźnie tańsza od podmurówki murowanej z bloczka.'],
+      ['Jak głęboko osadza się słupki?', 'Poniżej strefy przemarzania, w Polsce zwykle od osiemdziesięciu centymetrów do metra dwudziestu w zależności od regionu. Zbyt płytkie fundamenty wypycha mróz i ogrodzenie zaczyna się przechylać po kilku sezonach.'],
+    ],
+    fields: (opts) => `
+      ${field({ name: 'dlugosc', label: 'Długość ogrodzenia', value: 45, min: 1, max: 500, step: 1, suffix: 'mb' })}
+      ${select({ name: 'city', label: 'Miasto', options: opts })}
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'podmurowka', label: 'Podmurówka', checked: true })}
+      ${check({ name: 'brama', label: 'Brama przesuwna', checked: true, qty: 1 })}
+      ${check({ name: 'furtka', label: 'Furtka', checked: true, qty: 1 })}
+      ${check({ name: 'niwelacja', label: 'Wyrównanie terenu wzdłuż ogrodzenia' })}`,
+    logic: `
+      const d = v.dlugosc || 0;
+      add('ogrodzenie_panelowe', d);
+      if (v.podmurowka) add('podmurowka', d);
+      if (v.brama) add('brama_przesuwna', v.brama_qty || 0);
+      if (v.furtka) add('furtka', v.furtka_qty || 0);
+      if (v.niwelacja) add('niwelacja_terenu', d * 1.5);
+      window.__area = d;
+      window.__sub = F(d) + ' mb ogrodzenia';`,
+  },
+  {
+    slug: 'dach',
+    h1: 'Pokrycie dachu',
+    title: `Kalkulator dachu ${YEAR}: koszt pokrycia i wymiany za m²`,
+    desc: 'Policz koszt pokrycia dachu: blachodachówka, dachówka ceramiczna, rąbek, papa. Membrana, obróbki, rynny, okna dachowe i ocieplenie poddasza.',
+    lede: 'Powierzchnia połaci jest większa od powierzchni domu: przy typowym nachyleniu o mniej więcej jedną trzecią. Podaj powierzchnię dachu, a nie rzutu.',
+    faq: [
+      ['Ile kosztuje wymiana dachu 150 m²?', 'Przy blachodachówce z demontażem starego pokrycia, membraną, obróbkami i rynnami wychodzi zwykle od trzydziestu do pięćdziesięciu tysięcy złotych. Dachówka ceramiczna podnosi tę kwotę mniej więcej o połowę, bo cięższe pokrycie często wymaga wzmocnienia więźby.'],
+      ['Czy na wymianę pokrycia potrzebne jest pozwolenie?', 'Wymiana pokrycia na takie samo wymaga zgłoszenia w urzędzie gminy przed rozpoczęciem prac. Zmiana geometrii dachu, kąta nachylenia albo dodanie lukarn wymaga już pozwolenia na budowę z projektem.'],
+      ['Kiedy najlepiej robić dach?', 'Od późnej wiosny do wczesnej jesieni, przy stabilnej pogodzie. Jesienią stawki dekarzy bywają o dziesięć do piętnastu procent niższe niż w szczycie sezonu, bo kalendarze ekip pustoszeją.'],
+    ],
+    fields: (opts) => `
+      ${field({ name: 'polac', label: 'Powierzchnia połaci', value: 150, min: 5, max: 2000, step: 1, suffix: 'm²' })}
+      ${field({ name: 'rynny', label: 'Długość rynien', value: 24, min: 0, max: 300, step: 1, suffix: 'mb' })}
+      <div class="fields-2">
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+        ${select({ name: 'pokrycie', label: 'Pokrycie', options: [
+          { v: 'blachodachowka', t: 'Blachodachówka', sel: true },
+          { v: 'dachowka_ceramiczna', t: 'Dachówka ceramiczna' },
+          { v: 'blacha_trapezowa', t: 'Blacha trapezowa' },
+          { v: 'rabek_stojacy', t: 'Rąbek stojący' },
+          { v: 'papa_termozgrzewalna', t: 'Papa termozgrzewalna' },
+          { v: 'gont_bitumiczny', t: 'Gont bitumiczny' },
+        ] })}
+      </div>
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'demontaz', label: 'Demontaż starego pokrycia', checked: true })}
+      ${check({ name: 'membrana', label: 'Membrana z łaceniem', checked: true })}
+      ${check({ name: 'obrobki', label: 'Obróbki blacharskie', checked: true, qty: 30 })}
+      ${check({ name: 'podbitka', label: 'Podbitka', qty: 40 })}
+      ${check({ name: 'okna', label: 'Okna dachowe', qty: 2 })}
+      ${check({ name: 'poddasze', label: 'Ocieplenie poddasza', qty: 80 })}
+      ${check({ name: 'wiezba', label: 'Nowa więźba dachowa' })}`,
+    logic: `
+      const p = v.polac || 0;
+      if (v.demontaz) add('demontaz_pokrycia', p);
+      if (v.wiezba) add('wiezba', p);
+      if (v.membrana) add('membrana_laty', p);
+      add(v.pokrycie, p);
+      if (v.obrobki) add('obrobki_blacharskie', v.obrobki_qty || 0);
+      add('rynny', v.rynny || 0);
+      if (v.podbitka) add('podbitka', v.podbitka_qty || 0);
+      if (v.okna) add('okno_dachowe', v.okna_qty || 0);
+      if (v.poddasze) add('ocieplenie_poddasza', v.poddasze_qty || 0);
+      window.__area = p;
+      window.__sub = F(p) + ' m² połaci';`,
+  },
 ];
 
 export function calcPage({ c, cityOptions, W_JSON, CITY_MAP, sourceFlag }) {
