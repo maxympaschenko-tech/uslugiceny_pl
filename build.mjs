@@ -642,10 +642,15 @@ const staticPages = [
   <h2 style="margin-top:1.8rem">Kalkulatory</h2>
   <p class="section-note">Wszystkie wyliczenia wykonuje przeglądarka na Twoim urządzeniu. Wymiary i zakres prac, które wpisujesz w kalkulatorach, nie trafiają na nasz serwer. Zapisują się natomiast w adresie strony, żeby dało się wrócić do wyliczenia albo wysłać je wykonawcy. Jeśli udostępnisz taki link, odbiorca zobaczy wpisane przez Ciebie parametry.</p>
 
-  <h2 style="margin-top:1.8rem">Statystyki i pliki cookies</h2>
-  <p class="section-note">Serwis korzysta z Google Tag Manager, przez który uruchamiane są narzędzia analityczne Google. Zapisują one pliki cookies i przetwarzają dane o sposobie korzystania ze strony: odwiedzone adresy, źródło wejścia, przybliżoną lokalizację, typ urządzenia i przeglądarki. Dane te służą wyłącznie do zrozumienia, które treści są przydatne, i nie są łączone z Twoimi danymi osobowymi.</p>
-  <p class="section-note">Podstawą przetwarzania jest nasz uzasadniony interes polegający na prowadzeniu statystyki serwisu. Dostawcą narzędzi jest Google Ireland Limited, a dane mogą być przekazywane poza Europejski Obszar Gospodarczy na zasadach opisanych w polityce prywatności Google.</p>
-  <p class="section-note">Możesz w każdej chwili zablokować pliki cookies w ustawieniach przeglądarki albo skorzystać z dodatku blokującego skrypty analityczne. Strona działa wtedy bez żadnych ograniczeń: kalkulatory i cenniki nie wymagają cookies.</p>
+  <h2 style="margin-top:1.8rem">Zgoda na pliki cookies</h2>
+  <p class="section-note">Przy pierwszej wizycie zobaczysz pytanie o zgodę na pliki cookies. Do momentu, w którym jej udzielisz, narzędzia analityczne działają w trybie ograniczonym i nie zapisują żadnych plików na Twoim urządzeniu. Odpowiada za to mechanizm Google Consent Mode, w którym stan domyślny ustawiony jest na odmowę jeszcze przed uruchomieniem kontenera.</p>
+  <p class="section-note">Zgodę możesz w każdej chwili wycofać albo zmienić: służy do tego odnośnik „Zmień zgodę na cookies” w stopce każdej strony. Wycofanie zgody nie wpływa na zgodność z prawem przetwarzania, które nastąpiło wcześniej.</p>
+  <p class="section-note">Nie korzystamy z cookies reklamowych ani profilujących. Zgoda dotyczy wyłącznie statystyki odwiedzin.</p>
+
+  <h2 style="margin-top:1.8rem">Jakie dane zbiera statystyka</h2>
+  <p class="section-note">Po wyrażeniu zgody Google Tag Manager uruchamia narzędzia analityczne Google, które przetwarzają dane o sposobie korzystania ze strony: odwiedzone adresy, źródło wejścia, przybliżoną lokalizację, typ urządzenia i przeglądarki. Dane służą wyłącznie do zrozumienia, które cenniki i kalkulatory są przydatne, i nie są łączone z Twoimi danymi osobowymi.</p>
+  <p class="section-note">Podstawą przetwarzania jest Twoja zgoda. Dostawcą narzędzi jest Google Ireland Limited, a dane mogą być przekazywane poza Europejski Obszar Gospodarczy na zasadach opisanych w polityce prywatności Google.</p>
+  <p class="section-note">Niezależnie od zgody możesz zablokować pliki cookies w ustawieniach przeglądarki. Strona działa wtedy bez żadnych ograniczeń: kalkulatory liczą, cenniki się otwierają, a link do wyceny nadal działa.</p>
 
   <h2 style="margin-top:1.8rem">Kroje pisma</h2>
   <p class="section-note">Kroje pisma pobierane są z serwerów Google, które mogą odnotować adres IP przy pobraniu pliku.</p>

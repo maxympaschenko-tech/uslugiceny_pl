@@ -30,6 +30,31 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${R}assets/style.css">
 ${jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n') : ''}
+<!-- Zgoda: stan domyslny musi byc ustawiony przed kontenerem GTM -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+(function(){
+  var zapisana = null;
+  try { zapisana = JSON.parse(localStorage.getItem('zgoda-cookies') || 'null'); } catch (e) {}
+  var stan = {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+  };
+  if (zapisana && zapisana.analytics === true) {
+    stan.analytics_storage = 'granted';
+    stan.ad_storage = zapisana.reklama ? 'granted' : 'denied';
+    stan.ad_user_data = zapisana.reklama ? 'granted' : 'denied';
+    stan.ad_personalization = zapisana.reklama ? 'granted' : 'denied';
+  }
+  gtag('consent', 'default', stan);
+})();
+</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -78,10 +103,50 @@ ${body}
       <a href="${R}jak-liczymy/">Jak liczymy</a>
       <a href="${R}kontakt/">Kontakt</a>
       <a href="${R}polityka-prywatnosci/">Polityka prywatności</a>
+      <a href="#" id="zmien-zgode">Zmień zgodę na cookies</a>
     </div>
     <p>Ceny w złotych z VAT, aktualizacja: ${SITE.updated}. To punkt odniesienia do rozmowy z wykonawcą, a nie oferta handlowa: ostateczną cenę podaje ekipa po obejrzeniu lokalu.</p>
   </div>
 </footer>
+<div class="zgoda" id="zgoda" hidden>
+  <div class="zgoda-tresc">
+    <p><strong>Pliki cookies</strong></p>
+    <p>Używamy narzędzi analitycznych Google, żeby zobaczyć, które cenniki i kalkulatory są przydatne. Bez Twojej zgody nie zapisujemy żadnych plików cookies, a strona działa wtedy tak samo: kalkulatory liczą, cenniki się otwierają. Szczegóły w <a href="${R}polityka-prywatnosci/">polityce prywatności</a>.</p>
+  </div>
+  <div class="zgoda-akcje">
+    <button type="button" data-zgoda="tylko-niezbedne">Tylko niezbędne</button>
+    <button type="button" data-zgoda="wszystkie" class="glowny">Akceptuję</button>
+  </div>
+</div>
+<script>
+(function(){
+  var box = document.getElementById('zgoda');
+  var KLUCZ = 'zgoda-cookies';
+  function zapisz(analytics){
+    var v = { analytics: analytics, reklama: false, data: new Date().toISOString() };
+    try { localStorage.setItem(KLUCZ, JSON.stringify(v)); } catch (e) {}
+    gtag('consent', 'update', {
+      analytics_storage: analytics ? 'granted' : 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    box.hidden = true;
+  }
+  var juz = null;
+  try { juz = localStorage.getItem(KLUCZ); } catch (e) {}
+  if (!juz) box.hidden = false;
+  box.querySelector('[data-zgoda="wszystkie"]').addEventListener('click', function(){ zapisz(true); });
+  box.querySelector('[data-zgoda="tylko-niezbedne"]').addEventListener('click', function(){ zapisz(false); });
+  var zmien = document.getElementById('zmien-zgode');
+  if (zmien) zmien.addEventListener('click', function(e){
+    e.preventDefault();
+    try { localStorage.removeItem(KLUCZ); } catch (err) {}
+    box.hidden = false;
+    box.scrollIntoView({ block: 'end' });
+  });
+})();
+</script>
 ${script ? `<script>${script}</script>` : ''}
 </body>
 </html>`;
