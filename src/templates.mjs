@@ -120,6 +120,7 @@ ${body}
       <a href="${R}kiedy-remontowac/">Kiedy remontować taniej</a>
       <a href="${R}poradnik/">Poradniki</a>
       <a href="${R}porownanie/">Porównania</a>
+      <a href="${R}slownik/">Słownik pojęć</a>
       <a href="${R}szukaj/">Szukaj</a>
     </div>
     <p class="foot-h">Serwis</p>
