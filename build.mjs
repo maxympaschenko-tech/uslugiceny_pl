@@ -757,7 +757,7 @@ await cp('src/assets', join(OUT, 'assets'), { recursive: true });
 // .htaccess czyta serwer, ikony i manifest sa szukane pod stalymi adresami.
 const doKorzenia = [
   '.htaccess', 'favicon.ico', 'favicon.svg', 'favicon-32.png', 'favicon-96.png',
-  'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest',
+  'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest', 'og-image.png',
 ];
 for (const f of doKorzenia) {
   await cp(join('src/assets', f), join(OUT, f));

@@ -50,6 +50,14 @@
       {
         "name": "fachowydekarz.pl, cennik uslug dekarskich",
         "date": "2026-07"
+      },
+      {
+        "name": "Decorazzi, cennik montazu i obrobki okien",
+        "date": "2026-06"
+      },
+      {
+        "name": "cennikibudowlane.com.pl, klimatyzacja oraz wentylacja i rekuperacja",
+        "date": "2026-08"
       }
     ]
   },
@@ -133,6 +141,18 @@
       "name": "Dachy i orynnowanie",
       "slug": "dachy-i-orynnowanie",
       "lead": "Pokrycia dachowe, więźba, obróbki blacharskie, rynny, okna dachowe i ocieplenie poddasza."
+    },
+    {
+      "id": "okna",
+      "name": "Okna i drzwi zewnętrzne",
+      "slug": "okna-i-drzwi",
+      "lead": "Wymiana stolarki: demontaż, ciepły montaż warstwowy, obróbka ościeży, rolety i drzwi wejściowe."
+    },
+    {
+      "id": "instalacje",
+      "name": "Instalacje i klimatyzacja",
+      "slug": "instalacje-i-klimatyzacja",
+      "lead": "Klimatyzacja, rekuperacja, pompa ciepła, fotowoltaika i instalacja centralnego ogrzewania."
     }
   ],
   "units": {
@@ -150,6 +170,9 @@
     },
     "m3": {
       "name": "m³"
+    },
+    "kwp": {
+      "name": "kWp"
     }
   },
   "works": [
@@ -1204,6 +1227,206 @@
         "Grubość warstwy, dziś zwykle od 25 do 30 cm w dwóch krzyżowych warstwach.",
         "Konieczność ułożenia folii paroizolacyjnej i szczelnego sklejenia zakładów.",
         "Dostęp: skosy i wąskie przestrzenie między krokwiami spowalniają pracę."
+      ]
+    },
+    {
+      "id": "demontaz_okna",
+      "cat": "okna",
+      "unit": "szt",
+      "labour": 165,
+      "material": 0,
+      "name": "Demontaż starego okna",
+      "factors": [
+        "Rodzaj starej stolarki: drewniana rama schodzi łatwiej niż osadzona w zaprawie skrzynkowa.",
+        "Konieczność zachowania ościeży w całości, gdy nowe okno ma ten sam wymiar.",
+        "Utylizacja starej stolarki, liczona czasem osobno za sztukę."
+      ]
+    },
+    {
+      "id": "montaz_okna",
+      "cat": "okna",
+      "unit": "mb",
+      "labour": 112,
+      "material": 0,
+      "name": "Montaż okna, obwód ramy",
+      "factors": [
+        "Stawka liczona za metr bieżący obwodu ramy, więc jedno duże okno kosztuje więcej niż dwa małe o tej samej powierzchni.",
+        "Piętro i konieczność wciągania stolarki przez balkon albo z podnośnika.",
+        "Wielka płyta: warstwowa ściana i stary tynk potrafią wydłużyć montaż dwukrotnie.",
+        "Samo okno kupuje inwestor, tu liczona jest wyłącznie robocizna."
+      ]
+    },
+    {
+      "id": "cieply_montaz",
+      "cat": "okna",
+      "unit": "mb",
+      "labour": 62,
+      "material": 48,
+      "name": "Ciepły montaż warstwowy",
+      "factors": [
+        "Wymóg wynikający z warunków technicznych: sama pianka bez taśm jest dziś traktowana jako błąd sztuki.",
+        "Rodzaj taśm paroszczelnych i paroprzepuszczalnych oraz szerokość ramy.",
+        "Stan ościeża, bo taśma musi kleić się do równego i odpylonego podłoża."
+      ]
+    },
+    {
+      "id": "obrobka_oscierzy",
+      "cat": "okna",
+      "unit": "szt",
+      "labour": 195,
+      "material": 65,
+      "name": "Obróbka ościeży po wymianie okna",
+      "factors": [
+        "Szerokość ościeża i to, czy trzeba odtworzyć węgarek.",
+        "Zakres: tynk, gładź, malowanie czy tylko uzupełnienie ubytków.",
+        "Liczba okien, bo przy jednym liczy się głównie dojazd."
+      ]
+    },
+    {
+      "id": "montaz_parapetu_wew",
+      "cat": "okna",
+      "unit": "szt",
+      "labour": 155,
+      "material": 0,
+      "name": "Montaż parapetu wewnętrznego",
+      "factors": [
+        "Materiał: konglomerat i drewno wymagają docięcia u wykonawcy.",
+        "Głębokość i wycięcia wokół ościeżnicy oraz rur grzewczych.",
+        "Uszczelnienie styku z oknem, decydujące o braku skroplin."
+      ]
+    },
+    {
+      "id": "montaz_rolety",
+      "cat": "okna",
+      "unit": "szt",
+      "labour": 295,
+      "material": 0,
+      "name": "Montaż rolety zewnętrznej",
+      "factors": [
+        "Typ: nadstawna, adaptacyjna czy podtynkowa, każda z innym nakładem pracy.",
+        "Napęd: korba jest tańsza, silnik wymaga doprowadzenia zasilania.",
+        "Szerokość rolety i ciężar pancerza."
+      ]
+    },
+    {
+      "id": "drzwi_zewnetrzne",
+      "cat": "okna",
+      "unit": "szt",
+      "labour": 680,
+      "material": 0,
+      "name": "Montaż drzwi zewnętrznych",
+      "factors": [
+        "Ciężar skrzydła i konieczność pracy we dwóch przy drzwiach antywłamaniowych.",
+        "Regulacja zawiasów i progu, od której zależy szczelność.",
+        "Poszerzenie albo zwężenie otworu, jeśli nowe drzwi mają inny wymiar."
+      ]
+    },
+    {
+      "id": "klimatyzacja_split",
+      "cat": "instalacje",
+      "unit": "szt",
+      "labour": 1750,
+      "material": 650,
+      "name": "Montaż klimatyzacji split",
+      "factors": [
+        "Odległość jednostki zewnętrznej od wewnętrznej: każdy metr instalacji chłodniczej to materiał i praca.",
+        "Sposób prowadzenia instalacji: podtynkowo wymaga kucia bruzd, natynkowo jest tańsze, ale widoczne.",
+        "Miejsce montażu jednostki zewnętrznej, bo elewacja powyżej parteru oznacza podnośnik albo alpinistę.",
+        "W bloku potrzebna jest zgoda wspólnoty albo spółdzielni na montaż jednostki na elewacji."
+      ]
+    },
+    {
+      "id": "klimatyzacja_multisplit",
+      "cat": "instalacje",
+      "unit": "szt",
+      "labour": 3400,
+      "material": 1300,
+      "name": "Montaż klimatyzacji multi-split",
+      "factors": [
+        "Liczba jednostek wewnętrznych podpiętych do jednego agregatu.",
+        "Długość tras chłodniczych do każdego pomieszczenia.",
+        "Konieczność odprowadzenia skroplin z każdej jednostki."
+      ]
+    },
+    {
+      "id": "rekuperacja",
+      "cat": "instalacje",
+      "unit": "m2",
+      "labour": 58,
+      "material": 48,
+      "name": "Montaż rekuperacji",
+      "factors": [
+        "Etap budowy: w stanie surowym montaż trwa 5 do 10 dni, w zamieszkanym domu nawet dwa razy dłużej i kosztuje o jedną trzecią więcej.",
+        "Rodzaj kanałów i sposób ich prowadzenia: w stropie, w posadzce czy w zabudowie sufitowej.",
+        "Liczba punktów nawiewnych i wywiewnych wynikająca z liczby pomieszczeń.",
+        "Cena nie obejmuje samej centrali, którą zwykle kupuje inwestor."
+      ]
+    },
+    {
+      "id": "pompa_ciepla",
+      "cat": "instalacje",
+      "unit": "szt",
+      "labour": 6800,
+      "material": 1900,
+      "name": "Montaż pompy ciepła powietrznej",
+      "factors": [
+        "Miejsce posadowienia jednostki zewnętrznej i konieczność wykonania fundamentu.",
+        "Przygotowanie instalacji wewnętrznej: bufor, zasobnik, przepięcie do istniejącego obiegu.",
+        "Zabezpieczenia elektryczne i osobny obwód w rozdzielnicy.",
+        "Sama pompa nie jest wliczona, tu liczona jest instalacja i uruchomienie."
+      ]
+    },
+    {
+      "id": "fotowoltaika",
+      "cat": "instalacje",
+      "unit": "kwp",
+      "labour": 850,
+      "material": 2650,
+      "name": "Instalacja fotowoltaiczna",
+      "factors": [
+        "Rodzaj dachu: blachodachówka i dachówka wymagają różnych systemów mocowania.",
+        "Kąt i ekspozycja połaci, od których zależy liczba paneli potrzebna do tej samej mocy.",
+        "Odległość od rozdzielnicy i konieczność jej rozbudowy.",
+        "Falownik hybrydowy z magazynem energii to osobna, wyraźnie wyższa pozycja."
+      ]
+    },
+    {
+      "id": "kociol_gazowy",
+      "cat": "instalacje",
+      "unit": "szt",
+      "labour": 2350,
+      "material": 700,
+      "name": "Wymiana kotła gazowego",
+      "factors": [
+        "Konieczność wymiany wkładu kominowego przy przejściu na kocioł kondensacyjny.",
+        "Przepięcie instalacji i montaż nowych zaworów oraz filtra.",
+        "Odbiór kominiarski i próba szczelności, wymagane dokumentacyjnie."
+      ]
+    },
+    {
+      "id": "instalacja_co",
+      "cat": "instalacje",
+      "unit": "pkt",
+      "labour": 880,
+      "material": 480,
+      "name": "Punkt instalacji centralnego ogrzewania",
+      "factors": [
+        "Materiał rur i sposób prowadzenia: w posadzce czy po ścianie.",
+        "Odległość punktu od źródła ciepła i rozdzielacza.",
+        "Rodzaj grzejnika i zaworu termostatycznego."
+      ]
+    },
+    {
+      "id": "kanaly_wentylacyjne",
+      "cat": "instalacje",
+      "unit": "mb",
+      "labour": 92,
+      "material": 72,
+      "name": "Kanały wentylacyjne",
+      "factors": [
+        "Przekrój kanału i materiał: elastyczny jest tańszy, sztywny trwalszy i cichszy.",
+        "Konieczność izolacji akustycznej i termicznej kanałów.",
+        "Przejścia przez stropy i ściany nośne."
       ]
     }
   ],

@@ -20,6 +20,10 @@ const P = {
   elewacja: '<path d="M4 3v18"/><path d="M8 3v18"/><path d="M12 3v18"/><path d="M12 7h8"/><path d="M12 12h8"/><path d="M12 17h8"/>',
   // kostka brukowa w rzucie
   teren: '<path d="M3 6h7v5H3z"/><path d="M14 6h7v5h-7z"/><path d="M7 15h7v5H7z"/>',
+  // okno z podzialem
+  okna: '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M12 3v18"/><path d="M3 12h18"/>',
+  // jednostka klimatyzacji z podmuchem
+  instalacje: '<rect x="3" y="5" width="18" height="7" rx="2"/><path d="M7 9h6"/><path d="M7 16c1.5 0 1.5 2 3 2s1.5-2 3-2 1.5 2 3 2"/>',
   // dach
   dach: '<path d="M2 12L12 4l10 8"/><path d="M5 11v9h14v-9"/><path d="M9 20v-5h6v5"/>',
 };

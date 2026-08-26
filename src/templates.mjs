@@ -24,6 +24,12 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="uslugiceny.pl">
+<meta property="og:image" content="${SITE.base}${R}og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="uslugiceny.pl - ceny robót remontowych w Polsce">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
