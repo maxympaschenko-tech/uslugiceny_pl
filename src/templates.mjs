@@ -80,7 +80,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="${R}uslugi/"${path.startsWith('/uslugi') ? ' aria-current="page"' : ''}>Usługi</a>
       <a href="${R}kalkulator/remont-mieszkania/"${path.startsWith('/kalkulator') ? ' aria-current="page"' : ''}>Kalkulatory</a>
       <a href="${R}poradnik/"${path.startsWith('/poradnik') ? ' aria-current="page"' : ''}>Poradniki</a>
-      <a href="${R}jak-liczymy/"${path.startsWith('/jak-liczymy') ? ' aria-current="page"' : ''}>Jak liczymy</a>
+      <a href="${R}sprawdz-oferte/"${path.startsWith('/sprawdz-oferte') ? ' aria-current="page"' : ''}>Sprawdź ofertę</a>
+      <a href="${R}szukaj/" aria-label="Szukaj" class="nav-szukaj">Szukaj</a>
     </nav>
   </div>
 </header>
@@ -108,6 +109,7 @@ ${body}
     <p class="foot-h">Serwis</p>
     <div class="city-links">
       <a href="${R}o-nas/">O serwisie</a>
+      <a href="${R}jak-liczymy/">Jak liczymy</a>
       <a href="${R}jak-liczymy/">Jak liczymy</a>
       <a href="${R}kontakt/">Kontakt</a>
       <a href="${R}polityka-prywatnosci/">Polityka prywatności</a>

@@ -7,6 +7,7 @@ import { layout, estimateSheet, calcScript, field, select, check, money } from '
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
+import { sprawdzOfertePage, szukajPage } from './src/pages-tools.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
 
@@ -694,6 +695,38 @@ for (const s of staticPages) {
     })
   );
 }
+
+/* ================= narzędzia ================= */
+
+await write('sprawdz-oferte', sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice }));
+await write('szukaj', szukajPage());
+extraUrls.push('/sprawdz-oferte/', '/szukaj/');
+
+// Indeks wyszukiwarki: same strony docelowe, bez wariantów miejskich,
+// bo lista 900 pozycji nie pomaga, tylko zasypuje wyniki powtórzeniami.
+const indeks = [
+  ...works.map((w) => {
+    const cat = categories.find((c) => c.id === w.cat);
+    const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
+    return {
+      t: w.name,
+      u: `${R}${cat.slug}/${slugify(w.name)}/`,
+      k: cat.name,
+      o: `${cat.name} · średnio ${money(Math.round(p.labour + p.material))} zł za ${units[w.unit].name}`,
+    };
+  }),
+  ...categories.map((c) => ({ t: c.name, u: `${R}uslugi/${c.slug}/`, k: 'kategoria', o: c.lead })),
+  ...CALCS.map((c) => ({ t: `Kalkulator: ${c.h1}`, u: `${R}kalkulator/${c.slug}/`, k: 'kalkulator', o: c.desc })),
+  { t: 'Kalkulator remontu mieszkania', u: `${R}kalkulator/remont-mieszkania/`, k: 'kalkulator', o: 'Kosztorys mieszkania pod klucz według metrażu.' },
+  { t: 'Kalkulator remontu łazienki', u: `${R}kalkulator/lazienka/`, k: 'kalkulator', o: 'Płytki, hydroizolacja i biały montaż sztuka po sztuce.' },
+  { t: 'Kalkulator wylewki', u: `${R}kalkulator/wylewka/`, k: 'kalkulator', o: 'Objętość zaprawy, liczba worków i cena za m².' },
+  ...PORADNIKI.map((p) => ({ t: p.h1, u: `${R}poradnik/${p.slug}/`, k: 'poradnik', o: p.desc })),
+  ...POROWNANIA.map((p) => ({ t: `${p.h1}?`, u: `${R}porownanie/${p.slug}/`, k: 'porównanie', o: p.lede })),
+  ...METRAZE.map((m) => ({ t: `Remont mieszkania ${m.m} m²`, u: `${R}koszt-remontu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
+  ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
+  { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
+];
+await writeFile(join(OUT, 'search-index.json'), JSON.stringify(indeks));
 
 /* ================= sitemap ================= */
 

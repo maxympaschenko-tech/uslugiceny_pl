@@ -603,3 +603,26 @@ h2 .ikona, h3 .ikona { vertical-align: -.3em; margin-right: .45rem; color: var(-
 .tabela-szczegoly summary::before { content: "+ "; font-family: var(--f-mono); }
 .tabela-szczegoly[open] summary::before { content: "− "; }
 .tabela-szczegoly summary:hover { color: var(--ink); }
+
+/* ---------- skala oceny oferty ---------- */
+
+.skala-oferty { margin: 1.1rem 0 .3rem; }
+.so-tor {
+  position: relative; height: 12px; border-radius: 999px;
+  background: var(--line-2); border: 1px solid var(--line);
+}
+.so-widelki { position: absolute; top: 0; bottom: 0; background: rgba(20,121,90,.22); }
+.so-znacznik {
+  position: absolute; top: -5px; width: 4px; height: 22px;
+  background: var(--ink); border-radius: 2px; transform: translateX(-2px);
+  transition: left .25s cubic-bezier(.2,.7,.3,1);
+}
+.so-opisy {
+  display: flex; justify-content: space-between;
+  font-family: var(--f-mono); font-size: var(--step--2); color: var(--ink-soft);
+  margin-top: .45rem;
+}
+.werdykt-ok { color: var(--down) !important; }
+.werdykt-nisko { color: var(--signal-d) !important; }
+.werdykt-wysoko { color: var(--up) !important; }
+.total .werdykt-ok, .total .werdykt-nisko, .total .werdykt-wysoko { filter: brightness(1.5); }
