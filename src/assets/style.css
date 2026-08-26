@@ -90,10 +90,10 @@ a:hover { color: var(--ink); }
   font-weight: 700; font-size: 1.24rem; letter-spacing: -0.025em;
   text-decoration: none; color: var(--ink);
 }
-.brand span { color: var(--ink-soft); font-weight: 500; }
-.nav { display: flex; gap: 1.5rem; font-size: var(--step--1); font-weight: 500; }
+.brand span { color: var(--ink-soft); font-weight: 600; }
+.nav { display: flex; gap: 1.5rem; font-size: var(--step--1); }
 .nav a {
-  color: var(--ink-soft); text-decoration: none;
+  color: var(--ink-soft); text-decoration: none; font-weight: 600;
   padding: .35rem 0; border-bottom: 2px solid transparent;
 }
 .nav a:hover { color: var(--ink); }
@@ -142,7 +142,7 @@ h2 {
   font-family: var(--f-display); font-weight: 700; letter-spacing: -0.03em;
   font-size: var(--step-2); line-height: 1.15; margin: 0 0 .5rem;
 }
-h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; }
+h3 { font-family: var(--f-display); font-weight: 700; letter-spacing: -0.02em; }
 .section-note { color: var(--ink-soft); max-width: 66ch; margin: 0 0 1.35rem; font-size: var(--step--1); }
 
 /* ---------- karta ---------- */
@@ -163,7 +163,7 @@ h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; }
 .card h3 a { text-decoration: none; }
 .card p { margin: 0; font-size: var(--step--1); color: var(--ink-soft); }
 .card .big {
-  font-family: var(--f-mono); font-size: var(--step-2); font-weight: 500;
+  font-family: var(--f-mono); font-size: var(--step-2); font-weight: 400;
   color: var(--ink); font-variant-numeric: tabular-nums;
   line-height: 1.1; margin: .2rem 0 .35rem;
 }
@@ -197,7 +197,7 @@ h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; }
 .rows li:last-child { border-bottom: 0; }
 .rows .label span { color: var(--ink); }
 .rows .qty { font-family: var(--f-mono); font-size: var(--step--2); color: var(--ink-soft); }
-.rows .val { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+.rows .val { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
 .rows .empty { color: var(--ink-soft); display: block; border: 0; padding: 1rem 0; }
 
 .cat-head {
@@ -235,7 +235,7 @@ h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; }
   margin: 0; font-family: var(--f-mono); font-size: var(--step--2);
   color: var(--ink-soft);
 }
-.split b { color: var(--ink); font-weight: 500; }
+.split b { color: var(--ink); font-weight: 400; }
 .receipt-foot { font-size: var(--step--2); color: var(--ink-soft); margin: .8rem 0 0; line-height: 1.5; }
 
 /* przełącznik wariantu */
@@ -272,7 +272,7 @@ h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; }
   text-transform: uppercase; letter-spacing: .12em; color: var(--ink-soft);
 }
 .pc-v {
-  font-family: var(--f-mono); font-size: var(--step-0); font-weight: 500;
+  font-family: var(--f-mono); font-size: var(--step-0);
   font-variant-numeric: tabular-nums; color: var(--ink-soft);
 }
 .pc-main .pc-v {
@@ -310,7 +310,7 @@ table.board tbody tr { border-bottom: 1px solid var(--line-2); }
 table.board tbody tr:last-child { border-bottom: 0; }
 table.board tbody tr:hover { background: #FBFCFD; }
 table.board td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
-table.board a { text-decoration: none; font-weight: 500; }
+table.board a { text-decoration: none; font-weight: 600; }
 table.board a:hover { text-decoration: underline; }
 .rank { font-family: var(--f-mono); font-size: var(--step--2); color: var(--ink-soft); margin-right: .6rem; }
 .qty { font-family: var(--f-mono); font-size: var(--step--2); color: var(--ink-soft); }
@@ -419,7 +419,7 @@ ul.factors li::before {
   letter-spacing: .12em; margin: 1.4rem 0 .5rem; color: #6C7A8C;
 }
 .city-links { display: flex; flex-wrap: wrap; gap: .45rem 1.15rem; margin: 0 0 .4rem; }
-.city-links a b { font-family: var(--f-mono); font-weight: 400; color: var(--ink-soft); }
+.city-links a b { font-family: var(--f-mono); color: var(--ink-soft); }
 
 /* w treści strony lista miast jest jasna, a nie ciemna jak w stopce */
 main .city-links a {
@@ -500,7 +500,7 @@ main .city-links a:hover { border-color: var(--ink); }
   white-space: nowrap;
 }
 .zgoda-akcje button:hover { border-color: var(--ink); }
-.zgoda-akcje .glowny { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 500; }
+.zgoda-akcje .glowny { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 600; }
 .zgoda-akcje .glowny:hover { background: #000; }
 @media (max-width: 34rem) {
   .zgoda-akcje { width: 100%; }
@@ -533,7 +533,7 @@ ol.kroki li:last-child::before { display: none; }
   font-size: var(--step--1); color: var(--ink-soft);
   border-left: 3px solid var(--signal); padding-left: .75rem;
 }
-.krok-cena b { font-family: var(--f-mono); color: var(--ink); font-weight: 500; }
+.krok-cena b { font-family: var(--f-mono); color: var(--ink); }
 @media (max-width: 34rem) {
   ol.kroki li { grid-template-columns: 1fr; gap: .4rem; }
   ol.kroki li::before { display: none; }

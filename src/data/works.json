@@ -747,7 +747,7 @@
       "id": "ocieplenie_styropian",
       "cat": "elewacja",
       "unit": "m2",
-      "labour": 95,
+      "labour": 62,
       "material": 64,
       "name": "Ocieplenie ścian styropianem (ETICS)",
       "factors": [
@@ -761,7 +761,7 @@
       "id": "ocieplenie_welna",
       "cat": "elewacja",
       "unit": "m2",
-      "labour": 115,
+      "labour": 78,
       "material": 105,
       "name": "Ocieplenie ścian wełną mineralną",
       "factors": [
@@ -774,8 +774,8 @@
       "id": "siatka_zbrojaca",
       "cat": "elewacja",
       "unit": "m2",
-      "labour": 42,
-      "material": 24,
+      "labour": 34,
+      "material": 20,
       "name": "Warstwa zbrojona z siatką",
       "factors": [
         "Gramatura siatki i konieczność podwójnego zbrojenia w strefie cokołu.",

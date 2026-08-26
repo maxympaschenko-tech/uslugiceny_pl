@@ -10,6 +10,7 @@ import { ikona } from './src/icons.mjs';
 import { sprawdzOfertePage, szukajPage } from './src/pages-tools.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
+import { DOMY, ocieplenieMetrazPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
 const R = SITE.root;
@@ -129,6 +130,8 @@ await write(
   <h2>Ile kosztuje remont mieszkania o powierzchni</h2>
   <p class="section-note">Gotowe wyliczenia dla najczęstszych metraży, w trzech standardach i dziesięciu miastach.</p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
+  <p class="section-note" style="margin-top:1.2rem">Ocieplenie domu o powierzchni:</p>
+  <div class="city-links">${DOMY.map((m) => `<a href="${R}koszt-ocieplenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="receipt-foot" style="margin-top:1rem">Zajrzyj też do <a href="${R}poradnik/">poradników</a> o kolejności prac i do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
 </div></section>
 
@@ -604,6 +607,14 @@ for (const p of POROWNANIA) {
   extraUrls.push(`/porownanie/${p.slug}/`);
 }
 
+for (const dm of DOMY) {
+  await write(
+    `koszt-ocieplenia/${dm.m}-m2`,
+    ocieplenieMetrazPage({ dm, cities, unitPrice, cityOptions, W_JSON, CITY_MAP, sourceFlag: draftFlag })
+  );
+  extraUrls.push(`/koszt-ocieplenia/${dm.m}-m2/`);
+}
+
 /* ================= poradniki ================= */
 
 const catSlug = (id) => categories.find((c) => c.id === id).slug;
@@ -723,6 +734,7 @@ const indeks = [
   ...PORADNIKI.map((p) => ({ t: p.h1, u: `${R}poradnik/${p.slug}/`, k: 'poradnik', o: p.desc })),
   ...POROWNANIA.map((p) => ({ t: `${p.h1}?`, u: `${R}porownanie/${p.slug}/`, k: 'porównanie', o: p.lede })),
   ...METRAZE.map((m) => ({ t: `Remont mieszkania ${m.m} m²`, u: `${R}koszt-remontu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
+  ...DOMY.map((m) => ({ t: `Ocieplenie domu ${m.m} m²`, u: `${R}koszt-ocieplenia/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
   { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
 ];

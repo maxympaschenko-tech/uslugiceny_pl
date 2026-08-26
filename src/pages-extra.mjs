@@ -268,3 +268,82 @@ export function porownaniaIndex(list) {
 </div></section>`,
   });
 }
+
+
+/* ---------- metraże ociepleń ---------- */
+
+export const DOMY = [
+  { m: 80,  opis: 'Mały dom parterowy albo bliźniak.', uwaga: 'Przy tej wielkości koszt rusztowania i dojazdu rozkłada się na niewielką powierzchnię, więc stawka za metr wychodzi wyżej niż przy dużym domu.' },
+  { m: 100, opis: 'Typowy dom parterowy z poddaszem użytkowym.', uwaga: 'Poddasze użytkowe oznacza ścianę kolankową, która też podlega ociepleniu, choć nie liczy się do powierzchni użytkowej.' },
+  { m: 120, opis: 'Najczęstsza wielkość domu jednorodzinnego w Polsce.', uwaga: 'To metraż, przy którym warto policzyć dotację z programu wsparcia termomodernizacji: potrafi pokryć znaczną część kosztu ocieplenia ścian.' },
+  { m: 150, opis: 'Duży dom jednorodzinny, zwykle dwukondygnacyjny.', uwaga: 'Powyżej dwóch kondygnacji rusztowanie trzeba kotwić do ściany, co podnosi zarówno koszt, jak i czas montażu.' },
+  { m: 200, opis: 'Dom o rozbudowanej bryle albo z garażem w bryle.', uwaga: 'Im bardziej rozczłonkowana bryła, tym więcej narożników, glifów i docinek. Przy skomplikowanej elewacji robocizna rośnie o dwadzieścia do trzydziestu procent.' },
+];
+
+// Ścian jest zwykle więcej niż podłogi: dla domu na planie zbliżonym do kwadratu
+// obwód to około czterech pierwiastków z powierzchni jednej kondygnacji.
+export const scianyZDomu = (m2, kondygnacje = 1.6, wysokosc = 2.9, otworyProc = 0.14) => {
+  const naKondygnacje = m2 / kondygnacje;
+  const obwod = 4 * Math.sqrt(naKondygnacje);
+  const brutto = obwod * wysokosc * kondygnacje;
+  return Math.round(brutto * (1 - otworyProc));
+};
+
+export function ocieplenieMetrazPage({ dm, cities, unitPrice, cityOptions, W_JSON, CITY_MAP, sourceFlag }) {
+  const sciany = scianyZDomu(dm.m);
+  const zakres = ['ocieplenie_styropian', 'siatka_zbrojaca', 'tynk_silikonowy', 'rusztowanie', 'mycie_elewacji'];
+  const dlaMiasta = (coef) =>
+    zakres.reduce((s, id) => {
+      const p = unitPrice(id, coef, 1, 1);
+      return s + (p.labour + p.material) * sciany;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => dlaMiasta(b.coef) - dlaMiasta(a.coef))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(dlaMiasta(c.coef) / sciany)}">${money(Math.round(dlaMiasta(c.coef) / sciany))}</td>
+<td class="num" data-v="${Math.round(dlaMiasta(c.coef))}"><b>${money(Math.round(dlaMiasta(c.coef)))}</b></td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Ile kosztuje ocieplenie domu ${dm.m} m² w ${YEAR} roku`,
+    description: `Koszt ocieplenia domu ${dm.m} m²: około ${money(Math.round(dlaMiasta(1)))} zł przy ${sciany} m² ścian. Styropian, warstwa zbrojona, tynk, rusztowanie. Ceny w 10 miastach.`,
+    path: `/koszt-ocieplenia/${dm.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie</a> · Dom ${dm.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Termomodernizacja · aktualizacja ${SITE.updated}</p>
+  <h1>Ocieplenie domu ${dm.m} m²</h1>
+  <p class="lede">Dom o powierzchni ${dm.m} m² ma zwykle około ${sciany} m² ścian do ocieplenia. Pełen zakres kosztuje od ${money(Math.round(dlaMiasta(tani.coef)))} zł ${tani.loc} do ${money(Math.round(dlaMiasta(war.coef)))} zł w Warszawie.</p>
+  <p class="section-note">${dm.opis} Powierzchnia ścian nie jest tym samym co powierzchnia użytkowa: liczymy obwód budynku razy wysokość kondygnacji, odejmując mniej więcej ${'14'}% na okna i drzwi. Dla bryły rozczłonkowanej albo dla domu na planie wydłużonym prostokąta wyjdzie więcej.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <p class="section-note">Zakres: ocieplenie styropianem, warstwa zbrojona z siatką, tynk silikonowy, rusztowanie oraz mycie i przygotowanie podłoża. Bez cokołu, parapetów i obróbek.</p>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Za m² ściany</th><th>Całość</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tej wielkości</h2>
+  <p class="section-note">${dm.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć dokładnie swój budynek, z cokołem i parapetami? Przejdź do <a href="${R}kalkulator/ocieplenie-elewacji/">kalkulatora ocieplenia</a>. Kolejność prac opisuje <a href="${R}poradnik/ocieplenie-domu-krok-po-kroku/">poradnik krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje ocieplenie domu ${dm.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Przy około ${sciany} m² ścian pełen zakres z tynkiem i rusztowaniem kosztuje od ${money(Math.round(dlaMiasta(tani.coef)))} do ${money(Math.round(dlaMiasta(war.coef)))} zł zależnie od miasta.` } },
+        { '@type': 'Question', name: 'Ile metrów ściany ma dom o tej powierzchni?', acceptedAnswer: { '@type': 'Answer', text: `Dla bryły zbliżonej do kwadratu wychodzi około ${sciany} m² po odjęciu okien i drzwi. Dom wydłużony albo z wykuszami ma tych metrów więcej przy tej samej powierzchni użytkowej.` } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
+  });
+}
