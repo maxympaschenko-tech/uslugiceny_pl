@@ -44,7 +44,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
 body {
   margin: 0;
@@ -68,11 +68,20 @@ a:hover { color: var(--ink); }
   background: var(--surface);
   border-bottom: 1px solid var(--line);
   position: sticky; top: 0; z-index: 20;
+  box-shadow: 0 1px 0 rgba(12, 20, 32, .04), 0 6px 16px -14px rgba(12, 20, 32, .6);
 }
 .site-head .wrap {
-  display: flex; flex-wrap: wrap; gap: .6rem 1.5rem;
+  display: flex; flex-wrap: wrap; gap: .35rem 1.5rem;
   align-items: center; justify-content: space-between;
-  min-height: 3.75rem;
+  min-height: 3.75rem; padding-block: .5rem;
+}
+/* Na waskim ekranie naglowek lamie sie na dwa wiersze, wiec musi byc oszczedny:
+   inaczej przyklejony pasek zabiera jedna trzecia widocznej strony. */
+@media (max-width: 34rem) {
+  .site-head .wrap { min-height: 0; padding-block: .55rem; gap: .15rem 1rem; }
+  .brand { font-size: 1.05rem; }
+  .nav { gap: 1.05rem; font-size: var(--step--2); width: 100%; }
+  .nav a { padding: .2rem 0; }
 }
 .brand {
   font-family: var(--f-display);
@@ -195,9 +204,11 @@ h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; }
   text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft);
 }
 
-/* suma: jedyne miejsce, gdzie żółty dostaje pełną scenę */
+/* suma: jedyne miejsce, gdzie żółty dostaje pełną scenę.
+   Pasek rozciąga się na całą szerokość karty ujemnym marginesem bocznym,
+   ale NIE dolnym: ujemny dolny wciągał pod spód następny akapit. */
 .total {
-  margin: 1.1rem -1.25rem -1.4rem;
+  margin: 1.15rem -1.25rem 1.15rem;
   padding: .95rem 1.25rem 1.05rem;
   background: var(--ink); color: #fff;
   display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
@@ -219,7 +230,7 @@ h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.02em; }
 
 .split {
   display: flex; flex-wrap: wrap; gap: .3rem 1.4rem;
-  margin: 1.9rem 0 0; font-family: var(--f-mono); font-size: var(--step--2);
+  margin: 0; font-family: var(--f-mono); font-size: var(--step--2);
   color: var(--ink-soft);
 }
 .split b { color: var(--ink); font-weight: 500; }
@@ -356,8 +367,7 @@ table.board a:hover { text-decoration: underline; }
   letter-spacing: .12em; color: var(--ink-soft);
   margin: 1.2rem 0 .5rem; padding-top: .8rem; border-top: 1px solid var(--line-2);
 }
-.panel .total { margin: 1.1rem -1.25rem -1.4rem; border-radius: 0 0 var(--r) var(--r); }
-.range-note { font-family: var(--f-mono); font-size: var(--step--2); color: var(--ink-soft); margin: .9rem 0 0; line-height: 1.5; }
+.range-note { font-family: var(--f-mono); font-size: var(--step--2); color: var(--ink-soft); margin: 0; line-height: 1.5; }
 
 .sticky-sheet { position: sticky; top: 4.75rem; }
 @media (max-width: 56rem) { .sticky-sheet { position: static; } }
