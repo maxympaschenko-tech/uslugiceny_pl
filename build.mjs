@@ -221,9 +221,19 @@ for (const city of cities) {
   <h1>Roboty remontowe ${city.loc}</h1>
   <p class="lede">Remont pod klucz wychodzi tu około ${money(Math.round(std))} zł za m², czyli ${diff === 0 ? 'dokładnie tyle, co średnio w kraju' : diff > 0 ? `o ${diff}% powyżej` : `o ${Math.abs(diff)}% poniżej`} średniej krajowej stawki.</p>
   ${draftFlag}
+  ${(city.opis || []).map((a, i) => `<p class="${i === 0 ? 'kat-wstep' : 'section-note'}">${a}</p>`).join('')}
+
+  <h2 style="margin-top:2rem">Cennik robót ${city.loc}</h2>
   <p class="section-note">Słowo „własny” w kolumnie Materiał oznacza, że tę pozycję zwykle kupuje inwestor, a ekipa liczy wyłącznie robociznę. Kliknięcie nagłówka sortuje tabelę.</p>
   ${rows}
-  <p class="receipt-foot" style="margin-top:1.4rem">Policz konkretny zakres: <a href="${R}kalkulator/remont-mieszkania/">mieszkanie pod klucz</a>, <a href="${R}kalkulator/lazienka/">łazienka</a>, <a href="${R}kalkulator/wylewka/">wylewka</a>.</p>
+  <h2 style="margin-top:2rem">Policz swój zakres</h2>
+  <div class="city-links">
+    <a href="${R}kalkulator/remont-mieszkania/">Mieszkanie pod klucz</a>
+    <a href="${R}kalkulator/lazienka/">Łazienka</a>
+    <a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a>
+    <a href="${R}kalkulator/dach/">Pokrycie dachu</a>
+    <a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a>
+  </div>
 </div></section>`,
       jsonLd: {
         '@context': 'https://schema.org',
