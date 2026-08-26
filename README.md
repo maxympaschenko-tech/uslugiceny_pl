@@ -1,4 +1,4 @@
-# Kosztorys.pl — baza cen robót remontowych
+# uslugiceny.pl — baza cen robót remontowych
 
 Statyczna strona z cenami robót remontowych w 10 największych miastach Polski
 oraz kalkulatorami, które zwracają kosztorys pozycja po pozycji, a nie jedną kwotę.

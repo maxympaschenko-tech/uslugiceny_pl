@@ -131,7 +131,7 @@ await write(
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'Kosztorys.pl',
+      name: 'uslugiceny.pl',
       inLanguage: 'pl',
       about: 'Ceny robót remontowych w Polsce',
     },

@@ -6,7 +6,7 @@ import works from './data/works.json' with { type: 'json' };
 const ROOT = process.env.BASE_PATH || '/';
 
 export const SITE = {
-  name: 'Kosztorys.pl',
+  name: 'uslugiceny.pl',
   base: process.env.SITE_URL || 'https://uslugiceny.pl',
   root: ROOT,
   updated: works.meta.updated,
