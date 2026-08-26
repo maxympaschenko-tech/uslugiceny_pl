@@ -7,10 +7,10 @@ import { layout, estimateSheet, calcScript, field, select, check, money } from '
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
-import { sprawdzOfertePage, szukajPage } from './src/pages-tools.mjs';
+import { sprawdzOfertePage, szukajPage, sezonowoscPage } from './src/pages-tools.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
-import { DOMY, ocieplenieMetrazPage } from './src/pages-extra.mjs';
+import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
 const R = SITE.root;
@@ -130,6 +130,8 @@ await write(
   <h2>Ile kosztuje remont mieszkania o powierzchni</h2>
   <p class="section-note">Gotowe wyliczenia dla najczęstszych metraży, w trzech standardach i dziesięciu miastach.</p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
+  <p class="section-note" style="margin-top:1.2rem">Wykończenie mieszkania od dewelopera:</p>
+  <div class="city-links">${WYKONCZENIA.map((m) => `<a href="${R}koszt-wykonczenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem">Ocieplenie domu o powierzchni:</p>
   <div class="city-links">${DOMY.map((m) => `<a href="${R}koszt-ocieplenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="receipt-foot" style="margin-top:1rem">Zajrzyj też do <a href="${R}poradnik/">poradników</a> o kolejności prac i do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
@@ -626,6 +628,14 @@ for (const dm of DOMY) {
   extraUrls.push(`/koszt-ocieplenia/${dm.m}-m2/`);
 }
 
+for (const wm of WYKONCZENIA) {
+  await write(
+    `koszt-wykonczenia/${wm.m}-m2`,
+    wykonczenieMetrazPage({ wm, cities, unitPrice, levels, sourceFlag: draftFlag })
+  );
+  extraUrls.push(`/koszt-wykonczenia/${wm.m}-m2/`);
+}
+
 /* ================= poradniki ================= */
 
 const catSlug = (id) => categories.find((c) => c.id === id).slug;
@@ -722,7 +732,8 @@ for (const s of staticPages) {
 
 await write('sprawdz-oferte', sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice }));
 await write('szukaj', szukajPage());
-extraUrls.push('/sprawdz-oferte/', '/szukaj/');
+await write('kiedy-remontowac', sezonowoscPage());
+extraUrls.push('/sprawdz-oferte/', '/szukaj/', '/kiedy-remontowac/');
 
 // Indeks wyszukiwarki: same strony docelowe, bez wariantów miejskich,
 // bo lista 900 pozycji nie pomaga, tylko zasypuje wyniki powtórzeniami.
@@ -746,8 +757,10 @@ const indeks = [
   ...POROWNANIA.map((p) => ({ t: `${p.h1}?`, u: `${R}porownanie/${p.slug}/`, k: 'porównanie', o: p.lede })),
   ...METRAZE.map((m) => ({ t: `Remont mieszkania ${m.m} m²`, u: `${R}koszt-remontu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...DOMY.map((m) => ({ t: `Ocieplenie domu ${m.m} m²`, u: `${R}koszt-ocieplenia/${m.m}-m2/`, k: 'metraż', o: m.opis })),
+  ...WYKONCZENIA.map((m) => ({ t: `Wykończenie mieszkania ${m.m} m²`, u: `${R}koszt-wykonczenia/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
   { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
+  { t: 'Kiedy remont wychodzi taniej', u: `${R}kiedy-remontowac/`, k: 'poradnik', o: 'Kalendarz obłożenia ekip i różnice stawek w ciągu roku.' },
 ];
 await writeFile(join(OUT, 'search-index.json'), JSON.stringify(indeks));
 

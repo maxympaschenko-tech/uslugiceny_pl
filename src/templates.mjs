@@ -114,6 +114,14 @@ ${body}
       <a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a>
       <a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a>
     </div>
+    <p class="foot-h">Przydatne</p>
+    <div class="city-links">
+      <a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a>
+      <a href="${R}kiedy-remontowac/">Kiedy remontować taniej</a>
+      <a href="${R}poradnik/">Poradniki</a>
+      <a href="${R}porownanie/">Porównania</a>
+      <a href="${R}szukaj/">Szukaj</a>
+    </div>
     <p class="foot-h">Serwis</p>
     <div class="city-links">
       <a href="${R}o-nas/">O serwisie</a>

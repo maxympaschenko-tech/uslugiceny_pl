@@ -380,3 +380,80 @@ export function ocieplenieMetrazPage({ dm, cities, unitPrice, cityOptions, W_JSO
 bindSort(document.getElementById('board'));`,
   });
 }
+
+/* ---------- metraże wykończenia stanu deweloperskiego ---------- */
+
+export const WYKONCZENIA = [
+  { m: 35, opis: 'Kawalerka albo małe mieszkanie dwupokojowe od dewelopera.', uwaga: 'Przy małym metrażu łazienka stanowi nieproporcjonalnie dużą część kosztu, bo jej wyposażenie i hydroizolacja kosztują tyle samo co w mieszkaniu dwa razy większym.' },
+  { m: 45, opis: 'Najczęściej kupowane mieszkanie dwupokojowe.', uwaga: 'To metraż, przy którym warto porównać pakiet wykończeniowy dewelopera z wyceną niezależnej ekipy. Różnica bywa mniejsza w cenie niż w standardzie materiałów.' },
+  { m: 55, opis: 'Mieszkanie dwu albo trzypokojowe z osobną kuchnią.', uwaga: 'Powyżej pięćdziesięciu metrów rośnie udział gładzi i malowania, bo ścian przybywa szybciej niż podłogi.' },
+  { m: 65, opis: 'Trzypokojowe mieszkanie rodzinne.', uwaga: 'Przy tej wielkości często dochodzi druga strefa mokra albo osobna toaleta, co oznacza kolejny punkt wodno-kanalizacyjny i osobny biały montaż.' },
+];
+
+const zakresWykonczenia = (a) => [
+  ['gladz', a * 2.9], ['gruntowanie', a * 2.9], ['malowanie', a * 2.9],
+  ['samopoziomujaca', a * 0.85], ['panele', a * 0.62], ['listwy', a * 0.75],
+  ['hydroizolacja', a * 0.16], ['plytki_podloga', a * 0.12], ['plytki_sciana', a * 0.45 + 4],
+  ['silikonowanie', 12], ['montaz_wc', 1], ['montaz_umywalki', 1], ['montaz_wanny', 1],
+  ['montaz_baterii', 3], ['grzejnik', 1], ['podlaczenie_pralki', 1], ['punkt_wod_kan', 4],
+  ['punkt_elektryczny', a * 0.32], ['montaz_lampy', Math.max(3, Math.round(a * 0.12))],
+  ['montaz_drzwi', Math.max(2, Math.round(a / 18))], ['sprzatanie', a],
+];
+
+export function wykonczenieMetrazPage({ wm, cities, unitPrice, levels, sourceFlag }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const suma = (coef, k) =>
+    zakresWykonczenia(wm.m).reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / wm.m)}">${money(Math.round(suma(c.coef, 1) / wm.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Wykończenie mieszkania ${wm.m} m² od dewelopera: cena w ${YEAR}`,
+    description: `Ile kosztuje wykończenie mieszkania ${wm.m} m² w stanie deweloperskim: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Robocizna z materiałami, ceny w 10 miastach.`,
+    path: `/koszt-wykonczenia/${wm.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie</a> · ${wm.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Stan deweloperski · aktualizacja ${SITE.updated}</p>
+  <h1>Wykończenie mieszkania ${wm.m} m²</h1>
+  <p class="lede">Wykończenie ${wm.m} metrów w standardzie podstawowym kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${wm.opis} Kwota obejmuje robociznę i materiały budowlane: gładzie, malowanie, podłogi, płytki, hydroizolację, osprzęt elektryczny i montaż. Nie obejmuje ceny drzwi, armatury, opraw oświetleniowych ani mebli, bo te kupuje inwestor i ich koszt zależy wyłącznie od wybranych modeli.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${wm.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres? Przejdź do <a href="${R}kalkulator/wykonczenie-pod-klucz/">kalkulatora wykończenia</a>. Jeśli masz już wycenę od ekipy, sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje wykończenie mieszkania ${wm.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Robocizna z materiałami budowlanymi to od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, czyli mniej więcej ${money(Math.round(suma(1, 1) / wm.m))} zł za metr. Bez drzwi, armatury i opraw, które kupuje inwestor.` } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
+  });
+}
