@@ -635,12 +635,27 @@ const staticPages = [
     h1: 'Polityka prywatności',
     body: `
   <p class="lede">Serwis jest stroną statyczną. Nie prowadzimy kont użytkowników i nie zbieramy danych osobowych przez formularze.</p>
+
+  <h2 style="margin-top:1.8rem">Administrator danych</h2>
+  <p class="section-note">Administratorem danych zbieranych za pośrednictwem serwisu jest właściciel domeny uslugiceny.pl. Kontakt w każdej sprawie dotyczącej danych: kontakt@uslugiceny.pl.</p>
+
   <h2 style="margin-top:1.8rem">Kalkulatory</h2>
-  <p class="section-note">Wszystkie wyliczenia wykonuje przeglądarka na Twoim urządzeniu. Wymiary i zakres prac, które wpisujesz w kalkulatorach, nie są nigdzie wysyłane ani zapisywane.</p>
+  <p class="section-note">Wszystkie wyliczenia wykonuje przeglądarka na Twoim urządzeniu. Wymiary i zakres prac, które wpisujesz w kalkulatorach, nie trafiają na nasz serwer. Zapisują się natomiast w adresie strony, żeby dało się wrócić do wyliczenia albo wysłać je wykonawcy. Jeśli udostępnisz taki link, odbiorca zobaczy wpisane przez Ciebie parametry.</p>
+
+  <h2 style="margin-top:1.8rem">Statystyki i pliki cookies</h2>
+  <p class="section-note">Serwis korzysta z Google Tag Manager, przez który uruchamiane są narzędzia analityczne Google. Zapisują one pliki cookies i przetwarzają dane o sposobie korzystania ze strony: odwiedzone adresy, źródło wejścia, przybliżoną lokalizację, typ urządzenia i przeglądarki. Dane te służą wyłącznie do zrozumienia, które treści są przydatne, i nie są łączone z Twoimi danymi osobowymi.</p>
+  <p class="section-note">Podstawą przetwarzania jest nasz uzasadniony interes polegający na prowadzeniu statystyki serwisu. Dostawcą narzędzi jest Google Ireland Limited, a dane mogą być przekazywane poza Europejski Obszar Gospodarczy na zasadach opisanych w polityce prywatności Google.</p>
+  <p class="section-note">Możesz w każdej chwili zablokować pliki cookies w ustawieniach przeglądarki albo skorzystać z dodatku blokującego skrypty analityczne. Strona działa wtedy bez żadnych ograniczeń: kalkulatory i cenniki nie wymagają cookies.</p>
+
+  <h2 style="margin-top:1.8rem">Kroje pisma</h2>
+  <p class="section-note">Kroje pisma pobierane są z serwerów Google, które mogą odnotować adres IP przy pobraniu pliku.</p>
+
   <h2 style="margin-top:1.8rem">Logi serwera</h2>
   <p class="section-note">Serwer zapisuje standardowe logi dostępu: adres IP, datę zapytania, adres strony i typ przeglądarki. Służą wyłącznie diagnostyce i bezpieczeństwu.</p>
-  <h2 style="margin-top:1.8rem">Pliki cookies</h2>
-  <p class="section-note">Serwis nie zapisuje własnych plików cookies ani nie korzysta z zewnętrznych narzędzi śledzących. Wyjątkiem są kroje pisma pobierane z serwerów Google, które mogą odnotować adres IP przy pobraniu pliku.</p>
+
+  <h2 style="margin-top:1.8rem">Twoje prawa</h2>
+  <p class="section-note">Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania oraz wniesienia sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie. Przysługuje Ci również skarga do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+
   <h2 style="margin-top:1.8rem">Kontakt w sprawie danych</h2>
   <p class="section-note">kontakt@uslugiceny.pl</p>`,
   },
