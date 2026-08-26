@@ -387,6 +387,14 @@ ul.factors li::before {
   width: .55rem; height: 2px; background: var(--signal); border-radius: 2px;
 }
 
+/* ---------- informacja o zrodle stawek ---------- */
+
+.source-flag {
+  font-size: var(--step--1); color: var(--ink-soft);
+  margin: 1rem 0 0; padding-left: .85rem;
+  border-left: 3px solid var(--signal);
+}
+
 /* ---------- komunikat wersji roboczej ---------- */
 
 .draft-flag {

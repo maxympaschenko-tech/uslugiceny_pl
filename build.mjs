@@ -45,8 +45,8 @@ const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
 
 const draftFlag =
   meta.status === 'draft'
-    ? `<p class="draft-flag"><strong>Wersja robocza cennika.</strong> Stawki bazowe pochodzą z rynkowego przedziału i nie zostały jeszcze zweryfikowane z cennikami ekip. Rząd wielkości jest właściwy, konkretne kwoty jeszcze się zmienią.</p>`
-    : '';
+    ? `<p class="draft-flag"><strong>Wersja robocza cennika.</strong> Stawki bazowe pochodzą z rynkowego przedziału i nie zostały jeszcze zweryfikowane z cennikami ekip.</p>`
+    : `<p class="source-flag">Stawki skalibrowane z publicznymi cennikami z ${meta.checked}. <a href="${R}jak-liczymy/">Zobacz źródła i metodę</a>.</p>`;
 
 /* ================= strona główna ================= */
 
@@ -480,12 +480,18 @@ await write(
   <h2 style="margin-top:2rem">Czego w kosztorysie nie ma</h2>
   <p class="section-note">Armatura, baterie, drzwi, oprawy oświetleniowe i meble liczone są wyłącznie jako montaż, bo zwykle kupuje je inwestor. Nie ma tu również projektu, pozwoleń, wynajmu mieszkania na czas remontu ani prac nieprzewidzianych, na które warto doliczyć od 10 do 15 procent.</p>
 
-  <h2 style="margin-top:2rem">Źródła</h2>
-  <div class="cards">
-    <div class="card"><h3>Cenniki ekip</h3><p>Publiczne cenniki wykonawców w każdym z dziesięciu miast, z datą zebrania.</p></div>
-    <div class="card"><h3>Ceny materiałów</h3><p>Ceny detaliczne sieci budowlanych, przeliczone na jednostkę roboty z uwzględnieniem zużycia i docinki.</p></div>
-    <div class="card"><h3>GUS</h3><p>Statystyka cen w budownictwie do kontroli dynamiki, nie wartości bezwzględnych. Otwarte API, licencja CC BY 4.0.</p></div>
-  </div>
+  <h2 style="margin-top:2rem">Źródła stawek</h2>
+  <p class="section-note">Stawka bazowa każdej pozycji to mediana widełek, które podają publiczne zestawienia cen robót. Poniżej lista opracowań wykorzystanych przy ostatniej kalibracji z ${meta.checked}. Widełki bywają szerokie, bo obejmują różny stan podłoża i różny standard wykonania, dlatego bierzemy środek przedziału, a nie jego dolny kraniec.</p>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Opracowanie</th><th>Data</th></tr></thead>
+    <tbody>${(meta.sources || [])
+      .map((s) => `<tr><td>${s.name}</td><td class="num">${s.date}</td></tr>`)
+      .join('')}</tbody>
+  </table></div>
+  <p class="section-note" style="margin-top:1rem">Ceny materiałów przeliczamy na jednostkę roboty z uwzględnieniem zużycia i docinki. Statystykę cen w budownictwie GUS traktujemy jako kontrolę dynamiki, a nie źródło wartości bezwzględnych.</p>
+
+  <h2 style="margin-top:2rem">Czego ta metoda nie obejmuje</h2>
+  <p class="section-note">Mediana widełek to punkt odniesienia, nie wycena. Ekipa z pełnym kalendarzem podaje więcej, ekipa szukająca zlecenia mniej, a przy małym metrażu dochodzi dojazd i rozruch sprzętu, które przy jednym pomieszczeniu potrafią podnieść stawkę za metr o kilkadziesiąt procent.</p>
 </div></section>`,
     script: `${calcScript}
 document.querySelectorAll('table.board').forEach(bindSort);`,

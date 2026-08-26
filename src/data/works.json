@@ -2,9 +2,32 @@
   "meta": {
     "currency": "PLN",
     "updated": "2026-08",
-    "status": "draft",
+    "status": "calibrated",
     "basis": "Stawka bazowa = mediana dla Polski. Cena w mieście = stawka bazowa × współczynnik miasta z cities.json.",
-    "note": "WERSJA ROBOCZA. Rząd wielkości jest rynkowy, konkretne stawki wymagają weryfikacji z cennikami ekip."
+    "note": "Stawki skalibrowane z publicznymi cennikami i zestawieniami rynkowymi z 2026 roku. To mediana widelek, a nie oferta konkretnej ekipy.",
+    "checked": "2026-08",
+    "sources": [
+      {
+        "name": "Oferteo, zestawienie kosztow remontu mieszkania",
+        "date": "2026-04"
+      },
+      {
+        "name": "ogarnijremont.pl, cennik uslug remontowych 2026",
+        "date": "2026-05"
+      },
+      {
+        "name": "x-remonty.pl, cenniki prac remontowych i wykonczeniowych",
+        "date": "2026-03"
+      },
+      {
+        "name": "alleremont.pl, wylewki i posadzki, cennik za m2",
+        "date": "2026-06"
+      },
+      {
+        "name": "legar-uslugi.pl, ceny uslug remontowych 2026",
+        "date": "2026-03"
+      }
+    ]
   },
   "levels": [
     {
@@ -92,7 +115,7 @@
       "id": "skucie_tynkow",
       "cat": "demont",
       "unit": "m2",
-      "labour": 26,
+      "labour": 30,
       "material": 0,
       "name": "Skucie starych tynków"
     },
@@ -100,7 +123,7 @@
       "id": "skuwanie_plytek",
       "cat": "demont",
       "unit": "m2",
-      "labour": 32,
+      "labour": 38,
       "material": 0,
       "name": "Skuwanie starych płytek"
     },
@@ -134,7 +157,7 @@
       "id": "tynk_gipsowy",
       "cat": "walls",
       "unit": "m2",
-      "labour": 46,
+      "labour": 33,
       "material": 17,
       "name": "Tynk gipsowy maszynowy"
     },
@@ -142,8 +165,8 @@
       "id": "gladz",
       "cat": "walls",
       "unit": "m2",
-      "labour": 34,
-      "material": 8,
+      "labour": 42,
+      "material": 10,
       "factors": [
         "Standard wykończenia: gładź pod tapetę wymaga mniej pracy niż pod farbę z połyskiem.",
         "Stan podłoża: krzywe tynki oznaczają grubszą warstwę i dodatkową robociznę.",
@@ -156,7 +179,7 @@
       "id": "malowanie",
       "cat": "walls",
       "unit": "m2",
-      "labour": 21,
+      "labour": 22,
       "material": 7,
       "factors": [
         "Liczba warstw i kryjność koloru: intensywne barwy wymagają trzeciej warstwy.",
@@ -170,7 +193,7 @@
       "id": "gk_sciana",
       "cat": "walls",
       "unit": "m2",
-      "labour": 95,
+      "labour": 55,
       "material": 48,
       "name": "Zabudowa ściany z płyty GK"
     },
@@ -178,7 +201,7 @@
       "id": "gk_sufit",
       "cat": "walls",
       "unit": "m2",
-      "labour": 115,
+      "labour": 70,
       "material": 55,
       "spread": 0.2,
       "name": "Sufit podwieszany z GK"
@@ -187,7 +210,7 @@
       "id": "scianka_gk",
       "cat": "walls",
       "unit": "m2",
-      "labour": 125,
+      "labour": 80,
       "material": 62,
       "spread": 0.2,
       "name": "Ścianka działowa GK"
@@ -196,16 +219,16 @@
       "id": "gruntowanie",
       "cat": "walls",
       "unit": "m2",
-      "labour": 7,
-      "material": 3,
+      "labour": 14,
+      "material": 4,
       "name": "Gruntowanie"
     },
     {
       "id": "wylewka_cem",
       "cat": "floor",
       "unit": "m2",
-      "labour": 48,
-      "material": 11,
+      "labour": 30,
+      "material": 6,
       "perCm": true,
       "factors": [
         "Grubość warstwy: każdy dodatkowy centymetr to więcej zaprawy, a nie więcej robocizny.",
@@ -219,8 +242,8 @@
       "id": "wylewka_anhydryt",
       "cat": "floor",
       "unit": "m2",
-      "labour": 42,
-      "material": 14,
+      "labour": 34,
+      "material": 8,
       "perCm": true,
       "name": "Wylewka anhydrytowa (mixokret)"
     },
@@ -228,7 +251,7 @@
       "id": "samopoziomujaca",
       "cat": "floor",
       "unit": "m2",
-      "labour": 32,
+      "labour": 33,
       "material": 22,
       "name": "Masa samopoziomująca"
     },
@@ -244,7 +267,7 @@
       "id": "panele",
       "cat": "floor",
       "unit": "m2",
-      "labour": 46,
+      "labour": 42,
       "material": 62,
       "name": "Montaż paneli podłogowych"
     },
@@ -261,7 +284,7 @@
       "id": "listwy",
       "cat": "floor",
       "unit": "mb",
-      "labour": 19,
+      "labour": 18,
       "material": 16,
       "name": "Montaż listew przypodłogowych"
     },
@@ -269,7 +292,7 @@
       "id": "hydroizolacja",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 46,
+      "labour": 50,
       "material": 29,
       "name": "Hydroizolacja podpłytkowa"
     },
@@ -277,7 +300,7 @@
       "id": "plytki_podloga",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 128,
+      "labour": 68,
       "material": 92,
       "factors": [
         "Format i rodzaj płytki: gres wielkoformatowy wymaga dwóch osób i innych narzędzi.",
@@ -291,7 +314,7 @@
       "id": "plytki_sciana",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 148,
+      "labour": 58,
       "material": 92,
       "factors": [
         "Format płytki: im większa, tym trudniejsze ułożenie i wyższa stawka za metr.",
@@ -305,7 +328,7 @@
       "id": "plytki_wielkoformat",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 210,
+      "labour": 120,
       "material": 165,
       "spread": 0.25,
       "name": "Płytki wielkoformatowe"
@@ -322,7 +345,7 @@
       "id": "punkt_wod_kan",
       "cat": "plumbing",
       "unit": "pkt",
-      "labour": 330,
+      "labour": 420,
       "material": 125,
       "spread": 0.25,
       "name": "Punkt wodno-kanalizacyjny"
@@ -403,7 +426,7 @@
       "id": "punkt_elektryczny",
       "cat": "electric",
       "unit": "pkt",
-      "labour": 88,
+      "labour": 120,
       "material": 34,
       "factors": [
         "Materiał ścian: beton wymaga dłuższego bruzdowania niż płyta g-k.",
