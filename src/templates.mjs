@@ -28,7 +28,7 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${R}assets/style.css">
-${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : ''}
+${jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n') : ''}
 </head>
 <body>
 <header class="site-head">
@@ -55,6 +55,9 @@ ${body}
       <a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania pod klucz</a>
       <a href="${R}kalkulator/lazienka/">Remont łazienki</a>
       <a href="${R}kalkulator/wylewka/">Wylewka podłogowa</a>
+      <a href="${R}kalkulator/malowanie/">Malowanie</a>
+      <a href="${R}kalkulator/plytki/">Układanie płytek</a>
+      <a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a>
     </div>
     <p>Ceny w złotych z VAT, aktualizacja: ${SITE.updated}. To punkt odniesienia do rozmowy z wykonawcą, a nie oferta handlowa: ostateczną cenę podaje ekipa po obejrzeniu lokalu.</p>
   </div>

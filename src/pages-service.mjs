@@ -16,6 +16,18 @@ export const slugify = (s) =>
 
 const unitPl = (units, w) => units[w.unit].name;
 
+const crumbLd = (items) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.name,
+    item: SITE.base + it.path,
+  })),
+});
+
+
 /* ---------- wspólne bloki ---------- */
 
 const priceCard = (w, units, avg, min, max) => `
@@ -126,20 +138,27 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
       : ''
   }
 </div></section>`,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: w.name,
-      serviceType: cat.name,
-      areaServed: { '@type': 'Country', name: 'Polska' },
-      offers: {
-        '@type': 'AggregateOffer',
-        priceCurrency: 'PLN',
-        lowPrice: Math.round(min),
-        highPrice: Math.round(max),
-        offerCount: cities.length,
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: w.name,
+        serviceType: cat.name,
+        areaServed: { '@type': 'Country', name: 'Polska' },
+        offers: {
+          '@type': 'AggregateOffer',
+          priceCurrency: 'PLN',
+          lowPrice: Math.round(min),
+          highPrice: Math.round(max),
+          offerCount: cities.length,
+        },
       },
-    },
+      crumbLd([
+        { name: 'Cennik', path: '/' },
+        { name: cat.name, path: `/uslugi/${cat.slug}/` },
+        { name: w.name, path },
+      ]),
+    ],
     script: `${calcScript}
 const W = ${JSON.stringify({ id: w.id, labour: w.labour, material: w.material, perCm: !!w.perCm, unit: u })};
 const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
@@ -205,19 +224,27 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     })
     .join('')}</div>
 </div></section>`,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: `${w.name} ${city.loc}`,
-      serviceType: cat.name,
-      areaServed: { '@type': 'City', name: city.name },
-      offers: {
-        '@type': 'AggregateOffer',
-        priceCurrency: 'PLN',
-        lowPrice: Math.round(t * (1 - spread)),
-        highPrice: Math.round(t * (1 + spread)),
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: `${w.name} ${city.loc}`,
+        serviceType: cat.name,
+        areaServed: { '@type': 'City', name: city.name },
+        offers: {
+          '@type': 'AggregateOffer',
+          priceCurrency: 'PLN',
+          lowPrice: Math.round(t * (1 - spread)),
+          highPrice: Math.round(t * (1 + spread)),
+        },
       },
-    },
+      crumbLd([
+        { name: 'Cennik', path: '/' },
+        { name: cat.name, path: `/uslugi/${cat.slug}/` },
+        { name: w.name, path: `/${cat.slug}/${slugify(w.name)}/` },
+        { name: city.name, path: `/${cat.slug}/${slugify(w.name)}/${city.slug}/` },
+      ]),
+    ],
     script: `${calcScript}
 const W = ${JSON.stringify({ labour: w.labour, material: w.material, perCm: !!w.perCm })};
 const COEF = ${city.coef};

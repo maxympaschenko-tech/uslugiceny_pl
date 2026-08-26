@@ -5,6 +5,7 @@ import worksFile from './src/data/works.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
 import { layout, estimateSheet, calcScript, field, select, check, money } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
+import { CALCS, calcPage } from './src/pages-calc.mjs';
 
 const OUT = 'dist';
 const R = SITE.root;
@@ -126,6 +127,9 @@ await write(
     <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania pod klucz</a></h3><p>Metraż, standard wykończenia i zakres demontaży. Na wyjściu kosztorys po kategoriach z rozbiciem na robociznę i materiały.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/lazienka/">Remont łazienki</a></h3><p>Płytki, hydroizolacja i armatura liczone sztuka po sztuce. Najdroższe pomieszczenie w mieszkaniu w przeliczeniu na metr.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/wylewka/">Wylewka podłogowa</a></h3><p>Powierzchnia i grubość dają objętość zaprawy, liczbę worków i cenę robocizny osobno od materiału.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/malowanie/">Malowanie</a></h3><p>Wymiary pokoju przeliczone na metry ścian i sufitu, z gruntowaniem i gładzią do wyboru.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/plytki/">Układanie płytek</a></h3><p>Podłoga i ściany osobno, format wielkoformatowy, hydroizolacja i wyrównanie podłoża.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a></h3><p>Tynk, gładź, grunt i malowanie rozdzielone, żeby było widać koszt każdego etapu.</p></div>
   </div>
 </div></section>`,
     jsonLd: {
@@ -445,6 +449,15 @@ const CITIES = ${CITY_MAP};
   })
 );
 
+/* ================= kalkulatory pojedynczych robót ================= */
+
+for (const c of CALCS) {
+  await write(
+    `kalkulator/${c.slug}`,
+    calcPage({ c, cityOptions, W_JSON, CITY_MAP, sourceFlag: draftFlag })
+  );
+}
+
 /* ================= metodologia ================= */
 
 await write(
@@ -560,6 +573,7 @@ const urls = [
   '/kalkulator/remont-mieszkania/',
   '/kalkulator/lazienka/',
   '/kalkulator/wylewka/',
+  ...CALCS.map((c) => `/kalkulator/${c.slug}/`),
   ...cities.map((c) => `/ceny/${c.slug}/`),
   ...serviceUrls,
 ];

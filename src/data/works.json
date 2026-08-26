@@ -117,7 +117,12 @@
       "unit": "m2",
       "labour": 30,
       "material": 0,
-      "name": "Skucie starych tynków"
+      "name": "Skucie starych tynków",
+      "factors": [
+        "Rodzaj tynku: cementowo-wapienny schodzi trudniej niż gipsowy.",
+        "Grubość warstwy i to, czy pod spodem jest cegła, czy beton.",
+        "Konieczność ręcznego skuwania tam, gdzie młot udarowy naruszyłby instalacje."
+      ]
     },
     {
       "id": "skuwanie_plytek",
@@ -125,7 +130,12 @@
       "unit": "m2",
       "labour": 38,
       "material": 0,
-      "name": "Skuwanie starych płytek"
+      "name": "Skuwanie starych płytek",
+      "factors": [
+        "Rodzaj kleju: płytki na starym kleju cementowym schodzą z fragmentem tynku.",
+        "Czy podłoże ma zostać nienaruszone pod nową okładzinę, czy idzie do skucia razem z płytkami.",
+        "Praca w lokalu zamieszkanym, gdzie trzeba wygrodzić strefę i ograniczyć pylenie."
+      ]
     },
     {
       "id": "wyburzenie_scianki",
@@ -133,7 +143,12 @@
       "unit": "m2",
       "labour": 65,
       "material": 0,
-      "name": "Wyburzenie ścianki działowej"
+      "name": "Wyburzenie ścianki działowej",
+      "factors": [
+        "Rodzaj ścianki: karton-gips schodzi w godzinę, cegła dziurawka to inny nakład pracy.",
+        "Konieczność ekspertyzy, gdy ścianka może pełnić funkcję nośną.",
+        "Przejścia instalacyjne w ściance, które trzeba przepiąć przed rozbiórką."
+      ]
     },
     {
       "id": "demontaz_podlogi",
@@ -141,7 +156,12 @@
       "unit": "m2",
       "labour": 22,
       "material": 0,
-      "name": "Demontaż starej podłogi"
+      "name": "Demontaż starej podłogi",
+      "factors": [
+        "Rodzaj warstwy: panele zdejmuje się szybko, klejony parkiet lub płytki znacznie wolniej.",
+        "Czy pod spodem jest legarowanie albo stara wylewka do skucia.",
+        "Wysokość kondygnacji i dostępność windy przy znoszeniu materiału."
+      ]
     },
     {
       "id": "wywoz_gruzu",
@@ -151,7 +171,12 @@
       "material": 90,
       "spread": 0.3,
       "name": "Wywóz gruzu z kontenerem",
-      "materialLabel": "kontener i utylizacja"
+      "materialLabel": "kontener i utylizacja",
+      "factors": [
+        "Odległość do najbliższego punktu utylizacji i opłata za przyjęcie odpadów.",
+        "Możliwość podstawienia kontenera pod budynkiem: brak miejsca oznacza znoszenie w workach.",
+        "Segregacja: gruz czysty jest tańszy w utylizacji niż zmieszany z opakowaniami i styropianem."
+      ]
     },
     {
       "id": "tynk_gipsowy",
@@ -159,7 +184,12 @@
       "unit": "m2",
       "labour": 33,
       "material": 17,
-      "name": "Tynk gipsowy maszynowy"
+      "name": "Tynk gipsowy maszynowy",
+      "factors": [
+        "Sposób nakładania: agregat na dużej powierzchni wychodzi taniej niż tynk ręczny.",
+        "Liczba narożników, ościeży i skosów, gdzie maszyna nie pomaga.",
+        "Konieczność zamontowania siatek i narożników na pęknięciach i stykach materiałów."
+      ]
     },
     {
       "id": "gladz",
@@ -195,7 +225,12 @@
       "unit": "m2",
       "labour": 55,
       "material": 48,
-      "name": "Zabudowa ściany z płyty GK"
+      "name": "Zabudowa ściany z płyty GK",
+      "factors": [
+        "Rodzaj płyty: wodoodporna i ogniowa są droższe i cięższe w montażu.",
+        "Ruszt: pojedynczy czy podwójny, z wypełnieniem wełną czy bez.",
+        "Wysokość zabudowy powyżej 3 m, gdzie płyty trzeba łączyć i wzmacniać."
+      ]
     },
     {
       "id": "gk_sufit",
@@ -204,7 +239,12 @@
       "labour": 70,
       "material": 55,
       "spread": 0.2,
-      "name": "Sufit podwieszany z GK"
+      "name": "Sufit podwieszany z GK",
+      "factors": [
+        "Wysokość pomieszczenia i konieczność pracy z rusztowań.",
+        "Liczba poziomów i profili gięte, jeśli sufit ma być wielopłaszczyznowy.",
+        "Wycięcia pod oprawy punktowe i przygotowanie zasilania do każdej z nich."
+      ]
     },
     {
       "id": "scianka_gk",
@@ -213,7 +253,12 @@
       "labour": 80,
       "material": 62,
       "spread": 0.2,
-      "name": "Ścianka działowa GK"
+      "name": "Ścianka działowa GK",
+      "factors": [
+        "Grubość profilu i wymagana izolacyjność akustyczna.",
+        "Podwójne płytowanie, gdy ścianka ma nieść ciężkie szafki lub telewizor.",
+        "Osadzenie ościeżnicy, jeśli w ściance przewidziane są drzwi."
+      ]
     },
     {
       "id": "gruntowanie",
@@ -221,7 +266,12 @@
       "unit": "m2",
       "labour": 14,
       "material": 4,
-      "name": "Gruntowanie"
+      "name": "Gruntowanie",
+      "factors": [
+        "Chłonność podłoża: mocno chłonny tynk wymaga dwóch przejść.",
+        "Rodzaj gruntu: preparat głęboko penetrujący kosztuje więcej niż zwykła emulsja.",
+        "Powierzchnia zlecenia, bo przy kilkunastu metrach liczy się głównie dojazd."
+      ]
     },
     {
       "id": "wylewka_cem",
@@ -245,7 +295,12 @@
       "labour": 34,
       "material": 8,
       "perCm": true,
-      "name": "Wylewka anhydrytowa (mixokret)"
+      "name": "Wylewka anhydrytowa (mixokret)",
+      "factors": [
+        "Możliwość podania mieszanki wężem: brak dojazdu miksokreta zmienia technologię.",
+        "Grubość warstwy i wymagana klasa wytrzymałości.",
+        "Konieczność dylatacji i pól roboczych przy ogrzewaniu podłogowym."
+      ]
     },
     {
       "id": "samopoziomujaca",
@@ -253,7 +308,12 @@
       "unit": "m2",
       "labour": 33,
       "material": 22,
-      "name": "Masa samopoziomująca"
+      "name": "Masa samopoziomująca",
+      "factors": [
+        "Grubość: masa poniżej 5 mm rozlewa się inaczej niż warstwa 15 mm.",
+        "Stan podłoża i to, czy wymaga wcześniejszego szlifowania i odpylenia.",
+        "Termin: szybkoschnące masy pod okładzinę kosztują więcej."
+      ]
     },
     {
       "id": "izolacja_styropian",
@@ -261,7 +321,12 @@
       "unit": "m2",
       "labour": 18,
       "material": 26,
-      "name": "Izolacja podłogi ze styropianu"
+      "name": "Izolacja podłogi ze styropianu",
+      "factors": [
+        "Grubość i klasa styropianu: podłogowy EPS 100 jest droższy od zwykłego.",
+        "Konieczność ułożenia folii i taśm dylatacyjnych przy ścianach.",
+        "Docinki wokół rur i przejść instalacyjnych."
+      ]
     },
     {
       "id": "panele",
@@ -269,7 +334,12 @@
       "unit": "m2",
       "labour": 42,
       "material": 62,
-      "name": "Montaż paneli podłogowych"
+      "name": "Montaż paneli podłogowych",
+      "factors": [
+        "Klasa ścieralności i to, czy panele są klikane, czy klejone.",
+        "Układ: jodła i ukos zwiększają odpad i czas montażu.",
+        "Podkład: mata akustyczna pod panele liczona jest osobno."
+      ]
     },
     {
       "id": "parkiet",
@@ -278,7 +348,12 @@
       "labour": 125,
       "material": 185,
       "spread": 0.24,
-      "name": "Montaż deski podłogowej"
+      "name": "Montaż deski podłogowej",
+      "factors": [
+        "Rodzaj deski: lita wymaga innej technologii niż warstwowa.",
+        "Wykończenie na miejscu: cyklinowanie i olejowanie to osobny etap.",
+        "Układ i szerokość deski, bo wąska oznacza więcej metrów bieżących pracy."
+      ]
     },
     {
       "id": "listwy",
@@ -286,7 +361,12 @@
       "unit": "mb",
       "labour": 18,
       "material": 16,
-      "name": "Montaż listew przypodłogowych"
+      "name": "Montaż listew przypodłogowych",
+      "factors": [
+        "Materiał: MDF lakierowany jest droższy w montażu niż PCV.",
+        "Liczba narożników wewnętrznych i zewnętrznych do docięcia pod kątem.",
+        "Konieczność ukrycia przewodów w kanale listwy."
+      ]
     },
     {
       "id": "hydroizolacja",
@@ -294,7 +374,12 @@
       "unit": "m2",
       "labour": 50,
       "material": 29,
-      "name": "Hydroizolacja podpłytkowa"
+      "name": "Hydroizolacja podpłytkowa",
+      "factors": [
+        "Zakres: sama strefa mokra czy cała podłoga z wywinięciem na ściany.",
+        "Rodzaj preparatu: masa dwuskładnikowa kosztuje więcej niż jednoskładnikowa.",
+        "Taśmy i mankiety w narożnikach oraz wokół przejść instalacyjnych."
+      ]
     },
     {
       "id": "plytki_podloga",
@@ -331,7 +416,12 @@
       "labour": 120,
       "material": 165,
       "spread": 0.25,
-      "name": "Płytki wielkoformatowe"
+      "name": "Płytki wielkoformatowe",
+      "factors": [
+        "Ciężar płyty: format 120x280 wymaga dwóch osób i systemu przyssawek.",
+        "Płaskość podłoża, która przy dużym formacie musi być bliska idealnej.",
+        "Docinki i wiercenia, gdzie ryzyko pęknięcia płyty jest realnym kosztem."
+      ]
     },
     {
       "id": "silikonowanie",
@@ -339,7 +429,12 @@
       "unit": "mb",
       "labour": 22,
       "material": 6,
-      "name": "Silikonowanie"
+      "name": "Silikonowanie",
+      "factors": [
+        "Liczba narożników i styków różnych materiałów.",
+        "Rodzaj silikonu: sanitarny z ochroną przed pleśnią kosztuje więcej.",
+        "Konieczność usunięcia starej fugi silikonowej przed nałożeniem nowej."
+      ]
     },
     {
       "id": "punkt_wod_kan",
@@ -348,7 +443,13 @@
       "labour": 420,
       "material": 125,
       "spread": 0.25,
-      "name": "Punkt wodno-kanalizacyjny"
+      "name": "Punkt wodno-kanalizacyjny",
+      "factors": [
+        "Odległość punktu od pionu: każdy metr rury to dodatkowa robocizna i materiał.",
+        "Materiał instalacji: PP, PEX czy miedź, każdy z innym czasem montażu.",
+        "Konieczność kucia bruzd w ścianie nośnej pod przewody.",
+        "Próba szczelności i protokół, wymagane przy odbiorze nowej instalacji."
+      ]
     },
     {
       "id": "montaz_wanny",
@@ -357,7 +458,12 @@
       "labour": 420,
       "material": 0,
       "spread": 0.22,
-      "name": "Montaż wanny z obudową"
+      "name": "Montaż wanny z obudową",
+      "factors": [
+        "Rodzaj wanny: akrylowa na stelażu montuje się inaczej niż żeliwna.",
+        "Obudowa: gotowy panel czy zabudowa z płyty pod płytki.",
+        "Rewizja dostępowa do syfonu, którą trzeba przewidzieć w zabudowie."
+      ]
     },
     {
       "id": "montaz_kabiny",
@@ -365,7 +471,12 @@
       "unit": "szt",
       "labour": 460,
       "material": 0,
-      "name": "Montaż kabiny prysznicowej"
+      "name": "Montaż kabiny prysznicowej",
+      "factors": [
+        "Rodzaj: kabina z brodzikiem czy walk-in na posadzce.",
+        "Konieczność docięcia szkła lub profili do nierównych ścian.",
+        "Uszczelnienie i późniejsze silikonowanie, liczone czasem osobno."
+      ]
     },
     {
       "id": "odplyw_liniowy",
@@ -374,7 +485,12 @@
       "labour": 520,
       "material": 0,
       "spread": 0.22,
-      "name": "Montaż odpływu liniowego"
+      "name": "Montaż odpływu liniowego",
+      "factors": [
+        "Długość odpływu i to, czy montowany jest przy ścianie, czy na środku.",
+        "Wymagany spadek posadzki, który trzeba wykonać przed płytkowaniem.",
+        "Przebudowa podejścia kanalizacyjnego, jeśli pion jest daleko."
+      ]
     },
     {
       "id": "montaz_wc",
@@ -383,10 +499,9 @@
       "labour": 360,
       "material": 0,
       "factors": [
-        "Rodzaj miski: kompakt stojący jest tańszy w montażu niż WC podwieszane ze stelażem.",
-        "Konieczność przesunięcia odpływu i przerobienia podejścia kanalizacyjnego.",
-        "Zabudowa stelaża płytą g-k i późniejsze obłożenie płytkami, liczone osobno.",
-        "Dostęp do pionu i to, czy trzeba kuć ścianę nośną."
+        "Kompakt stojący jest tańszy w montażu niż miska podwieszana ze stelażem.",
+        "Przesunięcie odpływu i przeróbka podejścia kanalizacyjnego.",
+        "Zabudowa stelaża i obłożenie jej płytkami, liczone jako osobne pozycje."
       ],
       "name": "Montaż WC ze stelażem"
     },
@@ -396,7 +511,12 @@
       "unit": "szt",
       "labour": 240,
       "material": 0,
-      "name": "Montaż umywalki"
+      "name": "Montaż umywalki",
+      "factors": [
+        "Typ: nablatowa, podwieszana czy z szafką, każda montuje się inaczej.",
+        "Konieczność wykonania otworu w blacie pod baterię lub korek klik-klak.",
+        "Wysokość montażu i to, czy w ścianie jest już stelaż."
+      ]
     },
     {
       "id": "montaz_baterii",
@@ -404,7 +524,12 @@
       "unit": "szt",
       "labour": 115,
       "material": 0,
-      "name": "Montaż baterii"
+      "name": "Montaż baterii",
+      "factors": [
+        "Rodzaj: podtynkowa wymaga wcześniejszego osadzenia korpusu w ścianie.",
+        "Stan starych przyłączy i konieczność wymiany zaworków.",
+        "Dostęp do miejsca montażu po zabudowie mebli."
+      ]
     },
     {
       "id": "podlaczenie_pralki",
@@ -412,7 +537,12 @@
       "unit": "szt",
       "labour": 190,
       "material": 0,
-      "name": "Podłączenie pralki"
+      "name": "Podłączenie pralki",
+      "factors": [
+        "Odległość od punktu wodno-kanalizacyjnego.",
+        "Konieczność montażu zaworu kątowego i syfonu z króćcem.",
+        "Poziomowanie i zabezpieczenie przed wibracją na nierównej posadzce."
+      ]
     },
     {
       "id": "grzejnik",
@@ -420,7 +550,12 @@
       "unit": "szt",
       "labour": 280,
       "material": 0,
-      "name": "Montaż grzejnika"
+      "name": "Montaż grzejnika",
+      "factors": [
+        "Typ: drabinkowy w łazience, płytowy w pokoju, każdy z innym zestawem montażowym.",
+        "Konieczność przesunięcia lub przedłużenia podejść grzewczych.",
+        "Zawór termostatyczny i odpowietrznik, jeśli wymieniane razem z grzejnikiem."
+      ]
     },
     {
       "id": "punkt_elektryczny",
@@ -442,7 +577,12 @@
       "unit": "mb",
       "labour": 28,
       "material": 0,
-      "name": "Bruzdowanie pod instalację"
+      "name": "Bruzdowanie pod instalację",
+      "factors": [
+        "Materiał ściany: beton wymaga bruzdownicy i chłodzenia, gips schodzi od ręki.",
+        "Głębokość i liczba przewodów w jednej bruździe.",
+        "Zabezpieczenie pomieszczenia przed pyłem, którego przy bruzdowaniu jest najwięcej."
+      ]
     },
     {
       "id": "rozdzielnica",
@@ -451,7 +591,12 @@
       "labour": 720,
       "material": 420,
       "spread": 0.28,
-      "name": "Montaż rozdzielnicy"
+      "name": "Montaż rozdzielnicy",
+      "factors": [
+        "Liczba obwodów i modułów, bo od tego zależy rozmiar obudowy.",
+        "Wyłączniki różnicowoprądowe i przeciwprzepięciowe w wymaganym standardzie.",
+        "Pomiary i protokół odbiorowy instalacji, często liczone osobno."
+      ]
     },
     {
       "id": "montaz_lampy",
@@ -459,7 +604,12 @@
       "unit": "szt",
       "labour": 95,
       "material": 0,
-      "name": "Montaż oprawy oświetleniowej"
+      "name": "Montaż oprawy oświetleniowej",
+      "factors": [
+        "Rodzaj oprawy: żyrandol na stropie to inny nakład niż taśma LED.",
+        "Wysokość montażu i konieczność użycia rusztowania.",
+        "Stan przewodu w puszce i to, czy jest osobny przewód sterujący."
+      ]
     },
     {
       "id": "ogrzewanie_podlogowe",
@@ -468,7 +618,12 @@
       "labour": 85,
       "material": 105,
       "spread": 0.22,
-      "name": "Ogrzewanie podłogowe elektryczne"
+      "name": "Ogrzewanie podłogowe elektryczne",
+      "factors": [
+        "Rodzaj: mata grzewcza kontra kabel układany w wylewce.",
+        "Moc na metr i strefy wyłączone spod ogrzewania, na przykład pod wanną.",
+        "Sterownik z czujnikiem podłogowym i jego zaprogramowanie."
+      ]
     },
     {
       "id": "montaz_drzwi",
@@ -476,7 +631,12 @@
       "unit": "szt",
       "labour": 340,
       "material": 0,
-      "name": "Montaż drzwi wewnętrznych"
+      "name": "Montaż drzwi wewnętrznych",
+      "factors": [
+        "Rodzaj ościeżnicy: regulowana montuje się dłużej niż stała.",
+        "Stan otworu: nierówne ościeże wymaga poszerzenia lub zwężenia.",
+        "Podcięcie skrzydła pod nową wysokość posadzki i montaż klamki."
+      ]
     },
     {
       "id": "parapet",
@@ -484,7 +644,12 @@
       "unit": "szt",
       "labour": 165,
       "material": 0,
-      "name": "Montaż parapetu"
+      "name": "Montaż parapetu",
+      "factors": [
+        "Materiał: konglomerat i marmur wymagają docięcia u kamieniarza.",
+        "Głębokość i konieczność wykonania wycięć wokół ościeżnicy.",
+        "Uszczelnienie styku z oknem i wykończenie boków."
+      ]
     },
     {
       "id": "zabudowa_rury",
@@ -493,7 +658,12 @@
       "labour": 145,
       "material": 55,
       "spread": 0.2,
-      "name": "Zabudowa pionu / rur"
+      "name": "Zabudowa pionu / rur",
+      "factors": [
+        "Liczba narożników i to, czy pion jest w rogu, czy na środku ściany.",
+        "Wymagana rewizja do zaworów i wodomierza.",
+        "Ciężar okładziny, jeśli zabudowa ma być obłożona płytkami."
+      ]
     },
     {
       "id": "sprzatanie",
@@ -501,7 +671,12 @@
       "unit": "m2",
       "labour": 16,
       "material": 0,
-      "name": "Sprzątanie po remoncie"
+      "name": "Sprzątanie po remoncie",
+      "factors": [
+        "Zakres: sprzątanie po pracach mokrych to inny nakład niż zamiatanie.",
+        "Konieczność mycia okien i usuwania zabrudzeń z farby i kleju.",
+        "Wywóz worków z odpadami po sprzątaniu."
+      ]
     }
   ],
   "standardScope": {
