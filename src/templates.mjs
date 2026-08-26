@@ -160,10 +160,48 @@ function readForm(form){
   });
   return v;
 }
+// Parametry formularza ladują w adresie strony, dzięki czemu wyliczenie da się
+// wysłać wykonawcy albo zapisać w zakładkach i wrócić do niego później.
+function syncUrl(form){
+  const p = new URLSearchParams();
+  form.querySelectorAll('[name]').forEach(el => {
+    if (el.type === 'checkbox') p.set(el.name, el.checked ? '1' : '0');
+    else if (el.type === 'radio') { if (el.checked) p.set(el.name, el.value); }
+    else p.set(el.name, el.value);
+  });
+  history.replaceState(null, '', location.pathname + '?' + p.toString());
+}
+function restoreForm(form){
+  const p = new URLSearchParams(location.search);
+  if (![...p.keys()].length) return;
+  form.querySelectorAll('[name]').forEach(el => {
+    if (!p.has(el.name)) return;
+    if (el.type === 'checkbox') el.checked = p.get(el.name) === '1';
+    else if (el.type === 'radio') el.checked = (el.value === p.get(el.name));
+    else el.value = p.get(el.name);
+  });
+}
 function bindForm(form, run){
-  form.addEventListener('input', run);
-  form.addEventListener('change', run);
+  const runAndSync = () => { run(); syncUrl(form); };
+  form.addEventListener('input', runAndSync);
+  form.addEventListener('change', runAndSync);
+  restoreForm(form);
   run();
+}
+function bindSheetActions(sheet){
+  const btnPrint = sheet.querySelector('[data-print]');
+  const btnCopy = sheet.querySelector('[data-copy]');
+  if (btnPrint) btnPrint.addEventListener('click', () => window.print());
+  if (btnCopy) btnCopy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(location.href);
+      const t = btnCopy.textContent;
+      btnCopy.textContent = 'Skopiowano';
+      setTimeout(() => { btnCopy.textContent = t; }, 2000);
+    } catch (e) {
+      btnCopy.textContent = 'Skopiuj adres z paska przeglądarki';
+    }
+  });
 }
 `;
 
@@ -182,7 +220,11 @@ export function estimateSheet({ title, sub = '', id = 'sheet' }) {
     <span class="t-val" data-total>0 <small>PLN</small></span>
   </div>
   <div class="split" data-split></div>
-  <p class="receipt-foot">Materiały ze średniej półki. Ekipa może podzielić robociznę i materiał inaczej.</p>
+  <div class="sheet-actions">
+    <button type="button" data-print>Drukuj lub zapisz PDF</button>
+    <button type="button" data-copy>Kopiuj link do wyceny</button>
+  </div>
+  <p class="receipt-foot">Materiały ze średniej półki. Ekipa może podzielić robociznę i materiał inaczej. Link zawiera wpisane parametry, więc możesz wysłać to wyliczenie wykonawcy.</p>
 </div>`;
 }
 

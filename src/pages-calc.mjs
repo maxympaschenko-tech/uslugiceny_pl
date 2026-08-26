@@ -160,6 +160,7 @@ const CITIES = ${CITY_MAP};
     sheet.querySelector('[data-sheet-title]').textContent = cityName;
     sheet.querySelector('[data-sheet-sub]').textContent = window.__sub;
   });
+  bindSheetActions(sheet);
 })();`,
   });
 }

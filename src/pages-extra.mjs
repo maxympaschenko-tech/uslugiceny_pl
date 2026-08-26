@@ -116,6 +116,7 @@ const SCOPE = ${SCOPE_JSON};
     sheet.querySelector('[data-sheet-title]').textContent = cityName + ', ' + F(a) + ' m²';
     sheet.querySelector('[data-sheet-sub]').textContent = 'standard ' + level.name.toLowerCase();
   });
+  bindSheetActions(sheet);
   bindSort(document.getElementById('board'));
 })();`,
   });

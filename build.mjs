@@ -290,6 +290,7 @@ const SCOPE = ${JSON.stringify(standardScope)};
     sheet.querySelector('[data-sheet-sub]').textContent = 'standard ' + level.name.toLowerCase();
     document.querySelector('[data-level-note]').textContent = level.note;
   });
+  bindSheetActions(sheet);
 })();`,
   })
 );
@@ -376,6 +377,7 @@ const CITIES = ${CITY_MAP};
     sheet.querySelector('[data-sheet-title]').textContent = cityName + ', ' + F(Math.round(floor * 10) / 10) + ' m²';
     sheet.querySelector('[data-sheet-sub]').textContent = F(Math.round(wall)) + ' m² płytek na ścianach';
   });
+  bindSheetActions(sheet);
 })();`,
   })
 );
@@ -453,6 +455,7 @@ const CITIES = ${CITY_MAP};
       'Objętość zaprawy ' + F(Math.round(vol * 100) / 100) + ' m³, czyli około ' + Math.ceil(vol * 2000 / 25) +
       ' worków suchej mieszanki po 25 kg albo ' + F(Math.round(vol * 1.6 * 10) / 10) + ' t piasku z cementem przy mieszaniu na miejscu.';
   });
+  bindSheetActions(sheet);
 })();`,
   })
 );

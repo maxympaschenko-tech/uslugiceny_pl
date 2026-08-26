@@ -438,3 +438,41 @@ main .city-links a:hover { border-color: var(--ink); }
   .receipt, .price-card { animation: rise .4s cubic-bezier(.22,.7,.3,1) both; }
   @keyframes rise { from { transform: translateY(6px); opacity: 0; } }
 }
+
+/* ---------- przyciski pod kosztorysem ---------- */
+
+.sheet-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.sheet-actions button {
+  flex: 1 1 auto; appearance: none; cursor: pointer; font: inherit;
+  font-size: var(--step--1); padding: .55rem .9rem;
+  border: 1px solid var(--line); border-radius: var(--r-s);
+  background: var(--surface); color: var(--ink);
+}
+.sheet-actions button:hover { border-color: var(--ink); background: #F8FAFB; }
+.sheet-actions button:active { transform: translateY(1px); }
+
+/* ---------- wydruk ---------- */
+
+@media print {
+  /* Na papierze liczy się kosztorys, nie nawigacja. Reszta znika,
+     a pozycje dostają czarny tekst na bieli, żeby nie zjeść tonera. */
+  .site-head, .site-foot, .crumbs, .nav, .sheet-actions,
+  .panel, .board-wrap, .cards, .draft-flag, .source-flag,
+  .price-card, ul.factors { display: none !important; }
+
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .calc-grid { display: block; }
+  .sticky-sheet { position: static; }
+  .wrap { width: 100%; }
+  section { padding: 0; }
+
+  .receipt {
+    border: 1px solid #999; box-shadow: none; animation: none;
+    padding: 1.2rem; break-inside: avoid;
+  }
+  .receipt::after { content: "uslugiceny.pl · wyliczenie orientacyjne, nie jest ofertą handlową"; display: block; margin-top: 1rem; font-size: 8pt; color: #555; }
+  .total { background: #fff !important; color: #000 !important; border-top: 2px solid #000; }
+  .total .t-val, .total .t-label, .total .t-val small { color: #000 !important; }
+  h1 { font-size: 16pt; margin-bottom: .4rem; }
+  .lede, .section-note, h2, h3 { display: none; }
+}
