@@ -10,7 +10,7 @@ import { ikona } from './src/icons.mjs';
 import { sprawdzOfertePage, szukajPage, sezonowoscPage } from './src/pages-tools.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
-import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage } from './src/pages-extra.mjs';
+import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
 const R = SITE.root;
@@ -130,6 +130,8 @@ await write(
   <h2>Ile kosztuje remont mieszkania o powierzchni</h2>
   <p class="section-note">Gotowe wyliczenia dla najczęstszych metraży, w trzech standardach i dziesięciu miastach.</p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
+  <p class="section-note" style="margin-top:1.2rem">Kompleksowy remont domu:</p>
+  <div class="city-links">${DOMY_REMONT.map((m) => `<a href="${R}koszt-remontu-domu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem">Wykończenie mieszkania od dewelopera:</p>
   <div class="city-links">${WYKONCZENIA.map((m) => `<a href="${R}koszt-wykonczenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem">Ocieplenie domu o powierzchni:</p>
@@ -153,13 +155,42 @@ await write(
     <div class="card"><h3><a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a></h3><p>Przęsła na metry bieżące plus podmurówka, brama i furtka.</p></div>
   </div>
 </div></section>`,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'uslugiceny.pl',
-      inLanguage: 'pl',
-      about: 'Ceny robót remontowych w Polsce',
-    },
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'uslugiceny.pl',
+        url: SITE.base + R,
+        inLanguage: 'pl',
+        about: 'Ceny robót remontowych w Polsce',
+        // pole wyszukiwania bezpośrednio w wynikach Google
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: { '@type': 'EntryPoint', urlTemplate: `${SITE.base}${R}szukaj/?q={search_term_string}` },
+          'query-input': 'required name=search_term_string',
+        },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'uslugiceny.pl',
+        url: SITE.base + R,
+        logo: `${SITE.base}${R}icon-512.png`,
+        description: 'Baza cen robót remontowych i budowlanych w Polsce z kalkulatorami kosztorysu.',
+        email: 'kontakt@uslugiceny.pl',
+        areaServed: { '@type': 'Country', name: 'Polska' },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Dataset',
+        name: 'Ceny robót remontowych w Polsce',
+        description: `Stawki ${works.length} robót remontowych i budowlanych w ${cities.length} największych miastach Polski, z podziałem na robociznę i materiał.`,
+        inLanguage: 'pl',
+        spatialCoverage: 'Polska',
+        temporalCoverage: meta.checked || meta.updated,
+        creator: { '@type': 'Organization', name: 'uslugiceny.pl' },
+      },
+    ],
     script: `${calcScript}
 const W = ${W_JSON};
 const CITIES = ${CITY_MAP};
@@ -636,6 +667,14 @@ for (const wm of WYKONCZENIA) {
   extraUrls.push(`/koszt-wykonczenia/${wm.m}-m2/`);
 }
 
+for (const dm of DOMY_REMONT) {
+  await write(
+    `koszt-remontu-domu/${dm.m}-m2`,
+    remontDomuPage({ dm, cities, unitPrice, standardScope, sourceFlag: draftFlag })
+  );
+  extraUrls.push(`/koszt-remontu-domu/${dm.m}-m2/`);
+}
+
 /* ================= poradniki ================= */
 
 const catSlug = (id) => categories.find((c) => c.id === id).slug;
@@ -758,6 +797,7 @@ const indeks = [
   ...METRAZE.map((m) => ({ t: `Remont mieszkania ${m.m} m²`, u: `${R}koszt-remontu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...DOMY.map((m) => ({ t: `Ocieplenie domu ${m.m} m²`, u: `${R}koszt-ocieplenia/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...WYKONCZENIA.map((m) => ({ t: `Wykończenie mieszkania ${m.m} m²`, u: `${R}koszt-wykonczenia/${m.m}-m2/`, k: 'metraż', o: m.opis })),
+  ...DOMY_REMONT.map((m) => ({ t: `Remont domu ${m.m} m²`, u: `${R}koszt-remontu-domu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
   { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
   { t: 'Kiedy remont wychodzi taniej', u: `${R}kiedy-remontowac/`, k: 'poradnik', o: 'Kalendarz obłożenia ekip i różnice stawek w ciągu roku.' },

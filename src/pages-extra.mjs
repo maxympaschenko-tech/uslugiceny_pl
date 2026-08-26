@@ -457,3 +457,82 @@ export function wykonczenieMetrazPage({ wm, cities, unitPrice, levels, sourceFla
 bindSort(document.getElementById('board'));`,
   });
 }
+
+/* ---------- kompleksowy remont domu ---------- */
+
+export const DOMY_REMONT = [
+  { m: 100, opis: 'Dom parterowy albo z niewielkim poddaszem użytkowym.' },
+  { m: 120, opis: 'Najczęstsza wielkość domu jednorodzinnego w Polsce.' },
+  { m: 150, opis: 'Duży dom, zwykle dwukondygnacyjny, z dwiema łazienkami.' },
+];
+
+export function remontDomuPage({ dm, cities, unitPrice, standardScope, sourceFlag }) {
+  const sciany = scianyZDomu(dm.m);
+  const dach = Math.round(dm.m * 0.72); // połać przy typowym nachyleniu, dla domu z poddaszem
+
+  const wnetrza = (coef) =>
+    Object.entries(standardScope.items).reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, 1, 5);
+      return s + (p.labour + p.material) * q * dm.m;
+    }, 0);
+  const elewacja = (coef) =>
+    ['ocieplenie_styropian', 'siatka_zbrojaca', 'tynk_silikonowy', 'rusztowanie', 'mycie_elewacji']
+      .reduce((s, id) => { const p = unitPrice(id, coef, 1, 1); return s + (p.labour + p.material) * sciany; }, 0);
+  const dachy = (coef) =>
+    [['demontaz_pokrycia', dach], ['membrana_laty', dach], ['blachodachowka', dach],
+     ['obrobki_blacharskie', 30], ['rynny', 24], ['ocieplenie_poddasza', dm.m * 0.6]]
+      .reduce((s, [id, q]) => { const p = unitPrice(id, coef, 1, 1); return s + (p.labour + p.material) * q; }, 0);
+  const razem = (coef) => wnetrza(coef) + elewacja(coef) + dachy(coef);
+
+  const rows = [...cities]
+    .sort((a, b) => razem(b.coef) - razem(a.coef))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(wnetrza(c.coef))}">${money(Math.round(wnetrza(c.coef)))}</td>
+<td class="num" data-v="${Math.round(elewacja(c.coef))}">${money(Math.round(elewacja(c.coef)))}</td>
+<td class="num" data-v="${Math.round(dachy(c.coef))}">${money(Math.round(dachy(c.coef)))}</td>
+<td class="num" data-v="${Math.round(razem(c.coef))}"><b>${money(Math.round(razem(c.coef)))}</b></td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Ile kosztuje remont domu ${dm.m} m² w ${YEAR} roku`,
+    description: `Kompleksowy remont domu ${dm.m} m²: wnętrza, ocieplenie elewacji i wymiana dachu. Od ${money(Math.round(razem(tani.coef)))} do ${money(Math.round(razem(war.coef)))} zł zależnie od miasta.`,
+    path: `/koszt-remontu-domu/${dm.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · Remont domu ${dm.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Kompleksowy remont · aktualizacja ${SITE.updated}</p>
+  <h1>Remont domu ${dm.m} m²</h1>
+  <p class="lede">Pełny zakres, czyli wnętrza razem z ociepleniem elewacji i wymianą pokrycia dachu, kosztuje od ${money(Math.round(razem(tani.coef)))} zł ${tani.loc} do ${money(Math.round(razem(war.coef)))} zł w Warszawie.</p>
+  <p class="section-note">${dm.opis} Wyliczenie zakłada ${dm.m} m² powierzchni użytkowej, około ${sciany} m² ścian zewnętrznych i mniej więcej ${dach} m² połaci dachowej. Dla bryły rozczłonkowanej albo dachu o dużym nachyleniu wyjdzie więcej.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Trzy części budżetu</h2>
+  <p class="section-note">Rzadko robi się wszystko naraz i rzadko jest to konieczne. Rozbicie na etapy pokazuje, ile kosztuje każdy z nich osobno i który warto zrobić najpierw.</p>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Wnętrza</th><th>Elewacja</th><th>Dach</th><th>Razem</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">Od czego zacząć</h2>
+  <p class="section-note">Kolejność narzuca się sama: najpierw dach, potem elewacja, na końcu wnętrza. Nieszczelne pokrycie zniszczy świeżo ocieploną ścianę, a ocieplenie po wykończeniu wnętrz oznacza kucie w gotowych ościeżach przy wymianie okien. Odwrócenie tej kolejności to najdroższy błąd, jaki można popełnić przy remoncie domu.</p>
+  <p class="section-note">Jeśli budżet nie pozwala na wszystko naraz, największy zwrot daje zwykle dach i ocieplenie, bo od nich zależą rachunki za ogrzewanie przez kolejne dekady. Wnętrza można wykańczać etapami, pomieszczenie po pomieszczeniu.</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Policz swój zakres: <a href="${R}kalkulator/remont-mieszkania/">wnętrza</a>, <a href="${R}kalkulator/ocieplenie-elewacji/">ocieplenie</a>, <a href="${R}kalkulator/dach/">dach</a>. Kolejność prac opisują <a href="${R}poradnik/">poradniki krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje remont domu ${dm.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Pełny zakres z ociepleniem i dachem to od ${money(Math.round(razem(tani.coef)))} do ${money(Math.round(razem(war.coef)))} zł. Same wnętrza to około ${money(Math.round(wnetrza(1)))} zł, ocieplenie ${money(Math.round(elewacja(1)))} zł, dach ${money(Math.round(dachy(1)))} zł przy średnich stawkach krajowych.` } },
+        { '@type': 'Question', name: 'Co robić najpierw przy remoncie domu?', acceptedAnswer: { '@type': 'Answer', text: 'Najpierw dach, potem elewacja, na końcu wnętrza. Nieszczelne pokrycie zniszczy nowe ocieplenie, a ocieplenie po wykończeniu wnętrz wymusza kucie przy wymianie okien.' } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
+  });
+}
