@@ -6,6 +6,7 @@ import { SITE } from './src/config.mjs';
 import { layout, estimateSheet, calcScript, field, select, check, money } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
+import { ikona } from './src/icons.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
 
@@ -117,7 +118,7 @@ await write(
   <div class="cards">${categories
     .map((c) => {
       const n = works.filter((w) => w.cat === c.id).length;
-      return `<div class="card"><h3><a href="${R}uslugi/${c.slug}/">${c.name}</a></h3><p class="big">${n}</p><p>${c.lead}</p></div>`;
+      return `<div class="card"><span class="card-ikona">${ikona(c.id)}</span><h3><a href="${R}uslugi/${c.slug}/">${c.name}</a></h3><p class="big">${n}</p><p>${c.lead}</p></div>`;
     })
     .join('')}</div>
   <p class="receipt-foot" style="margin-top:1rem"><a href="${R}uslugi/">Zobacz wszystkie ${works.length} pozycji</a></p>

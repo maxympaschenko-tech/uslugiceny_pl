@@ -2,6 +2,7 @@
 // To ta część, która daje skalę: 42 roboty × (1 + 10 miast) = 462 strony.
 import { layout, estimateSheet, calcScript, field, select, money } from './templates.mjs';
 import { SITE } from './config.mjs';
+import { ikona, pasekPodzialu, slupkiMiast } from './icons.mjs';
 
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
@@ -68,7 +69,8 @@ const splitTable = (w, units, lab, mat) => `
 <tr><td>Robocizna</td><td class="num">${money(Math.round(lab))} zł</td><td class="num">${Math.round((lab / (lab + mat)) * 100)}%</td></tr>
 <tr><td>${w.materialLabel ? w.materialLabel[0].toUpperCase() + w.materialLabel.slice(1) : 'Materiał'}${w.material ? '' : ' (kupuje inwestor)'}</td><td class="num">${w.material ? money(Math.round(mat)) + ' zł' : 'własny'}</td><td class="num">${w.material ? Math.round((mat / (lab + mat)) * 100) + '%' : '0%'}</td></tr>
 <tr><td><b>Razem</b></td><td class="num"><b>${money(Math.round(lab + mat))} zł</b></td><td class="num">100%</td></tr>
-</tbody></table></div>`;
+</tbody></table></div>
+${pasekPodzialu(lab, mat)}`;
 
 const calcBox = (w, units, cities, cityOptions, preset = null) => `
 <div class="panel">
@@ -146,10 +148,22 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
 
   <h2 style="margin-top:2rem">Ceny w miastach</h2>
   <p class="section-note">Stawki dla standardowego zakresu, posortowane od najtańszego miasta. Kliknij nazwę, żeby zobaczyć stronę miasta.</p>
-  <div class="board-wrap"><table class="board" id="cities">
-    <thead><tr><th data-sort="off">Miasto</th><th>Robocizna</th><th>Materiał</th><th>Razem za ${u}</th></tr></thead>
-    <tbody>${cityRows}</tbody>
-  </table></div>
+  ${slupkiMiast(
+    [...cities]
+      .map((c) => {
+        const q = unitPrice(w.id, c.coef, 1, w.perCm ? 5 : 1);
+        return { name: c.name, v: q.labour + q.material, label: money(Math.round(q.labour + q.material)) + ' zł' };
+      })
+      .sort((a, b) => a.v - b.v),
+    u
+  )}
+  <details class="tabela-szczegoly">
+    <summary>Pokaż tabelę z podziałem na robociznę i materiał</summary>
+    <div class="board-wrap" style="margin-top:.8rem"><table class="board" id="cities">
+      <thead><tr><th data-sort="off">Miasto</th><th>Robocizna</th><th>Materiał</th><th>Razem za ${u}</th></tr></thead>
+      <tbody>${cityRows}</tbody>
+    </table></div>
+  </details>
 
   ${
     related.length
@@ -310,7 +324,7 @@ export function categoryPage({ cat, works, units, unitPrice }) {
     breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/">Usługi</a> · ${cat.name}`,
     body: `
 <section><div class="wrap">
-  <h1>${cat.name}</h1>
+  <h1>${ikona(cat.id)} ${cat.name}</h1>
   <p class="lede">${cat.lead}</p>
   <p class="section-note">Średnie stawki dla Polski razem z materiałem tam, gdzie kupuje go wykonawca. Kliknij pozycję, żeby zobaczyć rozbicie ceny i stawki w miastach.</p>
   <div class="board-wrap"><table class="board" id="list">
@@ -338,7 +352,7 @@ export function servicesIndex({ categories, works, units, unitPrice }) {
   ${categories
     .map((cat) => {
       const list = works.filter((w) => w.cat === cat.id);
-      return `<h2 style="margin-top:1.8rem"><a href="${R}uslugi/${cat.slug}/">${cat.name}</a></h2>
+      return `<h2 style="margin-top:1.8rem">${ikona(cat.id)}<a href="${R}uslugi/${cat.slug}/">${cat.name}</a></h2>
 <p class="section-note">${cat.lead}</p>
 <div class="city-links">${list
         .map((w) => {
