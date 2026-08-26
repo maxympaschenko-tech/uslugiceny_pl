@@ -6,6 +6,7 @@ import { SITE } from './src/config.mjs';
 import { layout, estimateSheet, calcScript, field, select, check, money } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
+import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
 const R = SITE.root;
@@ -119,6 +120,13 @@ await write(
     })
     .join('')}</div>
   <p class="receipt-foot" style="margin-top:1rem"><a href="${R}uslugi/">Zobacz wszystkie ${works.length} pozycji</a></p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Ile kosztuje remont mieszkania o powierzchni</h2>
+  <p class="section-note">Gotowe wyliczenia dla najczęstszych metraży, w trzech standardach i dziesięciu miastach.</p>
+  <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
+  <p class="receipt-foot" style="margin-top:1rem">Przed decyzją zajrzyj też do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
 </div></section>
 
 <section><div class="wrap">
@@ -565,6 +573,27 @@ await writeFile(
   })
 );
 
+/* ================= metraże i porównania ================= */
+
+setCats(categories);
+const SCOPE_JSON = JSON.stringify(standardScope);
+const extraUrls = [];
+
+for (const mm of METRAZE) {
+  await write(
+    `koszt-remontu/${mm.m}-m2`,
+    metrazPage({ mm, cities, turnkeyPerM2, levels, cityOptions, W_JSON, CITY_MAP, SCOPE_JSON, sourceFlag: draftFlag })
+  );
+  extraUrls.push(`/koszt-remontu/${mm.m}-m2/`);
+}
+
+await write('porownanie', porownaniaIndex(POROWNANIA));
+extraUrls.push('/porownanie/');
+for (const p of POROWNANIA) {
+  await write(`porownanie/${p.slug}`, porownaniePage({ p, byId, units, unitPrice, sourceFlag: draftFlag }));
+  extraUrls.push(`/porownanie/${p.slug}/`);
+}
+
 /* ================= strony zaufania ================= */
 
 const staticPages = [
@@ -639,6 +668,7 @@ const urls = [
   ...cities.map((c) => `/ceny/${c.slug}/`),
   ...serviceUrls,
   ...staticPages.map((s) => `/${s.slug}/`),
+  ...extraUrls,
 ];
 await writeFile(
   join(OUT, 'sitemap.xml'),

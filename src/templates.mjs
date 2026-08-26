@@ -38,6 +38,7 @@ ${jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((s) => `<script type=
       <a href="${R}"${path === '/' ? ' aria-current="page"' : ''}>Cennik</a>
       <a href="${R}uslugi/"${path.startsWith('/uslugi') ? ' aria-current="page"' : ''}>Usługi</a>
       <a href="${R}kalkulator/remont-mieszkania/"${path.startsWith('/kalkulator') ? ' aria-current="page"' : ''}>Kalkulatory</a>
+      <a href="${R}porownanie/"${path.startsWith('/porownanie') ? ' aria-current="page"' : ''}>Porównania</a>
       <a href="${R}jak-liczymy/"${path.startsWith('/jak-liczymy') ? ' aria-current="page"' : ''}>Jak liczymy</a>
     </nav>
   </div>
