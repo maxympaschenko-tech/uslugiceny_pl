@@ -108,6 +108,7 @@ ${body}
       <a href="${R}kalkulator/malowanie/">Malowanie</a>
       <a href="${R}kalkulator/plytki/">Układanie płytek</a>
       <a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a>
+      <a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a>
       <a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a>
       <a href="${R}kalkulator/dach/">Pokrycie dachu</a>
       <a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a>

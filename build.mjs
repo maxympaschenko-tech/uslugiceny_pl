@@ -144,6 +144,7 @@ await write(
     <div class="card"><h3><a href="${R}kalkulator/malowanie/">Malowanie</a></h3><p>Wymiary pokoju przeliczone na metry ścian i sufitu, z gruntowaniem i gładzią do wyboru.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/plytki/">Układanie płytek</a></h3><p>Podłoga i ściany osobno, format wielkoformatowy, hydroizolacja i wyrównanie podłoża.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a></h3><p>Tynk, gładź, grunt i malowanie rozdzielone, żeby było widać koszt każdego etapu.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></h3><p>Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, z wyborem między styropianem a wełną.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny, okna dachowe i ocieplenie poddasza.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a></h3><p>Nawierzchnia z podbudową, obrzeża, odwodnienie i niwelacja terenu.</p></div>

@@ -109,6 +109,57 @@ export const CALCS = [
       window.__sub = F(a) + ' m² powierzchni';`,
   },
   {
+    slug: 'wykonczenie-pod-klucz',
+    h1: 'Wykończenie mieszkania od dewelopera',
+    title: `Kalkulator wykończenia mieszkania ${YEAR}: ile kosztuje stan deweloperski pod klucz`,
+    desc: 'Policz koszt wykończenia mieszkania w stanie deweloperskim: gładzie, malowanie, podłogi, łazienka, biały montaż i drzwi. Ceny w zł za m².',
+    lede: 'Stan deweloperski to nie remont. Nie ma demontaży ani wywozu gruzu, za to gładzie idą na całą powierzchnię, a łazienka powstaje od zera. Liczymy robociznę i materiały budowlane, bez ceny drzwi, armatury i opraw, które kupujesz sam.',
+    faq: [
+      ['Ile kosztuje wykończenie mieszkania od dewelopera?', 'Robocizna z materiałami budowlanymi to zwykle od 650 do 900 złotych za metr, zależnie od miasta i standardu. Rynkowe hasło „wykończenie pod klucz za 1500 do 2500 zł za metr” obejmuje dodatkowo wyposażenie: drzwi, armaturę, oświetlenie, czasem meble. To właśnie ta różnica dziwi najbardziej przy pierwszej wycenie.'],
+      ['Czego nie ma w tym wyliczeniu?', 'Nie ma ceny drzwi, armatury, baterii, opraw oświetleniowych ani mebli, bo te pozycje kupuje inwestor i ich koszt zależy wyłącznie od wybranego modelu. Policzony jest za to ich montaż. Same drzwi wewnętrzne to zwykle od 800 do 1500 złotych za sztukę, a wyposażenie łazienki potrafi dorównać kosztowi jej wykończenia.'],
+      ['Czy w stanie deweloperskim trzeba robić wylewkę?', 'Zwykle nie, bo deweloper oddaje mieszkanie z gotową wylewką. Warto jednak sprawdzić jej równość łatą i wilgotność miernikiem, bo to od niej zależy, czy podłoga po roku nie zacznie falować. Drobne nierówności wyrównuje się masą samopoziomującą.'],
+      ['Co jest droższe: wykończenie czy remont?', 'Wykończenie jest zwykle tańsze o kilkanaście procent, bo odpada demontaż, wywóz gruzu i przeróbki instalacji. Za to gładzie robi się na całej powierzchni, a nie tylko w miejscach uszkodzonych.'],
+      ['Czy warto brać pakiet wykończeniowy od dewelopera?', 'Pakiety bywają wygodne, ale rzadko tańsze. Warto rozbić taki pakiet na pozycje i porównać z wyceną niezależnej ekipy, bo różnica w standardzie materiałów potrafi być większa niż różnica w cenie.'],
+    ],
+    fields: (opts) => `
+      ${field({ name: 'area', label: 'Powierzchnia mieszkania', value: 45, min: 15, max: 200, suffix: 'm²' })}
+      <div class="fields-2">
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+        ${select({ name: 'level', label: 'Standard', options: [{ v: 'ekonom', t: 'Ekonomiczny' }, { v: 'standard', t: 'Standardowy', sel: true }, { v: 'premium', t: 'Premium' }] })}
+      </div>
+      ${field({ name: 'drzwi', label: 'Drzwi wewnętrzne', value: 3, min: 0, max: 10, step: 1, suffix: 'szt.' })}
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'gladz', label: 'Gładzie na ścianach i sufitach', checked: true })}
+      ${check({ name: 'poziom', label: 'Wyrównanie wylewki masą samopoziomującą', checked: true })}
+      ${check({ name: 'lazienka', label: 'Łazienka: płytki, hydroizolacja, biały montaż', checked: true })}
+      ${check({ name: 'kuchnia', label: 'Płytki nad blatem w kuchni', checked: true })}
+      ${check({ name: 'osprzet', label: 'Osprzęt elektryczny i oprawy', checked: true })}
+      ${check({ name: 'sprzatanie', label: 'Sprzątanie po pracach', checked: true })}`,
+    logic: `
+      const a = v.area || 0;
+      const sciany = a * 2.9;
+      if (v.gladz) { add('gladz', sciany); add('gruntowanie', sciany); }
+      add('malowanie', sciany);
+      if (v.poziom) add('samopoziomujaca', a * 0.85);
+      add('panele', a * 0.62);
+      add('listwy', a * 0.75);
+      if (v.lazienka) {
+        add('hydroizolacja', a * 0.16);
+        add('plytki_podloga', a * 0.12);
+        add('plytki_sciana', a * 0.45);
+        add('silikonowanie', 12);
+        add('montaz_wc', 1); add('montaz_umywalki', 1); add('montaz_wanny', 1);
+        add('montaz_baterii', 3); add('grzejnik', 1); add('podlaczenie_pralki', 1);
+        add('punkt_wod_kan', 4);
+      }
+      if (v.kuchnia) add('plytki_sciana', 4);
+      if (v.osprzet) { add('punkt_elektryczny', a * 0.32); add('montaz_lampy', Math.max(3, Math.round(a * 0.12))); }
+      add('montaz_drzwi', v.drzwi || 0);
+      if (v.sprzatanie) add('sprzatanie', a);
+      window.__area = a;
+      window.__sub = 'stan deweloperski, ' + F(a) + ' m²';`,
+  },
+  {
     slug: 'ocieplenie-elewacji',
     h1: 'Ocieplenie i elewacja',
     title: `Kalkulator ocieplenia elewacji ${YEAR}: koszt za m² w systemie ETICS`,
