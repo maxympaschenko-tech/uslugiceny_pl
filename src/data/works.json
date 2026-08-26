@@ -26,6 +26,18 @@
       {
         "name": "legar-uslugi.pl, ceny uslug remontowych 2026",
         "date": "2026-03"
+      },
+      {
+        "name": "cennikibudowlane.com.pl, ukladanie kostki brukowej i ocieplanie elewacji",
+        "date": "2026-08"
+      },
+      {
+        "name": "Oferteo, koszt elewacji i ocieplenia domu",
+        "date": "2026-07"
+      },
+      {
+        "name": "Platforma Izolacji, cena za m2 elewacji",
+        "date": "2026-07"
       }
     ]
   },
@@ -91,6 +103,18 @@
       "slug": "stolarka-i-wykonczenia",
       "lead": "Drzwi, parapety, zabudowy pionów i sprzątanie po remoncie.",
       "name": "Stolarka i wykończenia"
+    },
+    {
+      "id": "elewacja",
+      "name": "Elewacje i ocieplenia",
+      "slug": "elewacje-i-ocieplenia",
+      "lead": "Ocieplenie w systemie ETICS, tynki elewacyjne, rusztowanie i wykończenie cokołu."
+    },
+    {
+      "id": "teren",
+      "name": "Brukarstwo i ogrodzenia",
+      "slug": "brukarstwo-i-ogrodzenia",
+      "lead": "Kostka brukowa z podbudową, krawężniki, odwodnienia, ogrodzenia panelowe i bramy."
     }
   ],
   "units": {
@@ -676,6 +700,294 @@
         "Zakres: sprzątanie po pracach mokrych to inny nakład niż zamiatanie.",
         "Konieczność mycia okien i usuwania zabrudzeń z farby i kleju.",
         "Wywóz worków z odpadami po sprzątaniu."
+      ]
+    },
+    {
+      "id": "ocieplenie_styropian",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 95,
+      "material": 64,
+      "name": "Ocieplenie ścian styropianem (ETICS)",
+      "factors": [
+        "Grubość płyty: 20 cm waży i kosztuje więcej niż 15 cm, a montaż idzie wolniej.",
+        "Styropian grafitowy jest droższy od białego, ale daje ten sam efekt przy cieńszej warstwie.",
+        "Skomplikowanie bryły: wykusze, gzymsy i glify okienne podnoszą robociznę o dwadzieścia do trzydziestu procent.",
+        "Stan podłoża: stary tynk trzeba umyć, zagruntować, a miejscami skuć."
+      ]
+    },
+    {
+      "id": "ocieplenie_welna",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 115,
+      "material": 105,
+      "name": "Ocieplenie ścian wełną mineralną",
+      "factors": [
+        "Wełna jest cięższa od styropianu, więc wymaga gęstszego kołkowania i dwóch osób przy płycie.",
+        "Wymagania przeciwpożarowe, które przy budynkach wyższych wymuszają wełnę zamiast styropianu.",
+        "Paroprzepuszczalność: pod wełnę dobiera się droższy tynk silikatowy albo mineralny."
+      ]
+    },
+    {
+      "id": "siatka_zbrojaca",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 42,
+      "material": 24,
+      "name": "Warstwa zbrojona z siatką",
+      "factors": [
+        "Gramatura siatki i konieczność podwójnego zbrojenia w strefie cokołu.",
+        "Profile narożnikowe i ukosy nad otworami, liczone czasem osobno.",
+        "Temperatura pracy: poniżej pięciu stopni systemy ETICS wymagają droższych klejów zimowych."
+      ]
+    },
+    {
+      "id": "tynk_silikonowy",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 58,
+      "material": 46,
+      "name": "Tynk elewacyjny silikonowy",
+      "factors": [
+        "Frakcja tynku: drobniejsze ziarno wymaga staranniejszego zacierania.",
+        "Kolor z palety specjalnej podnosi cenę wiadra, choć nie zmienia robocizny.",
+        "Ciągłość płaszczyzny: przerwa w pracy na jednej ścianie zostawia widoczny ślad."
+      ]
+    },
+    {
+      "id": "tynk_mineralny",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 46,
+      "material": 28,
+      "name": "Tynk elewacyjny mineralny",
+      "factors": [
+        "Konieczność późniejszego malowania farbą elewacyjną, co jest osobną pozycją.",
+        "Wrażliwość na pogodę podczas wiązania, która wymusza przerwy w pracy.",
+        "Powierzchnia zlecenia: przy małej ścianie liczy się głównie dojazd i rozstawienie sprzętu."
+      ]
+    },
+    {
+      "id": "rusztowanie",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 20,
+      "material": 0,
+      "name": "Rusztowanie elewacyjne",
+      "factors": [
+        "Czas najmu, bo stawka liczona jest za metr i za dobę postoju.",
+        "Wysokość i konieczność kotwienia do ściany powyżej trzech metrów.",
+        "Dojazd i teren wokół budynku, na którym rusztowanie trzeba ustawić stabilnie."
+      ]
+    },
+    {
+      "id": "mycie_elewacji",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 24,
+      "material": 4,
+      "name": "Mycie elewacji",
+      "factors": [
+        "Stopień zabrudzenia: glony i mech wymagają preparatu i dwóch przejść.",
+        "Rodzaj powierzchni, bo tynk mozaikowy myje się ostrożniej niż silikonowy.",
+        "Dostęp: powyżej parteru dochodzi podnośnik albo rusztowanie."
+      ]
+    },
+    {
+      "id": "cokol_xps",
+      "cat": "elewacja",
+      "unit": "m2",
+      "labour": 100,
+      "material": 86,
+      "name": "Ocieplenie cokołu XPS z tynkiem mozaikowym",
+      "factors": [
+        "Konieczność odkopania i zaizolowania strefy poniżej poziomu gruntu.",
+        "Tynk mozaikowy jest droższy od zwykłego i schnie wolniej.",
+        "Wysokość cokołu i liczba narożników na obwodzie budynku."
+      ]
+    },
+    {
+      "id": "parapet_zewnetrzny",
+      "cat": "elewacja",
+      "unit": "szt",
+      "labour": 140,
+      "material": 0,
+      "name": "Montaż parapetu zewnętrznego",
+      "factors": [
+        "Materiał: stal powlekana, aluminium czy konglomerat, każdy inaczej się osadza.",
+        "Długość i konieczność łączenia dwóch odcinków na szerokim oknie.",
+        "Uszczelnienie pod parapetem, które decyduje o szczelności całego węzła."
+      ]
+    },
+    {
+      "id": "kostka_brukowa",
+      "cat": "teren",
+      "unit": "m2",
+      "labour": 95,
+      "material": 92,
+      "name": "Układanie kostki brukowej betonowej",
+      "factors": [
+        "Wzór układania: jodełka i romb podnoszą robociznę o dwadzieścia do czterdziestu procent i zwiększają odpad.",
+        "Nachylenie terenu: spadek powyżej pięciu procent wymaga grubszej podbudowy i murków oporowych.",
+        "Przeznaczenie: podjazd pod samochód potrzebuje grubszej kostki i mocniejszej warstwy nośnej niż ścieżka.",
+        "Dostęp dla maszyn, bo wąska działka oznacza ręczne rozwożenie kruszywa."
+      ]
+    },
+    {
+      "id": "kostka_granitowa",
+      "cat": "teren",
+      "unit": "m2",
+      "labour": 150,
+      "material": 195,
+      "name": "Układanie kostki granitowej",
+      "factors": [
+        "Nieregularność kostki łupanej, którą trzeba dobierać sztuka po sztuce.",
+        "Spoinowanie zaprawą zamiast piaskiem, wymagane przy większych obciążeniach.",
+        "Twardość materiału, przez którą docinanie idzie wolniej niż w betonie."
+      ]
+    },
+    {
+      "id": "podbudowa",
+      "cat": "teren",
+      "unit": "m2",
+      "labour": 58,
+      "material": 48,
+      "name": "Podbudowa pod nawierzchnię",
+      "factors": [
+        "Rodzaj gruntu: glina wymaga grubszej warstwy nośnej i geowłókniny.",
+        "Grubość warstwy tłucznia, od dwudziestu centymetrów przy ścieżce do trzydziestu przy podjeździe.",
+        "Wywóz urobku z wykopu, liczony osobno w metrach sześciennych."
+      ]
+    },
+    {
+      "id": "krawezniki",
+      "cat": "teren",
+      "unit": "mb",
+      "labour": 32,
+      "material": 24,
+      "name": "Montaż krawężników",
+      "factors": [
+        "Rodzaj: krawężnik drogowy jest cięższy i droższy w montażu niż ogrodowy.",
+        "Ława betonowa pod krawężnikiem i jej przekrój.",
+        "Łuki i docinanie na promieniach, gdzie tempo pracy spada."
+      ]
+    },
+    {
+      "id": "obrzeza",
+      "cat": "teren",
+      "unit": "mb",
+      "labour": 20,
+      "material": 13,
+      "name": "Montaż obrzeży",
+      "factors": [
+        "Materiał: plastikowe obrzeże montuje się szybciej niż betonowe.",
+        "Konieczność wykonania ławy przy obciążanych krawędziach.",
+        "Długość odcinków prostych, bo przy krętym obrysie dochodzi docinanie."
+      ]
+    },
+    {
+      "id": "odwodnienie_liniowe",
+      "cat": "teren",
+      "unit": "mb",
+      "labour": 125,
+      "material": 95,
+      "name": "Odwodnienie liniowe",
+      "factors": [
+        "Klasa obciążenia kratki, inna przy ścieżce, inna przy wjeździe dla samochodu.",
+        "Podłączenie do kanalizacji albo do studni chłonnej i odległość do niej.",
+        "Spadki nawierzchni, które trzeba wyprowadzić do korytka."
+      ]
+    },
+    {
+      "id": "ogrodzenie_panelowe",
+      "cat": "teren",
+      "unit": "mb",
+      "labour": 58,
+      "material": 98,
+      "name": "Montaż ogrodzenia panelowego",
+      "factors": [
+        "Wysokość panelu i rozstaw słupków, bo od nich zależy liczba fundamentów punktowych.",
+        "Rodzaj gruntu i głębokość osadzenia słupków poniżej strefy przemarzania.",
+        "Nierówny teren, który wymusza schodkowanie przęseł zamiast prostego biegu."
+      ]
+    },
+    {
+      "id": "podmurowka",
+      "cat": "teren",
+      "unit": "mb",
+      "labour": 135,
+      "material": 115,
+      "name": "Podmurówka pod ogrodzenie",
+      "factors": [
+        "Rodzaj: prefabrykowana płyta jest tańsza niż murowana z bloczka.",
+        "Wysokość podmurówki i konieczność wykonania ławy fundamentowej.",
+        "Przejścia dla wody i drobnych zwierząt, jeśli wymaga tego działka."
+      ]
+    },
+    {
+      "id": "brama_przesuwna",
+      "cat": "teren",
+      "unit": "szt",
+      "labour": 950,
+      "material": 0,
+      "name": "Montaż bramy przesuwnej",
+      "factors": [
+        "Szerokość światła przejazdu i długość szyny lub belki samonośnej.",
+        "Fundament pod bramę i zbrojenie, wykonywane przed montażem.",
+        "Automatyka: napęd, fotokomórki i doprowadzenie zasilania liczone osobno."
+      ]
+    },
+    {
+      "id": "furtka",
+      "cat": "teren",
+      "unit": "szt",
+      "labour": 380,
+      "material": 0,
+      "name": "Montaż furtki",
+      "factors": [
+        "Rodzaj zamka i konieczność doprowadzenia przewodu do elektrozaczepu.",
+        "Osadzenie słupków i ich powiązanie z podmurówką.",
+        "Kierunek otwierania i wypoziomowanie na pochyłym terenie."
+      ]
+    },
+    {
+      "id": "schody_zewnetrzne",
+      "cat": "teren",
+      "unit": "m2",
+      "labour": 235,
+      "material": 175,
+      "name": "Schody zewnętrzne z kostki lub płyt",
+      "factors": [
+        "Liczba stopni i konieczność wykonania betonowego biegu pod okładzinę.",
+        "Rodzaj okładziny: płyta granitowa jest droższa i cięższa od betonowej.",
+        "Odprowadzenie wody i spadki na każdym stopniu."
+      ]
+    },
+    {
+      "id": "niwelacja_terenu",
+      "cat": "teren",
+      "unit": "m2",
+      "labour": 26,
+      "material": 0,
+      "name": "Niwelacja i przygotowanie terenu",
+      "factors": [
+        "Różnica poziomów i ilość ziemi do przemieszczenia.",
+        "Dostępność sprzętu, bo ręczne prace ziemne są wielokrotnie droższe.",
+        "Wywóz nadmiaru urobku poza działkę."
+      ]
+    },
+    {
+      "id": "trawnik_rolowany",
+      "cat": "teren",
+      "unit": "m2",
+      "labour": 20,
+      "material": 17,
+      "name": "Układanie trawnika z rolki",
+      "factors": [
+        "Przygotowanie podłoża: przekopanie, wyrównanie i nawożenie przed układaniem.",
+        "Termin dostawy darni, która musi trafić na grunt w ciągu doby.",
+        "Nawodnienie w pierwszych tygodniach, bez którego darń się nie przyjmie."
       ]
     }
   ],

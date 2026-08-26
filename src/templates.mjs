@@ -59,6 +59,13 @@ ${body}
       <a href="${R}kalkulator/plytki/">Układanie płytek</a>
       <a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a>
     </div>
+    <p class="foot-h">Serwis</p>
+    <div class="city-links">
+      <a href="${R}o-nas/">O serwisie</a>
+      <a href="${R}jak-liczymy/">Jak liczymy</a>
+      <a href="${R}kontakt/">Kontakt</a>
+      <a href="${R}polityka-prywatnosci/">Polityka prywatności</a>
+    </div>
     <p>Ceny w złotych z VAT, aktualizacja: ${SITE.updated}. To punkt odniesienia do rozmowy z wykonawcą, a nie oferta handlowa: ostateczną cenę podaje ekipa po obejrzeniu lokalu.</p>
   </div>
 </footer>

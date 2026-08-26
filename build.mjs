@@ -565,6 +565,68 @@ await writeFile(
   })
 );
 
+/* ================= strony zaufania ================= */
+
+const staticPages = [
+  {
+    slug: 'o-nas',
+    title: 'O serwisie uslugiceny.pl',
+    desc: 'Kto prowadzi serwis, skąd biorą się stawki i dlaczego publikujemy metodę wyliczeń zamiast samych liczb.',
+    h1: 'O serwisie',
+    body: `
+  <p class="lede">uslugiceny.pl to baza cen robót remontowych i budowlanych w Polsce. Publikujemy stawki rozbite na robociznę i materiał oraz kalkulatory, które składają z nich kosztorys.</p>
+  <h2 style="margin-top:1.8rem">Po co to powstało</h2>
+  <p class="section-note">Pytanie „ile to kosztuje” zwykle dostaje jedną liczbę bez wyjaśnienia, co się w niej mieści. Tymczasem różnica między ofertami dwóch ekip najczęściej nie bierze się z chciwości, tylko z innego zakresu: jedna wlicza materiał, druga nie, jedna liczy demontaż, druga zakłada gotowe podłoże. Rozbijamy stawkę na części, żeby dało się porównać oferty, które na pierwszy rzut oka są nieporównywalne.</p>
+  <h2 style="margin-top:1.8rem">Czego tu nie znajdziesz</h2>
+  <p class="section-note">Nie pośredniczymy w zleceniach i nie sprzedajemy kontaktów do wykonawców, więc żadna ekipa nie płaci nam za wyższą pozycję ani za korzystniejszą stawkę. Nie podajemy też wycen wiążących: ostateczną cenę ustala wykonawca po obejrzeniu obiektu.</p>
+  <h2 style="margin-top:1.8rem">Jak powstają liczby</h2>
+  <p class="section-note">Każda stawka bazowa to mediana widełek z publicznych zestawień cen, przeliczana przez współczynnik miasta. Pełny opis metody wraz z listą źródeł i datami znajduje się na stronie <a href="${R}jak-liczymy/">Jak liczymy</a>. Dane aktualizujemy okresowo, a datę ostatniej kalibracji widać pod każdą tabelą.</p>`,
+  },
+  {
+    slug: 'kontakt',
+    title: 'Kontakt',
+    desc: 'Napisz, jeśli masz uwagi do stawek, chcesz zgłosić błąd albo udostępnić własny cennik do kalibracji.',
+    h1: 'Kontakt',
+    body: `
+  <p class="lede">Najbardziej przydatne wiadomości to te, które poprawiają dane.</p>
+  <h2 style="margin-top:1.8rem">Zgłoszenie błędnej stawki</h2>
+  <p class="section-note">Jeśli prowadzisz ekipę i widzisz, że któraś pozycja odbiega od realiów Twojego rynku, napisz jaka to pozycja, jakie miasto i jaka stawka jest Twoim zdaniem właściwa. Takie zgłoszenia trafiają do kolejnej kalibracji.</p>
+  <h2 style="margin-top:1.8rem">Adres</h2>
+  <p class="section-note">kontakt@uslugiceny.pl</p>
+  <h2 style="margin-top:1.8rem">Współpraca</h2>
+  <p class="section-note">Nie sprzedajemy miejsc w rankingach ani leadów. Jeśli chcesz udostępnić swój cennik jako źródło, podamy go na stronie metody razem z datą.</p>`,
+  },
+  {
+    slug: 'polityka-prywatnosci',
+    title: 'Polityka prywatności',
+    desc: 'Jakie dane zbiera serwis uslugiceny.pl i w jaki sposób są wykorzystywane.',
+    h1: 'Polityka prywatności',
+    body: `
+  <p class="lede">Serwis jest stroną statyczną. Nie prowadzimy kont użytkowników i nie zbieramy danych osobowych przez formularze.</p>
+  <h2 style="margin-top:1.8rem">Kalkulatory</h2>
+  <p class="section-note">Wszystkie wyliczenia wykonuje przeglądarka na Twoim urządzeniu. Wymiary i zakres prac, które wpisujesz w kalkulatorach, nie są nigdzie wysyłane ani zapisywane.</p>
+  <h2 style="margin-top:1.8rem">Logi serwera</h2>
+  <p class="section-note">Serwer zapisuje standardowe logi dostępu: adres IP, datę zapytania, adres strony i typ przeglądarki. Służą wyłącznie diagnostyce i bezpieczeństwu.</p>
+  <h2 style="margin-top:1.8rem">Pliki cookies</h2>
+  <p class="section-note">Serwis nie zapisuje własnych plików cookies ani nie korzysta z zewnętrznych narzędzi śledzących. Wyjątkiem są kroje pisma pobierane z serwerów Google, które mogą odnotować adres IP przy pobraniu pliku.</p>
+  <h2 style="margin-top:1.8rem">Kontakt w sprawie danych</h2>
+  <p class="section-note">kontakt@uslugiceny.pl</p>`,
+  },
+];
+
+for (const s of staticPages) {
+  await write(
+    s.slug,
+    layout({
+      title: s.title,
+      description: s.desc,
+      path: `/${s.slug}/`,
+      breadcrumb: `<a href="${R}">Cennik</a> · ${s.h1}`,
+      body: `<section><div class="wrap"><h1>${s.h1}</h1>${s.body}</div></section>`,
+    })
+  );
+}
+
 /* ================= sitemap ================= */
 
 const urls = [
@@ -576,6 +638,7 @@ const urls = [
   ...CALCS.map((c) => `/kalkulator/${c.slug}/`),
   ...cities.map((c) => `/ceny/${c.slug}/`),
   ...serviceUrls,
+  ...staticPages.map((s) => `/${s.slug}/`),
 ];
 await writeFile(
   join(OUT, 'sitemap.xml'),
