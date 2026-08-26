@@ -328,7 +328,10 @@ export function categoryPage({ cat, works, units, unitPrice }) {
 <section><div class="wrap">
   <h1>${ikona(cat.id)} ${cat.name}</h1>
   <p class="lede">${cat.lead}</p>
-  <p class="section-note">Średnie stawki dla Polski razem z materiałem tam, gdzie kupuje go wykonawca. Kliknij pozycję, żeby zobaczyć rozbicie ceny i stawki w miastach.</p>
+  ${(cat.opis || []).map((a, i) => `<p class="${i === 0 ? 'kat-wstep' : 'section-note'}">${a}</p>`).join('')}
+
+  <h2 style="margin-top:2rem">Stawki w tej kategorii</h2>
+  <p class="section-note">Średnie dla Polski razem z materiałem tam, gdzie kupuje go wykonawca. Kliknij pozycję, żeby zobaczyć rozbicie ceny i stawki w miastach.</p>
   <div class="board-wrap"><table class="board" id="list">
     <thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Średnio</th></tr></thead>
     <tbody>${rows}</tbody>

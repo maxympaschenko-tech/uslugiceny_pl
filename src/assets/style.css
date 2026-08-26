@@ -626,3 +626,10 @@ h2 .ikona, h3 .ikona { vertical-align: -.3em; margin-right: .45rem; color: var(-
 .werdykt-nisko { color: var(--signal-d) !important; }
 .werdykt-wysoko { color: var(--up) !important; }
 .total .werdykt-ok, .total .werdykt-nisko, .total .werdykt-wysoko { filter: brightness(1.5); }
+
+/* ---------- wstep na stronie kategorii ---------- */
+
+.kat-wstep {
+  font-size: var(--step-0); color: var(--ink); max-width: 66ch;
+  border-left: 3px solid var(--signal); padding-left: 1rem; margin: 1.2rem 0 1rem;
+}
