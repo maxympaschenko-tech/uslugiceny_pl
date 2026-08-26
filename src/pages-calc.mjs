@@ -11,7 +11,7 @@ export const CALCS = [
   {
     slug: 'malowanie',
     h1: 'Malowanie ścian i sufitów',
-    title: `Kalkulator malowania ${YEAR}: ile kosztuje pomalowanie mieszkania`,
+    title: `Kalkulator malowania ${YEAR}: ile kosztuje malowanie`,
     desc: 'Policz koszt malowania: powierzchnia ścian i sufitów, gruntowanie, gładzie, zdzieranie tapet. Robocizna i materiał osobno, ceny w zł.',
     lede: 'Malarz liczy metry powierzchni, a nie metraż mieszkania. Podaj wymiary pokoju, a kalkulator sam przeliczy ściany i sufit razem z zapasem na ościeża.',
     faq: [
@@ -47,7 +47,7 @@ export const CALCS = [
   {
     slug: 'plytki',
     h1: 'Układanie płytek',
-    title: `Kalkulator układania płytek ${YEAR}: cena za m² z materiałem`,
+    title: `Kalkulator układania płytek ${YEAR}: cena za m²`,
     desc: 'Ile kosztuje ułożenie płytek: podłoga, ściany, format wielkoformatowy, hydroizolacja, fugowanie. Kosztorys pozycja po pozycji w zł.',
     lede: 'Cena za metr rośnie razem z formatem płytki i maleje razem z powierzchnią zlecenia. Kalkulator pokazuje jedno i drugie osobno.',
     faq: [
@@ -111,7 +111,7 @@ export const CALCS = [
   {
     slug: 'wykonczenie-pod-klucz',
     h1: 'Wykończenie mieszkania od dewelopera',
-    title: `Kalkulator wykończenia mieszkania ${YEAR}: ile kosztuje stan deweloperski pod klucz`,
+    title: `Kalkulator wykończenia mieszkania od dewelopera ${YEAR}`,
     desc: 'Policz koszt wykończenia mieszkania w stanie deweloperskim: gładzie, malowanie, podłogi, łazienka, biały montaż i drzwi. Ceny w zł za m².',
     lede: 'Stan deweloperski to nie remont. Nie ma demontaży ani wywozu gruzu, za to gładzie idą na całą powierzchnię, a łazienka powstaje od zera. Liczymy robociznę i materiały budowlane, bez ceny drzwi, armatury i opraw, które kupujesz sam.',
     faq: [
@@ -162,7 +162,7 @@ export const CALCS = [
   {
     slug: 'ocieplenie-elewacji',
     h1: 'Ocieplenie i elewacja',
-    title: `Kalkulator ocieplenia elewacji ${YEAR}: koszt za m² w systemie ETICS`,
+    title: `Kalkulator ocieplenia elewacji ${YEAR}: koszt za m²`,
     desc: 'Policz koszt ocieplenia domu: styropian albo wełna, warstwa zbrojona, tynk silikonowy lub mineralny, rusztowanie i cokół. Ceny w zł za m².',
     lede: 'Ocieplenie liczy się od powierzchni ścian, a nie od metrażu domu. Podaj obwód i wysokość, a kalkulator odejmie typową powierzchnię okien.',
     faq: [
@@ -202,7 +202,7 @@ export const CALCS = [
   {
     slug: 'kostka-brukowa',
     h1: 'Kostka brukowa',
-    title: `Kalkulator kostki brukowej ${YEAR}: cena ułożenia za m² z podbudową`,
+    title: `Kalkulator kostki brukowej ${YEAR}: cena za m²`,
     desc: 'Policz koszt ułożenia kostki brukowej: podbudowa, obrzeża, krawężniki, odwodnienie liniowe i niwelacja terenu. Ceny w zł za m².',
     lede: 'Największa część kosztu bruku siedzi pod spodem. Podbudowa i wywóz urobku potrafią kosztować tyle samo co sama kostka.',
     faq: [
@@ -237,7 +237,7 @@ export const CALCS = [
   {
     slug: 'ogrodzenie',
     h1: 'Ogrodzenie posesji',
-    title: `Kalkulator ogrodzenia ${YEAR}: cena za metr bieżący z montażem`,
+    title: `Kalkulator ogrodzenia ${YEAR}: cena za metr bieżący`,
     desc: 'Policz koszt ogrodzenia panelowego: przęsła, podmurówka, brama przesuwna i furtka. Ceny w zł za metr bieżący.',
     lede: 'Ogrodzenie wycenia się na metry bieżące, ale prawdziwe pieniądze robią brama i podmurówka. Dwie pozycje potrafią przebić koszt wszystkich przęseł razem.',
     faq: [

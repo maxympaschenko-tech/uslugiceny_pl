@@ -3,6 +3,16 @@ import { SITE } from './config.mjs';
 export const money = (n) =>
   new Intl.NumberFormat('pl-PL', { maximumFractionDigits: n < 100 ? 2 : 0 }).format(n);
 
+// Tytul dluzszy niz mniej wiecej 62 znaki wyszukiwarka i tak utnie w polowie zdania.
+// Doklejamy wiec ogon tylko wtedy, gdy sie miesci, a jesli nie, zostaje sam rdzen.
+export const tytul = (rdzen, ...ogony) => {
+  let out = rdzen;
+  for (const o of ogony) {
+    if ((out + o).length <= 62) out += o;
+  }
+  return out;
+};
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 /* ---------- szkielet strony ---------- */

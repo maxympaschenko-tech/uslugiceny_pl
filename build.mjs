@@ -3,7 +3,7 @@ import { dirname, join } from 'node:path';
 import cities from './src/data/cities.json' with { type: 'json' };
 import worksFile from './src/data/works.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
-import { layout, estimateSheet, calcScript, field, select, check, money } from './src/templates.mjs';
+import { layout, estimateSheet, calcScript, field, select, check, money, tytul } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
@@ -246,7 +246,7 @@ for (const city of cities) {
   await write(
     `ceny/${city.slug}`,
     layout({
-      title: `Cennik robót remontowych ${city.loc} ${YEAR}: stawki za m² i za punkt`,
+      title: tytul(`Cennik robót remontowych ${city.loc}`, ` ${YEAR}`, `: stawki za m²`),
       description: `Ile kosztują roboty remontowe ${city.loc}: tynki, gładzie, wylewka, płytki, elektryka, hydraulika. Robocizna i materiał osobno, ceny w zł.`,
       path: `/ceny/${city.slug}/`,
       breadcrumb: `<a href="${R}">Cennik</a> · ${city.name}`,

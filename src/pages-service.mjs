@@ -1,6 +1,6 @@
 // Strony usług: /kategoria/usluga/ oraz /kategoria/usluga/miasto/
 // To ta część, która daje skalę: 42 roboty × (1 + 10 miast) = 462 strony.
-import { layout, estimateSheet, calcScript, field, select, money } from './templates.mjs';
+import { layout, estimateSheet, calcScript, field, select, money, tytul } from './templates.mjs';
 import { SITE } from './config.mjs';
 import { ikona, pasekPodzialu, slupkiMiast } from './icons.mjs';
 
@@ -126,7 +126,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     : `${w.name} kosztuje średnio ${money(Math.round(avg))} zł za ${u}. To wyłącznie robocizna: ${w.name.toLowerCase().includes('wywóz') ? 'kontener i utylizację liczy się osobno' : 'materiał lub urządzenie kupuje inwestor'}.`;
 
   return layout({
-    title: `${w.name} - cena ${YEAR}: ile kosztuje za ${u}`,
+    title: tytul(`${w.name} - cena ${YEAR}`, `: ile kosztuje za ${u}`),
     description: `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}, w przedziale od ${money(Math.round(min))} do ${money(Math.round(max))} zł. Robocizna i materiał osobno, stawki w 10 miastach.`,
     path,
     breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/${cat.slug}/">${cat.name}</a> · ${w.name}`,
@@ -236,7 +236,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
   const others = cities.filter((c) => c.slug !== city.slug).slice(0, 9);
 
   return layout({
-    title: `${w.name} ${city.loc} - cennik ${YEAR}`,
+    title: tytul(`${w.name} ${city.loc}`, ` - cennik ${YEAR}`, ''),
     description: `${w.name} ${city.loc}: średnio ${money(Math.round(t))} zł za ${u}, w przedziale od ${money(Math.round(t * (1 - spread)))} do ${money(Math.round(t * (1 + spread)))} zł.`,
     path: `/${cat.slug}/${slugify(w.name)}/${city.slug}/`,
     breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/${cat.slug}/">${cat.name}</a> · <a href="${R}${cat.slug}/${slugify(w.name)}/">${w.name}</a> · ${city.name}`,
@@ -320,8 +320,13 @@ export function categoryPage({ cat, works, units, unitPrice }) {
     })
     .join('');
   return layout({
-    title: `${cat.name} - cennik robót ${YEAR}`,
-    description: `${cat.lead} Średnie stawki w Polsce, robocizna i materiał osobno, ceny w 10 największych miastach.`,
+    title: tytul(`${cat.name} - cennik robót ${YEAR}`),
+    // opis kategorii bywa dlugi, wiec ogon doklejamy tylko wtedy, gdy calosc miesci sie w snippecie
+    description: (() => {
+      const baza = cat.lead;
+      const ogon = ' Stawki w Polsce, robocizna i materiał osobno.';
+      return (baza + ogon).length <= 160 ? baza + ogon : baza;
+    })(),
     path: `/uslugi/${cat.slug}/`,
     breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/">Usługi</a> · ${cat.name}`,
     body: `

@@ -2,7 +2,7 @@
 // 1) metraże ("ile kosztuje remont mieszkania 50 m2") — najczęstsza forma pytania o remont,
 // 2) porównania ("wylewka cementowa czy anhydrytowa") — pytanie zadawane tuż przed decyzją.
 // Obie korzystają z tych samych danych co reszta serwisu, więc nie rozjadą się z cennikiem.
-import { layout, estimateSheet, calcScript, field, select, money } from './templates.mjs';
+import { layout, estimateSheet, calcScript, field, select, money, tytul } from './templates.mjs';
 import { SITE } from './config.mjs';
 
 const R = SITE.root;
@@ -228,7 +228,7 @@ export function porownaniePage({ p, byId, units, unitPrice, sourceFlag }) {
 <td class="num" data-v="${Math.round(tot)}"><b>${money(Math.round(tot))} zł</b></td>`;
 
   return layout({
-    title: `${p.h1}? Porównanie kosztów ${YEAR}`,
+    title: tytul(`${p.h1}?`, ` Porównanie kosztów ${YEAR}`, ` ${YEAR}`),
     description: `${p.h1}: różnica w cenie za jednostkę, wady i zalety obu rozwiązań oraz wskazówka, kiedy które się opłaca.`,
     path: `/porownanie/${p.slug}/`,
     breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}porownanie/">Porównania</a> · ${p.h1}`,
@@ -422,7 +422,7 @@ export function wykonczenieMetrazPage({ wm, cities, unitPrice, levels, sourceFla
   const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
 
   return layout({
-    title: `Wykończenie mieszkania ${wm.m} m² od dewelopera: cena w ${YEAR}`,
+    title: `Wykończenie mieszkania ${wm.m} m²: cena w ${YEAR}`,
     description: `Ile kosztuje wykończenie mieszkania ${wm.m} m² w stanie deweloperskim: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Robocizna z materiałami, ceny w 10 miastach.`,
     path: `/koszt-wykonczenia/${wm.m}-m2/`,
     breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie</a> · ${wm.m} m²`,

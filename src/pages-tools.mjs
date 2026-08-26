@@ -16,7 +16,7 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
   );
 
   return layout({
-    title: `Sprawdź ofertę wykonawcy: czy cena za remont jest zawyżona ${YEAR}`,
+    title: `Sprawdź ofertę wykonawcy: czy cena nie jest zawyżona`,
     description: 'Wpisz kwotę z oferty ekipy remontowej i zobacz, czy mieści się w widełkach rynkowych dla Twojego miasta. Porównanie z medianą stawek.',
     path: '/sprawdz-oferte/',
     breadcrumb: `<a href="${R}">Cennik</a> · Sprawdź ofertę`,
@@ -217,7 +217,7 @@ export function sezonowoscPage() {
   const klasa = { niski: 'down', sredni: '', rosnie: '', wysoki: 'up' };
   const etykieta = { niski: 'niskie obłożenie', sredni: 'średnie', rosnie: 'rośnie', wysoki: 'szczyt sezonu' };
   return layout({
-    title: `Kiedy remont jest tańszy: sezonowość cen robót w ${YEAR}`,
+    title: `Kiedy remont jest tańszy: sezonowość cen ${YEAR}`,
     description: 'W którym miesiącu zamówić remont, elewację albo dach, żeby zapłacić mniej. Kalendarz obłożenia ekip i różnice stawek w ciągu roku.',
     path: '/kiedy-remontowac/',
     breadcrumb: `<a href="${R}">Cennik</a> · Kiedy remontować`,

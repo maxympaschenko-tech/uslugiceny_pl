@@ -11,7 +11,7 @@ export const PORADNIKI = [
   {
     slug: 'remont-lazienki-krok-po-kroku',
     h1: 'Remont łazienki krok po kroku',
-    title: `Remont łazienki krok po kroku ${YEAR}: kolejność prac i koszty etapów`,
+    title: `Remont łazienki krok po kroku ${YEAR}: kolejność prac`,
     desc: 'Kolejność prac przy remoncie łazienki: od demontażu przez hydroizolację po biały montaż. Co po czym, ile trwa i ile kosztuje każdy etap.',
     lede: 'Łazienka jest najbardziej nieprzebaczalnym pomieszczeniem w mieszkaniu. Pomyłka w kolejności prac oznacza tu nie poprawkę, tylko skuwanie tego, co zrobiono dzień wcześniej.',
     czas: 'P14D',
@@ -37,7 +37,7 @@ export const PORADNIKI = [
   {
     slug: 'kolejnosc-prac-remontowych',
     h1: 'Kolejność prac przy remoncie mieszkania',
-    title: `Kolejność prac remontowych ${YEAR}: co po czym w remoncie mieszkania`,
+    title: `Kolejność prac remontowych ${YEAR}: co po czym`,
     desc: 'W jakiej kolejności prowadzić remont mieszkania: od demontażu i instalacji po malowanie i podłogi. Etapy, czasy schnięcia i koszty.',
     lede: 'Remont ma jedną żelazną zasadę: zawsze od góry do dołu i od brudnego do czystego. Kto ją złamie, będzie malował dwa razy.',
     czas: 'P56D',
@@ -89,7 +89,7 @@ export const PORADNIKI = [
   {
     slug: 'ocieplenie-domu-krok-po-kroku',
     h1: 'Ocieplenie domu krok po kroku',
-    title: `Ocieplenie domu krok po kroku ${YEAR}: kolejność prac i koszty`,
+    title: `Ocieplenie domu krok po kroku ${YEAR}: kolejność prac`,
     desc: 'Jak przebiega ocieplenie domu w systemie ETICS: przygotowanie podłoża, klejenie płyt, kołkowanie, warstwa zbrojona i tynk. Etapy i koszty.',
     lede: 'Ocieplenie to system, a nie zestaw materiałów. Zamiana jednego elementu na tańszy z innej rodziny potrafi unieważnić gwarancję na całość.',
     czas: 'P21D',
@@ -114,7 +114,7 @@ export const PORADNIKI = [
   {
     slug: 'wymiana-dachu-krok-po-kroku',
     h1: 'Wymiana dachu krok po kroku',
-    title: `Wymiana dachu krok po kroku ${YEAR}: kolejność prac i koszty etapów`,
+    title: `Wymiana dachu krok po kroku ${YEAR}: kolejność prac`,
     desc: 'Jak przebiega wymiana pokrycia dachowego: demontaż, przegląd więźby, membrana, łacenie, pokrycie, obróbki i rynny. Etapy, koszty i formalności.',
     lede: 'Dach wymienia się raz na kilkadziesiąt lat i zwykle pod presją czasu, bo przecieka. Presja jest złym doradcą przy wyborze ekipy.',
     czas: 'P10D',
