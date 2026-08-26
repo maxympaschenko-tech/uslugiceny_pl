@@ -38,6 +38,18 @@
       {
         "name": "Platforma Izolacji, cena za m2 elewacji",
         "date": "2026-07"
+      },
+      {
+        "name": "BUDMAT, ile kosztuje dach, stawki za m2",
+        "date": "2026-07"
+      },
+      {
+        "name": "cennikibudowlane.com.pl, wymiana pokrycia dachowego",
+        "date": "2026-04"
+      },
+      {
+        "name": "fachowydekarz.pl, cennik uslug dekarskich",
+        "date": "2026-07"
       }
     ]
   },
@@ -115,6 +127,12 @@
       "name": "Brukarstwo i ogrodzenia",
       "slug": "brukarstwo-i-ogrodzenia",
       "lead": "Kostka brukowa z podbudową, krawężniki, odwodnienia, ogrodzenia panelowe i bramy."
+    },
+    {
+      "id": "dach",
+      "name": "Dachy i orynnowanie",
+      "slug": "dachy-i-orynnowanie",
+      "lead": "Pokrycia dachowe, więźba, obróbki blacharskie, rynny, okna dachowe i ocieplenie poddasza."
     }
   ],
   "units": {
@@ -988,6 +1006,204 @@
         "Przygotowanie podłoża: przekopanie, wyrównanie i nawożenie przed układaniem.",
         "Termin dostawy darni, która musi trafić na grunt w ciągu doby.",
         "Nawodnienie w pierwszych tygodniach, bez którego darń się nie przyjmie."
+      ]
+    },
+    {
+      "id": "demontaz_pokrycia",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 30,
+      "material": 0,
+      "name": "Demontaż starego pokrycia dachu",
+      "factors": [
+        "Rodzaj pokrycia: papa schodzi warstwami, dachówka ceramiczna sztuka po sztuce.",
+        "Wysokość budynku i konieczność rusztowania albo podnośnika.",
+        "Utylizacja: przy eternicie obowiązuje osobna procedura, ale wiele gmin finansuje ją w ramach programu azbestowego.",
+        "Dostęp do działki dla kontenera, bo bez niego gruz trzeba znosić ręcznie."
+      ]
+    },
+    {
+      "id": "membrana_laty",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 24,
+      "material": 21,
+      "name": "Membrana dachowa z łaceniem",
+      "factors": [
+        "Paroprzepuszczalność membrany, od której zależy cena rolki.",
+        "Rozstaw łat wynikający z modułu wybranego pokrycia.",
+        "Kontrłaty i szczelina wentylacyjna, bez których pokrycie będzie się pocić."
+      ]
+    },
+    {
+      "id": "wiezba",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 95,
+      "material": 135,
+      "name": "Więźba dachowa",
+      "factors": [
+        "Rozpiętość i przekrój krokwi, wyliczane przez konstruktora.",
+        "Rodzaj drewna i to, czy jest suszone komorowo, czy tylko strugane.",
+        "Impregnacja przeciwgrzybiczna i ogniowa, wymagana w większości projektów.",
+        "Skomplikowanie połaci: lukarny, kosze i jaskółki podnoszą pracochłonność o połowę."
+      ]
+    },
+    {
+      "id": "blachodachowka",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 82,
+      "material": 56,
+      "name": "Krycie dachu blachodachówką",
+      "factors": [
+        "Arkusze czy moduły: przy dachu wielospadowym moduły dają wyraźnie mniej odpadu.",
+        "Kąt nachylenia i liczba załamań, bo każde wymaga obróbki.",
+        "Grubość blachy i rodzaj powłoki, od której zależy gwarancja producenta.",
+        "Sezon: jesienią stawki dekarzy bywają niższe niż w szczycie wiosennym."
+      ]
+    },
+    {
+      "id": "blacha_trapezowa",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 62,
+      "material": 55,
+      "name": "Krycie dachu blachą trapezową",
+      "factors": [
+        "Wysokość profilu, dobierana do kąta nachylenia połaci.",
+        "Długość arkuszy, bo dłuższe wymagają więcej rąk przy wnoszeniu.",
+        "Przeznaczenie: budynek gospodarczy ma inne wymagania niż dom mieszkalny."
+      ]
+    },
+    {
+      "id": "rabek_stojacy",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 135,
+      "material": 125,
+      "name": "Krycie dachu blachą na rąbek stojący",
+      "factors": [
+        "Zamykanie rąbka na miejscu wymaga specjalistycznej maszyny i wprawy.",
+        "Kąt nachylenia: rąbek sprawdza się nawet na bardzo płaskich połaciach.",
+        "Rodzaj blachy: aluminium, stal powlekana czy cynk-tytan, każda w innej cenie."
+      ]
+    },
+    {
+      "id": "dachowka_ceramiczna",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 125,
+      "material": 115,
+      "name": "Krycie dachu dachówką ceramiczną",
+      "factors": [
+        "Ciężar pokrycia, przez który więźba często wymaga wzmocnienia.",
+        "Rodzaj dachówki: karpiówka układana podwójnie to dwa razy więcej sztuk na metr.",
+        "Docinanie w koszach i przy kominach, gdzie tempo pracy wyraźnie spada."
+      ]
+    },
+    {
+      "id": "papa_termozgrzewalna",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 48,
+      "material": 38,
+      "name": "Pokrycie papą termozgrzewalną",
+      "factors": [
+        "Liczba warstw: podkładowa i wierzchnia to standard na dachu płaskim.",
+        "Stan podłoża i konieczność wykonania klinów przy attykach.",
+        "Temperatura pracy, bo poniżej kilku stopni papa nie chce się zgrzewać."
+      ]
+    },
+    {
+      "id": "gont_bitumiczny",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 72,
+      "material": 62,
+      "name": "Krycie dachu gontem bitumicznym",
+      "factors": [
+        "Konieczność wykonania pełnego deskowania pod gont.",
+        "Kształt połaci, bo gont dobrze radzi sobie z łukami i wieżyczkami.",
+        "Sezon montażu: warstwa samoprzylepna nie aktywuje się w chłodzie."
+      ]
+    },
+    {
+      "id": "obrobki_blacharskie",
+      "cat": "dach",
+      "unit": "mb",
+      "labour": 48,
+      "material": 38,
+      "name": "Obróbki blacharskie",
+      "factors": [
+        "Liczba kominów, okien dachowych i koszy do obrobienia.",
+        "Materiał obróbki dobierany do pokrycia i systemu rynnowego.",
+        "Precyzja przy koszach, bo to najczęstsze miejsce przecieków."
+      ]
+    },
+    {
+      "id": "rynny",
+      "cat": "dach",
+      "unit": "mb",
+      "labour": 62,
+      "material": 82,
+      "name": "Montaż systemu rynnowego",
+      "factors": [
+        "Materiał: PVC jest najtańsze, stal powlekana droższa, tytan-cynk najdroższy.",
+        "Liczba narożników, rur spustowych i wysokość budynku.",
+        "Odprowadzenie wody do kanalizacji albo do studni chłonnej, liczone osobno."
+      ]
+    },
+    {
+      "id": "podbitka",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 64,
+      "material": 58,
+      "name": "Montaż podbitki dachowej",
+      "factors": [
+        "Materiał: PVC, drewno czy panele elewacyjne, każdy z innym czasem montażu.",
+        "Szerokość okapu i konieczność wykonania rusztu.",
+        "Kratki wentylacyjne, bez których poddasze przestaje oddychać."
+      ]
+    },
+    {
+      "id": "okno_dachowe",
+      "cat": "dach",
+      "unit": "szt",
+      "labour": 580,
+      "material": 0,
+      "name": "Montaż okna dachowego",
+      "factors": [
+        "Rozmiar okna i to, czy trzeba przeciąć krokiew i wykonać wymian.",
+        "Kołnierz uszczelniający dobierany do rodzaju pokrycia.",
+        "Wykończenie ościeży od strony poddasza, zwykle liczone osobno."
+      ]
+    },
+    {
+      "id": "kominek_wentylacyjny",
+      "cat": "dach",
+      "unit": "szt",
+      "labour": 190,
+      "material": 0,
+      "name": "Montaż kominka wentylacyjnego",
+      "factors": [
+        "Rodzaj pokrycia, bo w dachówce potrzebna jest dachówka systemowa.",
+        "Liczba kominków wynikająca z powierzchni połaci.",
+        "Podłączenie do pionu kanalizacyjnego, jeśli kominek pełni funkcję odpowietrzenia."
+      ]
+    },
+    {
+      "id": "ocieplenie_poddasza",
+      "cat": "dach",
+      "unit": "m2",
+      "labour": 58,
+      "material": 78,
+      "name": "Ocieplenie poddasza wełną",
+      "factors": [
+        "Grubość warstwy, dziś zwykle od 25 do 30 cm w dwóch krzyżowych warstwach.",
+        "Konieczność ułożenia folii paroizolacyjnej i szczelnego sklejenia zakładów.",
+        "Dostęp: skosy i wąskie przestrzenie między krokwiami spowalniają pracę."
       ]
     }
   ],
