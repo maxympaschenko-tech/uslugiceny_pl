@@ -18,8 +18,9 @@ jobs:
 
       - name: Tylko polski w wygenerowanych stronach
         run: |
-          if grep -rlP '[\x{0400}-\x{04FF}]' dist/ ; then
-            echo "Znaleziono cyrylice w dist/"; exit 1
+          # -I pomija pliki binarne: bajty ikon PNG potrafia trafic w zakres cyrylicy
+          if grep -rlIP '[\x{0400}-\x{04FF}]' dist/ ; then
+            echo "Znaleziono cyrylice w plikach tekstowych dist/"; exit 1
           fi
           echo "OK, wylacznie polski"
 
