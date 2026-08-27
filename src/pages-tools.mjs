@@ -504,3 +504,77 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
 bindSort(document.getElementById('tab'));`,
   });
 }
+
+/* ---------- historia zmian w cenniku ---------- */
+
+export const AKTUALIZACJE = [
+  {
+    data: '2026-08',
+    tytul: 'Weryfikacja punktowa całego cennika',
+    opis: 'Przejście pozycja po pozycji przez wszystkie kategorie i porównanie stawek z publicznymi cennikami wykonawców. Udział stawek mających w źródle liczbę dla konkretnej roboty wzrósł z 44 do 86 na 94 pozycje.',
+    zmiany: [
+      ['Instalacje grzewcze', 'Punkt CO obniżony z 880 do 260 zł, montaż pompy ciepła z 6800 do 4400 zł, grzejnik z 280 do 170 zł. Stawki wyprowadzone wcześniej z analogii okazały się nawet trzykrotnie zawyżone.'],
+      ['Dekarstwo', 'Więźba 95 → 72 zł/m², obróbki blacharskie 48 → 36 zł/mb. Rąbek stojący podniesiony ze 135 do 165 zł/m², bo był poniżej realiów rynkowych.'],
+      ['Brukarstwo', 'Odwodnienie liniowe 220 → 400 zł/mb, obrzeża 33 → 60, krawężniki 56 → 85, trawnik z rolki 37 → 65 zł/m². Kostka betonowa obniżona ze 187 do 150 zł/m².'],
+      ['Biały montaż', 'Wanna 420 → 590 zł, kabina 460 → 680 zł, WC ze stelażem 360 → 540 zł. Wszystkie pozycje były zaniżone wobec rynku.'],
+      ['Elektryka i stolarka', 'Rozdzielnica 1140 → 1770 zł, drzwi zewnętrzne 680 → 420 zł, drzwi wewnętrzne 340 → 280 zł.'],
+    ],
+  },
+  {
+    data: '2026-08',
+    tytul: 'Kalibracja stawek bazowych',
+    opis: 'Pierwsza kalibracja całego cennika wobec zestawień rynkowych. Zdjęty status wersji roboczej, dopisane źródła z datami.',
+    zmiany: [
+      ['Płytki', 'Robocizna na ścianie obniżona ze 148 do 58 zł/m². Poprzednia stawka była ponad dwukrotnie wyższa od rynkowej.'],
+      ['Wylewki', 'Przeliczone od nowa: 60 zł/m² przy warstwie 5 cm wobec rynkowych 40-65.'],
+      ['Gładzie i elektryka', 'Gładź podniesiona z 34 do 42 zł/m², punkt elektryczny z 88 do 120 zł, oba były poniżej rynku.'],
+      ['Ocieplenia', 'Poprawiony podwójny naliczanie: klejenie płyt i warstwa zbrojona liczyły część tego samego zakresu dwa razy.'],
+    ],
+  },
+];
+
+export function aktualizacjePage({ works, meta }) {
+  const sprawdzone = works.filter((w) => w.sprawdzone).length;
+  return layout({
+    title: `Historia zmian w cenniku`,
+    description: 'Co i kiedy zmieniło się w stawkach: kalibracje, weryfikacje wobec cenników wykonawców i poprawki błędów. Pełna lista zmian z uzasadnieniem.',
+    path: '/aktualizacje/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Historia zmian`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Dziennik zmian</p>
+  <h1>Co zmieniło się w cenniku</h1>
+  <p class="lede">Cennik, który nigdy się nie zmienia, jest albo idealny, albo martwy. Ten się zmienia i pokazujemy, co dokładnie i dlaczego.</p>
+  <p class="section-note">Publikujemy również zmiany, które oznaczają przyznanie się do błędu. Stawka zawyżona trzykrotnie to nie drobiazg: ktoś mógł na jej podstawie odrzucić uczciwą ofertę. Ukrywanie takich poprawek byłoby wygodniejsze, ale wtedy cała reszta cennika nie byłaby warta zaufania.</p>
+
+  <h2 style="margin-top:1.8rem">Stan weryfikacji</h2>
+  <div class="cards">
+    <div class="card"><h3>Sprawdzone punktowo</h3><p class="big">${sprawdzone}</p><p>pozycji, dla których źródło podaje liczbę dla tej konkretnej roboty.</p></div>
+    <div class="card"><h3>Z przedziału grupy</h3><p class="big">${works.length - sprawdzone}</p><p>pozycji wyprowadzonych z widełek dla całej grupy robót, oznaczonych na swoich stronach jako orientacyjne.</p></div>
+    <div class="card"><h3>Źródła</h3><p class="big">${(meta.sources || []).length}</p><p>opracowań i cenników, na których opiera się cennik. Lista z datami jest na stronie <a href="${R}jak-liczymy/">Jak liczymy</a>.</p></div>
+  </div>
+
+  ${AKTUALIZACJE.map((a) => `
+  <h2 style="margin-top:2.2rem">${a.tytul}</h2>
+  <p class="eyebrow" style="margin-bottom:.6rem">${a.data}</p>
+  <p class="section-note">${a.opis}</p>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Obszar</th><th data-sort="off">Co się zmieniło</th></tr></thead>
+    <tbody>${a.zmiany.map(([obszar, tekst]) => `<tr><td><b>${obszar}</b></td><td style="text-align:left;white-space:normal">${tekst}</td></tr>`).join('')}</tbody>
+  </table></div>`).join('')}
+
+  <h2 style="margin-top:2.2rem">Jak często aktualizujemy</h2>
+  <p class="section-note">Stawki przeglądamy okresowo, a datę ostatniej kalibracji widać pod każdą pozycją cennika. Jeśli prowadzisz ekipę i widzisz, że któraś pozycja odbiega od realiów Twojego rynku, napisz: takie zgłoszenia trafiają do kolejnego przeglądu. Adres jest na stronie <a href="${R}kontakt/">Kontakt</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [{
+        '@type': 'Question',
+        name: 'Jak często aktualizowane są stawki?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Cennik przeglądamy okresowo, a datę ostatniej kalibracji widać pod każdą pozycją. Historia zmian wraz z uzasadnieniem jest publikowana na osobnej stronie.' },
+      }],
+    },
+  });
+}

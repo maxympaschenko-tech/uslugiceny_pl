@@ -148,6 +148,7 @@ ${body}
         <ul>
           <li><a href="${R}o-nas/">O serwisie</a></li>
           <li><a href="${R}jak-liczymy/">Jak liczymy</a></li>
+          <li><a href="${R}aktualizacje/">Historia zmian</a></li>
           <li><a href="${R}kontakt/">Kontakt</a></li>
           <li><a href="${R}polityka-prywatnosci/">Polityka prywatności</a></li>
           <li><a href="#" id="zmien-zgode">Zmień zgodę na cookies</a></li>
