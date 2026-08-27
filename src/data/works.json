@@ -70,6 +70,18 @@
       {
         "name": "studiozdunskie.pl, ceny montazu kotla gazowego",
         "date": "2026-06"
+      },
+      {
+        "name": "BUDMAT, cennik uslug dekarskich: robocizna za m2",
+        "date": "2026-07"
+      },
+      {
+        "name": "maszyny-komunalne.pl, koszty robocizny dekarskiej",
+        "date": "2025-10"
+      },
+      {
+        "name": "tani-komin.pl, krycie dachow, realne stawki za m2",
+        "date": "2026-07"
       }
     ]
   },
@@ -253,7 +265,10 @@
       "zrodla": [
         8,
         9,
-        10
+        10,
+        16,
+        17,
+        18
       ]
     },
     {
@@ -1227,7 +1242,7 @@
       "id": "wiezba",
       "cat": "dach",
       "unit": "m2",
-      "labour": 95,
+      "labour": 72,
       "material": 135,
       "name": "Więźba dachowa",
       "factors": [
@@ -1235,7 +1250,8 @@
         "Rodzaj drewna i to, czy jest suszone komorowo, czy tylko strugane.",
         "Impregnacja przeciwgrzybiczna i ogniowa, wymagana w większości projektów.",
         "Skomplikowanie połaci: lukarny, kosze i jaskółki podnoszą pracochłonność o połowę."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "blachodachowka",
@@ -1256,27 +1272,29 @@
       "id": "blacha_trapezowa",
       "cat": "dach",
       "unit": "m2",
-      "labour": 62,
+      "labour": 55,
       "material": 55,
       "name": "Krycie dachu blachą trapezową",
       "factors": [
         "Wysokość profilu, dobierana do kąta nachylenia połaci.",
         "Długość arkuszy, bo dłuższe wymagają więcej rąk przy wnoszeniu.",
         "Przeznaczenie: budynek gospodarczy ma inne wymagania niż dom mieszkalny."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "rabek_stojacy",
       "cat": "dach",
       "unit": "m2",
-      "labour": 135,
+      "labour": 165,
       "material": 125,
       "name": "Krycie dachu blachą na rąbek stojący",
       "factors": [
         "Zamykanie rąbka na miejscu wymaga specjalistycznej maszyny i wprawy.",
         "Kąt nachylenia: rąbek sprawdza się nawet na bardzo płaskich połaciach.",
         "Rodzaj blachy: aluminium, stal powlekana czy cynk-tytan, każda w innej cenie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "dachowka_ceramiczna",
@@ -1303,33 +1321,36 @@
         "Liczba warstw: podkładowa i wierzchnia to standard na dachu płaskim.",
         "Stan podłoża i konieczność wykonania klinów przy attykach.",
         "Temperatura pracy, bo poniżej kilku stopni papa nie chce się zgrzewać."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "gont_bitumiczny",
       "cat": "dach",
       "unit": "m2",
-      "labour": 72,
+      "labour": 62,
       "material": 62,
       "name": "Krycie dachu gontem bitumicznym",
       "factors": [
         "Konieczność wykonania pełnego deskowania pod gont.",
         "Kształt połaci, bo gont dobrze radzi sobie z łukami i wieżyczkami.",
         "Sezon montażu: warstwa samoprzylepna nie aktywuje się w chłodzie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "obrobki_blacharskie",
       "cat": "dach",
       "unit": "mb",
-      "labour": 48,
-      "material": 38,
+      "labour": 36,
+      "material": 30,
       "name": "Obróbki blacharskie",
       "factors": [
         "Liczba kominów, okien dachowych i koszy do obrobienia.",
         "Materiał obróbki dobierany do pokrycia i systemu rynnowego.",
         "Precyzja przy koszach, bo to najczęstsze miejsce przecieków."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "rynny",
@@ -1356,7 +1377,8 @@
         "Materiał: PVC, drewno czy panele elewacyjne, każdy z innym czasem montażu.",
         "Szerokość okapu i konieczność wykonania rusztu.",
         "Kratki wentylacyjne, bez których poddasze przestaje oddychać."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "okno_dachowe",
@@ -1369,7 +1391,8 @@
         "Rozmiar okna i to, czy trzeba przeciąć krokiew i wykonać wymian.",
         "Kołnierz uszczelniający dobierany do rodzaju pokrycia.",
         "Wykończenie ościeży od strony poddasza, zwykle liczone osobno."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "kominek_wentylacyjny",
@@ -1382,7 +1405,8 @@
         "Rodzaj pokrycia, bo w dachówce potrzebna jest dachówka systemowa.",
         "Liczba kominków wynikająca z powierzchni połaci.",
         "Podłączenie do pionu kanalizacyjnego, jeśli kominek pełni funkcję odpowietrzenia."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "ocieplenie_poddasza",
@@ -1395,7 +1419,8 @@
         "Grubość warstwy, dziś zwykle od 25 do 30 cm w dwóch krzyżowych warstwach.",
         "Konieczność ułożenia folii paroizolacyjnej i szczelnego sklejenia zakładów.",
         "Dostęp: skosy i wąskie przestrzenie między krokwiami spowalniają pracę."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "demontaz_okna",
