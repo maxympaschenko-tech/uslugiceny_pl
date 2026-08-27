@@ -94,6 +94,18 @@
       {
         "name": "djakdesign.pl, koszt m2 kostki brukowej z robocizna",
         "date": "2026-04"
+      },
+      {
+        "name": "edithome.pl, cennik uslug hydraulicznych: stawki w calej Polsce",
+        "date": "2026-05"
+      },
+      {
+        "name": "alleRemont.pl, hydraulik cennik: punkt wod-kan i biala armatura",
+        "date": "2026-08"
+      },
+      {
+        "name": "dom.wp.pl, montaz kabiny prysznicowej i bialy montaz",
+        "date": "2026-05"
       }
     ]
   },
@@ -198,7 +210,10 @@
         0,
         1,
         2,
-        13
+        13,
+        22,
+        23,
+        24
       ]
     },
     {
@@ -702,7 +717,7 @@
       "id": "montaz_wanny",
       "cat": "plumbing",
       "unit": "szt",
-      "labour": 420,
+      "labour": 590,
       "material": 0,
       "spread": 0.22,
       "name": "Montaż wanny z obudową",
@@ -710,20 +725,22 @@
         "Rodzaj wanny: akrylowa na stelażu montuje się inaczej niż żeliwna.",
         "Obudowa: gotowy panel czy zabudowa z płyty pod płytki.",
         "Rewizja dostępowa do syfonu, którą trzeba przewidzieć w zabudowie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_kabiny",
       "cat": "plumbing",
       "unit": "szt",
-      "labour": 460,
+      "labour": 680,
       "material": 0,
       "name": "Montaż kabiny prysznicowej",
       "factors": [
         "Rodzaj: kabina z brodzikiem czy walk-in na posadzce.",
         "Konieczność docięcia szkła lub profili do nierównych ścian.",
         "Uszczelnienie i późniejsze silikonowanie, liczone czasem osobno."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "odplyw_liniowy",
@@ -737,46 +754,50 @@
         "Długość odpływu i to, czy montowany jest przy ścianie, czy na środku.",
         "Wymagany spadek posadzki, który trzeba wykonać przed płytkowaniem.",
         "Przebudowa podejścia kanalizacyjnego, jeśli pion jest daleko."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_wc",
       "cat": "plumbing",
       "unit": "szt",
-      "labour": 360,
+      "labour": 540,
       "material": 0,
       "factors": [
         "Kompakt stojący jest tańszy w montażu niż miska podwieszana ze stelażem.",
         "Przesunięcie odpływu i przeróbka podejścia kanalizacyjnego.",
         "Zabudowa stelaża i obłożenie jej płytkami, liczone jako osobne pozycje."
       ],
-      "name": "Montaż WC ze stelażem"
+      "name": "Montaż WC ze stelażem",
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_umywalki",
       "cat": "plumbing",
       "unit": "szt",
-      "labour": 240,
+      "labour": 250,
       "material": 0,
       "name": "Montaż umywalki",
       "factors": [
         "Typ: nablatowa, podwieszana czy z szafką, każda montuje się inaczej.",
         "Konieczność wykonania otworu w blacie pod baterię lub korek klik-klak.",
         "Wysokość montażu i to, czy w ścianie jest już stelaż."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_baterii",
       "cat": "plumbing",
       "unit": "szt",
-      "labour": 115,
+      "labour": 165,
       "material": 0,
       "name": "Montaż baterii",
       "factors": [
         "Rodzaj: podtynkowa wymaga wcześniejszego osadzenia korpusu w ścianie.",
         "Stan starych przyłączy i konieczność wymiany zaworków.",
         "Dostęp do miejsca montażu po zabudowie mebli."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "podlaczenie_pralki",
@@ -789,7 +810,8 @@
         "Odległość od punktu wodno-kanalizacyjnego.",
         "Konieczność montażu zaworu kątowego i syfonu z króćcem.",
         "Poziomowanie i zabezpieczenie przed wibracją na nierównej posadzce."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "grzejnik",
