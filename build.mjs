@@ -106,6 +106,26 @@ await write(
   </div>
 </div></section>
 
+<section class="sciezki"><div class="wrap">
+  <div class="cards">
+    <div class="card sciezka">
+      <span class="card-ikona">${ikona('tiles')}</span>
+      <h3><a href="${R}uslugi/">Sprawdź cenę roboty</a></h3>
+      <p>${works.length} pozycji w ${categories.length} kategoriach, każda z rozbiciem na robociznę i materiał oraz stawkami w dziesięciu miastach.</p>
+    </div>
+    <div class="card sciezka">
+      <span class="card-ikona">${ikona('walls')}</span>
+      <h3><a href="${R}kalkulator/remont-mieszkania/">Policz swój remont</a></h3>
+      <p>Dziesięć kalkulatorów: mieszkanie, łazienka, wylewka, malowanie, płytki, elewacja, dach, kostka, ogrodzenie. Kosztorys można wydrukować albo wysłać linkiem.</p>
+    </div>
+    <div class="card sciezka">
+      <span class="card-ikona">${ikona('demont')}</span>
+      <h3><a href="${R}sprawdz-oferte/">Oceń ofertę ekipy</a></h3>
+      <p>Masz już wycenę i nie wiesz, czy jest uczciwa? Porównamy ją z widełkami rynkowymi dla Twojego miasta.</p>
+    </div>
+  </div>
+</div></section>
+
 <section><div class="wrap">
   <h2>Remont pod klucz, zł za m²</h2>
   <p class="section-note">Wyliczenie dla typowego mieszkania: demontaże, tynki, gładzie, malowanie, wylewka, panele, płytki w strefach mokrych, instalacja elektryczna, drzwi i sprzątanie. Kliknij nagłówek kolumny, żeby posortować.</p>
@@ -138,6 +158,16 @@ await write(
   <p class="section-note" style="margin-top:1.2rem">Ocieplenie domu o powierzchni:</p>
   <div class="city-links">${DOMY.map((m) => `<a href="${R}koszt-ocieplenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="receipt-foot" style="margin-top:1rem">Zajrzyj też do <a href="${R}poradnik/">poradników</a> o kolejności prac i do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Zanim zadzwonisz po ekipę</h2>
+  <p class="section-note">Trzy rzeczy, które najczęściej decydują o kosztach bardziej niż sama stawka za metr.</p>
+  <div class="cards">
+    <div class="card"><h3><a href="${R}poradnik/">Kolejność prac</a></h3><p>Etap zrobiony nie w porę trzeba powtórzyć. Pięć poradników krok po kroku: mieszkanie, łazienka, dach, elewacja, okna.</p></div>
+    <div class="card"><h3><a href="${R}porownanie/">Co wybrać</a></h3><p>Osiem porównań rozstrzygniętych liczbami: wylewka cementowa czy anhydrytowa, panele czy deska, pompa ciepła czy kocioł.</p></div>
+    <div class="card"><h3><a href="${R}kiedy-remontowac/">Kiedy zamawiać</a></h3><p>Ta sama robota kosztuje inaczej w maju i w listopadzie. Kalendarz obłożenia ekip miesiąc po miesiącu.</p></div>
+  </div>
 </div></section>
 
 <section><div class="wrap">

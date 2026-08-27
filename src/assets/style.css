@@ -711,3 +711,16 @@ h2 .ikona, h3 .ikona { vertical-align: -.3em; margin-right: .45rem; color: var(-
 .haslo p { margin: 0 0 .5rem; max-width: 68ch; }
 .haslo:target h2 { color: var(--accent-ink, var(--link)); }
 .haslo:target { background: #FFFDF5; border-left: 3px solid var(--signal); padding-left: 1rem; }
+
+/* ---------- trzy sciezki wejscia ---------- */
+
+.sciezki { padding-block: 1rem 1.5rem; }
+.sciezki .card {
+  border-color: var(--line); position: relative;
+  transition: border-color .12s ease, transform .12s ease;
+}
+.sciezki .card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.sciezka h3 { font-size: var(--step-1); margin-bottom: .45rem; }
+.sciezka h3 a { color: var(--ink); }
+.sciezka h3 a::after { content: " →"; color: var(--signal-d); }
+.sciezka p { font-size: var(--step--1); line-height: 1.55; }
