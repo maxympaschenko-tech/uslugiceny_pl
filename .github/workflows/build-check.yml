@@ -1,5 +1,5 @@
-# Kontrola przy kazdym pull requescie. Trzy niezalezne warstwy:
-# dane cennika, wygenerowane strony i dostepnosc.
+# Kontrola przy kazdym pull requescie. Cztery niezalezne warstwy:
+# dane cennika, wygenerowane strony, dane strukturalne i dostepnosc.
 name: Build check
 
 on:
@@ -29,6 +29,9 @@ jobs:
           fi
           echo "OK, wylacznie polski"
 
+      - name: Dane strukturalne
+        run: python3 kontrola-schematow.py
+
       - name: Dostepnosc
         run: python3 kontrola-dostepnosci.py
 
@@ -47,5 +50,6 @@ jobs:
           sprawdz "tytuly dluzsze niz 65 znakow" 0
           sprawdz "strony bez dokladnie jednego H1" 0
           sprawdz "martwe odnosniki wewnetrzne" 0
+          sprawdz "strony ciezsze niz 120 kB" 0
           sprawdz "strony bez linkow przychodzacych" 1
           exit $fail
