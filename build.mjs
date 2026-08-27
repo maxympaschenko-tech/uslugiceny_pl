@@ -8,7 +8,7 @@ import { layout, estimateSheet, calcScript, field, select, check, money, tytul, 
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
-import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, pelnyCennikPage } from './src/pages-tools.mjs';
+import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, pelnyCennikPage, strukturaKosztowPage } from './src/pages-tools.mjs';
 import { HASLA, slownikPage } from './src/pages-slownik.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
@@ -849,7 +849,8 @@ await write('kiedy-remontowac', sezonowoscPage());
 await write('slownik', slownikPage({ byId, categories, units, unitPrice, slugify }));
 await write('porownaj-miasta', porownajMiastaPage({ works, categories, units, cities, unitPrice }));
 await write('cennik', pelnyCennikPage({ works, categories, units, cities, cityOptions, unitPrice, sourceFlag: draftFlag }));
-extraUrls.push('/sprawdz-oferte/', '/szukaj/', '/kiedy-remontowac/', '/slownik/', '/porownaj-miasta/', '/cennik/');
+await write('struktura-kosztow', strukturaKosztowPage({ works, categories, units, unitPrice }));
+extraUrls.push('/sprawdz-oferte/', '/szukaj/', '/kiedy-remontowac/', '/slownik/', '/porownaj-miasta/', '/cennik/', '/struktura-kosztow/');
 
 // Indeks wyszukiwarki: same strony docelowe, bez wariantów miejskich,
 // bo lista 900 pozycji nie pomaga, tylko zasypuje wyniki powtórzeniami.
@@ -878,6 +879,7 @@ const indeks = [
   ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
   { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
   { t: 'Porównaj dwa miasta', u: `${R}porownaj-miasta/`, k: 'narzędzie', o: 'Zestaw dwa miasta i zobacz różnicę w stawkach pozycja po pozycji.' },
+  { t: 'Robocizna czy materiał', u: `${R}struktura-kosztow/`, k: 'analiza', o: 'Udział pracy i materiału w każdej pozycji cennika.' },
   { t: 'Pełny cennik na jednej stronie', u: `${R}cennik/`, k: 'cennik', o: 'Wszystkie pozycje w jednym zestawieniu, do wydruku.' },
   { t: 'Kiedy remont wychodzi taniej', u: `${R}kiedy-remontowac/`, k: 'poradnik', o: 'Kalendarz obłożenia ekip i różnice stawek w ciągu roku.' },
   ...HASLA.map(([t, id, o]) => ({ t: `Co to jest: ${t}`, u: `${R}slownik/#${id}`, k: 'słownik', o: o.slice(0, 120) + '…' })),

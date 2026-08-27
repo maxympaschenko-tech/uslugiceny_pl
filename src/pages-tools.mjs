@@ -416,3 +416,91 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 })();`,
   });
 }
+
+/* ---------- gdzie ida pieniadze: robocizna kontra material ---------- */
+
+export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
+  const poz = works
+    .map((w) => {
+      const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
+      const suma = p.labour + p.material;
+      return {
+        name: w.name,
+        cat: w.cat,
+        unit: units[w.unit].name,
+        udzial: Math.round((p.labour / suma) * 100),
+        suma: Math.round(suma),
+        labour: Math.round(p.labour),
+        material: Math.round(p.material),
+      };
+    })
+    .sort((a, b) => b.udzial - a.udzial);
+
+  const sameRobocizna = poz.filter((x) => x.udzial === 100).length;
+  const przewagaMaterialu = poz.filter((x) => x.udzial < 50);
+
+  const wiersz = (x) => `<tr>
+<td data-v="${x.name}">${x.name} <span class="qty">${x.unit}</span></td>
+<td class="num" data-v="${x.labour}">${money(x.labour)}</td>
+<td class="num" data-v="${x.material}">${x.material ? money(x.material) : 'własny'}</td>
+<td data-v="${x.udzial}" style="min-width:9rem">
+  <div class="podzial-pasek" title="Robocizna ${x.udzial}%">
+    <span class="pr-robocizna" style="width:${x.udzial}%"></span>
+    <span class="pr-material" style="width:${100 - x.udzial}%"></span>
+  </div>
+</td>
+<td class="num" data-v="${x.udzial}">${x.udzial}%</td>
+</tr>`;
+
+  return layout({
+    title: `Za co się płaci w remoncie: robocizna czy materiał`,
+    description: 'Udział robocizny i materiału w każdej pozycji cennika. Pokazuje, gdzie negocjacja stawki ma sens, a gdzie taniej wychodzi zakup materiału na własną rękę.',
+    path: '/struktura-kosztow/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Struktura kosztów`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Analiza cennika</p>
+  <h1>Robocizna czy materiał</h1>
+  <p class="lede">Dwie pozycje po sto złotych za metr to nie to samo. W jednej płacisz prawie wyłącznie za pracę, w drugiej połowa kwoty to towar, który możesz kupić sam.</p>
+  <p class="section-note">To rozróżnienie decyduje o tym, gdzie negocjacja ma sens. Przy pracach rozbiórkowych cała kwota to robocizna, więc jedyne pole do rozmowy to stawka ekipy. Przy okładzinach i stolarce znaczną część kosztu stanowi materiał, a tam wpływ na cenę masz przede wszystkim przez wybór produktu, nie przez targowanie się z wykonawcą.</p>
+
+  <h2 style="margin-top:1.8rem">Cennik w liczbach</h2>
+  <div class="cards">
+    <div class="card"><h3>Sama robocizna</h3><p class="big">${sameRobocizna}</p><p>pozycji, w których nie ma żadnego materiału po stronie wykonawcy: demontaże, montaże urządzeń kupowanych przez inwestora, sprzątanie.</p></div>
+    <div class="card"><h3>Przewaga materiału</h3><p class="big">${przewagaMaterialu.length}</p><p>pozycji, w których materiał kosztuje więcej niż praca. Tu o cenie decyduje półka cenowa produktu.</p></div>
+    <div class="card"><h3>Najwięcej materiału</h3><p class="big">${100 - poz[poz.length - 1].udzial}%</p><p>taki udział ma materiał w pozycji „${poz[poz.length - 1].name}”, największy w całym cenniku.</p></div>
+  </div>
+
+  <h2 style="margin-top:2rem">Wszystkie pozycje według udziału robocizny</h2>
+  <p class="section-note">Ciemna część paska to praca, jasna to materiał. Kliknij nagłówek, żeby posortować inaczej.</p>
+  <div class="podzial-legenda" style="margin-bottom:.6rem">
+    <span><i class="kropka kropka-r"></i>Robocizna</span>
+    <span><i class="kropka kropka-m"></i>Materiał</span>
+  </div>
+  <div class="board-wrap"><table class="board" id="tab">
+    <thead><tr><th data-sort="off">Robota</th><th>Robocizna</th><th>Materiał</th><th data-sort="off">Podział</th><th>Udział pracy</th></tr></thead>
+    <tbody>${poz.map(wiersz).join('')}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">Jak to wykorzystać</h2>
+  <ul class="factors">
+    <li>Przy pozycjach ze słowem „własny” w kolumnie Materiał zapytaj wykonawcę, czy kupno przez Ciebie obniży kwotę. Zwykle tak, ale przechodzi wtedy na Ciebie odpowiedzialność za braki i dowóz.</li>
+    <li>Przy pozycjach z przewagą materiału różnicę robi półka cenowa produktu, a nie targowanie. Zejście o klasę niżej daje więcej niż kilka procent rabatu na robociznę.</li>
+    <li>Przy pozycjach będących w całości robocizną porównuj oferty ostrożnie: niska stawka najczęściej oznacza węższy zakres, na przykład brak wywozu gruzu.</li>
+  </ul>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Masz konkretną wycenę? Sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Całe zestawienie stawek jest w <a href="${R}cennik/">pełnym cenniku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: 'Czy opłaca się kupować materiał samemu?', acceptedAnswer: { '@type': 'Answer', text: 'Przy pozycjach, w których materiał i tak kupuje inwestor, nie ma wyboru. W pozostałych zakup na własną rękę bywa tańszy, ale przenosi na inwestora odpowiedzialność za ilości, dowóz i braki w trakcie prac.' } },
+        { '@type': 'Question', name: 'Gdzie negocjacja ceny remontu ma największy sens?', acceptedAnswer: { '@type': 'Answer', text: 'Tam, gdzie kwota to niemal wyłącznie robocizna, czyli przy demontażach, montażach i pracach przygotowawczych. Przy okładzinach o cenie decyduje głównie wybrana półka materiału.' } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('tab'));`,
+  });
+}

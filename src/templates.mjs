@@ -136,6 +136,7 @@ ${body}
           <li><a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a></li>
           <li><a href="${R}cennik/">Pełny cennik</a></li>
           <li><a href="${R}porownaj-miasta/">Porównaj dwa miasta</a></li>
+          <li><a href="${R}struktura-kosztow/">Robocizna czy materiał</a></li>
           <li><a href="${R}kiedy-remontowac/">Kiedy remontować taniej</a></li>
           <li><a href="${R}poradnik/">Poradniki krok po kroku</a></li>
           <li><a href="${R}porownanie/">Porównania rozwiązań</a></li>
