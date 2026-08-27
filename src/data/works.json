@@ -82,6 +82,18 @@
       {
         "name": "tani-komin.pl, krycie dachow, realne stawki za m2",
         "date": "2026-07"
+      },
+      {
+        "name": "Oferteo, obrzeza do kostki: cena i montaz",
+        "date": "2026-04"
+      },
+      {
+        "name": "bruk-design.pl, montaz kraweznikow i obrzezy za mb",
+        "date": "2026-06"
+      },
+      {
+        "name": "djakdesign.pl, koszt m2 kostki brukowej z robocizna",
+        "date": "2026-04"
       }
     ]
   },
@@ -249,7 +261,10 @@
         "Wzór układania wpływa i na robociznę, i na ilość odpadu. Jodełka oraz układ ukośny podnoszą stawkę o dwadzieścia do czterdziestu procent i zwiększają liczbę docinek na krawędziach."
       ],
       "zrodla": [
-        5
+        5,
+        19,
+        20,
+        21
       ]
     },
     {
@@ -1039,8 +1054,8 @@
       "id": "kostka_brukowa",
       "cat": "teren",
       "unit": "m2",
-      "labour": 95,
-      "material": 92,
+      "labour": 82,
+      "material": 68,
       "name": "Układanie kostki brukowej betonowej",
       "factors": [
         "Wzór układania: jodełka i romb podnoszą robociznę o dwadzieścia do czterdziestu procent i zwiększają odpad.",
@@ -1054,14 +1069,15 @@
       "id": "kostka_granitowa",
       "cat": "teren",
       "unit": "m2",
-      "labour": 150,
-      "material": 195,
+      "labour": 130,
+      "material": 145,
       "name": "Układanie kostki granitowej",
       "factors": [
         "Nieregularność kostki łupanej, którą trzeba dobierać sztuka po sztuce.",
         "Spoinowanie zaprawą zamiast piaskiem, wymagane przy większych obciążeniach.",
         "Twardość materiału, przez którą docinanie idzie wolniej niż w betonie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "podbudowa",
@@ -1081,40 +1097,43 @@
       "id": "krawezniki",
       "cat": "teren",
       "unit": "mb",
-      "labour": 32,
-      "material": 24,
+      "labour": 45,
+      "material": 40,
       "name": "Montaż krawężników",
       "factors": [
         "Rodzaj: krawężnik drogowy jest cięższy i droższy w montażu niż ogrodowy.",
         "Ława betonowa pod krawężnikiem i jej przekrój.",
         "Łuki i docinanie na promieniach, gdzie tempo pracy spada."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "obrzeza",
       "cat": "teren",
       "unit": "mb",
-      "labour": 20,
-      "material": 13,
+      "labour": 28,
+      "material": 32,
       "name": "Montaż obrzeży",
       "factors": [
         "Materiał: plastikowe obrzeże montuje się szybciej niż betonowe.",
         "Konieczność wykonania ławy przy obciążanych krawędziach.",
         "Długość odcinków prostych, bo przy krętym obrysie dochodzi docinanie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "odwodnienie_liniowe",
       "cat": "teren",
       "unit": "mb",
-      "labour": 125,
-      "material": 95,
+      "labour": 230,
+      "material": 170,
       "name": "Odwodnienie liniowe",
       "factors": [
         "Klasa obciążenia kratki, inna przy ścieżce, inna przy wjeździe dla samochodu.",
         "Podłączenie do kanalizacji albo do studni chłonnej i odległość do niej.",
         "Spadki nawierzchni, które trzeba wyprowadzić do korytka."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "ogrodzenie_panelowe",
@@ -1141,7 +1160,8 @@
         "Rodzaj: prefabrykowana płyta jest tańsza niż murowana z bloczka.",
         "Wysokość podmurówki i konieczność wykonania ławy fundamentowej.",
         "Przejścia dla wody i drobnych zwierząt, jeśli wymaga tego działka."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "brama_przesuwna",
@@ -1168,7 +1188,8 @@
         "Rodzaj zamka i konieczność doprowadzenia przewodu do elektrozaczepu.",
         "Osadzenie słupków i ich powiązanie z podmurówką.",
         "Kierunek otwierania i wypoziomowanie na pochyłym terenie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "schody_zewnetrzne",
@@ -1181,7 +1202,8 @@
         "Liczba stopni i konieczność wykonania betonowego biegu pod okładzinę.",
         "Rodzaj okładziny: płyta granitowa jest droższa i cięższa od betonowej.",
         "Odprowadzenie wody i spadki na każdym stopniu."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "niwelacja_terenu",
@@ -1194,20 +1216,22 @@
         "Różnica poziomów i ilość ziemi do przemieszczenia.",
         "Dostępność sprzętu, bo ręczne prace ziemne są wielokrotnie droższe.",
         "Wywóz nadmiaru urobku poza działkę."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "trawnik_rolowany",
       "cat": "teren",
       "unit": "m2",
-      "labour": 20,
-      "material": 17,
+      "labour": 34,
+      "material": 31,
       "name": "Układanie trawnika z rolki",
       "factors": [
         "Przygotowanie podłoża: przekopanie, wyrównanie i nawożenie przed układaniem.",
         "Termin dostawy darni, która musi trafić na grunt w ciągu doby.",
         "Nawodnienie w pierwszych tygodniach, bez którego darń się nie przyjmie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "demontaz_pokrycia",
