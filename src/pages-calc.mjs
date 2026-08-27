@@ -160,6 +160,79 @@ export const CALCS = [
       window.__sub = 'stan deweloperski, ' + F(a) + ' m²';`,
   },
   {
+    slug: 'wymiana-okien',
+    h1: 'Wymiana okien',
+    title: `Kalkulator wymiany okien ${YEAR}: ile kosztuje montaż`,
+    desc: 'Policz koszt wymiany okien: demontaż starej stolarki, montaż za metr obwodu ramy, ciepły montaż warstwowy, obróbka ościeży, parapety i rolety.',
+    lede: 'Montaż liczy się za metr bieżący obwodu ramy, a nie za sztukę. Podaj wymiary swoich okien, a kalkulator przeliczy to sam.',
+    faq: [
+      ['Dlaczego montaż liczy się za obwód, a nie za sztukę?', 'Bo nakład pracy zależy od długości styku okna ze ścianą: to tam idą kotwy, pianka i taśmy. Jedno okno dwa na półtora metra ma siedem metrów obwodu, dwa okna metr na metr razem osiem, choć powierzchnia szyb jest podobna.'],
+      ['Czy cena obejmuje same okna?', 'Nie. Okna kupuje inwestor i ich cena zależy od profilu, pakietu szybowego i okuć. Tu liczona jest wyłącznie robocizna oraz materiały montażowe: taśmy, pianka i kotwy.'],
+      ['Czy trzeba wymieniać parapety przy okazji?', 'Zewnętrzne prawie zawsze, bo stare rzadko pasują do nowej ramy i nie da się ich szczelnie podłączyć. Wewnętrzne czasem da się zachować, jeśli głębokość się zgadza i nie zostały uszkodzone przy demontażu.'],
+      ['Ile trwa wymiana okien w całym mieszkaniu?', 'Sam montaż to zwykle jeden dzień na kilka okien. Obróbka ościeży i malowanie dochodzą następnego dnia, po związaniu pianki.'],
+    ],
+    fields: (opts) => `
+      <p class="panel-note">Podaj typowe wymiary i liczbę okien. Jeśli masz różne rozmiary, policz osobno największą grupę, a potem zmień wartości.</p>
+      <div class="fields-2">
+        ${field({ name: 'szer', label: 'Szerokość okna', value: 1.5, min: 0.4, max: 4, step: .1, suffix: 'm' })}
+        ${field({ name: 'wys', label: 'Wysokość okna', value: 1.4, min: 0.4, max: 3, step: .1, suffix: 'm' })}
+      </div>
+      <div class="fields-2">
+        ${field({ name: 'ile', label: 'Liczba okien', value: 5, min: 1, max: 40, step: 1, suffix: 'szt.' })}
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+      </div>
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'demontaz', label: 'Demontaż starej stolarki', checked: true })}
+      ${check({ name: 'cieply', label: 'Ciepły montaż warstwowy z taśmami', checked: true })}
+      ${check({ name: 'oscierza', label: 'Obróbka ościeży po montażu', checked: true })}
+      ${check({ name: 'parapetyW', label: 'Parapety wewnętrzne', checked: true })}
+      ${check({ name: 'parapetyZ', label: 'Parapety zewnętrzne', checked: true })}
+      ${check({ name: 'rolety', label: 'Rolety zewnętrzne', qty: 2 })}
+      ${check({ name: 'drzwi', label: 'Drzwi zewnętrzne', qty: 1 })}`,
+    logic: `
+      const ile = v.ile || 0;
+      const obwod = 2 * ((v.szer || 0) + (v.wys || 0)) * ile;
+      if (v.demontaz) add('demontaz_okna', ile);
+      add('montaz_okna', obwod);
+      if (v.cieply) add('cieply_montaz', obwod);
+      if (v.oscierza) add('obrobka_oscierzy', ile);
+      if (v.parapetyW) add('montaz_parapetu_wew', ile);
+      if (v.parapetyZ) add('parapet_zewnetrzny', ile);
+      if (v.rolety) add('montaz_rolety', v.rolety_qty || 0);
+      if (v.drzwi) add('drzwi_zewnetrzne', v.drzwi_qty || 0);
+      window.__area = ile;
+      window.__sub = F(ile) + ' okien, ' + F(Math.round(obwod)) + ' mb obwodu ram';`,
+  },
+  {
+    slug: 'klimatyzacja',
+    h1: 'Klimatyzacja i wentylacja',
+    title: `Kalkulator klimatyzacji ${YEAR}: koszt montażu`,
+    desc: 'Policz koszt montażu klimatyzacji split i multi-split, rekuperacji oraz kanałów wentylacyjnych. Robocizna i materiał osobno, ceny w zł.',
+    lede: 'Cena urządzenia to jedno, a instalacji drugie. Tu liczymy montaż i uruchomienie, bo sprzęt kupuje zwykle inwestor.',
+    faq: [
+      ['Ile kosztuje montaż klimatyzacji?', 'Montaż pojedynczego splitu to zwykle od dwóch do trzech tysięcy złotych razem z materiałem instalacyjnym, bez ceny samego urządzenia. Multi-split z kilkoma jednostkami wewnętrznymi kosztuje odpowiednio więcej, bo dochodzą kolejne trasy chłodnicze.'],
+      ['Czy w bloku potrzebna jest zgoda na klimatyzację?', 'Na montaż jednostki zewnętrznej na elewacji tak, bo elewacja jest częścią wspólną. Zgodę wydaje wspólnota albo spółdzielnia i warto ją mieć przed zamówieniem sprzętu, a nie po.'],
+      ['Rekuperacja w gotowym domu czy w budowie?', 'W stanie surowym montaż trwa od pięciu do dziesięciu dni i jest wyraźnie tańszy. W domu zamieszkanym dochodzi kucie, zabudowy i odtworzenie wykończenia, przez co koszt rośnie o mniej więcej jedną trzecią.'],
+    ],
+    fields: (opts) => `
+      ${select({ name: 'city', label: 'Miasto', options: opts })}
+      <p class="group-title">Klimatyzacja</p>
+      ${check({ name: 'split', label: 'Klimatyzacja split, jedno pomieszczenie', checked: true, qty: 1 })}
+      ${check({ name: 'multi', label: 'Multi-split, kilka pomieszczeń' })}
+      ${check({ name: 'punkty', label: 'Punkty elektryczne pod jednostki', checked: true, qty: 2 })}
+      <p class="group-title">Wentylacja</p>
+      ${field({ name: 'dom', label: 'Powierzchnia domu pod rekuperację', value: 0, min: 0, max: 400, step: 5, suffix: 'm²', hint: 'Zostaw zero, jeśli nie planujesz rekuperacji.' })}
+      ${check({ name: 'kanaly', label: 'Dodatkowe kanały wentylacyjne', qty: 10 })}`,
+    logic: `
+      if (v.split) add('klimatyzacja_split', v.split_qty || 0);
+      if (v.multi) add('klimatyzacja_multisplit', 1);
+      if (v.punkty) add('punkt_elektryczny', v.punkty_qty || 0);
+      if (v.dom) add('rekuperacja', v.dom);
+      if (v.kanaly) add('kanaly_wentylacyjne', v.kanaly_qty || 0);
+      window.__area = 0;
+      window.__sub = 'montaż i uruchomienie, bez ceny urządzeń';`,
+  },
+  {
     slug: 'ocieplenie-elewacji',
     h1: 'Ocieplenie i elewacja',
     title: `Kalkulator ocieplenia elewacji ${YEAR}: koszt za m²`,

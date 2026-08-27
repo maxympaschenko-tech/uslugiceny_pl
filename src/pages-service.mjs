@@ -31,8 +31,8 @@ const KALKULATORY = {
   elewacja: [['ocieplenie-elewacji', 'kalkulatorze ocieplenia elewacji']],
   teren:    [['kostka-brukowa', 'kalkulatorze kostki brukowej'], ['ogrodzenie', 'kalkulatorze ogrodzenia']],
   dach:     [['dach', 'kalkulatorze dachu']],
-  okna:     [['remont-mieszkania', 'kalkulatorze remontu mieszkania']],
-  instalacje: [['remont-mieszkania', 'kalkulatorze remontu mieszkania']],
+  okna:     [['wymiana-okien', 'kalkulatorze wymiany okien']],
+  instalacje: [['klimatyzacja', 'kalkulatorze klimatyzacji i wentylacji']],
 };
 const doKalkulatora = (catId) => {
   const l = KALKULATORY[catId] || [];
