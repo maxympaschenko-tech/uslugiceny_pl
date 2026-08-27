@@ -258,6 +258,36 @@ const SCOPE = ${JSON.stringify(standardScope.items)};
   })
 );
 
+// Powiazania budowane automatycznie z tresci, ktora juz istnieje: kazdy krok
+// poradnika, kazde porownanie i kazde haslo slownika wskazuje pozycje cennika,
+// wiec wystarczy odwrocic te relacje. Dzieki temu lista nie rozjedzie sie
+// z trescia przy kolejnych zmianach.
+const powiazania = {};
+const dodajPowiazanie = (wid, wpis) => {
+  if (!wid || !byId[wid]) return;
+  (powiazania[wid] ||= []).push(wpis);
+};
+for (const p of PORADNIKI) {
+  for (const k of p.kroki) {
+    dodajPowiazanie(k.w, { typ: 'Poradnik', tytul: p.h1, url: `${R}poradnik/${p.slug}/` });
+  }
+}
+for (const p of POROWNANIA) {
+  for (const wid of [p.a, p.b]) {
+    dodajPowiazanie(wid, { typ: 'Porównanie', tytul: `${p.h1}?`, url: `${R}porownanie/${p.slug}/` });
+  }
+}
+for (const [t, id, , wid] of HASLA) {
+  dodajPowiazanie(wid, { typ: 'Słownik', tytul: t, url: `${R}slownik/#${id}` });
+}
+// bez powtorzen i najwyzej trzy pozycje na strone
+for (const wid of Object.keys(powiazania)) {
+  const widziane = new Set();
+  powiazania[wid] = powiazania[wid]
+    .filter((x) => (widziane.has(x.url) ? false : widziane.add(x.url)))
+    .slice(0, 3);
+}
+
 /* ================= cenniki miast ================= */
 
 for (const city of cities) {
@@ -638,14 +668,14 @@ for (const cat of categories) {
     const related = list.filter((r) => r.id !== w.id).slice(0, 3);
     await write(
       `${cat.slug}/${wSlug}`,
-      servicePage({ w, cat, units, cities, unitPrice, related, cityOptions })
+      servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane: powiazania[w.id] || [] })
     );
     serviceUrls.push(`/${cat.slug}/${wSlug}/`);
 
     for (const city of cities) {
       await write(
         `${cat.slug}/${wSlug}/${city.slug}`,
-        serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions })
+        serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane: powiazania[w.id] || [] })
       );
       serviceUrls.push(`/${cat.slug}/${wSlug}/${city.slug}/`);
     }

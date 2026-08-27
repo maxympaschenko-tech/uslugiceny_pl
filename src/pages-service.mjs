@@ -87,6 +87,14 @@ const calcBox = (w, units, cities, cityOptions, preset = null) => `
   <p class="range-note" data-out-note></p>
 </div>`;
 
+const powiazaneBlock = (lista) =>
+  lista && lista.length
+    ? `<h2 style="margin-top:2rem">Warto przeczytać</h2>
+<div class="cards">${lista
+        .map((x) => `<div class="card"><p class="etykieta">${x.typ}</p><h3><a href="${x.url}">${x.tytul}</a></h3></div>`)
+        .join('')}</div>`
+    : '';
+
 const factorsBlock = (w) =>
   w.factors
     ? `<h2>Co wpływa na ostateczną cenę</h2><ul class="factors">${w.factors.map((f) => `<li>${f}</li>`).join('')}</ul>`
@@ -94,7 +102,7 @@ const factorsBlock = (w) =>
 
 /* ---------- strona usługi (cała Polska) ---------- */
 
-export function servicePage({ w, cat, units, cities, unitPrice, related, cityOptions }) {
+export function servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane = [] }) {
   const base = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
   const avg = base.labour + base.material;
   const spread = w.spread ?? 0.18;
@@ -167,6 +175,8 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     </table></div>
   </details>
 
+  ${powiazaneBlock(powiazane)}
+
   ${
     related.length
       ? `<h2 style="margin-top:2rem">Podobne roboty</h2>
@@ -225,7 +235,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 
 /* ---------- strona usługi w mieście ---------- */
 
-export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions }) {
+export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane = [] }) {
   const p = unitPrice(w.id, city.coef, 1, w.perCm ? 5 : 1);
   const t = p.labour + p.material;
   const base = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
@@ -257,6 +267,8 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     </div>
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions, city.slug)}</div>
   </div>
+
+  ${powiazaneBlock(powiazane)}
 
   <h2 style="margin-top:2rem">Ta sama robota w innych miastach</h2>
   <div class="city-links">${others

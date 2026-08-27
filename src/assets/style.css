@@ -733,3 +733,11 @@ h2 .ikona, h3 .ikona { vertical-align: -.3em; margin-right: .45rem; color: var(-
 .sciezka h3 a { color: var(--ink); }
 .sciezka h3 a::after { content: " →"; color: var(--signal-d); }
 .sciezka p { font-size: var(--step--1); line-height: 1.55; }
+
+/* ---------- etykieta typu tresci ---------- */
+
+.etykieta {
+  font-family: var(--f-mono); font-size: var(--step--2);
+  text-transform: uppercase; letter-spacing: .12em;
+  color: var(--ink-soft); margin: 0 0 .3rem;
+}
