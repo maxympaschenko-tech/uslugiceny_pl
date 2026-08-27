@@ -1,5 +1,5 @@
-# Kontrola przy kazdym pull requescie: czy projekt sie buduje, czy nie wrocila
-# cyrylica i czy metadane stron miesza sie w limitach wyszukiwarki.
+# Kontrola przy kazdym pull requescie. Trzy niezalezne warstwy:
+# dane cennika, wygenerowane strony i dostepnosc.
 name: Build check
 
 on:
@@ -14,7 +14,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node build.mjs
+
+      - name: Spojnosc danych cennika
+        run: python3 kontrola-danych.py
+
+      - name: Budowanie
+        run: node build.mjs
 
       - name: Tylko polski w wygenerowanych stronach
         run: |
@@ -23,6 +28,9 @@ jobs:
             echo "Znaleziono cyrylice w plikach tekstowych dist/"; exit 1
           fi
           echo "OK, wylacznie polski"
+
+      - name: Dostepnosc
+        run: python3 kontrola-dostepnosci.py
 
       - name: Audyt metadanych i odnosnikow
         run: python3 audyt.py | tee /tmp/wynik.txt
