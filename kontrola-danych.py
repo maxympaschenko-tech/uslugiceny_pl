@@ -1,0 +1,75 @@
+"""Kontrola spojnosci danych cennika.
+
+Sprawdza rzeczy, ktorych nie widac na stronie, a ktore psuja wyliczenia:
+brakujace pola, pozycje wskazujace na nieistniejace kategorie, stawki zerowe
+oraz zgodnosc slownych opisow roznicy cen w porownaniach z rzeczywistymi liczbami.
+Uruchamiane w CI razem z audytem stron.
+"""
+import json, re, sys
+
+works = json.load(open('src/data/works.json'))
+cities = json.load(open('src/data/cities.json'))
+by = {x['id']: x for x in works['works']}
+kat = {c['id'] for c in works['categories']}
+jedn = set(works['units'])
+scope = works['standardScope']
+bledy = []
+
+
+def sprawdz(warunek, opis):
+    if not warunek:
+        bledy.append(opis)
+
+
+# --- struktura pozycji ---
+for x in works['works']:
+    sprawdz(x['cat'] in kat, f"pozycja {x['id']}: nieznana kategoria {x['cat']}")
+    sprawdz(x['unit'] in jedn, f"pozycja {x['id']}: nieznana jednostka {x['unit']}")
+    sprawdz(x['labour'] > 0, f"pozycja {x['id']}: robocizna nie jest dodatnia")
+    sprawdz(x['material'] >= 0, f"pozycja {x['id']}: ujemny material")
+    sprawdz(bool(x.get('name')), f"pozycja {x['id']}: brak nazwy")
+    sprawdz(len(x.get('factors', [])) >= 3, f"pozycja {x['id']}: mniej niz trzy czynniki cenowe")
+
+# --- zakres standardowy ---
+for i in scope['items']:
+    sprawdz(i in by, f"zakres standardowy wskazuje na nieistniejaca pozycje {i}")
+for g, ids in scope['groups'].items():
+    for i in ids:
+        sprawdz(i in scope['items'], f"grupa {g} wskazuje poza zakres: {i}")
+sprawdz(scope['doorsItem'] in by, 'doorsItem wskazuje na nieistniejaca pozycje')
+
+# --- miasta ---
+for c in cities:
+    for pole in ('slug', 'name', 'loc', 'coef', 'opis'):
+        sprawdz(pole in c, f"miasto {c.get('slug')}: brak pola {pole}")
+    sprawdz(0.5 < c['coef'] < 2, f"miasto {c['slug']}: podejrzany wspolczynnik {c['coef']}")
+naj_tani = min(cities, key=lambda c: c['coef'])
+for c in cities:
+    tekst = ' '.join(c.get('opis', []))
+    if 'najtańszym miastem w tym zestawieniu' in tekst:
+        sprawdz(c is naj_tani, f"miasto {c['slug']} nazywa sie najtanszym, a najnizszy wspolczynnik ma {naj_tani['slug']}")
+
+# --- opisy roznicy cen w porownaniach ---
+src = open('src/pages-extra.mjs', encoding='utf-8').read()
+por = re.findall(
+    r"slug: '([^']+)',\s*\n\s*h1: '[^']+',\s*\n\s*a: '([^']+)', b: '([^']+)'(?:, cm: (\d+))?,\s*\n\s*lede: '([^']*)'",
+    src)
+progi = {'dwa razy': (1.7, 2.4), 'trzy razy': (2.6, 3.4), 'półtora raza': (1.35, 1.7)}
+for slug, a, b, cm, lede in por:
+    cm = int(cm) if cm else 1
+    def tot(i):
+        x = by[i]
+        return x['labour'] + x['material'] * (cm if x.get('perCm') else 1)
+    r = tot(b) / tot(a)
+    for slowo, (lo, hi) in progi.items():
+        if slowo in lede:
+            sprawdz(lo <= r <= hi,
+                    f"porownanie {slug}: opis mowi '{slowo}', a rzeczywisty stosunek to {r:.2f}")
+
+if bledy:
+    print(f"ZNALEZIONO {len(bledy)} problemow:")
+    for b in bledy:
+        print('  -', b)
+    sys.exit(1)
+print(f"Dane spojne: {len(works['works'])} pozycji, {len(works['categories'])} kategorii, "
+      f"{len(cities)} miast, {len(por)} porownan")
