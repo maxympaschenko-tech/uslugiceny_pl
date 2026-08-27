@@ -45,6 +45,16 @@ for u, x in dane.items():
 print('--- martwe odnosniki wewnetrzne:', len(martwe))
 for l, gdzie in list(martwe.items())[:8]: print('   ', l, '<-', len(gdzie), 'stron')
 
+# waga stron: budzet pilnuje, zeby kolejne sekcje nie rozdely dokumentu
+import os
+ciezkie = [(u, round(os.path.getsize(f)/1024)) for f, u in
+           ((f, '/' + os.path.relpath(f, 'dist').replace('index.html', '').replace('\\','/')) for f in strony)
+           if os.path.getsize(f) > 120 * 1024]
+print('--- strony ciezsze niz 120 kB:', len(ciezkie))
+for u, kb in sorted(ciezkie, key=lambda x: -x[1])[:5]: print('   ', kb, 'kB', u)
+css_kb = round(os.path.getsize('dist/assets/style.css')/1024)
+print('--- arkusz stylow kB:', css_kb, '(budzet 45)')
+
 # strony bez zadnego linku przychodzacego
 przychodzace = Counter()
 for x in dane.values():
