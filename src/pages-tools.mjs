@@ -261,3 +261,158 @@ export function sezonowoscPage() {
     },
   });
 }
+
+/* ---------- porownanie dwoch miast ---------- */
+
+export function porownajMiastaPage({ works, categories, units, cities, unitPrice }) {
+  const dane = Object.fromEntries(
+    works.map((w) => [w.id, { name: w.name, cat: w.cat, unit: units[w.unit].name, labour: w.labour, material: w.material, perCm: !!w.perCm }])
+  );
+  const opcje = cities.map((c) => ({ v: c.slug, t: c.name }));
+  return layout({
+    title: `Porównanie cen remontu w dwóch miastach ${YEAR}`,
+    description: 'Zestaw dwa miasta obok siebie i zobacz, o ile różnią się stawki robót remontowych, pozycja po pozycji.',
+    path: '/porownaj-miasta/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Porównaj miasta`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Narzędzie</p>
+  <h1>Porównaj dwa miasta</h1>
+  <p class="lede">Przeprowadzka, dom w innym mieście albo oferta od ekipy spoza okolicy: wtedy przydaje się wiedzieć, o ile stawki różnią się między konkretnymi miastami.</p>
+  <p class="section-note">Różnica dotyczy przede wszystkim robocizny. Materiały budowlane kosztują w całym kraju podobnie, dlatego pozycje, w których materiał kupuje inwestor, różnią się mocniej niż te z materiałem wykonawcy.</p>
+
+  <div class="panel" style="margin-top:1.4rem">
+    <form id="calc">
+      <div class="fields-2">
+        ${select({ name: 'a', label: 'Pierwsze miasto', options: opcje.map((o, i) => ({ ...o, sel: i === 0 })) })}
+        ${select({ name: 'b', label: 'Drugie miasto', options: opcje.map((o) => ({ ...o, sel: o.v === 'lodz' })) })}
+      </div>
+    </form>
+    <div class="total"><span class="t-label">Różnica dla remontu 50 m²</span><span class="t-val" data-roznica>—</span></div>
+    <p class="range-note" data-podsumowanie></p>
+  </div>
+
+  <div id="tabela" style="margin-top:1.6rem"></div>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [{
+        '@type': 'Question',
+        name: 'Dlaczego ceny remontu różnią się między miastami?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Różnica siedzi niemal w całości w robociźnie: dostępności ekip, poziomie płac i kosztach prowadzenia działalności. Materiały budowlane kosztują w całym kraju podobnie, bo pochodzą z tych samych sieci dystrybucji.' },
+      }],
+    },
+    script: `${calcScript}
+const D = ${JSON.stringify(dane)};
+const KAT = ${JSON.stringify(categories.map((c) => ({ id: c.id, name: c.name })))};
+const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
+(function(){
+  const f = document.getElementById('calc');
+  const tab = document.getElementById('tabela');
+  const cena = (w, coef) => {
+    const cm = w.perCm ? 5 : 1;
+    return w.labour * coef + w.material * cm * (1 + (coef - 1) * 0.2);
+  };
+  bindForm(f, () => {
+    const v = readForm(f);
+    const [ca, na] = CITIES[v.a], [cb, nb] = CITIES[v.b];
+    let html = '';
+    for (const k of KAT){
+      const poz = Object.values(D).filter(w => w.cat === k.id);
+      if (!poz.length) continue;
+      html += '<h2 style="margin-top:1.6rem">' + k.name + '</h2><div class="board-wrap"><table class="board"><thead><tr>' +
+        '<th data-sort="off">Robota</th><th>' + na + '</th><th>' + nb + '</th><th>Różnica</th></tr></thead><tbody>';
+      for (const w of poz){
+        const a = cena(w, ca), b = cena(w, cb);
+        const d = Math.round((b / a - 1) * 100);
+        const kl = d > 0 ? 'up' : d < 0 ? 'down' : '';
+        html += '<tr><td>' + w.name + ' <span class="qty">' + w.unit + '</span></td>' +
+          '<td class="num">' + F(R(a)) + '</td><td class="num">' + F(R(b)) + '</td>' +
+          '<td class="num delta ' + kl + '">' + (d > 0 ? '+' : '') + d + '%</td></tr>';
+      }
+      html += '</tbody></table></div>';
+    }
+    tab.innerHTML = html;
+    const roznica = Math.round((cb / ca - 1) * 100);
+    document.querySelector('[data-roznica]').textContent = (roznica > 0 ? '+' : '') + roznica + '%';
+    document.querySelector('[data-roznica]').className = 't-val ' + (roznica > 0 ? 'werdykt-wysoko' : roznica < 0 ? 'werdykt-ok' : '');
+    document.querySelector('[data-podsumowanie]').textContent =
+      roznica === 0 ? 'Oba miasta mają ten sam współczynnik stawek.'
+      : roznica > 0 ? nb + ' jest droższe od miasta ' + na + ' o ' + roznica + '% w robociźnie.'
+      : nb + ' jest tańsze od miasta ' + na + ' o ' + Math.abs(roznica) + '% w robociźnie.';
+  });
+})();`,
+  });
+}
+
+/* ---------- pelny cennik na jednej stronie ---------- */
+
+export function pelnyCennikPage({ works, categories, units, cities, cityOptions, unitPrice, sourceFlag }) {
+  const wiersze = categories
+    .map((c) => {
+      const poz = works.filter((w) => w.cat === c.id);
+      return `<h2 style="margin-top:1.8rem">${c.name}</h2>
+<div class="board-wrap"><table class="board">
+<thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Robocizna</th><th>Materiał</th><th>Razem</th></tr></thead>
+<tbody>${poz
+        .map((w) => {
+          const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
+          return `<tr><td>${w.name}</td><td class="num">${units[w.unit].name}</td>
+<td class="num" data-l="${w.labour}">${money(Math.round(p.labour))}</td>
+<td class="num" data-m="${w.material}" data-cm="${w.perCm ? 5 : 1}">${w.material ? money(Math.round(p.material)) : 'własny'}</td>
+<td class="num"><b>${money(Math.round(p.labour + p.material))}</b></td></tr>`;
+        })
+        .join('')}</tbody></table></div>`;
+    })
+    .join('');
+
+  return layout({
+    title: `Pełny cennik robót remontowych ${YEAR}`,
+    description: `Wszystkie ${works.length} pozycji cennika na jednej stronie, z podziałem na robociznę i materiał. Do wydruku i do porównania z ofertą wykonawcy.`,
+    path: '/cennik/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Pełne zestawienie`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">${works.length} pozycji · aktualizacja ${SITE.updated}</p>
+  <h1>Pełny cennik na jednej stronie</h1>
+  <p class="lede">Całe zestawienie bez klikania: wszystkie roboty, robocizna i materiał osobno. Wygodne do wydruku i do zestawienia z ofertą od ekipy.</p>
+  ${sourceFlag}
+
+  <div class="panel" style="margin-top:1.4rem">
+    <form id="calc">
+      ${select({ name: 'city', label: 'Przelicz na miasto', options: [{ v: '', t: 'Średnia dla Polski', sel: true }, ...cityOptions] })}
+    </form>
+    <p class="range-note" data-info>Pokazane stawki to mediana krajowa. Wybierz miasto, żeby przeliczyć całą tabelę.</p>
+    <div class="sheet-actions"><button type="button" data-print>Drukuj cennik</button></div>
+  </div>
+
+  ${wiersze}
+</div></section>`,
+    script: `${calcScript}
+const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
+(function(){
+  const f = document.getElementById('calc');
+  const info = document.querySelector('[data-info]');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const [coef, nazwa] = v.city ? CITIES[v.city] : [1, null];
+    document.querySelectorAll('table.board tbody tr').forEach(tr => {
+      const kl = tr.cells[2], km = tr.cells[3], kr = tr.cells[4];
+      const l = parseFloat(kl.dataset.l), m = parseFloat(km.dataset.m), cm = parseFloat(km.dataset.cm || 1);
+      if (isNaN(l)) return;
+      const lab = l * coef, mat = m * cm * (1 + (coef - 1) * 0.2);
+      kl.textContent = F(R(lab));
+      if (m) km.textContent = F(R(mat));
+      kr.innerHTML = '<b>' + F(R(lab + mat)) + '</b>';
+    });
+    info.textContent = nazwa
+      ? 'Stawki przeliczone na miasto ' + nazwa + '. Materiały zmieniają się słabiej niż robocizna.'
+      : 'Pokazane stawki to mediana krajowa. Wybierz miasto, żeby przeliczyć całą tabelę.';
+  });
+  bindSheetActions(document.querySelector('.panel'));
+  document.querySelectorAll('table.board').forEach(bindSort);
+})();`,
+  });
+}
