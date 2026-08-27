@@ -101,6 +101,44 @@ const podstawaBlock = (cat, meta, w) => {
 Ostatnia kalibracja: ${meta.checked || meta.updated}. <a href="${R}jak-liczymy/">Metoda wyliczeń</a>.</p>`;
 };
 
+// Pytania budowane z danych pozycji: kwota, zakres ceny i pierwszy czynnik
+// cenotworczy. Dzieki temu odpowiedzi sa zawsze zgodne z cennikiem, a nie
+// przepisane recznie i rozjezdzajace sie po kolejnej kalibracji.
+const pytania = ({ w, units, kwota, jednostka, gdzie, min, max }) => {
+  const lista = [
+    [
+      // nazwy robot trzymamy w mianowniku, wiec pytanie nie moze wymagac odmiany czasownika
+      `${w.name}${gdzie ? ' ' + gdzie : ''}: jaka jest cena?`,
+      `Średnio ${money(Math.round(kwota))} zł za ${jednostka}${w.material ? ' razem z materiałem' : ', przy czym materiał kupuje inwestor'}. W praktyce spotyka się przedział od ${money(Math.round(min))} do ${money(Math.round(max))} zł, zależnie od zakresu i warunków na miejscu.`,
+    ],
+    [
+      'Czy w tej cenie jest materiał?',
+      w.material
+        ? 'Tak, podana kwota obejmuje robociznę i materiał w standardzie średnim. Wykonawcy dzielą tę sumę różnie, dlatego przy porównywaniu ofert warto pytać wprost, co obejmuje stawka za jednostkę.'
+        : 'Nie. Tę pozycję rozlicza się wyłącznie za robociznę, bo materiał albo urządzenie kupuje zwykle inwestor. Przy porównywaniu ofert sprawdź, czy druga strona nie wliczyła materiału w stawkę.',
+    ],
+  ];
+  if (w.factors && w.factors[0]) {
+    lista.push(['Od czego zależy ostateczna cena?', w.factors.slice(0, 2).join(' ')]);
+  }
+  return lista;
+};
+
+const pytaniaBlock = (lista) => `
+<h2 style="margin-top:2rem">Częste pytania</h2>
+${lista.map(([q, a]) => `<h3 style="margin:1.1rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}`;
+
+const faqLd = (lista) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'pl',
+  mainEntity: lista.map(([q, a]) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+});
+
 const powiazaneBlock = (lista) =>
   lista && lista.length
     ? `<h2 style="margin-top:2rem">Warto przeczytać</h2>
@@ -143,6 +181,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
 
   // nazwy robót trzymamy w mianowniku, więc zdania budujemy tak, żeby nie wymagały odmiany
   const matWord = w.materialLabel || 'materiałem';
+  const faq = pytania({ w, units, kwota: avg, jednostka: u, gdzie: '', min, max });
   const lead = w.material
     ? `${w.name} kosztuje średnio ${money(Math.round(avg))} zł za ${u} razem z ${matWord === 'materiałem' ? 'materiałem' : 'kosztem kontenera'}. Sama robocizna to ${money(Math.round(base.labour))} zł, ${w.materialLabel || 'materiał'} dokłada ${money(Math.round(base.material))} zł.`
     : `${w.name} kosztuje średnio ${money(Math.round(avg))} zł za ${u}. To wyłącznie robocizna: ${w.name.toLowerCase().includes('wywóz') ? 'kontener i utylizację liczy się osobno' : 'materiał lub urządzenie kupuje inwestor'}.`;
@@ -190,6 +229,8 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     </table></div>
   </details>
 
+  ${pytaniaBlock(faq)}
+
   ${powiazaneBlock(powiazane)}
 
   ${
@@ -205,6 +246,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
   }
 </div></section>`,
     jsonLd: [
+      faqLd(faq),
       {
         '@context': 'https://schema.org',
         '@type': 'Service',
@@ -259,6 +301,10 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
   const spread = w.spread ?? 0.18;
   const u = unitPl(units, w);
   const others = cities.filter((c) => c.slug !== city.slug).slice(0, 9);
+  const faq = pytania({
+    w, units, kwota: t, jednostka: u, gdzie: city.loc,
+    min: t * (1 - spread), max: t * (1 + spread),
+  });
 
   return layout({
     title: tytul(`${w.name} ${city.loc}`, ` - cennik ${YEAR}`, ''),
@@ -284,6 +330,8 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions, city.slug)}</div>
   </div>
 
+  ${pytaniaBlock(faq)}
+
   ${powiazaneBlock(powiazane)}
 
   <h2 style="margin-top:2rem">Ta sama robota w innych miastach</h2>
@@ -295,6 +343,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     .join('')}</div>
 </div></section>`,
     jsonLd: [
+      faqLd(faq),
       {
         '@context': 'https://schema.org',
         '@type': 'Service',
