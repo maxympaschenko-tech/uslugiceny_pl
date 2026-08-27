@@ -88,12 +88,17 @@ const calcBox = (w, units, cities, cityOptions, preset = null) => `
 </div>`;
 
 // Podstawa stawki widoczna przy konkretnej pozycji, a nie tylko na stronie metody.
-const podstawaBlock = (cat, meta) => {
+const podstawaBlock = (cat, meta, w) => {
   const lista = (cat.zrodla || []).map((i) => (meta.sources || [])[i]).filter(Boolean);
   if (!lista.length) return '';
-  return `<p class="podstawa"><strong>Podstawa stawki:</strong> mediana widełek z opracowań:
-${lista.map((z) => `${z.name} (${z.date})`).join('; ')}. Ostatnia kalibracja: ${meta.checked || meta.updated}.
-<a href="${R}jak-liczymy/">Metoda wyliczeń</a>.</p>`;
+  // Rozroznienie jest istotne: przy czesci pozycji zrodlo podaje konkretna liczbe,
+  // przy reszcie tylko przedzial dla calej grupy robot. Udawanie precyzji szkodzi.
+  const stopien = w.sprawdzone
+    ? `<strong>Stawka sprawdzona punktowo</strong> (${w.sprawdzone}): źródło podaje wartość dla tej konkretnej roboty.`
+    : `<strong>Stawka orientacyjna:</strong> wyprowadzona z przedziału dla całej grupy robót, bez osobnej pozycji w źródle. Rząd wielkości jest właściwy, konkretna kwota może się różnić mocniej niż przy pozycjach sprawdzonych punktowo.`;
+  return `<p class="podstawa">${stopien}<br>
+<strong>Opracowania:</strong> ${lista.map((z) => `${z.name} (${z.date})`).join('; ')}.
+Ostatnia kalibracja: ${meta.checked || meta.updated}. <a href="${R}jak-liczymy/">Metoda wyliczeń</a>.</p>`;
 };
 
 const powiazaneBlock = (lista) =>
@@ -159,7 +164,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     <div>
       <h2>Z czego składa się stawka</h2>
       ${splitTable(w, units, base.labour, base.material)}
-      ${podstawaBlock(cat, meta)}
+      ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
       ${factorsBlock(w)}
     </div>
@@ -271,7 +276,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     <div>
       <h2>Robocizna i materiał ${city.loc}</h2>
       ${splitTable(w, units, p.labour, p.material)}
-      ${podstawaBlock(cat, meta)}
+      ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
       ${factorsBlock(w)}
       <p class="section-note">Pełny cennik robót ${city.loc}: <a href="${R}ceny/${city.slug}/">zobacz wszystkie pozycje</a>.</p>

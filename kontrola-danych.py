@@ -85,6 +85,20 @@ osierocone = [x['id'] for x in works['works'] if x['id'] not in wskazane]
 sprawdz(not osierocone,
         f"pozycje bez powiazania z poradnikiem, porownaniem ani slownikiem: {', '.join(osierocone)}")
 
+# --- stan weryfikacji stawek ---
+# Pozycja "sprawdzona punktowo" ma w zrodle konkretna liczbe. Reszta pochodzi
+# z przedzialu dla calej grupy robot i jest na stronie oznaczona jako orientacyjna.
+sprawdzone = [x for x in works['works'] if x.get('sprawdzone')]
+niesprawdzone = [x for x in works['works'] if not x.get('sprawdzone')]
+print(f"Weryfikacja stawek: {len(sprawdzone)} punktowo, {len(niesprawdzone)} z przedzialu grupy")
+if niesprawdzone:
+    wg_kat = {}
+    for x in niesprawdzone:
+        wg_kat.setdefault(x['cat'], []).append(x['name'])
+    for kat, lista in sorted(wg_kat.items(), key=lambda t: -len(t[1]))[:4]:
+        print(f"  {kat}: {len(lista)} pozycji, np. {lista[0]}")
+print()
+
 if bledy:
     print(f"ZNALEZIONO {len(bledy)} problemow:")
     for b in bledy:

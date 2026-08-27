@@ -320,7 +320,8 @@
         "Rodzaj tynku: cementowo-wapienny schodzi trudniej niż gipsowy.",
         "Grubość warstwy i to, czy pod spodem jest cegła, czy beton.",
         "Konieczność ręcznego skuwania tam, gdzie młot udarowy naruszyłby instalacje."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "skuwanie_plytek",
@@ -333,7 +334,8 @@
         "Rodzaj kleju: płytki na starym kleju cementowym schodzą z fragmentem tynku.",
         "Czy podłoże ma zostać nienaruszone pod nową okładzinę, czy idzie do skucia razem z płytkami.",
         "Praca w lokalu zamieszkanym, gdzie trzeba wygrodzić strefę i ograniczyć pylenie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "wyburzenie_scianki",
@@ -387,7 +389,8 @@
         "Sposób nakładania: agregat na dużej powierzchni wychodzi taniej niż tynk ręczny.",
         "Liczba narożników, ościeży i skosów, gdzie maszyna nie pomaga.",
         "Konieczność zamontowania siatek i narożników na pęknięciach i stykach materiałów."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "gladz",
@@ -401,7 +404,8 @@
         "Wysokość pomieszczenia powyżej 3 m, gdzie potrzebne są rusztowania.",
         "Liczba narożników i skosów: gładź na otwartej ścianie idzie szybciej niż w wąskim korytarzu."
       ],
-      "name": "Gładź gipsowa, 2 warstwy"
+      "name": "Gładź gipsowa, 2 warstwy",
+      "sprawdzone": "2026-08"
     },
     {
       "id": "malowanie",
@@ -415,7 +419,8 @@
         "Zabezpieczenie podłóg, okien i mebli, gdy remont odbywa się w zamieszkanym lokalu.",
         "Konieczność gruntowania i drobnych napraw powierzchni przed malowaniem."
       ],
-      "name": "Malowanie, 2 warstwy"
+      "name": "Malowanie, 2 warstwy",
+      "sprawdzone": "2026-08"
     },
     {
       "id": "gk_sciana",
@@ -428,7 +433,8 @@
         "Rodzaj płyty: wodoodporna i ogniowa są droższe i cięższe w montażu.",
         "Ruszt: pojedynczy czy podwójny, z wypełnieniem wełną czy bez.",
         "Wysokość zabudowy powyżej 3 m, gdzie płyty trzeba łączyć i wzmacniać."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "gk_sufit",
@@ -442,7 +448,8 @@
         "Wysokość pomieszczenia i konieczność pracy z rusztowań.",
         "Liczba poziomów i profili gięte, jeśli sufit ma być wielopłaszczyznowy.",
         "Wycięcia pod oprawy punktowe i przygotowanie zasilania do każdej z nich."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "scianka_gk",
@@ -456,7 +463,8 @@
         "Grubość profilu i wymagana izolacyjność akustyczna.",
         "Podwójne płytowanie, gdy ścianka ma nieść ciężkie szafki lub telewizor.",
         "Osadzenie ościeżnicy, jeśli w ściance przewidziane są drzwi."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "gruntowanie",
@@ -469,7 +477,8 @@
         "Chłonność podłoża: mocno chłonny tynk wymaga dwóch przejść.",
         "Rodzaj gruntu: preparat głęboko penetrujący kosztuje więcej niż zwykła emulsja.",
         "Powierzchnia zlecenia, bo przy kilkunastu metrach liczy się głównie dojazd."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "wylewka_cem",
@@ -484,7 +493,8 @@
         "Powierzchnia zlecenia: przy metrażu poniżej 20 m² ekipy doliczają dojazd i rozruch sprzętu.",
         "Konieczność wypoziomowania dużych spadków lub wykonania dylatacji przy ogrzewaniu podłogowym."
       ],
-      "name": "Wylewka cementowa"
+      "name": "Wylewka cementowa",
+      "sprawdzone": "2026-08"
     },
     {
       "id": "wylewka_anhydryt",
@@ -498,7 +508,8 @@
         "Możliwość podania mieszanki wężem: brak dojazdu miksokreta zmienia technologię.",
         "Grubość warstwy i wymagana klasa wytrzymałości.",
         "Konieczność dylatacji i pól roboczych przy ogrzewaniu podłogowym."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "samopoziomujaca",
@@ -511,7 +522,8 @@
         "Grubość: masa poniżej 5 mm rozlewa się inaczej niż warstwa 15 mm.",
         "Stan podłoża i to, czy wymaga wcześniejszego szlifowania i odpylenia.",
         "Termin: szybkoschnące masy pod okładzinę kosztują więcej."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "izolacja_styropian",
@@ -537,7 +549,8 @@
         "Klasa ścieralności i to, czy panele są klikane, czy klejone.",
         "Układ: jodła i ukos zwiększają odpad i czas montażu.",
         "Podkład: mata akustyczna pod panele liczona jest osobno."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "parkiet",
@@ -564,7 +577,8 @@
         "Materiał: MDF lakierowany jest droższy w montażu niż PCV.",
         "Liczba narożników wewnętrznych i zewnętrznych do docięcia pod kątem.",
         "Konieczność ukrycia przewodów w kanale listwy."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "hydroizolacja",
@@ -577,7 +591,8 @@
         "Zakres: sama strefa mokra czy cała podłoga z wywinięciem na ściany.",
         "Rodzaj preparatu: masa dwuskładnikowa kosztuje więcej niż jednoskładnikowa.",
         "Taśmy i mankiety w narożnikach oraz wokół przejść instalacyjnych."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "plytki_podloga",
@@ -591,7 +606,8 @@
         "Układ ukośny lub wzór, które zwiększają liczbę docinków i odpad materiału.",
         "Powierzchnia pomieszczenia: łazienka 4 m² wychodzi drożej za metr niż salon 30 m²."
       ],
-      "name": "Płytki na podłodze"
+      "name": "Płytki na podłodze",
+      "sprawdzone": "2026-08"
     },
     {
       "id": "plytki_sciana",
@@ -605,7 +621,8 @@
         "Docinki wokół gniazd, rur i wnęk, liczone czasem osobno za sztukę.",
         "Wymagana płaskość podłoża: nierówna ściana oznacza wcześniejsze wyrównanie."
       ],
-      "name": "Płytki na ścianie"
+      "name": "Płytki na ścianie",
+      "sprawdzone": "2026-08"
     },
     {
       "id": "plytki_wielkoformat",
@@ -619,7 +636,8 @@
         "Ciężar płyty: format 120x280 wymaga dwóch osób i systemu przyssawek.",
         "Płaskość podłoża, która przy dużym formacie musi być bliska idealnej.",
         "Docinki i wiercenia, gdzie ryzyko pęknięcia płyty jest realnym kosztem."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "silikonowanie",
@@ -647,7 +665,8 @@
         "Materiał instalacji: PP, PEX czy miedź, każdy z innym czasem montażu.",
         "Konieczność kucia bruzd w ścianie nośnej pod przewody.",
         "Próba szczelności i protokół, wymagane przy odbiorze nowej instalacji."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_wanny",
@@ -753,7 +772,8 @@
         "Typ: drabinkowy w łazience, płytowy w pokoju, każdy z innym zestawem montażowym.",
         "Konieczność przesunięcia lub przedłużenia podejść grzewczych.",
         "Zawór termostatyczny i odpowietrznik, jeśli wymieniane razem z grzejnikiem."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "punkt_elektryczny",
@@ -767,7 +787,8 @@
         "Długość trasy kabla od rozdzielnicy do punktu.",
         "Czy w cenie jest osprzęt, czy tylko ułożenie przewodu i puszka."
       ],
-      "name": "Punkt elektryczny"
+      "name": "Punkt elektryczny",
+      "sprawdzone": "2026-08"
     },
     {
       "id": "bruzdowanie",
@@ -888,7 +909,8 @@
         "Styropian grafitowy jest droższy od białego, ale daje ten sam efekt przy cieńszej warstwie.",
         "Skomplikowanie bryły: wykusze, gzymsy i glify okienne podnoszą robociznę o dwadzieścia do trzydziestu procent.",
         "Stan podłoża: stary tynk trzeba umyć, zagruntować, a miejscami skuć."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "ocieplenie_welna",
@@ -901,7 +923,8 @@
         "Wełna jest cięższa od styropianu, więc wymaga gęstszego kołkowania i dwóch osób przy płycie.",
         "Wymagania przeciwpożarowe, które przy budynkach wyższych wymuszają wełnę zamiast styropianu.",
         "Paroprzepuszczalność: pod wełnę dobiera się droższy tynk silikatowy albo mineralny."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "siatka_zbrojaca",
@@ -914,7 +937,8 @@
         "Gramatura siatki i konieczność podwójnego zbrojenia w strefie cokołu.",
         "Profile narożnikowe i ukosy nad otworami, liczone czasem osobno.",
         "Temperatura pracy: poniżej pięciu stopni systemy ETICS wymagają droższych klejów zimowych."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "tynk_silikonowy",
@@ -927,7 +951,8 @@
         "Frakcja tynku: drobniejsze ziarno wymaga staranniejszego zacierania.",
         "Kolor z palety specjalnej podnosi cenę wiadra, choć nie zmienia robocizny.",
         "Ciągłość płaszczyzny: przerwa w pracy na jednej ścianie zostawia widoczny ślad."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "tynk_mineralny",
@@ -940,7 +965,8 @@
         "Konieczność późniejszego malowania farbą elewacyjną, co jest osobną pozycją.",
         "Wrażliwość na pogodę podczas wiązania, która wymusza przerwy w pracy.",
         "Powierzchnia zlecenia: przy małej ścianie liczy się głównie dojazd i rozstawienie sprzętu."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "rusztowanie",
@@ -1006,7 +1032,8 @@
         "Nachylenie terenu: spadek powyżej pięciu procent wymaga grubszej podbudowy i murków oporowych.",
         "Przeznaczenie: podjazd pod samochód potrzebuje grubszej kostki i mocniejszej warstwy nośnej niż ścieżka.",
         "Dostęp dla maszyn, bo wąska działka oznacza ręczne rozwożenie kruszywa."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "kostka_granitowa",
@@ -1032,7 +1059,8 @@
         "Rodzaj gruntu: glina wymaga grubszej warstwy nośnej i geowłókniny.",
         "Grubość warstwy tłucznia, od dwudziestu centymetrów przy ścieżce do trzydziestu przy podjeździe.",
         "Wywóz urobku z wykopu, liczony osobno w metrach sześciennych."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "krawezniki",
@@ -1084,7 +1112,8 @@
         "Wysokość panelu i rozstaw słupków, bo od nich zależy liczba fundamentów punktowych.",
         "Rodzaj gruntu i głębokość osadzenia słupków poniżej strefy przemarzania.",
         "Nierówny teren, który wymusza schodkowanie przęseł zamiast prostego biegu."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "podmurowka",
@@ -1110,7 +1139,8 @@
         "Szerokość światła przejazdu i długość szyny lub belki samonośnej.",
         "Fundament pod bramę i zbrojenie, wykonywane przed montażem.",
         "Automatyka: napęd, fotokomórki i doprowadzenie zasilania liczone osobno."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "furtka",
@@ -1176,7 +1206,8 @@
         "Wysokość budynku i konieczność rusztowania albo podnośnika.",
         "Utylizacja: przy eternicie obowiązuje osobna procedura, ale wiele gmin finansuje ją w ramach programu azbestowego.",
         "Dostęp do działki dla kontenera, bo bez niego gruz trzeba znosić ręcznie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "membrana_laty",
@@ -1189,7 +1220,8 @@
         "Paroprzepuszczalność membrany, od której zależy cena rolki.",
         "Rozstaw łat wynikający z modułu wybranego pokrycia.",
         "Kontrłaty i szczelina wentylacyjna, bez których pokrycie będzie się pocić."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "wiezba",
@@ -1217,7 +1249,8 @@
         "Kąt nachylenia i liczba załamań, bo każde wymaga obróbki.",
         "Grubość blachy i rodzaj powłoki, od której zależy gwarancja producenta.",
         "Sezon: jesienią stawki dekarzy bywają niższe niż w szczycie wiosennym."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "blacha_trapezowa",
@@ -1256,7 +1289,8 @@
         "Ciężar pokrycia, przez który więźba często wymaga wzmocnienia.",
         "Rodzaj dachówki: karpiówka układana podwójnie to dwa razy więcej sztuk na metr.",
         "Docinanie w koszach i przy kominach, gdzie tempo pracy wyraźnie spada."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "papa_termozgrzewalna",
@@ -1308,7 +1342,8 @@
         "Materiał: PVC jest najtańsze, stal powlekana droższa, tytan-cynk najdroższy.",
         "Liczba narożników, rur spustowych i wysokość budynku.",
         "Odprowadzenie wody do kanalizacji albo do studni chłonnej, liczone osobno."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "podbitka",
@@ -1373,7 +1408,8 @@
         "Rodzaj starej stolarki: drewniana rama schodzi łatwiej niż osadzona w zaprawie skrzynkowa.",
         "Konieczność zachowania ościeży w całości, gdy nowe okno ma ten sam wymiar.",
         "Utylizacja starej stolarki, liczona czasem osobno za sztukę."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_okna",
@@ -1387,7 +1423,8 @@
         "Piętro i konieczność wciągania stolarki przez balkon albo z podnośnika.",
         "Wielka płyta: warstwowa ściana i stary tynk potrafią wydłużyć montaż dwukrotnie.",
         "Samo okno kupuje inwestor, tu liczona jest wyłącznie robocizna."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "cieply_montaz",
@@ -1400,7 +1437,8 @@
         "Wymóg wynikający z warunków technicznych: sama pianka bez taśm jest dziś traktowana jako błąd sztuki.",
         "Rodzaj taśm paroszczelnych i paroprzepuszczalnych oraz szerokość ramy.",
         "Stan ościeża, bo taśma musi kleić się do równego i odpylonego podłoża."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "obrobka_oscierzy",
@@ -1466,7 +1504,8 @@
         "Sposób prowadzenia instalacji: podtynkowo wymaga kucia bruzd, natynkowo jest tańsze, ale widoczne.",
         "Miejsce montażu jednostki zewnętrznej, bo elewacja powyżej parteru oznacza podnośnik albo alpinistę.",
         "W bloku potrzebna jest zgoda wspólnoty albo spółdzielni na montaż jednostki na elewacji."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "klimatyzacja_multisplit",
@@ -1493,7 +1532,8 @@
         "Rodzaj kanałów i sposób ich prowadzenia: w stropie, w posadzce czy w zabudowie sufitowej.",
         "Liczba punktów nawiewnych i wywiewnych wynikająca z liczby pomieszczeń.",
         "Cena nie obejmuje samej centrali, którą zwykle kupuje inwestor."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "pompa_ciepla",
@@ -1507,7 +1547,8 @@
         "Przygotowanie instalacji wewnętrznej: bufor, zasobnik, przepięcie do istniejącego obiegu.",
         "Zabezpieczenia elektryczne i osobny obwód w rozdzielnicy.",
         "Sama pompa nie jest wliczona, tu liczona jest instalacja i uruchomienie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "fotowoltaika",
@@ -1521,7 +1562,8 @@
         "Kąt i ekspozycja połaci, od których zależy liczba paneli potrzebna do tej samej mocy.",
         "Odległość od rozdzielnicy i konieczność jej rozbudowy.",
         "Falownik hybrydowy z magazynem energii to osobna, wyraźnie wyższa pozycja."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "kociol_gazowy",
@@ -1534,7 +1576,8 @@
         "Konieczność wymiany wkładu kominowego przy przejściu na kocioł kondensacyjny.",
         "Przepięcie instalacji i montaż nowych zaworów oraz filtra.",
         "Odbiór kominiarski i próba szczelności, wymagane dokumentacyjnie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "instalacja_co",
@@ -1547,7 +1590,8 @@
         "Materiał rur i sposób prowadzenia: w posadzce czy po ścianie.",
         "Odległość punktu od źródła ciepła i rozdzielacza.",
         "Rodzaj grzejnika i zaworu termostatycznego."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "kanaly_wentylacyjne",

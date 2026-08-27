@@ -642,6 +642,9 @@ await write(
   </table></div>
   <p class="section-note" style="margin-top:1rem">Ceny materiałów przeliczamy na jednostkę roboty z uwzględnieniem zużycia i docinki. Statystykę cen w budownictwie GUS traktujemy jako kontrolę dynamiki, a nie źródło wartości bezwzględnych.</p>
 
+  <h2 style="margin-top:2rem">Dwa stopnie pewności stawki</h2>
+  <p class="section-note">Przy ${works.filter((w) => w.sprawdzone).length} pozycjach źródło podaje liczbę dla tej konkretnej roboty i tak są oznaczone na swoich stronach. Pozostałe ${works.filter((w) => !w.sprawdzone).length} wyprowadziliśmy z przedziału dla całej grupy robót: rząd wielkości jest właściwy, ale konkretna kwota może odbiegać mocniej. Rozróżnienie widać pod tabelą składników ceny na każdej stronie pozycji, bo udawanie precyzji, której nie ma, byłoby gorsze niż jej brak.</p>
+
   <h2 style="margin-top:2rem">Które opracowanie stoi za którą kategorią</h2>
   <p class="section-note">Ta sama informacja widoczna jest przy każdej pozycji cennika, pod tabelą składników ceny.</p>
   <div class="board-wrap"><table class="board">
