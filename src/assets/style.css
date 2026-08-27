@@ -91,10 +91,14 @@ a:hover { color: var(--ink); }
 .nav a:hover { color: var(--ink); }
 .nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--signal); }
 
-/* Na szerokim ekranie menu jest zawsze rozwiniete, wiec znacznik details
-   zachowuje sie jak zwykly pojemnik, a przycisk znika. */
+/* Na szerokim ekranie menu ma byc zwyklym paskiem w naglowku.
+   Sam display:flex nie wystarcza: nowe przegladarki chowaja zawartosc
+   znacznika details przez ::details-content, niezaleznie od stylow potomka.
+   Dlatego odblokowujemy tez ten pseudoelement. Starsze przegladarki go nie
+   znaja i po prostu pomijaja te regule, a dziala u nich display:flex. */
 .menu > summary { display: none; }
-.menu[open] > .nav, .menu > .nav { display: flex; }
+.menu > .nav { display: flex; }
+.menu::details-content { content-visibility: visible; block-size: auto; overflow: visible; }
 
 @media (max-width: 52rem) {
   /* Na telefonie szesc pozycji nie miesci sie w jednym wierszu, wiec chowamy je
@@ -118,6 +122,7 @@ a:hover { color: var(--ink); }
   .menu[open] > summary { background: var(--ink); color: #fff; border-color: var(--ink); }
   .menu[open] .menu-kreski, .menu[open] .menu-kreski::before, .menu[open] .menu-kreski::after { background: #fff; }
 
+  .menu:not([open])::details-content { content-visibility: hidden; block-size: 0; }
   .menu > .nav {
     display: none;
     position: absolute; right: 0; top: calc(100% + .5rem); z-index: 50;

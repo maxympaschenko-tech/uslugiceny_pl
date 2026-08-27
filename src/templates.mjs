@@ -17,6 +17,9 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 /* ---------- szkielet strony ---------- */
 
+export let CSS_V = '';
+export const ustawWersjeStylow = (v) => { CSS_V = v; };
+
 export function layout({ title, description, path, body, jsonLd = null, script = '', breadcrumb = null }) {
   const url = SITE.base + path;
   const R = SITE.root;
@@ -49,7 +52,7 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <link rel="icon" href="${R}favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="${R}apple-touch-icon.png">
 <link rel="manifest" href="${R}site.webmanifest">
-<link rel="stylesheet" href="${R}assets/style.css">
+<link rel="stylesheet" href="${R}assets/style.css?v=${CSS_V}">
 ${jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n') : ''}
 <!-- Zgoda: stan domyslny musi byc ustawiony przed kontenerem GTM -->
 <script>

@@ -1,9 +1,10 @@
-import { mkdir, writeFile, cp, rm } from 'node:fs/promises';
+import { mkdir, writeFile, cp, rm, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import cities from './src/data/cities.json' with { type: 'json' };
 import worksFile from './src/data/works.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
-import { layout, estimateSheet, calcScript, field, select, check, money, tytul } from './src/templates.mjs';
+import { layout, estimateSheet, calcScript, field, select, check, money, tytul, ustawWersjeStylow } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
@@ -14,6 +15,14 @@ import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs'
 import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
+
+// Odcisk pliku stylow w adresie. Bez tego .htaccess kaze przegladarkom trzymac
+// arkusz przez rok i zmiany w wygladzie nie docieraja do osob, ktore juz byly
+// na stronie. Zmiana tresci pliku zmienia adres, wiec cache sam sie unieważnia.
+const CSS_HASH = createHash('sha1')
+  .update(await readFile('src/assets/style.css'))
+  .digest('hex')
+  .slice(0, 8);
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
 const { works, categories, units, levels, meta, standardScope } = worksFile;
@@ -21,6 +30,8 @@ const byId = Object.fromEntries(works.map((w) => [w.id, w]));
 const W_JSON = JSON.stringify({ byId, categories, units, levels });
 const CITY_MAP = JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])));
 const cityOptions = cities.map((c) => ({ v: c.slug, t: c.name }));
+
+ustawWersjeStylow(CSS_HASH);
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
