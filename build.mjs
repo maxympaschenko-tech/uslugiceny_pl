@@ -708,12 +708,30 @@ await writeFile(
   <p class="eyebrow">Błąd 404</p>
   <h1>Tej strony tu nie ma</h1>
   <p class="lede">Adres jest nieaktualny albo zawiera literówkę. Poniżej skróty do tego, czego zwykle szukają odwiedzający.</p>
-  <div class="cards" style="margin-top:1.4rem">
+  <div class="panel" style="margin-top:1.4rem;max-width:34rem">
+    <label class="field">
+      <span class="f-label">Poszukaj tego, po co przyszedłeś</span>
+      <span class="f-input"><input type="search" id="q404" name="q" placeholder="np. wylewka, płytki, dach"></span>
+    </label>
+    <p class="range-note">Wpisz nazwę roboty i naciśnij Enter.</p>
+  </div>
+
+  <h2 style="margin-top:2rem">Albo zacznij stąd</h2>
+  <div class="cards">
     <div class="card"><h3><a href="${R}uslugi/">Katalog robót</a></h3><p>Wszystkie pozycje ze stawkami za jednostkę.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Kalkulator remontu</a></h3><p>Kosztorys mieszkania według metrażu.</p></div>
     <div class="card"><h3><a href="${R}">Ceny w miastach</a></h3><p>Stawki w dziesięciu największych miastach.</p></div>
   </div>
 </div></section>`,
+    script: `
+(function(){
+  const p = document.getElementById('q404');
+  p.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const q = p.value.trim();
+    if (q) location.href = '${R}szukaj/?q=' + encodeURIComponent(q);
+  });
+})();`,
   })
 );
 
@@ -913,11 +931,25 @@ const urls = [
   ...staticPages.map((s) => `/${s.slug}/`),
   ...extraUrls,
 ];
+// Data zmiany musi odpowiadac prawdzie, inaczej wyszukiwarka przestaje jej ufac.
+// Tresc stron zalezy od stawek, wiec datujemy je ostatnia kalibracja cennika,
+// a nie dniem, w ktorym akurat uruchomiono budowanie.
+const dataKalibracji = `${meta.checked || meta.updated}-01`;
+// Czestotliwosc zmian zalezy od rodzaju strony: cenniki i kalkulatory zmieniaja
+// sie z kazda kalibracja stawek, poradniki i slownik znacznie rzadziej.
+const czestotliwosc = (u) => {
+  if (u === '/' || u.startsWith('/ceny/') || u.startsWith('/cennik')) return 'weekly';
+  if (u.startsWith('/kalkulator/') || u.startsWith('/koszt-')) return 'weekly';
+  if (u.startsWith('/poradnik/') || u.startsWith('/slownik') || u.startsWith('/porownanie/')) return 'monthly';
+  return 'monthly';
+};
 await writeFile(
   join(OUT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${SITE.base}${u}</loc></url>`).join('\n')}
+${urls
+    .map((u) => `  <url><loc>${SITE.base}${u}</loc><lastmod>${dataKalibracji}</lastmod><changefreq>${czestotliwosc(u)}</changefreq></url>`)
+    .join('\n')}
 </urlset>`
 );
 await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.base}/sitemap.xml\n`);
