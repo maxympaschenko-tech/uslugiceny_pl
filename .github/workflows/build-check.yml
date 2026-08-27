@@ -1,0 +1,42 @@
+# Kontrola przy kazdym pull requescie: czy projekt sie buduje, czy nie wrocila
+# cyrylica i czy metadane stron miesza sie w limitach wyszukiwarki.
+name: Build check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node build.mjs
+
+      - name: Tylko polski w wygenerowanych stronach
+        run: |
+          if grep -rlP '[\x{0400}-\x{04FF}]' dist/ ; then
+            echo "Znaleziono cyrylice w dist/"; exit 1
+          fi
+          echo "OK, wylacznie polski"
+
+      - name: Audyt metadanych i odnosnikow
+        run: python3 audyt.py | tee /tmp/wynik.txt
+
+      - name: Progi jakosci
+        run: |
+          fail=0
+          sprawdz () {
+            n=$(grep -oP "$1: \K[0-9]+" /tmp/wynik.txt | head -1)
+            if [ "${n:-0}" -gt "$2" ]; then echo "PRZEKROCZONY PROG: $1 = $n (max $2)"; fail=1; fi
+          }
+          sprawdz "powtorzone tytuly" 0
+          sprawdz "powtorzone opisy" 0
+          sprawdz "tytuly dluzsze niz 65 znakow" 0
+          sprawdz "strony bez dokladnie jednego H1" 0
+          sprawdz "martwe odnosniki wewnetrzne" 0
+          sprawdz "strony bez linkow przychodzacych" 1
+          exit $fail
