@@ -746,3 +746,12 @@ h2 .ikona, h3 .ikona { vertical-align: -.3em; margin-right: .45rem; color: var(-
   text-transform: uppercase; letter-spacing: .12em;
   color: var(--ink-soft); margin: 0 0 .3rem;
 }
+
+/* ---------- podstawa stawki przy pozycji ---------- */
+
+.podstawa {
+  font-size: var(--step--2); color: var(--ink-soft); line-height: 1.55;
+  margin: 1rem 0 0; padding: .7rem .9rem;
+  background: #F8FAFB; border: 1px solid var(--line); border-radius: var(--r-s);
+}
+.podstawa strong { color: var(--ink); }

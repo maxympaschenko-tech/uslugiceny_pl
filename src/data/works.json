@@ -91,6 +91,12 @@
         "Demontaż wygląda na najprostszy etap remontu i bywa najbardziej niedoszacowany. Stawki są niskie, ale ilości duże, a do robocizny trzeba doliczyć kontener i opłatę za przyjęcie odpadów, która przy gruzie zmieszanym potrafi przewyższyć koszt samego skuwania.",
         "Największą różnicę w wycenie robi dostęp. Skucie płytek na parterze z podjazdem dla kontenera pod klatką to jedna cena, znoszenie worków z czwartego piętra bez windy zupełnie inna. Warto ustalić to przed podpisaniem umowy, bo później staje się to podstawą do renegocjacji.",
         "Osobna kategoria to azbest. Eternitu nie wolno demontować samodzielnie ani wyrzucić z pozostałym gruzem, a wiele gmin pokrywa koszt jego zdjęcia i utylizacji w ramach programów."
+      ],
+      "zrodla": [
+        0,
+        1,
+        2,
+        4
       ]
     },
     {
@@ -102,6 +108,12 @@
         "Ściany pochłaniają najwięcej metrów w całym remoncie. W mieszkaniu o powierzchni 50 m² powierzchnia ścian i sufitów sięga zwykle 150 m², czyli trzykrotności podłogi. Dlatego nawet niewielka różnica w stawce za metr gładzi przekłada się na tysiące złotych w kosztorysie.",
         "Cena zależy przede wszystkim od stanu podłoża i oczekiwanego efektu. Gładź pod tapetę wymaga mniej pracy niż pod farbę z połyskiem, a ściana oświetlona z boku ujawni każdą nierówność, której nie widać w świetle rozproszonym.",
         "Zabudowy z płyt gipsowo-kartonowych wyceniane są osobno od tynków, bo to inna technologia i inny zestaw narzędzi. Sufit podwieszany z wycięciami pod oprawy potrafi kosztować więcej niż otynkowanie tej samej powierzchni."
+      ],
+      "zrodla": [
+        0,
+        1,
+        2,
+        4
       ]
     },
     {
@@ -113,6 +125,11 @@
         "Podłoga to warstwy, a nie jedna pozycja. Pod okładziną leży wylewka, pod wylewką często izolacja, a między nimi folia i taśmy dylatacyjne. Oferta, która podaje jedną kwotę za metr podłogi, prawie zawsze pomija którąś z tych warstw.",
         "Najdłuższy przestój całego remontu bierze się właśnie stąd: wylewka cementowa potrzebuje mniej więcej tygodnia na każdy centymetr grubości. Przy pięciu centymetrach to ponad miesiąc czekania, którego nie da się skrócić nagrzewnicą bez ryzyka pęknięć.",
         "Wybór okładziny to nie tylko kwestia gustu. Panele są tańsze i szybsze w montażu, deska droższa, ale można ją cyklinować kilka razy w ciągu życia podłogi."
+      ],
+      "zrodla": [
+        1,
+        2,
+        3
       ]
     },
     {
@@ -124,6 +141,11 @@
         "Płytki są najdroższą okładziną w przeliczeniu na metr i jednocześnie najbardziej wrażliwą na jakość podłoża. Nierówna ściana oznacza dodatkowe wyrównanie, a przy dużym formacie nawet kilkumilimetrowa krzywizna kończy się pękniętą płytą.",
         "Format przesądza o stawce bardziej niż cena samego materiału. Płyta 120 na 280 centymetrów wymaga dwóch osób, systemu przyssawek i idealnie płaskiego podłoża, więc robocizna potrafi być dwa razy wyższa niż przy zwykłym gresie.",
         "W strefach mokrych przed płytkami wykonuje się hydroizolację. To najtańsza pozycja w całej łazience i ta, której pominięcie kosztuje najwięcej, bo przeciek do mieszkania poniżej oznacza koszt dwóch remontów zamiast jednego."
+      ],
+      "zrodla": [
+        0,
+        1,
+        2
       ]
     },
     {
@@ -135,6 +157,11 @@
         "Hydraulika przesądza o układzie pomieszczenia na kilkanaście lat do przodu. Po ułożeniu płytek przesunięcie odpływu oznacza skuwanie okładziny, dlatego rozmieszczenie punktów ustala się przed pierwszym uderzeniem młota, na podstawie konkretnych modeli armatury.",
         "Punkt wodno-kanalizacyjny to nie sam kran, tylko doprowadzenie wody ciepłej i zimnej, podejście kanalizacyjne, kucie bruzd i próba szczelności. Stąd rozpiętość stawek: krótkie podejście przy pionie kosztuje ułamek tego, co punkt na przeciwległej ścianie.",
         "Biały montaż wyceniany jest za sztukę, a same urządzenia kupuje zwykle inwestor. Porównując oferty, warto sprawdzić, czy stawka obejmuje obudowę stelaża i rewizję do zaworów."
+      ],
+      "zrodla": [
+        0,
+        1,
+        2
       ]
     },
     {
@@ -146,6 +173,11 @@
         "Instalacja elektryczna wykonywana jest na surowych ścianach i to jedyny moment, kiedy jej zmiana jest tania. Później każde nowe gniazdo oznacza kucie w gotowej powierzchni, uzupełnianie tynku i malowanie całej ściany.",
         "Punkt elektryczny wycenia się za sztukę, ale nakład pracy zależy od materiału ściany i długości trasy od rozdzielnicy. W betonie bruzdowanie idzie wielokrotnie wolniej niż w płycie gipsowo-kartonowej.",
         "Na etapie planowania prawie zawsze warto przewidzieć więcej punktów, niż wydaje się potrzebne. Dodanie gniazda w trakcie prac instalacyjnych to koszt jednej pozycji, po remoncie to koszt poprawek w całym pomieszczeniu."
+      ],
+      "zrodla": [
+        0,
+        1,
+        2
       ]
     },
     {
@@ -157,6 +189,12 @@
         "Wykończenia to ostatni etap, na którym widać wszystkie wcześniejsze niedokładności. Krzywy otwór drzwiowy ujawni się dopiero przy montażu ościeżnicy, a nierówna posadzka przy podcinaniu skrzydła.",
         "Większość pozycji w tej kategorii to sama robocizna, bo drzwi, parapety i oprawy kupuje inwestor. Przy porównywaniu ofert warto to sprawdzić, bo część ekip wycenia montaż razem z materiałem, a część osobno.",
         "Sprzątanie po remoncie bywa traktowane jako dodatek, tymczasem pył gipsowy potrafi wracać tygodniami, jeśli usunięto go pobieżnie. To pozycja tania w stosunku do całości i warta zlecenia."
+      ],
+      "zrodla": [
+        0,
+        1,
+        2,
+        4
       ]
     },
     {
@@ -168,6 +206,11 @@
         "Ocieplenie to system, a nie zbiór materiałów. Klej, płyta, kołki, siatka, podkład i tynk muszą pochodzić z jednej rodziny produktowej, bo tylko wtedy producent odpowiada za całość. Zamiana jednego elementu na tańszy z innej półki unieważnia gwarancję.",
         "Rozpiętość cen bierze się głównie ze skomplikowania bryły. Prosta ściana szczytowa idzie szybko, natomiast wykusze, gzymsy i glify okienne potrafią podnieść robociznę o jedną trzecią przy tej samej powierzchni.",
         "Prace prowadzi się przy temperaturze powyżej pięciu stopni i bez ostrego słońca. Tynk nakłada się całą ścianą bez przerwy, bo przerwa w połowie zostawia na elewacji granicę widoczną już na zawsze."
+      ],
+      "zrodla": [
+        5,
+        6,
+        7
       ]
     },
     {
@@ -179,6 +222,9 @@
         "W nawierzchni z kostki najwięcej kosztuje to, czego nie widać. Podbudowa z kruszywa, geowłóknina i wywóz urobku potrafią przewyższyć koszt samej kostki, a to właśnie na nich najczęściej się oszczędza.",
         "Grubość warstwy nośnej dobiera się do obciążenia. Pod ścieżkę dla pieszych wystarczy około dwudziestu centymetrów, pod podjazd dla samochodu trzydzieści, a przy gruncie gliniastym dochodzi warstwa odcinająca.",
         "Wzór układania wpływa i na robociznę, i na ilość odpadu. Jodełka oraz układ ukośny podnoszą stawkę o dwadzieścia do czterdziestu procent i zwiększają liczbę docinek na krawędziach."
+      ],
+      "zrodla": [
+        5
       ]
     },
     {
@@ -190,6 +236,11 @@
         "Dach wymienia się raz na kilkadziesiąt lat i zwykle w pośpiechu, bo zaczyna przeciekać. Pośpiech jest tu złym doradcą: różnica między ekipą przypadkową a doświadczoną ujawnia się nie na połaci, tylko na obróbkach wokół kominów i w koszach.",
         "Powierzchnia połaci jest większa od powierzchni rzutu budynku, przy typowym nachyleniu mniej więcej o jedną trzecią. To najczęstszy błąd przy samodzielnym szacowaniu kosztów.",
         "Wymiana pokrycia na takie samo wymaga zgłoszenia w urzędzie gminy. Zmiana geometrii dachu, kąta nachylenia albo dodanie lukarn to już pozwolenie na budowę wraz z projektem."
+      ],
+      "zrodla": [
+        8,
+        9,
+        10
       ]
     },
     {
@@ -201,6 +252,9 @@
         "Montaż okna rozlicza się za metr bieżący obwodu ramy, a nie za sztukę ani za metr kwadratowy. Dlatego jedno duże okno kosztuje więcej niż dwa mniejsze o łącznie tej samej powierzchni, co bywa zaskoczeniem przy porównywaniu ofert.",
         "Obowiązujące warunki techniczne wymagają szczelności na styku okna ze ścianą, przez co montaż wyłącznie na piankę jest dziś traktowany jako błąd sztuki. Ciepły montaż warstwowy z taśmami to osobna pozycja w kosztorysie.",
         "W budynkach z wielkiej płyty o cenie decydują nie okna, tylko warunki montażu: warstwowa ściana, stan starych tynków i wnoszenie stolarki na wyższe piętra."
+      ],
+      "zrodla": [
+        11
       ]
     },
     {
@@ -212,6 +266,9 @@
         "To najdroższa kategoria w przeliczeniu na jedno zlecenie i jednocześnie ta, w której cena urządzenia bywa mylona z ceną instalacji. W naszym cenniku podajemy koszt montażu i uruchomienia, bo sprzęt kupuje zwykle inwestor.",
         "Etap budowy zmienia wycenę bardziej niż cokolwiek innego. Rekuperacja w stanie surowym to kilka dni pracy, ta sama instalacja w zamieszkanym domu wymaga kucia bruzd i kosztuje o jedną trzecią więcej.",
         "Przy klimatyzacji w bloku potrzebna jest zgoda wspólnoty albo spółdzielni na montaż jednostki zewnętrznej na elewacji. Warto ją uzyskać przed zamówieniem sprzętu, a nie po."
+      ],
+      "zrodla": [
+        12
       ]
     }
   ],

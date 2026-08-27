@@ -30,6 +30,14 @@ for x in works['works']:
     sprawdz(bool(x.get('name')), f"pozycja {x['id']}: brak nazwy")
     sprawdz(len(x.get('factors', [])) >= 3, f"pozycja {x['id']}: mniej niz trzy czynniki cenowe")
 
+# --- zrodla przypisane do kategorii ---
+liczba_zrodel = len(works['meta'].get('sources', []))
+for c in works['categories']:
+    z = c.get('zrodla')
+    sprawdz(bool(z), f"kategoria {c['id']}: brak wskazania zrodel stawek")
+    for i in (z or []):
+        sprawdz(0 <= i < liczba_zrodel, f"kategoria {c['id']}: zrodlo o numerze {i} nie istnieje")
+
 # --- zakres standardowy ---
 for i in scope['items']:
     sprawdz(i in by, f"zakres standardowy wskazuje na nieistniejaca pozycje {i}")

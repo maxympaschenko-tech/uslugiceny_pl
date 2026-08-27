@@ -87,6 +87,15 @@ const calcBox = (w, units, cities, cityOptions, preset = null) => `
   <p class="range-note" data-out-note></p>
 </div>`;
 
+// Podstawa stawki widoczna przy konkretnej pozycji, a nie tylko na stronie metody.
+const podstawaBlock = (cat, meta) => {
+  const lista = (cat.zrodla || []).map((i) => (meta.sources || [])[i]).filter(Boolean);
+  if (!lista.length) return '';
+  return `<p class="podstawa"><strong>Podstawa stawki:</strong> mediana widełek z opracowań:
+${lista.map((z) => `${z.name} (${z.date})`).join('; ')}. Ostatnia kalibracja: ${meta.checked || meta.updated}.
+<a href="${R}jak-liczymy/">Metoda wyliczeń</a>.</p>`;
+};
+
 const powiazaneBlock = (lista) =>
   lista && lista.length
     ? `<h2 style="margin-top:2rem">Warto przeczytać</h2>
@@ -102,7 +111,7 @@ const factorsBlock = (w) =>
 
 /* ---------- strona usługi (cała Polska) ---------- */
 
-export function servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane = [] }) {
+export function servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane = [], meta = {} }) {
   const base = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
   const avg = base.labour + base.material;
   const spread = w.spread ?? 0.18;
@@ -150,6 +159,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     <div>
       <h2>Z czego składa się stawka</h2>
       ${splitTable(w, units, base.labour, base.material)}
+      ${podstawaBlock(cat, meta)}
       ${doKalkulatora(cat.id)}
       ${factorsBlock(w)}
     </div>
@@ -235,7 +245,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 
 /* ---------- strona usługi w mieście ---------- */
 
-export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane = [] }) {
+export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane = [], meta = {} }) {
   const p = unitPrice(w.id, city.coef, 1, w.perCm ? 5 : 1);
   const t = p.labour + p.material;
   const base = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
@@ -261,6 +271,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     <div>
       <h2>Robocizna i materiał ${city.loc}</h2>
       ${splitTable(w, units, p.labour, p.material)}
+      ${podstawaBlock(cat, meta)}
       ${doKalkulatora(cat.id)}
       ${factorsBlock(w)}
       <p class="section-note">Pełny cennik robót ${city.loc}: <a href="${R}ceny/${city.slug}/">zobacz wszystkie pozycje</a>.</p>

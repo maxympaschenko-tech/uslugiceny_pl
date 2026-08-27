@@ -642,6 +642,19 @@ await write(
   </table></div>
   <p class="section-note" style="margin-top:1rem">Ceny materiałów przeliczamy na jednostkę roboty z uwzględnieniem zużycia i docinki. Statystykę cen w budownictwie GUS traktujemy jako kontrolę dynamiki, a nie źródło wartości bezwzględnych.</p>
 
+  <h2 style="margin-top:2rem">Które opracowanie stoi za którą kategorią</h2>
+  <p class="section-note">Ta sama informacja widoczna jest przy każdej pozycji cennika, pod tabelą składników ceny.</p>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Kategoria</th><th data-sort="off">Opracowania</th></tr></thead>
+    <tbody>${categories
+      .map((c) => `<tr><td>${c.name}</td><td style="text-align:left;white-space:normal">${(c.zrodla || [])
+        .map((i) => (meta.sources || [])[i])
+        .filter(Boolean)
+        .map((z) => `${z.name} <span class="qty">${z.date}</span>`)
+        .join('<br>')}</td></tr>`)
+      .join('')}</tbody>
+  </table></div>
+
   <h2 style="margin-top:2rem">Czego ta metoda nie obejmuje</h2>
   <p class="section-note">Mediana widełek to punkt odniesienia, nie wycena. Ekipa z pełnym kalendarzem podaje więcej, ekipa szukająca zlecenia mniej, a przy małym metrażu dochodzi dojazd i rozruch sprzętu, które przy jednym pomieszczeniu potrafią podnieść stawkę za metr o kilkadziesiąt procent.</p>
 </div></section>`,
@@ -668,14 +681,14 @@ for (const cat of categories) {
     const related = list.filter((r) => r.id !== w.id).slice(0, 3);
     await write(
       `${cat.slug}/${wSlug}`,
-      servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane: powiazania[w.id] || [] })
+      servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane: powiazania[w.id] || [], meta })
     );
     serviceUrls.push(`/${cat.slug}/${wSlug}/`);
 
     for (const city of cities) {
       await write(
         `${cat.slug}/${wSlug}/${city.slug}`,
-        serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane: powiazania[w.id] || [] })
+        serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane: powiazania[w.id] || [], meta })
       );
       serviceUrls.push(`/${cat.slug}/${wSlug}/${city.slug}/`);
     }
