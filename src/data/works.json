@@ -58,6 +58,18 @@
       {
         "name": "cennikibudowlane.com.pl, klimatyzacja oraz wentylacja i rekuperacja",
         "date": "2026-08"
+      },
+      {
+        "name": "Oferteo, koszt instalacji centralnego ogrzewania",
+        "date": "2026-08"
+      },
+      {
+        "name": "sposobyogrzewania.pl, kosztorys instalacji gazowej",
+        "date": "2026-02"
+      },
+      {
+        "name": "studiozdunskie.pl, ceny montazu kotla gazowego",
+        "date": "2026-06"
       }
     ]
   },
@@ -161,7 +173,8 @@
       "zrodla": [
         0,
         1,
-        2
+        2,
+        13
       ]
     },
     {
@@ -268,7 +281,10 @@
         "Przy klimatyzacji w bloku potrzebna jest zgoda wspólnoty albo spółdzielni na montaż jednostki zewnętrznej na elewacji. Warto ją uzyskać przed zamówieniem sprzętu, a nie po."
       ],
       "zrodla": [
-        12
+        12,
+        13,
+        14,
+        15
       ]
     }
   ],
@@ -730,7 +746,7 @@
       "id": "grzejnik",
       "cat": "plumbing",
       "unit": "szt",
-      "labour": 280,
+      "labour": 170,
       "material": 0,
       "name": "Montaż grzejnika",
       "factors": [
@@ -1483,8 +1499,8 @@
       "id": "pompa_ciepla",
       "cat": "instalacje",
       "unit": "szt",
-      "labour": 6800,
-      "material": 1900,
+      "labour": 4400,
+      "material": 1300,
       "name": "Montaż pompy ciepła powietrznej",
       "factors": [
         "Miejsce posadowienia jednostki zewnętrznej i konieczność wykonania fundamentu.",
@@ -1511,8 +1527,8 @@
       "id": "kociol_gazowy",
       "cat": "instalacje",
       "unit": "szt",
-      "labour": 2350,
-      "material": 700,
+      "labour": 2100,
+      "material": 650,
       "name": "Wymiana kotła gazowego",
       "factors": [
         "Konieczność wymiany wkładu kominowego przy przejściu na kocioł kondensacyjny.",
@@ -1524,8 +1540,8 @@
       "id": "instalacja_co",
       "cat": "instalacje",
       "unit": "pkt",
-      "labour": 880,
-      "material": 480,
+      "labour": 260,
+      "material": 190,
       "name": "Punkt instalacji centralnego ogrzewania",
       "factors": [
         "Materiał rur i sposób prowadzenia: w posadzce czy po ścianie.",
