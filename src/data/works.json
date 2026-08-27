@@ -1708,6 +1708,50 @@
         "Konieczność izolacji akustycznej i termicznej kanałów.",
         "Przejścia przez stropy i ściany nośne."
       ]
+    },
+    {
+      "id": "zrywanie_tapet",
+      "cat": "demont",
+      "unit": "m2",
+      "labour": 16,
+      "material": 0,
+      "name": "Zrywanie starych tapet",
+      "factors": [
+        "Rodzaj kleju i podłoża: tapeta na gładzi schodzi płatami, na farbie olejnej fragmentami.",
+        "Liczba warstw, bo w starym budownictwie bywa ich kilka jedna na drugiej.",
+        "Konieczność naprawy podłoża po zerwaniu, liczona osobno."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "tapetowanie",
+      "cat": "walls",
+      "unit": "m2",
+      "labour": 42,
+      "material": 0,
+      "name": "Tapetowanie ścian",
+      "factors": [
+        "Rodzaj tapety: flizelinowa i winylowa kleją się szybciej niż papierowa, ale kosztują więcej w robociźnie.",
+        "Wzór z raportem wymaga dopasowania sąsiednich brytów, co zwiększa zużycie i czas pracy.",
+        "Stan podłoża: tapeta nie zakryje nierówności, przy bocznym świetle podkreśli je jeszcze mocniej.",
+        "Samą tapetę kupuje inwestor, tu liczona jest wyłącznie robocizna."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "cyklinowanie",
+      "cat": "floor",
+      "unit": "m2",
+      "labour": 52,
+      "material": 14,
+      "name": "Cyklinowanie i lakierowanie parkietu",
+      "factors": [
+        "Stan powierzchni: głębokie zarysowania wymagają zdjęcia grubszej warstwy i większej liczby przejść.",
+        "Liczba warstw lakieru, standardem są trzy, a w miejscach o dużym ruchu cztery.",
+        "Rodzaj wykończenia: lakier schnie szybciej, olej daje efekt naturalny, ale wymaga późniejszej konserwacji.",
+        "Grubość warstwy użytkowej parkietu, bo decyduje, ile razy da się go jeszcze odnowić."
+      ],
+      "sprawdzone": "2026-08"
     }
   ],
   "standardScope": {

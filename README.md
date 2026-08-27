@@ -87,22 +87,26 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 
 | Adres | Ile | Co zawiera |
 |---|---|---|
-| `/` | 1 | szybka wycena, tablica cen za m², katalog |
-| `/uslugi/` i `/uslugi/<kategoria>/` | 8 | spis robót ze stawkami |
-| `/<kategoria>/<usluga>/` | 42 | cena min/średnia/max, podział robocizna i materiał, kalkulator, ceny w miastach |
-| `/<kategoria>/<usluga>/<miasto>/` | 420 | stawka lokalna i odchylenie od średniej krajowej |
-| `/ceny/<miasto>/` | 10 | pełny cennik robót w mieście |
-| `/kalkulator/*` | 3 | remont mieszkania, łazienka, wylewka |
-| `/jak-liczymy/` | 1 | metodyka i źródła |
-| `/404.html` | 1 | strona błędu ze skrótami |
+| `/` | 1 | szybka wycena, trzy ścieżki wejścia, tablica cen za m² |
+| `/uslugi/` i `/uslugi/<kategoria>/` | 13 | spis robót ze stawkami, wstęp merytoryczny |
+| `/<kategoria>/<usluga>/` | 97 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, powiązane treści |
+| `/<kategoria>/<usluga>/<miasto>/` | 970 | stawka lokalna i odchylenie od średniej krajowej |
+| `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
+| `/kalkulator/*` | 13 | mieszkanie, wykończenie, łazienka, wylewka, malowanie, płytki, gładzie, elewacja, dach, kostka, ogrodzenie, okna, klimatyzacja |
+| `/koszt-remontu/*`, `/koszt-wykonczenia/*`, `/koszt-ocieplenia/*`, `/koszt-remontu-domu/*` | 18 | gotowe wyliczenia dla konkretnych metraży |
+| `/poradnik/*` | 9 | kolejność prac krok po kroku, schemat HowTo |
+| `/porownanie/*` | 10 | zestawienia rozwiązań z werdyktem |
+| `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 62 hasła, pełne zestawienie stawek, udział robocizny |
+| `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
+| `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 485 stron plus sitemap, robots.txt i strona 404.
+Razem ponad 1150 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**W repozytorium jest wersja robocza.** `works.json` ma `meta.status: "draft"` i dopóki tak jest,
-na każdej stronie wisi żółty baner. Rząd wielkości jest rynkowy, stawki wymagają weryfikacji
-z cennikami ekip.
+**Stan weryfikacji:** 89 z 97 stawek sprawdzonych punktowo, czyli takich, dla których źródło
+podaje liczbę dla tej konkretnej roboty. Pozostałe wyprowadzono z widełek dla całej grupy robót
+i są oznaczone na swoich stronach jako orientacyjne. Historia zmian jest na `/aktualizacje/`.
 
 Źródła docelowe:
 
@@ -113,6 +117,16 @@ z cennikami ekip.
    Do kontroli dynamiki, nie wartości bezwzględnych.
 
 Docelowo każda stawka dostanie pola `source` i `checked`.
+
+## Kontrola jakości
+
+Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeście:
+
+| Skrypt | Czego pilnuje |
+|---|---|
+| `kontrola-danych.py` | struktura cennika, źródła przy kategoriach, powiązanie każdej pozycji z treścią, zgodność słownych opisów różnicy cen z liczbami |
+| `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
+| `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 
 ## Plan rozwoju
 

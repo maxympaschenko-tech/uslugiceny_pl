@@ -64,6 +64,9 @@ export const HASLA = [
   ['Parapet wewnętrzny', 'parapet-wewnetrzny', 'Płyta zamykająca ościeże od strony pomieszczenia. Musi być podłączona szczelnie pod ramę okna, bo właśnie tam najczęściej pojawiają się skropliny, a po nich pleśń w narożniku.', 'parapet'],
   ['Obrzeże', 'obrzeze', 'Wąska krawędź oddzielająca nawierzchnię od trawnika, tańsza i niższa od krawężnika drogowego. Bez niej kostka rozjeżdża się na bokach, a piasek ze spoin wypłukuje się na zewnątrz.', 'obrzeza'],
   ['Furtka', 'furtka', 'Wejście dla pieszych w linii ogrodzenia. Jeśli ma mieć elektrozaczep albo domofon, przewód trzeba doprowadzić do słupka przed jego zabetonowaniem.', 'furtka'],
+  ['Tapeta flizelinowa', 'tapeta-flizelinowa', 'Tapeta na podkładzie z włókniny, klejona metodą na ścianę: klej nakłada się na podłoże, a nie na bryt. Schodzi później na sucho, bez moczenia, co bardzo ułatwia następny remont.', 'tapetowanie'],
+  ['Raport tapety', 'raport-tapety', 'Odległość, po której wzór się powtarza. Im większy raport, tym więcej materiału idzie na dopasowanie sąsiednich brytów, dlatego zapas liczy się nie od metrażu, tylko od wysokości ściany i wielkości wzoru.', 'zrywanie_tapet'],
+  ['Cyklinowanie', 'cyklinowanie', 'Maszynowe zdjęcie wierzchniej warstwy drewna wraz ze starym lakierem i ponowne wykończenie. Parkiet da się cyklinować kilka razy w ciągu życia, a liczbę powtórzeń wyznacza grubość warstwy użytkowej nad piórem.', 'cyklinowanie'],
   ['Roboczogodzina', 'roboczogodzina', 'Jednostka rozliczenia drobnych prac, gdy nie da się ich wycenić za metr ani za punkt. Stosowana zwykle przy usuwaniu usterek i pracach nietypowych.', null],
   ['Kosztorys ślepy', 'kosztorys-slepy', 'Zestawienie zakresu i ilości robót bez cen, przekazywane wykonawcom do wyceny. Pozwala porównać oferty pozycja po pozycji, zamiast zestawiać same sumy końcowe.', null],
 ];
