@@ -155,10 +155,11 @@ export function szukajPage() {
   <div class="panel" style="margin-top:1.2rem">
     <label class="field">
       <span class="f-label">Czego szukasz</span>
-      <span class="f-input"><input type="search" id="q" placeholder="np. wylewka, płytki, dach, łazienka" autocomplete="off" autofocus></span>
+      <span class="f-input"><input type="search" id="q" name="q" placeholder="np. wylewka, płytki, dach, łazienka" autocomplete="off" autofocus></span>
     </label>
   </div>
-  <p class="section-note" id="ile" style="margin-top:1rem"></p>
+  <h2 style="margin-top:1.8rem">Wyniki</h2>
+  <p class="section-note" id="ile"></p>
   <div id="wyniki" class="cards"></div>
 </div></section>`,
     script: `

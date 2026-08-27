@@ -47,7 +47,7 @@ for kolor in set(re.findall(r'color:\s*(#[0-9A-Fa-f]{6})', css)):
 
 # HTML: naglowki, jezyk, etykiety
 strony = glob.glob('dist/**/index.html', recursive=True)
-for f in strony[:400]:
+for f in strony:
     h = open(f, encoding='utf-8').read()
     if 'lang="pl"' not in h:
         bledy.append(f"{f}: brak jezyka dokumentu")
@@ -66,4 +66,4 @@ if bledy:
     for b in bledy[:20]:
         print('  -', b)
     sys.exit(1)
-print(f"Dostepnosc w porzadku: {len(PARY)} par kolorow, {min(len(strony),400)} stron sprawdzonych")
+print(f"Dostepnosc w porzadku: {len(PARY)} par kolorow, {len(strony)} stron sprawdzonych")

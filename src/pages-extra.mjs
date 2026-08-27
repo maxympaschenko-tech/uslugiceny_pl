@@ -306,7 +306,8 @@ export function porownaniaIndex(list) {
 <section><div class="wrap">
   <h1>Porównania</h1>
   <p class="lede">Pytania, które padają tuż przed decyzją, rozstrzygnięte liczbami z naszego cennika i praktyką wykonawczą.</p>
-  <div class="cards" style="margin-top:1.4rem">
+  <h2 style="margin-top:1.8rem">Zestawienia</h2>
+  <div class="cards">
     ${list.map((p) => `<div class="card"><h3><a href="${R}porownanie/${p.slug}/">${p.h1}?</a></h3><p>${p.lede}</p></div>`).join('')}
   </div>
 </div></section>`,

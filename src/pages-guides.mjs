@@ -274,7 +274,8 @@ export function poradnikiIndex(list) {
 <section><div class="wrap">
   <h1>Poradniki</h1>
   <p class="lede">Kolejność prac decyduje o kosztach bardziej niż wybór ekipy. Etap zrobiony nie w porę trzeba powtórzyć.</p>
-  <div class="cards" style="margin-top:1.4rem">
+  <h2 style="margin-top:1.8rem">Dostępne poradniki</h2>
+  <div class="cards">
     ${list.map((p) => `<div class="card"><h3><a href="${R}poradnik/${p.slug}/">${p.h1}</a></h3><p>${p.lede}</p></div>`).join('')}
   </div>
 </div></section>`,
