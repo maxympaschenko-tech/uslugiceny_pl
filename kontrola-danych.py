@@ -66,10 +66,21 @@ for slug, a, b, cm, lede in por:
             sprawdz(lo <= r <= hi,
                     f"porownanie {slug}: opis mowi '{slowo}', a rzeczywisty stosunek to {r:.2f}")
 
+# --- kazda pozycja musi byc powiazana z trescia ---
+guides = open('src/pages-guides.mjs', encoding='utf-8').read()
+slownik = open('src/pages-slownik.mjs', encoding='utf-8').read()
+wskazane = set(re.findall(r"w: '([a-z_]+)'", guides))
+wskazane |= set(re.findall(r"a: '([a-z_]+)', b: '([a-z_]+)'", src) and
+                [x for para in re.findall(r"a: '([a-z_]+)', b: '([a-z_]+)'", src) for x in para])
+wskazane |= set(re.findall(r"',\s*'([a-z_]+)'\],", slownik))
+osierocone = [x['id'] for x in works['works'] if x['id'] not in wskazane]
+sprawdz(not osierocone,
+        f"pozycje bez powiazania z poradnikiem, porownaniem ani slownikiem: {', '.join(osierocone)}")
+
 if bledy:
     print(f"ZNALEZIONO {len(bledy)} problemow:")
     for b in bledy:
         print('  -', b)
     sys.exit(1)
 print(f"Dane spojne: {len(works['works'])} pozycji, {len(works['categories'])} kategorii, "
-      f"{len(cities)} miast, {len(por)} porownan")
+      f"{len(cities)} miast, {len(por)} porownan, wszystkie pozycje powiazane z trescia")
