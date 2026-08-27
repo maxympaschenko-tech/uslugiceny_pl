@@ -387,6 +387,7 @@ export function servicesIndex({ categories, works, units, unitPrice }) {
 <section><div class="wrap">
   <h1>Wszystkie roboty</h1>
   <p class="lede">${works.length} pozycji w ${categories.length} kategoriach, każda ze stawką rozbitą na robociznę i materiał oraz cenami w dziesięciu miastach.</p>
+  <p class="section-note">Wolisz wszystko na jednej stronie, bez klikania? Zobacz <a href="${R}cennik/">pełne zestawienie</a> z przelicznikiem na miasto albo <a href="${R}struktura-kosztow/">udział robocizny i materiału</a> w każdej pozycji.</p>
   ${categories
     .map((cat) => {
       const list = works.filter((w) => w.cat === cat.id);

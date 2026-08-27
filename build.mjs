@@ -147,6 +147,25 @@ await write(
 </div></section>
 
 <section><div class="wrap">
+  <h2>Kalkulatory</h2>
+  <div class="cards">
+    <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania pod klucz</a></h3><p>Metraż, standard wykończenia i zakres demontaży. Na wyjściu kosztorys po kategoriach z rozbiciem na robociznę i materiały.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/lazienka/">Remont łazienki</a></h3><p>Płytki, hydroizolacja i armatura liczone sztuka po sztuce. Najdroższe pomieszczenie w mieszkaniu w przeliczeniu na metr.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/wylewka/">Wylewka podłogowa</a></h3><p>Powierzchnia i grubość dają objętość zaprawy, liczbę worków i cenę robocizny osobno od materiału.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/malowanie/">Malowanie</a></h3><p>Wymiary pokoju przeliczone na metry ścian i sufitu, z gruntowaniem i gładzią do wyboru.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/plytki/">Układanie płytek</a></h3><p>Podłoga i ściany osobno, format wielkoformatowy, hydroizolacja i wyrównanie podłoża.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a></h3><p>Tynk, gładź, grunt i malowanie rozdzielone, żeby było widać koszt każdego etapu.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></h3><p>Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/wymiana-okien/">Wymiana okien</a></h3><p>Montaż liczony za metr obwodu ramy, z ciepłym montażem, obróbką ościeży i parapetami.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/klimatyzacja/">Klimatyzacja i wentylacja</a></h3><p>Split, multi-split, rekuperacja i kanały. Montaż bez ceny samych urządzeń.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, z wyborem między styropianem a wełną.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny, okna dachowe i ocieplenie poddasza.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a></h3><p>Nawierzchnia z podbudową, obrzeża, odwodnienie i niwelacja terenu.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a></h3><p>Przęsła na metry bieżące plus podmurówka, brama i furtka.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
   <h2>Katalog robót</h2>
   <p class="section-note">Każda pozycja ma własną stronę z rozbiciem stawki na robociznę i materiał, listą czynników cenotwórczych i cenami w dziesięciu miastach.</p>
   <div class="cards">${categories
@@ -172,6 +191,17 @@ await write(
 </div></section>
 
 <section><div class="wrap">
+  <h2>Narzędzia i zestawienia</h2>
+  <p class="section-note">Cztery widoki na te same dane, każdy odpowiada na inne pytanie.</p>
+  <div class="cards">
+    <div class="card"><h3><a href="${R}cennik/">Pełny cennik</a></h3><p>Wszystkie ${works.length} pozycji na jednej stronie, z przelicznikiem na miasto i przyciskiem druku. Do zestawienia z ofertą wykonawcy wiersz po wierszu.</p></div>
+    <div class="card"><h3><a href="${R}struktura-kosztow/">Robocizna czy materiał</a></h3><p>Udział pracy i towaru w każdej pozycji. Pokazuje, gdzie negocjacja stawki ma sens, a gdzie o cenie decyduje półka materiału.</p></div>
+    <div class="card"><h3><a href="${R}porownaj-miasta/">Porównaj dwa miasta</a></h3><p>Zestawienie stawek między konkretnymi miastami, pozycja po pozycji. Przydatne przy ofercie od ekipy spoza okolicy.</p></div>
+    <div class="card"><h3><a href="${R}aktualizacje/">Historia zmian</a></h3><p>Co i kiedy zmieniło się w stawkach, razem z poprawkami błędów. ${works.filter((w) => w.sprawdzone).length} z ${works.length} pozycji sprawdzonych punktowo w źródłach.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
   <h2>Zanim zadzwonisz po ekipę</h2>
   <p class="section-note">Trzy rzeczy, które najczęściej decydują o kosztach bardziej niż sama stawka za metr.</p>
   <div class="cards">
@@ -181,24 +211,7 @@ await write(
   </div>
 </div></section>
 
-<section><div class="wrap">
-  <h2>Kalkulatory</h2>
-  <div class="cards">
-    <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania pod klucz</a></h3><p>Metraż, standard wykończenia i zakres demontaży. Na wyjściu kosztorys po kategoriach z rozbiciem na robociznę i materiały.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/lazienka/">Remont łazienki</a></h3><p>Płytki, hydroizolacja i armatura liczone sztuka po sztuce. Najdroższe pomieszczenie w mieszkaniu w przeliczeniu na metr.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/wylewka/">Wylewka podłogowa</a></h3><p>Powierzchnia i grubość dają objętość zaprawy, liczbę worków i cenę robocizny osobno od materiału.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/malowanie/">Malowanie</a></h3><p>Wymiary pokoju przeliczone na metry ścian i sufitu, z gruntowaniem i gładzią do wyboru.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/plytki/">Układanie płytek</a></h3><p>Podłoga i ściany osobno, format wielkoformatowy, hydroizolacja i wyrównanie podłoża.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a></h3><p>Tynk, gładź, grunt i malowanie rozdzielone, żeby było widać koszt każdego etapu.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></h3><p>Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/wymiana-okien/">Wymiana okien</a></h3><p>Montaż liczony za metr obwodu ramy, z ciepłym montażem, obróbką ościeży i parapetami.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/klimatyzacja/">Klimatyzacja i wentylacja</a></h3><p>Split, multi-split, rekuperacja i kanały. Montaż bez ceny samych urządzeń.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, z wyborem między styropianem a wełną.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny, okna dachowe i ocieplenie poddasza.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a></h3><p>Nawierzchnia z podbudową, obrzeża, odwodnienie i niwelacja terenu.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a></h3><p>Przęsła na metry bieżące plus podmurówka, brama i furtka.</p></div>
-  </div>
-</div></section>`,
+`,
     jsonLd: [
       {
         '@context': 'https://schema.org',
