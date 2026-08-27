@@ -195,7 +195,7 @@ export const POROWNANIA = [
     slug: 'blachodachowka-czy-dachowka-ceramiczna',
     h1: 'Blachodachówka czy dachówka ceramiczna',
     a: 'blachodachowka', b: 'dachowka_ceramiczna',
-    lede: 'Dachówka kosztuje mniej więcej dwa razy tyle i waży kilkakrotnie więcej. Za to przeżyje właściciela, podczas gdy blacha ma określony termin przydatności.',
+    lede: 'Dachówka wychodzi około trzy czwarte drożej za metr i waży kilkakrotnie więcej. Za to przeżyje właściciela, podczas gdy blacha ma określony termin przydatności.',
     za: ['Wyraźnie tańsza w materiale i szybsza w montażu.', 'Lekka, więc nie wymaga wzmacniania więźby przy wymianie pokrycia.', 'Duże arkusze zamykają połać w kilka dni.'],
     przeciw: ['Głośniejsza podczas deszczu, jeśli poddasze nie jest dobrze ocieplone.', 'Uszkodzenie powłoki zaczyna korozję, której nie da się zatrzymać punktowo.', 'Przy dachu wielospadowym powstaje sporo odpadu z docinania arkuszy.'],
     zaB: ['Żywotność liczona w dziesiątkach lat, często dłuższa niż konstrukcja pod nią.', 'Cicha i dobrze znosi mróz oraz promieniowanie słoneczne.', 'Pojedynczą uszkodzoną sztukę wymienia się w kilka minut, bez ruszania reszty połaci.'],
@@ -212,6 +212,17 @@ export const POROWNANIA = [
     zaB: ['Powierzchnia odpycha wodę, więc elewacja dłużej zostaje czysta.', 'Elastyczny, lepiej znosi ruchy podłoża i różnice temperatur.', 'Barwiony w masie, bez konieczności malowania po nałożeniu.'],
     przeciwB: ['Droższy materiał przy zbliżonej robociźnie.', 'Niższa paroprzepuszczalność niż w tynku mineralnym.', 'Wymaga starannego prowadzenia pracy mokre na mokre, bo ślady łączeń są bardziej widoczne.'],
     werdykt: 'Ściana ocieplona wełną, stary mur albo elewacja od strony zacienionej: tynk mineralny. Dom przy ruchliwej ulicy, ściana od południa i chęć uniknięcia malowania: tynk silikonowy.',
+  },
+  {
+    slug: 'panele-czy-plytki-na-podloge',
+    h1: 'Panele czy płytki na podłogę',
+    a: 'panele', b: 'plytki_podloga',
+    lede: 'Płytki wychodzą około półtora raza drożej za metr, ale w kuchni i przedpokoju wygrywają bezapelacyjnie. W salonie i sypialni sprawa nie jest już oczywista.',
+    za: ['Wyraźnie tańsze w materiale i w montażu.', 'Cieplejsze w dotyku, przyjemne na boso bez ogrzewania podłogowego.', 'Montaż na klik w jeden dzień, bez klejenia i bez czekania na wiązanie.'],
+    przeciw: ['Pęcznieją przy zalaniu i wtedy nadają się tylko do wymiany.', 'Zarysowań nie da się usunąć, uszkodzoną deskę trzeba wymienić.', 'Gorzej znoszą piasek wnoszony na butach, więc w przedpokoju zużywają się szybciej.'],
+    zaB: ['Nie boją się wody, dlatego są jedynym rozsądnym wyborem w łazience i kuchni.', 'Znoszą piasek, pazury i ciężkie meble praktycznie bez śladu.', 'Najlepiej przewodzą ciepło, więc pod ogrzewaniem podłogowym dają najwyższą sprawność.'],
+    przeciwB: ['Wyraźnie droższe razem z robocizną i wymagają równego, wypoziomowanego podłoża.', 'Zimne w dotyku bez ogrzewania podłogowego.', 'Twarde: upuszczony talerz się rozbije, a upuszczone naczynie może wyszczerbić płytkę.'],
+    werdykt: 'Kuchnia, łazienka, przedpokój i taras: płytki, bez dyskusji. Salon i sypialnia: panele, chyba że masz ogrzewanie podłogowe, bo wtedy płytki oddają ciepło wyraźnie lepiej i różnica w rachunkach zwraca dopłatę.',
   },
 ];
 
