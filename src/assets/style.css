@@ -172,7 +172,11 @@ h1 {
   font-size: var(--step-3); line-height: 1.04; letter-spacing: -0.035em;
   margin: 0 0 1rem; text-wrap: balance;
 }
-.lede { font-size: var(--step-1); max-width: 36ch; margin: 0 0 1.2rem; color: #26313F; }
+/* W sekcji otwierajacej lead sasiaduje z panelem po prawej, wiec musi byc waski.
+   Na pozostalych stronach zajmuje cala szerokosc kolumny i przy 36 znakach
+   rozpadal sie na trzy linijki obok pustego miejsca. */
+.lede { font-size: var(--step-1); max-width: 54ch; margin: 0 0 1.2rem; color: #26313F; }
+.hero .lede { max-width: 36ch; }
 .hero-note { font-size: var(--step--1); color: var(--ink-soft); max-width: 52ch; margin: 0; }
 
 /* ---------- sekcje ---------- */
