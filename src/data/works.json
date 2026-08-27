@@ -106,6 +106,18 @@
       {
         "name": "dom.wp.pl, montaz kabiny prysznicowej i bialy montaz",
         "date": "2026-05"
+      },
+      {
+        "name": "budownictwoporady.pl, cennik uslug budowlanych: stolarka",
+        "date": "2025-11"
+      },
+      {
+        "name": "szalunki-rusztowanie.pl, montaz rusztowania: stawki za m2",
+        "date": "2026-06"
+      },
+      {
+        "name": "Instant Polska, wynajem rusztowan elewacyjnych",
+        "date": "2026-04"
       }
     ]
   },
@@ -246,7 +258,8 @@
         0,
         1,
         2,
-        4
+        4,
+        25
       ]
     },
     {
@@ -262,7 +275,9 @@
       "zrodla": [
         5,
         6,
-        7
+        7,
+        26,
+        27
       ]
     },
     {
@@ -312,7 +327,8 @@
         "W budynkach z wielkiej płyty o cenie decydują nie okna, tylko warunki montażu: warstwowa ściana, stan starych tynków i wnoszenie stolarki na wyższe piętra."
       ],
       "zrodla": [
-        11
+        11,
+        25
       ]
     },
     {
@@ -846,41 +862,44 @@
       "id": "bruzdowanie",
       "cat": "electric",
       "unit": "mb",
-      "labour": 28,
+      "labour": 24,
       "material": 0,
       "name": "Bruzdowanie pod instalację",
       "factors": [
         "Materiał ściany: beton wymaga bruzdownicy i chłodzenia, gips schodzi od ręki.",
         "Głębokość i liczba przewodów w jednej bruździe.",
         "Zabezpieczenie pomieszczenia przed pyłem, którego przy bruzdowaniu jest najwięcej."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "rozdzielnica",
       "cat": "electric",
       "unit": "szt",
-      "labour": 720,
-      "material": 420,
+      "labour": 1150,
+      "material": 620,
       "spread": 0.28,
       "name": "Montaż rozdzielnicy",
       "factors": [
         "Liczba obwodów i modułów, bo od tego zależy rozmiar obudowy.",
         "Wyłączniki różnicowoprądowe i przeciwprzepięciowe w wymaganym standardzie.",
         "Pomiary i protokół odbiorowy instalacji, często liczone osobno."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_lampy",
       "cat": "electric",
       "unit": "szt",
-      "labour": 95,
+      "labour": 75,
       "material": 0,
       "name": "Montaż oprawy oświetleniowej",
       "factors": [
         "Rodzaj oprawy: żyrandol na stropie to inny nakład niż taśma LED.",
         "Wysokość montażu i konieczność użycia rusztowania.",
         "Stan przewodu w puszce i to, czy jest osobny przewód sterujący."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "ogrzewanie_podlogowe",
@@ -894,20 +913,22 @@
         "Rodzaj: mata grzewcza kontra kabel układany w wylewce.",
         "Moc na metr i strefy wyłączone spod ogrzewania, na przykład pod wanną.",
         "Sterownik z czujnikiem podłogowym i jego zaprogramowanie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_drzwi",
       "cat": "finish",
       "unit": "szt",
-      "labour": 340,
+      "labour": 280,
       "material": 0,
       "name": "Montaż drzwi wewnętrznych",
       "factors": [
         "Rodzaj ościeżnicy: regulowana montuje się dłużej niż stała.",
         "Stan otworu: nierówne ościeże wymaga poszerzenia lub zwężenia.",
         "Podcięcie skrzydła pod nową wysokość posadzki i montaż klamki."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "parapet",
@@ -920,7 +941,8 @@
         "Materiał: konglomerat i marmur wymagają docięcia u kamieniarza.",
         "Głębokość i konieczność wykonania wycięć wokół ościeżnicy.",
         "Uszczelnienie styku z oknem i wykończenie boków."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "zabudowa_rury",
@@ -934,7 +956,8 @@
         "Liczba narożników i to, czy pion jest w rogu, czy na środku ściany.",
         "Wymagana rewizja do zaworów i wodomierza.",
         "Ciężar okładziny, jeśli zabudowa ma być obłożona płytkami."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "sprzatanie",
@@ -947,7 +970,8 @@
         "Zakres: sprzątanie po pracach mokrych to inny nakład niż zamiatanie.",
         "Konieczność mycia okien i usuwania zabrudzeń z farby i kleju.",
         "Wywóz worków z odpadami po sprzątaniu."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "ocieplenie_styropian",
@@ -1031,7 +1055,8 @@
         "Czas najmu, bo stawka liczona jest za metr i za dobę postoju.",
         "Wysokość i konieczność kotwienia do ściany powyżej trzech metrów.",
         "Dojazd i teren wokół budynku, na którym rusztowanie trzeba ustawić stabilnie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "mycie_elewacji",
@@ -1044,7 +1069,8 @@
         "Stopień zabrudzenia: glony i mech wymagają preparatu i dwóch przejść.",
         "Rodzaj powierzchni, bo tynk mozaikowy myje się ostrożniej niż silikonowy.",
         "Dostęp: powyżej parteru dochodzi podnośnik albo rusztowanie."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "cokol_xps",
@@ -1057,7 +1083,8 @@
         "Konieczność odkopania i zaizolowania strefy poniżej poziomu gruntu.",
         "Tynk mozaikowy jest droższy od zwykłego i schnie wolniej.",
         "Wysokość cokołu i liczba narożników na obwodzie budynku."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "parapet_zewnetrzny",
@@ -1070,7 +1097,8 @@
         "Materiał: stal powlekana, aluminium czy konglomerat, każdy inaczej się osadza.",
         "Długość i konieczność łączenia dwóch odcinków na szerokim oknie.",
         "Uszczelnienie pod parapetem, które decyduje o szczelności całego węzła."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "kostka_brukowa",
@@ -1522,7 +1550,8 @@
         "Szerokość ościeża i to, czy trzeba odtworzyć węgarek.",
         "Zakres: tynk, gładź, malowanie czy tylko uzupełnienie ubytków.",
         "Liczba okien, bo przy jednym liczy się głównie dojazd."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_parapetu_wew",
@@ -1535,7 +1564,8 @@
         "Materiał: konglomerat i drewno wymagają docięcia u wykonawcy.",
         "Głębokość i wycięcia wokół ościeżnicy oraz rur grzewczych.",
         "Uszczelnienie styku z oknem, decydujące o braku skroplin."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "montaz_rolety",
@@ -1548,20 +1578,22 @@
         "Typ: nadstawna, adaptacyjna czy podtynkowa, każda z innym nakładem pracy.",
         "Napęd: korba jest tańsza, silnik wymaga doprowadzenia zasilania.",
         "Szerokość rolety i ciężar pancerza."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "drzwi_zewnetrzne",
       "cat": "okna",
       "unit": "szt",
-      "labour": 680,
+      "labour": 420,
       "material": 0,
       "name": "Montaż drzwi zewnętrznych",
       "factors": [
         "Ciężar skrzydła i konieczność pracy we dwóch przy drzwiach antywłamaniowych.",
         "Regulacja zawiasów i progu, od której zależy szczelność.",
         "Poszerzenie albo zwężenie otworu, jeśli nowe drzwi mają inny wymiar."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "klimatyzacja_split",
