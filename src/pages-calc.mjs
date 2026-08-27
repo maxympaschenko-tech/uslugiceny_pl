@@ -113,7 +113,7 @@ export const CALCS = [
     h1: 'Wykończenie mieszkania od dewelopera',
     title: `Kalkulator wykończenia mieszkania od dewelopera ${YEAR}`,
     desc: 'Policz koszt wykończenia mieszkania w stanie deweloperskim: gładzie, malowanie, podłogi, łazienka, biały montaż i drzwi. Ceny w zł za m².',
-    lede: 'Stan deweloperski to nie remont. Nie ma demontaży ani wywozu gruzu, za to gładzie idą na całą powierzchnię, a łazienka powstaje od zera. Liczymy robociznę i materiały budowlane, bez ceny drzwi, armatury i opraw, które kupujesz sam.',
+    lede: 'Stan deweloperski to nie remont. Nie ma demontaży ani wywozu gruzu, za to gładzie idą na całą powierzchnię, a łazienka powstaje od zera. Liczymy robociznę i materiały budowlane, bez ceny drzwi, armatury i opraw, które kupujesz sam. Kolejność prac opisuje <a href="${R}poradnik/wykonczenie-mieszkania-krok-po-kroku/">osobny poradnik</a>.',
     faq: [
       ['Ile kosztuje wykończenie mieszkania od dewelopera?', 'Robocizna z materiałami budowlanymi to zwykle od 650 do 900 złotych za metr, zależnie od miasta i standardu. Rynkowe hasło „wykończenie pod klucz za 1500 do 2500 zł za metr” obejmuje dodatkowo wyposażenie: drzwi, armaturę, oświetlenie, czasem meble. To właśnie ta różnica dziwi najbardziej przy pierwszej wycenie.'],
       ['Czego nie ma w tym wyliczeniu?', 'Nie ma ceny drzwi, armatury, baterii, opraw oświetleniowych ani mebli, bo te pozycje kupuje inwestor i ich koszt zależy wyłącznie od wybranego modelu. Policzony jest za to ich montaż. Same drzwi wewnętrzne to zwykle od 800 do 1500 złotych za sztukę, a wyposażenie łazienki potrafi dorównać kosztowi jej wykończenia.'],

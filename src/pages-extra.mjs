@@ -455,7 +455,7 @@ export function wykonczenieMetrazPage({ wm, cities, unitPrice, levels, sourceFla
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${wm.uwaga}</p>
 
-  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres? Przejdź do <a href="${R}kalkulator/wykonczenie-pod-klucz/">kalkulatora wykończenia</a>. Jeśli masz już wycenę od ekipy, sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>.</p>
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres? Przejdź do <a href="${R}kalkulator/wykonczenie-pod-klucz/">kalkulatora wykończenia</a>. Kolejność prac krok po kroku opisuje <a href="${R}poradnik/wykonczenie-mieszkania-krok-po-kroku/">osobny poradnik</a>. Jeśli masz już wycenę od ekipy, sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
