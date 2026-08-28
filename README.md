@@ -88,23 +88,23 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 | Adres | Ile | Co zawiera |
 |---|---|---|
 | `/` | 1 | szybka wycena, trzy ścieżki wejścia, tablica cen za m² |
-| `/uslugi/` i `/uslugi/<kategoria>/` | 13 | spis robót ze stawkami, wstęp merytoryczny |
-| `/<kategoria>/<usluga>/` | 97 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, powiązane treści |
-| `/<kategoria>/<usluga>/<miasto>/` | 970 | stawka lokalna i odchylenie od średniej krajowej |
+| `/uslugi/` i `/uslugi/<kategoria>/` | 14 | spis robót ze stawkami, wstęp merytoryczny |
+| `/<kategoria>/<usluga>/` | 102 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
+| `/<kategoria>/<usluga>/<miasto>/` | 1020 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
-| `/kalkulator/*` | 14 | mieszkanie, wykończenie, łazienka, kuchnia, wylewka, malowanie, płytki, gładzie, elewacja, dach, kostka, ogrodzenie, okna, klimatyzacja |
-| `/koszt-remontu/*`, `/koszt-lazienki/*`, `/koszt-kuchni/*`, `/koszt-wykonczenia/*`, `/koszt-ocieplenia/*`, `/koszt-remontu-domu/*` | 26 | gotowe wyliczenia dla konkretnych metraży |
-| `/poradnik/*` | 12 | kolejność prac krok po kroku, 140 etapów, schemat HowTo |
-| `/porownanie/*` | 13 | zestawienia rozwiązań z werdyktem |
+| `/kalkulatory/` i `/kalkulator/*` | 17 | spis oraz 16 kalkulatorów: mieszkanie, wykończenie, poddasze, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja |
+| `/koszty/` i `/koszt-*/` | 34 | spis oraz gotowe wyliczenia dla metraży: mieszkanie, łazienka, kuchnia, balkon, poddasze, dom, ocieplenie, wykończenie |
+| `/poradnik/*` | 16 | kolejność prac krok po kroku, ponad 150 etapów, schemat HowTo |
+| `/porownanie/*` | 15 | zestawienia rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 62 hasła, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem ponad 1160 stron plus sitemap, robots.txt i strona 404.
+Razem ponad 1240 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 89 z 97 stawek sprawdzonych punktowo, czyli takich, dla których źródło
+**Stan weryfikacji:** 94 z 102 stawek sprawdzonych punktowo, czyli takich, dla których źródło
 podaje liczbę dla tej konkretnej roboty. Pozostałe wyprowadzono z widełek dla całej grupy robót
 i są oznaczone na swoich stronach jako orientacyjne. Historia zmian jest na `/aktualizacje/`.
 

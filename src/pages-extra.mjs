@@ -257,6 +257,28 @@ export const POROWNANIA = [
     przeciwB: ['Wyrzucenie materiału, którego często nie da się dziś kupić w tej cenie.', 'Dochodzi demontaż starej podłogi i wywóz gruzu.', 'Przy zalaniu panele nadają się tylko do wymiany, parkiet zwykle da się uratować.'],
     werdykt: 'Parkiet z warstwą użytkową powyżej trzech milimetrów i bez większych ubytków: cyklinowanie, prawie zawsze. Klepki luźne, zawilgocone albo zbyt cienkie do szlifowania: nowa podłoga, bo odnawianie takiego podłoża to wyrzucone pieniądze.',
   },
+  {
+    slug: 'wylewka-czy-masa-samopoziomujaca',
+    h1: 'Wylewka czy masa samopoziomująca',
+    a: 'samopoziomujaca', b: 'wylewka_cem', cm: 5,
+    lede: 'To nie są dwa warianty tego samego, choć bywają mylone. Wylewka tworzy podkład o grubości kilku centymetrów, masa wyrównuje kilka milimetrów na gotowym podłożu.',
+    za: ['Cienka warstwa, od kilku do kilkunastu milimetrów, więc nie podnosi poziomu podłogi.', 'Rozlewa się sama i daje powierzchnię gotową pod okładzinę.', 'Schnie w kilka dni, a nie tygodni.'],
+    przeciw: ['Nie zastąpi podkładu: położona na nierównym stropie popęka.', 'Nie ukryje instalacji ani izolacji, bo na to potrzeba grubszej warstwy.', 'Przy większych nierównościach zużycie rośnie i przestaje się opłacać.'],
+    zaB: ['Tworzy pełnowartościowy podkład, w którym mieszczą się izolacja i ogrzewanie podłogowe.', 'Wyrównuje nawet duże różnice poziomów.', 'Przenosi obciążenia i uniezależnia podłogę od nierówności stropu.'],
+    przeciwB: ['Schnie mniej więcej tydzień na każdy centymetr grubości, co wstrzymuje cały remont.', 'Podnosi poziom podłogi o kilka centymetrów, co bywa problemem przy progach.', 'Wymaga dylatacji, zbrojenia i często podania mieszanki sprzętem.'],
+    werdykt: 'Nowa podłoga, izolacja albo ogrzewanie podłogowe: wylewka, innej drogi nie ma. Istniejący, równy podkład z drobnymi nierównościami przed panelami albo płytkami: masa samopoziomująca, bo tydzień schnięcia za centymetr nikomu się nie przyda.',
+  },
+  {
+    slug: 'tynk-czy-gladz',
+    h1: 'Tynk czy gładź',
+    a: 'gladz', b: 'tynk_gipsowy',
+    lede: 'Mylone najczęściej ze wszystkich pozycji w kosztorysie. To nie alternatywa, tylko dwie warstwy: tynk wyrównuje ścianę, gładź ją wykańcza.',
+    za: ['Cienka warstwa wykończeniowa, dwa do trzech milimetrów, dająca powierzchnię pod malowanie.', 'Szlifowana do gładkości, której tynk sam z siebie nie osiągnie.', 'Tańsza za metr niż tynkowanie.'],
+    przeciw: ['Nie wyrówna ściany: powtórzy każdą krzywiznę podłoża.', 'Na surowym murze nie ma czego wykańczać, potrzebny jest najpierw tynk.', 'Pyli przy szlifowaniu bardziej niż jakikolwiek inny etap wykończenia.'],
+    zaB: ['Wyrównuje ścianę warstwą kilkunastu milimetrów, także przy sporych krzywiznach.', 'Maszynowo nakładany na dużej powierzchni wychodzi taniej niż ręczne poprawki.', 'Daje podłoże, na którym gładź ma sens.'],
+    przeciwB: ['Sam z siebie nie daje powierzchni pod malowanie: zostaje faktura.', 'Etap mokry, wymagający intensywnego wietrzenia i czasu na wyschnięcie.', 'Przy równych ścianach bywa zbędny i wtedy jest czystym kosztem.'],
+    werdykt: 'Surowa ściana albo widoczne krzywizny: najpierw tynk, potem gładź, oba etapy w kosztorysie. Ściana już otynkowana i równa, na przykład w mieszkaniu od dewelopera: sama gładź. Zamawianie gładzi na krzywej ścianie w nadziei, że wyrówna, to najczęstsze nieporozumienie przy wycenie.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag }) {
