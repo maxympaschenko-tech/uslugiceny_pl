@@ -109,6 +109,57 @@ export const CALCS = [
       window.__sub = F(a) + ' m² powierzchni';`,
   },
   {
+    slug: 'kuchnia',
+    h1: 'Remont kuchni',
+    title: `Kalkulator remontu kuchni ${YEAR}: ile kosztuje`,
+    desc: 'Policz koszt remontu kuchni: płytki nad blatem, punkty wodne pod zlew i zmywarkę, obwody pod płytę i piekarnik, gładzie i podłoga. Ceny w zł.',
+    lede: 'Kuchnia jest po łazience najdroższym pomieszczeniem w przeliczeniu na metr, i to nie przez okładziny, tylko przez instalacje. Płyta, piekarnik i zmywarka to trzy osobne obwody.',
+    faq: [
+      ['Ile kosztuje remont kuchni?', 'Bez mebli i sprzętu liczy się zwykle od kilku do kilkunastu tysięcy złotych, zależnie od zakresu instalacji i wielkości pomieszczenia. Największą pozycją są punkty elektryczne i wodno-kanalizacyjne, a nie płytki nad blatem.'],
+      ['Kiedy zamawiać meble kuchenne?', 'Pomiar do mebli robi się po tynkach i wylewce, ale rozmieszczenie gniazd i punktów wodnych trzeba znać wcześniej, na etapie instalacji. Dlatego projekt kuchni powstaje przed kuciem bruzd, a nie po wykończeniu ścian.'],
+      ['Czy fartuch nad blatem musi być z płytek?', 'Nie. Sprawdza się też szkło hartowane, konglomerat albo płyta laminowana. Płytki są najtańsze i najłatwiejsze w naprawie punktowej, szkło łatwiejsze w czyszczeniu, bo nie ma fug.'],
+      ['Ile obwodów elektrycznych potrzebuje kuchnia?', 'Płyta indukcyjna wymaga osobnego obwodu, często trójfazowego. Piekarnik, zmywarka i lodówka to kolejne trzy. Do tego gniazda nad blatem i oświetlenie, czyli w praktyce od pięciu do siedmiu obwodów w samej kuchni.'],
+    ],
+    fields: (opts) => `
+      <div class="fields-2">
+        ${field({ name: 'len', label: 'Długość kuchni', value: 3.2, min: 1.5, max: 10, step: .1, suffix: 'm' })}
+        ${field({ name: 'wid', label: 'Szerokość kuchni', value: 2.5, min: 1.5, max: 10, step: .1, suffix: 'm' })}
+      </div>
+      ${field({ name: 'fartuch', label: 'Długość blatu z fartuchem', value: 4, min: 0, max: 20, step: .5, suffix: 'mb', hint: 'Fartuch liczymy jako pas 60 cm nad blatem.' })}
+      <div class="fields-2">
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+        ${select({ name: 'level', label: 'Standard', options: [{ v: 'ekonom', t: 'Ekonomiczny' }, { v: 'standard', t: 'Standardowy', sel: true }, { v: 'premium', t: 'Premium' }] })}
+      </div>
+      <p class="group-title">Instalacje</p>
+      ${check({ name: 'elektryka', label: 'Nowe obwody: płyta, piekarnik, zmywarka', checked: true })}
+      ${check({ name: 'gniazda', label: 'Gniazda nad blatem i oświetlenie', checked: true, qty: 8 })}
+      ${check({ name: 'wodkan', label: 'Punkty wodne: zlew i zmywarka', checked: true, qty: 2 })}
+      ${check({ name: 'wentylacja', label: 'Kanał wentylacyjny pod okap', qty: 3 })}
+      <p class="group-title">Wykończenie</p>
+      ${check({ name: 'demont', label: 'Demontaż starej kuchni i wywóz', checked: true })}
+      ${check({ name: 'gladz', label: 'Gładzie i malowanie', checked: true })}
+      ${check({ name: 'podloga', label: 'Płytki na podłodze', checked: true })}
+      ${check({ name: 'sufit', label: 'Sufit podwieszany z oświetleniem' })}`,
+    logic: `
+      const pow = (v.len || 0) * (v.wid || 0);
+      const obwod = 2 * ((v.len || 0) + (v.wid || 0));
+      const sciany = obwod * 2.6 * 0.9;
+      const fartuch = (v.fartuch || 0) * 0.6;
+      if (v.demont) { add('skuwanie_plytek', fartuch + pow * 0.5); add('wywoz_gruzu', pow * 0.05); }
+      if (v.elektryka) { add('punkt_elektryczny', 4); add('bruzdowanie', obwod * 1.2); }
+      if (v.gniazda) add('punkt_elektryczny', v.gniazda_qty || 0);
+      if (v.wodkan) add('punkt_wod_kan', v.wodkan_qty || 0);
+      if (v.wentylacja) add('kanaly_wentylacyjne', v.wentylacja_qty || 0);
+      if (v.gladz) { add('gladz', sciany + pow); add('gruntowanie', sciany + pow); add('malowanie', sciany + pow); }
+      add('plytki_sciana', fartuch);
+      add('silikonowanie', (v.fartuch || 0) + 2);
+      if (v.podloga) { add('plytki_podloga', pow); add('samopoziomujaca', pow); }
+      if (v.sufit) { add('gk_sufit', pow); add('montaz_lampy', 4); }
+      add('sprzatanie', pow);
+      window.__area = pow;
+      window.__sub = F(Math.round(pow * 10) / 10) + ' m² kuchni, ' + F(Math.round(fartuch)) + ' m² fartucha';`,
+  },
+  {
     slug: 'wykonczenie-pod-klucz',
     h1: 'Wykończenie mieszkania od dewelopera',
     title: `Kalkulator wykończenia mieszkania od dewelopera ${YEAR}`,

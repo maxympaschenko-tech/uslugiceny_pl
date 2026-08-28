@@ -155,6 +155,7 @@ await write(
     <div class="card"><h3><a href="${R}kalkulator/malowanie/">Malowanie</a></h3><p>Wymiary pokoju przeliczone na metry ścian i sufitu, z gruntowaniem i gładzią do wyboru.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/plytki/">Układanie płytek</a></h3><p>Podłoga i ściany osobno, format wielkoformatowy, hydroizolacja i wyrównanie podłoża.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a></h3><p>Tynk, gładź, grunt i malowanie rozdzielone, żeby było widać koszt każdego etapu.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/kuchnia/">Remont kuchni</a></h3><p>Instalacje pod płytę, piekarnik i zmywarkę, fartuch nad blatem, gładzie i podłoga.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></h3><p>Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/wymiana-okien/">Wymiana okien</a></h3><p>Montaż liczony za metr obwodu ramy, z ciepłym montażem, obróbką ościeży i parapetami.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/klimatyzacja/">Klimatyzacja i wentylacja</a></h3><p>Split, multi-split, rekuperacja i kanały. Montaż bez ceny samych urządzeń.</p></div>
@@ -927,6 +928,7 @@ const indeks = [
   ...CALCS.map((c) => ({ t: `Kalkulator: ${c.h1}`, u: `${R}kalkulator/${c.slug}/`, k: 'kalkulator', o: c.desc })),
   { t: 'Kalkulator remontu mieszkania', u: `${R}kalkulator/remont-mieszkania/`, k: 'kalkulator', o: 'Kosztorys mieszkania pod klucz według metrażu.' },
   { t: 'Kalkulator remontu łazienki', u: `${R}kalkulator/lazienka/`, k: 'kalkulator', o: 'Płytki, hydroizolacja i biały montaż sztuka po sztuce.' },
+  { t: 'Kalkulator remontu kuchni', u: `${R}kalkulator/kuchnia/`, k: 'kalkulator', o: 'Instalacje pod sprzęt, fartuch nad blatem, gładzie i podłoga.' },
   { t: 'Kalkulator wylewki', u: `${R}kalkulator/wylewka/`, k: 'kalkulator', o: 'Objętość zaprawy, liczba worków i cena za m².' },
   ...PORADNIKI.map((p) => ({ t: p.h1, u: `${R}poradnik/${p.slug}/`, k: 'poradnik', o: p.desc })),
   ...POROWNANIA.map((p) => ({ t: `${p.h1}?`, u: `${R}porownanie/${p.slug}/`, k: 'porównanie', o: p.lede })),
