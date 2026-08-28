@@ -113,7 +113,7 @@ export const CALCS = [
     h1: 'Wykończenie poddasza',
     title: `Kalkulator wykończenia poddasza ${YEAR}: koszt adaptacji`,
     desc: 'Policz koszt adaptacji poddasza: ocieplenie wełną, paroizolacja, zabudowa skosów płytą, ścianki kolankowe, gładzie, podłoga i instalacje. Ceny w zł.',
-    lede: 'Poddasze wykańcza się raz, a błąd w paroizolacji ujawnia się dopiero po dwóch sezonach, kiedy wełna jest już zamknięta pod płytą.',
+    lede: 'Poddasze wykańcza się raz, a błąd w paroizolacji ujawnia się dopiero po dwóch sezonach, kiedy wełna jest już zamknięta pod płytą. Kolejność prac opisuje <a href="${R}poradnik/wykonczenie-poddasza-krok-po-kroku/">osobny poradnik</a>.',
     faq: [
       ['Ile kosztuje wykończenie poddasza?', 'Ocieplenie, zabudowa skosów, ścianki, instalacja elektryczna i podłoga to około tysiąca złotych za metr powierzchni podłogi. Rynkowe widełki bywają wyższe, od tysiąca do tysiąca czterystu, bo obejmują też okna dachowe i łazienkę na poddaszu, które w tym kalkulatorze są osobnymi pozycjami do zaznaczenia.'],
       ['Jaka grubość ocieplenia poddasza?', 'Dziś przyjmuje się od 25 do 30 centymetrów wełny w dwóch warstwach układanych krzyżowo: pierwsza między krokwiami, druga w poprzek pod nimi. Druga warstwa likwiduje mostki termiczne na drewnie, dlatego pomijanie jej jest częstym i kosztownym uproszczeniem.'],
