@@ -175,7 +175,9 @@ await write(
 <section><div class="wrap">
   <h2>Gotowe wyliczenia</h2>
   <p class="section-note">Policzone zakresy dla najczęstszych metraży, każdy w trzech standardach i dziesięciu miastach. Jeśli szukasz kwoty na już, zacznij stąd zamiast od kalkulatora.</p>
-  <p class="section-note" style="margin-bottom:.4rem"><b>Remont mieszkania o powierzchni:</b></p>
+  <p class="section-note" style="margin-bottom:.4rem"><b>Remont pojedynczego pokoju:</b></p>
+  <div class="city-links">${POKOJE.map((m) => `<a href="${R}koszt-pokoju/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
+  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont mieszkania o powierzchni:</b></p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont łazienki o powierzchni:</b></p>
   <div class="city-links">${LAZIENKI.map((m) => `<a href="${R}koszt-lazienki/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
