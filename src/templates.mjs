@@ -129,6 +129,7 @@ ${body}
           <li><a href="${R}kalkulator/poddasze/">Poddasze</a></li>
           <li><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></li>
           <li><a href="${R}kalkulator/dach/">Pokrycie dachu</a></li>
+          <li><a href="${R}koszty/">Gotowe wyliczenia</a></li>
           <li><a href="${R}kalkulator/wymiana-okien/">Wymiana okien</a></li>
         </ul>
       </div>

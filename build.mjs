@@ -12,7 +12,7 @@ import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, peln
 import { HASLA, slownikPage } from './src/pages-slownik.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
-import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage, PODDASZA, poddaszeMetrazPage } from './src/pages-extra.mjs';
+import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage, PODDASZA, poddaszeMetrazPage, wyliczeniaIndexPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
 
@@ -177,19 +177,11 @@ await write(
   <p class="section-note">Policzone zakresy dla najczęstszych metraży, każdy w trzech standardach i dziesięciu miastach. Jeśli szukasz kwoty na już, zacznij stąd zamiast od kalkulatora.</p>
   <p class="section-note" style="margin-bottom:.4rem"><b>Remont mieszkania o powierzchni:</b></p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont kuchni o powierzchni:</b></p>
-  <div class="city-links">${KUCHNIE.map((m) => `<a href="${R}koszt-kuchni/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont łazienki o powierzchni:</b></p>
   <div class="city-links">${LAZIENKI.map((m) => `<a href="${R}koszt-lazienki/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Wykończenie poddasza:</b></p>
-  <div class="city-links">${PODDASZA.map((m) => `<a href="${R}koszt-poddasza/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Kompleksowy remont domu:</b></p>
-  <div class="city-links">${DOMY_REMONT.map((m) => `<a href="${R}koszt-remontu-domu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Wykończenie mieszkania od dewelopera:</b></p>
-  <div class="city-links">${WYKONCZENIA.map((m) => `<a href="${R}koszt-wykonczenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Ocieplenie domu o powierzchni:</b></p>
-  <div class="city-links">${DOMY.map((m) => `<a href="${R}koszt-ocieplenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="receipt-foot" style="margin-top:1rem">Zajrzyj też do <a href="${R}poradnik/">poradników</a> o kolejności prac i do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
+  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont kuchni o powierzchni:</b></p>
+  <div class="city-links">${KUCHNIE.map((m) => `<a href="${R}koszt-kuchni/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
+  <p class="receipt-foot" style="margin-top:1.2rem"><a href="${R}koszty/">Zobacz wszystkie gotowe wyliczenia</a>: poddasze, wykończenie od dewelopera, ocieplenie i kompleksowy remont domu.</p>
 </div></section>
 
 <section><div class="wrap">
@@ -768,7 +760,8 @@ for (const mm of METRAZE) {
 }
 
 await write('kalkulatory', kalkulatoryIndexPage());
-extraUrls.push('/kalkulatory/');
+await write('koszty', wyliczeniaIndexPage({ METRAZE, LAZIENKI, KUCHNIE, PODDASZA, DOMY, DOMY_REMONT, WYKONCZENIA }));
+extraUrls.push('/kalkulatory/', '/koszty/');
 await write('porownanie', porownaniaIndex(POROWNANIA));
 extraUrls.push('/porownanie/');
 for (const p of POROWNANIA) {
@@ -943,6 +936,7 @@ const indeks = [
   }),
   ...categories.map((c) => ({ t: c.name, u: `${R}uslugi/${c.slug}/`, k: 'kategoria', o: c.lead })),
   ...CALCS.map((c) => ({ t: `Kalkulator: ${c.h1}`, u: `${R}kalkulator/${c.slug}/`, k: 'kalkulator', o: c.desc })),
+  { t: 'Gotowe wyliczenia dla metraży', u: `${R}koszty/`, k: 'spis', o: 'Policzone zakresy dla typowych metraży w jednym miejscu.' },
   { t: 'Wszystkie kalkulatory', u: `${R}kalkulatory/`, k: 'spis', o: 'Piętnaście kalkulatorów kosztorysu w jednym miejscu.' },
   { t: 'Kalkulator remontu mieszkania', u: `${R}kalkulator/remont-mieszkania/`, k: 'kalkulator', o: 'Kosztorys mieszkania pod klucz według metrażu.' },
   { t: 'Kalkulator remontu łazienki', u: `${R}kalkulator/lazienka/`, k: 'kalkulator', o: 'Płytki, hydroizolacja i biały montaż sztuka po sztuce.' },

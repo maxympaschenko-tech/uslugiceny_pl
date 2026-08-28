@@ -819,3 +819,47 @@ export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag }
 bindSort(document.getElementById('board'));`,
   });
 }
+
+/* ---------- spis gotowych wyliczeń ---------- */
+
+export function wyliczeniaIndexPage({ METRAZE, LAZIENKI, KUCHNIE, PODDASZA, DOMY, DOMY_REMONT, WYKONCZENIA }) {
+  const serie = [
+    { tytul: 'Remont mieszkania', sciezka: 'koszt-remontu', lista: METRAZE, jedn: 'm²',
+      opis: 'Pełny zakres pod klucz: demontaże, tynki, gładzie, wylewka, podłogi, płytki w strefach mokrych, elektryka, biały montaż i drzwi.' },
+    { tytul: 'Wykończenie od dewelopera', sciezka: 'koszt-wykonczenia', lista: WYKONCZENIA, jedn: 'm²',
+      opis: 'Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni i łazienką powstającą od zera.' },
+    { tytul: 'Remont łazienki', sciezka: 'koszt-lazienki', lista: LAZIENKI, jedn: 'm²',
+      opis: 'Skucie, hydroizolacja, płytki, cztery punkty wodne i biały montaż. Uwaga: im mniejsza łazienka, tym wyższa stawka za metr.' },
+    { tytul: 'Remont kuchni', sciezka: 'koszt-kuchni', lista: KUCHNIE, jedn: 'm²',
+      opis: 'Obwody pod płytę, piekarnik i zmywarkę, punkty wodne, kanał pod okap, fartuch nad blatem i podłoga. Bez mebli i sprzętu.' },
+    { tytul: 'Wykończenie poddasza', sciezka: 'koszt-poddasza', lista: PODDASZA, jedn: 'm²',
+      opis: 'Ocieplenie wełną w dwóch warstwach, zabudowa skosów, ścianki kolankowe, instalacje i podłoga. Skosy liczone osobno.' },
+    { tytul: 'Kompleksowy remont domu', sciezka: 'koszt-remontu-domu', lista: DOMY_REMONT, jedn: 'm²',
+      opis: 'Trzy części budżetu naraz: wnętrza, ocieplenie elewacji i wymiana pokrycia dachu, z uzasadnieniem kolejności.' },
+    { tytul: 'Ocieplenie domu', sciezka: 'koszt-ocieplenia', lista: DOMY, jedn: 'm²',
+      opis: 'Termomodernizacja ścian zewnętrznych: styropian, warstwa zbrojona, tynk, rusztowanie i mycie podłoża.' },
+  ];
+  const ile = serie.reduce((s, x) => s + x.lista.length, 0);
+
+  return layout({
+    title: `Gotowe wyliczenia kosztów remontu ${YEAR}`,
+    description: `${ile} policzonych zakresów dla typowych metraży: mieszkanie, łazienka, kuchnia, poddasze, dom i ocieplenie. Każdy w trzech standardach i dziesięciu miastach.`,
+    path: '/koszty/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Gotowe wyliczenia`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">${ile} policzonych zakresów</p>
+  <h1>Gotowe wyliczenia</h1>
+  <p class="lede">Jeśli potrzebujesz kwoty od razu, zacznij stąd zamiast od kalkulatora. Każde wyliczenie obejmuje pełny zakres prac, trzy standardy i ceny w dziesięciu miastach.</p>
+  <p class="section-note">Kwoty obejmują robociznę i materiały budowlane. Nie zawierają mebli, sprzętu, armatury ani opraw oświetleniowych, bo te kupuje inwestor i ich koszt zależy wyłącznie od wybranych modeli. Przy pozycjach, gdzie ma to znaczenie, zapisaliśmy to wprost na stronie wyliczenia.</p>
+
+  ${serie.map((s) => `
+  <h2 style="margin-top:2rem">${s.tytul}</h2>
+  <p class="section-note">${s.opis}</p>
+  <div class="city-links">${s.lista.map((x) => `<a href="${R}${s.sciezka}/${x.m}-m2/">${x.m} ${s.jedn}</a>`).join('')}</div>`).join('')}
+
+  <h2 style="margin-top:2.2rem">Twój zakres wygląda inaczej?</h2>
+  <p class="section-note">Gotowe wyliczenia zakładają typowy zakres prac. Jeśli chcesz coś dodać albo odjąć, przejdź do <a href="${R}kalkulatory/">kalkulatorów</a>, gdzie każdą pozycję można zaznaczyć osobno. A jeśli masz już wycenę od ekipy, porównaj ją z rynkiem w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>.</p>
+</div></section>`,
+  });
+}
