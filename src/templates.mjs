@@ -100,7 +100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <nav class="nav">
         <a href="${R}"${path === '/' ? ' aria-current="page"' : ''}>Cennik</a>
         <a href="${R}uslugi/"${path.startsWith('/uslugi') ? ' aria-current="page"' : ''}>Usługi</a>
-        <a href="${R}kalkulator/remont-mieszkania/"${path.startsWith('/kalkulator') ? ' aria-current="page"' : ''}>Kalkulatory</a>
+        <a href="${R}kalkulatory/"${path.startsWith('/kalkulator') ? ' aria-current="page"' : ''}>Kalkulatory</a>
         <a href="${R}poradnik/"${path.startsWith('/poradnik') ? ' aria-current="page"' : ''}>Poradniki</a>
         <a href="${R}sprawdz-oferte/"${path.startsWith('/sprawdz-oferte') ? ' aria-current="page"' : ''}>Sprawdź ofertę</a>
         <a href="${R}szukaj/"${path.startsWith('/szukaj') ? ' aria-current="page"' : ''}>Szukaj</a>

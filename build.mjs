@@ -6,7 +6,7 @@ import worksFile from './src/data/works.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
 import { layout, estimateSheet, calcScript, field, select, check, money, tytul, ustawWersjeStylow } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
-import { CALCS, calcPage } from './src/pages-calc.mjs';
+import { CALCS, calcPage, kalkulatoryIndexPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
 import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, pelnyCennikPage, strukturaKosztowPage, aktualizacjePage } from './src/pages-tools.mjs';
 import { HASLA, slownikPage } from './src/pages-slownik.mjs';
@@ -148,23 +148,16 @@ await write(
 
 <section><div class="wrap">
   <h2>Kalkulatory</h2>
+  <p class="section-note">Każdy liczy pozycja po pozycji i przelicza wynik na wybrane miasto. Kosztorys można wydrukować albo wysłać linkiem.</p>
   <div class="cards">
-    <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania pod klucz</a></h3><p>Metraż, standard wykończenia i zakres demontaży. Na wyjściu kosztorys po kategoriach z rozbiciem na robociznę i materiały.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/lazienka/">Remont łazienki</a></h3><p>Płytki, hydroizolacja i armatura liczone sztuka po sztuce. Najdroższe pomieszczenie w mieszkaniu w przeliczeniu na metr.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/wylewka/">Wylewka podłogowa</a></h3><p>Powierzchnia i grubość dają objętość zaprawy, liczbę worków i cenę robocizny osobno od materiału.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/malowanie/">Malowanie</a></h3><p>Wymiary pokoju przeliczone na metry ścian i sufitu, z gruntowaniem i gładzią do wyboru.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/plytki/">Układanie płytek</a></h3><p>Podłoga i ściany osobno, format wielkoformatowy, hydroizolacja i wyrównanie podłoża.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/gladzie-i-tynki/">Gładzie i tynki</a></h3><p>Tynk, gładź, grunt i malowanie rozdzielone, żeby było widać koszt każdego etapu.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/poddasze/">Wykończenie poddasza</a></h3><p>Ocieplenie wełną z paroizolacją, zabudowa skosów, ścianki kolankowe i podłoga.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/kuchnia/">Remont kuchni</a></h3><p>Instalacje pod płytę, piekarnik i zmywarkę, fartuch nad blatem, gładzie i podłoga.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></h3><p>Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/wymiana-okien/">Wymiana okien</a></h3><p>Montaż liczony za metr obwodu ramy, z ciepłym montażem, obróbką ościeży i parapetami.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/klimatyzacja/">Klimatyzacja i wentylacja</a></h3><p>Split, multi-split, rekuperacja i kanały. Montaż bez ceny samych urządzeń.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, z wyborem między styropianem a wełną.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny, okna dachowe i ocieplenie poddasza.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a></h3><p>Nawierzchnia z podbudową, obrzeża, odwodnienie i niwelacja terenu.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a></h3><p>Przęsła na metry bieżące plus podmurówka, brama i furtka.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania</a></h3><p>Pełny zakres pod klucz według metrażu, z wyborem standardu i miasta.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></h3><p>Bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/lazienka/">Łazienka</a></h3><p>Płytki, hydroizolacja, biały montaż i punkty wodne sztuka po sztuce.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/kuchnia/">Kuchnia</a></h3><p>Instalacje pod płytę, piekarnik i zmywarkę, fartuch nad blatem i podłoga.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, styropian albo wełna mineralna.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny i ocieplenie poddasza.</p></div>
   </div>
+  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie 15 kalkulatorów</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
 </div></section>
 
 <section><div class="wrap">
@@ -774,6 +767,8 @@ for (const mm of METRAZE) {
   extraUrls.push(`/koszt-remontu/${mm.m}-m2/`);
 }
 
+await write('kalkulatory', kalkulatoryIndexPage());
+extraUrls.push('/kalkulatory/');
 await write('porownanie', porownaniaIndex(POROWNANIA));
 extraUrls.push('/porownanie/');
 for (const p of POROWNANIA) {
@@ -948,6 +943,7 @@ const indeks = [
   }),
   ...categories.map((c) => ({ t: c.name, u: `${R}uslugi/${c.slug}/`, k: 'kategoria', o: c.lead })),
   ...CALCS.map((c) => ({ t: `Kalkulator: ${c.h1}`, u: `${R}kalkulator/${c.slug}/`, k: 'kalkulator', o: c.desc })),
+  { t: 'Wszystkie kalkulatory', u: `${R}kalkulatory/`, k: 'spis', o: 'Piętnaście kalkulatorów kosztorysu w jednym miejscu.' },
   { t: 'Kalkulator remontu mieszkania', u: `${R}kalkulator/remont-mieszkania/`, k: 'kalkulator', o: 'Kosztorys mieszkania pod klucz według metrażu.' },
   { t: 'Kalkulator remontu łazienki', u: `${R}kalkulator/lazienka/`, k: 'kalkulator', o: 'Płytki, hydroizolacja i biały montaż sztuka po sztuce.' },
   { t: 'Kalkulator remontu kuchni', u: `${R}kalkulator/kuchnia/`, k: 'kalkulator', o: 'Instalacje pod sprzęt, fartuch nad blatem, gładzie i podłoga.' },

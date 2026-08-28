@@ -534,3 +534,73 @@ const CITIES = ${CITY_MAP};
 })();`,
   });
 }
+
+
+/* ---------- spis kalkulatorów ---------- */
+
+const GRUPY = [
+  {
+    nazwa: 'Całe mieszkanie albo dom',
+    opis: 'Zaczynasz od zera i chcesz poznać rząd wielkości.',
+    poz: [
+      ['remont-mieszkania', 'Remont mieszkania', 'Pełny zakres pod klucz według metrażu, z wyborem standardu i miasta.'],
+      ['wykonczenie-pod-klucz', 'Wykończenie od dewelopera', 'Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni.'],
+      ['poddasze', 'Wykończenie poddasza', 'Ocieplenie wełną, zabudowa skosów, ścianki kolankowe i podłoga.'],
+    ],
+  },
+  {
+    nazwa: 'Pojedyncze pomieszczenia',
+    opis: 'Remontujesz jedno pomieszczenie i chcesz policzyć je dokładnie.',
+    poz: [
+      ['lazienka', 'Łazienka', 'Płytki, hydroizolacja, biały montaż i punkty wodne sztuka po sztuce.'],
+      ['kuchnia', 'Kuchnia', 'Instalacje pod sprzęt, fartuch nad blatem, gładzie i podłoga.'],
+    ],
+  },
+  {
+    nazwa: 'Pojedyncze roboty',
+    opis: 'Znasz zakres i potrzebujesz kwoty za konkretną robotę.',
+    poz: [
+      ['malowanie', 'Malowanie', 'Wymiary pokoju przeliczone na metry ścian i sufitu.'],
+      ['gladzie-i-tynki', 'Gładzie i tynki', 'Tynk, gładź, grunt i malowanie rozdzielone na etapy.'],
+      ['plytki', 'Układanie płytek', 'Podłoga i ściany osobno, format wielkoformatowy, hydroizolacja.'],
+      ['wylewka', 'Wylewka podłogowa', 'Powierzchnia i grubość dają objętość zaprawy i liczbę worków.'],
+      ['wymiana-okien', 'Wymiana okien', 'Montaż liczony za metr obwodu ramy, z ciepłym montażem.'],
+    ],
+  },
+  {
+    nazwa: 'Dom i otoczenie',
+    opis: 'Prace na zewnątrz, sezonowe i zależne od pogody.',
+    poz: [
+      ['ocieplenie-elewacji', 'Ocieplenie elewacji', 'Obwód i wysokość minus otwory, styropian albo wełna.'],
+      ['dach', 'Pokrycie dachu', 'Sześć rodzajów pokrycia, membrana, obróbki i rynny.'],
+      ['kostka-brukowa', 'Kostka brukowa', 'Nawierzchnia z podbudową, obrzeża i odwodnienie.'],
+      ['ogrodzenie', 'Ogrodzenie', 'Przęsła na metry bieżące plus podmurówka, brama i furtka.'],
+      ['klimatyzacja', 'Klimatyzacja i wentylacja', 'Split, multi-split, rekuperacja i kanały.'],
+    ],
+  },
+];
+
+export function kalkulatoryIndexPage() {
+  const ile = GRUPY.reduce((s, g) => s + g.poz.length, 0);
+  return layout({
+    title: `Kalkulatory kosztów remontu ${YEAR}`,
+    description: `${ile} kalkulatorów kosztorysu: mieszkanie, łazienka, kuchnia, poddasze, elewacja, dach, kostka, ogrodzenie, okna i klimatyzacja. Kosztorys pozycja po pozycji.`,
+    path: '/kalkulatory/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulatory`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">${ile} kalkulatorów</p>
+  <h1>Kalkulatory kosztorysu</h1>
+  <p class="lede">Każdy liczy pozycja po pozycji, z podziałem na robociznę i materiał, i przelicza wynik na wybrane miasto. Kosztorys można wydrukować albo wysłać linkiem, bo parametry zapisują się w adresie strony.</p>
+  ${GRUPY.map((g) => `
+  <h2 style="margin-top:2rem">${g.nazwa}</h2>
+  <p class="section-note">${g.opis}</p>
+  <div class="cards">
+    ${g.poz.map(([slug, tytul, opis]) => `<div class="card"><h3><a href="${R}kalkulator/${slug}/">${tytul}</a></h3><p>${opis}</p></div>`).join('')}
+  </div>`).join('')}
+
+  <h2 style="margin-top:2.2rem">Nie wiesz, od którego zacząć?</h2>
+  <p class="section-note">Jeśli szukasz kwoty na już, szybciej trafisz do <a href="${R}">gotowych wyliczeń</a> dla typowych metraży. Jeśli masz już wycenę od ekipy, sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. A jeśli dopiero planujesz zakres, zacznij od <a href="${R}poradnik/">poradników o kolejności prac</a>.</p>
+</div></section>`,
+  });
+}
