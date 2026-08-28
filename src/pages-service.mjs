@@ -31,6 +31,7 @@ const KALKULATORY = {
   elewacja: [['ocieplenie-elewacji', 'kalkulatorze ocieplenia elewacji']],
   teren:    [['kostka-brukowa', 'kalkulatorze kostki brukowej'], ['ogrodzenie', 'kalkulatorze ogrodzenia']],
   dach:     [['dach', 'kalkulatorze dachu']],
+  balkon:   [['balkon', 'kalkulatorze remontu balkonu']],
   okna:     [['wymiana-okien', 'kalkulatorze wymiany okien']],
   instalacje: [['klimatyzacja', 'kalkulatorze klimatyzacji i wentylacji']],
 };

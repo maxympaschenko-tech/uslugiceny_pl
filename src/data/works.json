@@ -118,6 +118,18 @@
       {
         "name": "Instant Polska, wynajem rusztowan elewacyjnych",
         "date": "2026-04"
+      },
+      {
+        "name": "cennikibudowlane.com.pl, remont balkonu: budzet etap po etapie",
+        "date": "2026-04"
+      },
+      {
+        "name": "bol-trans.com.pl, hydroizolacja balkonu i tarasu za m2",
+        "date": "2026-04"
+      },
+      {
+        "name": "ALBIN, cennik remontu balkonu i tarasu w Warszawie",
+        "date": "2026-04"
       }
     ]
   },
@@ -346,6 +358,22 @@
         13,
         14,
         15
+      ]
+    },
+    {
+      "id": "balkon",
+      "name": "Balkony i tarasy",
+      "slug": "balkony-i-tarasy",
+      "lead": "Hydroizolacja płyty, płytki mrozoodporne, obróbki krawędzi, balustrady i zadaszenia.",
+      "opis": [
+        "Balkon jest najbardziej wymagającą powierzchnią w całym budynku, bo pracuje w warunkach, które nie występują nigdzie indziej: zamarza i rozmarza kilkadziesiąt razy w sezonie, jest wystawiony na słońce z jednej strony i na mróz z drugiej, a woda ma tylko jedną drogę ucieczki.",
+        "Dlatego o trwałości decyduje tu nie okładzina, tylko to, co pod nią. Hydroizolacja i prawidłowe spadki kosztują ułamek całości, a ich pominięcie oznacza przeciek do stropu i do mieszkania poniżej, czyli koszt wielokrotnie wyższy niż cały remont balkonu.",
+        "Płytki muszą być mrozoodporne, o nasiąkliwości poniżej trzech procent, i antypoślizgowe. Zwykła ceramika z wnętrza pęka po pierwszej zimie, a różnica w cenie materiału jest niewielka wobec kosztu powtórnego remontu."
+      ],
+      "zrodla": [
+        28,
+        29,
+        30
       ]
     }
   ],
@@ -1750,6 +1778,79 @@
         "Liczba warstw lakieru, standardem są trzy, a w miejscach o dużym ruchu cztery.",
         "Rodzaj wykończenia: lakier schnie szybciej, olej daje efekt naturalny, ale wymaga późniejszej konserwacji.",
         "Grubość warstwy użytkowej parkietu, bo decyduje, ile razy da się go jeszcze odnowić."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "skucie_balkonu",
+      "cat": "balkon",
+      "unit": "m2",
+      "labour": 95,
+      "material": 0,
+      "name": "Skucie posadzki balkonu",
+      "factors": [
+        "Stan podłoża: skorodowane zbrojenie wymaga reprofilacji zaprawą naprawczą, co jest osobną i niemałą pozycją.",
+        "Piętro i sposób wynoszenia gruzu, bo na balkonie nie da się podstawić kontenera pod okno.",
+        "Konieczność zabezpieczenia terenu pod balkonem na czas prac."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "hydroizolacja_balkonu",
+      "cat": "balkon",
+      "unit": "m2",
+      "labour": 115,
+      "material": 85,
+      "name": "Hydroizolacja balkonu z wyprowadzeniem spadków",
+      "factors": [
+        "Technologia: masa dwuskładnikowa, papa termozgrzewalna albo membrana EPDM, każda z inną trwałością i ceną.",
+        "Wyrobienie spadku od budynku, minimum jeden i pół procenta, bez którego woda stoi przy ścianie.",
+        "Taśmy w narożnikach, przy drzwiach balkonowych i wokół wpustu: to tam pojawiają się przecieki.",
+        "Próba wodna przed układaniem okładziny, wykonywana rzadko, a rozstrzygająca o skuteczności izolacji."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "plytki_mrozoodporne",
+      "cat": "balkon",
+      "unit": "m2",
+      "labour": 95,
+      "material": 110,
+      "name": "Płytki mrozoodporne na balkonie",
+      "factors": [
+        "Klasa mrozoodporności i antypoślizgowości: na balkon idzie gres o nasiąkliwości poniżej trzech procent.",
+        "Fuga epoksydowa zamiast cementowej, droższa, ale znosząca zamarzanie i sól.",
+        "Docinki wokół balustrady i przy progu drzwi balkonowych.",
+        "Dylatacja obwodowa i przy ścianie, bez której okładzina odspaja się po kilku sezonach."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "obrobki_balkonu",
+      "cat": "balkon",
+      "unit": "mb",
+      "labour": 85,
+      "material": 65,
+      "name": "Obróbki blacharskie i kapinos",
+      "factors": [
+        "Kapinos odprowadzający wodę poza lico płyty, bez którego woda spływa po elewacji.",
+        "Długość krawędzi zewnętrznej i liczba narożników.",
+        "Materiał obróbki dobierany do reszty elewacji i do balustrady."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "balustrada",
+      "cat": "balkon",
+      "unit": "mb",
+      "labour": 320,
+      "material": 0,
+      "name": "Montaż balustrady",
+      "factors": [
+        "Rodzaj: stalowa malowana proszkowo, aluminiowa albo szklana w profilu, różnica w cenie materiału jest wielokrotna.",
+        "Sposób mocowania: do czoła płyty, do posadzki albo do ściany, każdy z innym nakładem pracy.",
+        "Wysokość i rozstaw wypełnień wynikające z przepisów, przy balkonach powyżej pewnej wysokości zaostrzone.",
+        "Sama balustrada kupowana jest zwykle przez inwestora, tu liczona jest robocizna."
       ],
       "sprawdzone": "2026-08"
     }

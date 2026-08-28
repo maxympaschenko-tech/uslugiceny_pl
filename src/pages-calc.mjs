@@ -109,6 +109,44 @@ export const CALCS = [
       window.__sub = F(a) + ' m² powierzchni';`,
   },
   {
+    slug: 'balkon',
+    h1: 'Remont balkonu',
+    title: `Kalkulator remontu balkonu ${YEAR}: cena za m²`,
+    desc: 'Policz koszt remontu balkonu: skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne, obróbki blacharskie i balustrada. Ceny w zł.',
+    lede: 'Na balkonie płaci się za to, czego nie widać. Hydroizolacja i spadki to ułamek kosztu, a ich pominięcie oznacza przeciek do mieszkania poniżej.',
+    faq: [
+      ['Ile kosztuje remont balkonu?', 'Balkon sześciometrowy w standardzie podstawowym zamyka się zwykle w przedziale od pięciu do dziesięciu tysięcy złotych razem z balustradą. Nasze wyliczenie podaje robociznę z materiałami budowlanymi, bez ceny samej balustrady, którą kupuje inwestor.'],
+      ['Czy remont balkonu wymaga zgody wspólnoty?', 'Wymiana posadzki i hydroizolacji zwykle nie. Zgoda jest potrzebna, gdy zmienia się wygląd zewnętrzny: kolor balustrady, sposób wykończenia od strony elewacji, zadaszenie albo oszklenie. Warto sprawdzić regulamin wspólnoty przed rozpoczęciem prac.'],
+      ['Jakie płytki na balkon?', 'Wyłącznie mrozoodporne, o nasiąkliwości poniżej trzech procent, i antypoślizgowe. Zwykła ceramika z wnętrza pęka po pierwszej zimie. Fugę stosuje się epoksydową, bo cementowa nie znosi zamarzania i soli.'],
+      ['Dlaczego balkon przecieka mimo nowych płytek?', 'Bo płytki i fuga nie są szczelne, a warstwą chroniącą strop jest hydroizolacja pod nimi. Sama wymiana okładziny bez izolacji i spadków to najczęstszy i najdroższy błąd przy remoncie balkonu.'],
+    ],
+    fields: (opts) => `
+      ${field({ name: 'pow', label: 'Powierzchnia balkonu', value: 6, min: 1, max: 60, step: .5, suffix: 'm²' })}
+      ${field({ name: 'krawedz', label: 'Długość krawędzi zewnętrznej', value: 3, min: 0, max: 40, step: .5, suffix: 'mb', hint: 'Bok od strony elewacji, wzdłuż którego biegnie balustrada.' })}
+      <div class="fields-2">
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+        ${select({ name: 'level', label: 'Standard', options: [{ v: 'ekonom', t: 'Ekonomiczny' }, { v: 'standard', t: 'Standardowy', sel: true }, { v: 'premium', t: 'Premium' }] })}
+      </div>
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'skucie', label: 'Skucie starej posadzki', checked: true })}
+      ${check({ name: 'hydro', label: 'Hydroizolacja ze spadkami', checked: true })}
+      ${check({ name: 'plytki', label: 'Płytki mrozoodporne', checked: true })}
+      ${check({ name: 'obrobki', label: 'Obróbki blacharskie i kapinos', checked: true })}
+      ${check({ name: 'balustrada', label: 'Montaż balustrady' })}
+      ${check({ name: 'malowanie', label: 'Malowanie ścian balkonu farbą elewacyjną' })}`,
+    logic: `
+      const pow = v.pow || 0;
+      const kr = v.krawedz || 0;
+      if (v.skucie) { add('skucie_balkonu', pow); add('wywoz_gruzu', pow * 0.06); }
+      if (v.hydro) add('hydroizolacja_balkonu', pow);
+      if (v.plytki) { add('plytki_mrozoodporne', pow); add('silikonowanie', kr + Math.sqrt(pow) * 2); }
+      if (v.obrobki) add('obrobki_balkonu', kr);
+      if (v.balustrada) add('balustrada', kr);
+      if (v.malowanie) add('tynk_silikonowy', Math.sqrt(pow) * 2.4);
+      window.__area = pow;
+      window.__sub = F(pow) + ' m² płyty, ' + F(kr) + ' mb krawędzi';`,
+  },
+  {
     slug: 'poddasze',
     h1: 'Wykończenie poddasza',
     title: `Kalkulator wykończenia poddasza ${YEAR}: koszt adaptacji`,
@@ -575,6 +613,7 @@ const GRUPY = [
       ['dach', 'Pokrycie dachu', 'Sześć rodzajów pokrycia, membrana, obróbki i rynny.'],
       ['kostka-brukowa', 'Kostka brukowa', 'Nawierzchnia z podbudową, obrzeża i odwodnienie.'],
       ['ogrodzenie', 'Ogrodzenie', 'Przęsła na metry bieżące plus podmurówka, brama i furtka.'],
+      ['balkon', 'Remont balkonu', 'Skucie, hydroizolacja ze spadkami, płytki mrozoodporne i balustrada.'],
       ['klimatyzacja', 'Klimatyzacja i wentylacja', 'Split, multi-split, rekuperacja i kanały.'],
     ],
   },
