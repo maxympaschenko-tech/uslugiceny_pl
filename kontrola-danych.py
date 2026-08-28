@@ -85,6 +85,15 @@ osierocone = [x['id'] for x in works['works'] if x['id'] not in wskazane]
 sprawdz(not osierocone,
         f"pozycje bez powiazania z poradnikiem, porownaniem ani slownikiem: {', '.join(osierocone)}")
 
+# --- kazda pozycja opisana w poradniku ---
+# Powiazanie z trescia (regula wyzej) moze byc spelnione samym haslem slownika.
+# Ta regula idzie dalej: kazda robota ma tez pojawiac sie w ktoryms poradniku
+# jako etap prac, bo dopiero to pokazuje, kiedy sie ja wykonuje i po czym.
+kroki_poradnikow = set(re.findall(r"w: '([a-z_]+)'", guides))
+poza_poradnikami = [x['id'] for x in works['works'] if x['id'] not in kroki_poradnikow]
+sprawdz(not poza_poradnikami,
+        f"pozycje nieopisane w zadnym poradniku: {', '.join(poza_poradnikami)}")
+
 # --- stan weryfikacji stawek ---
 # Pozycja "sprawdzona punktowo" ma w zrodle konkretna liczbe. Reszta pochodzi
 # z przedzialu dla calej grupy robot i jest na stronie oznaczona jako orientacyjna.
