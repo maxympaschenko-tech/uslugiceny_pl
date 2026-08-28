@@ -844,12 +844,14 @@ bindSort(document.getElementById('board'));`,
 
 /* ---------- spis gotowych wyliczeń ---------- */
 
-export function wyliczeniaIndexPage({ METRAZE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
+export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
   const serie = [
     { tytul: 'Remont mieszkania', sciezka: 'koszt-remontu', lista: METRAZE, jedn: 'm²',
       opis: 'Pełny zakres pod klucz: demontaże, tynki, gładzie, wylewka, podłogi, płytki w strefach mokrych, elektryka, biały montaż i drzwi.' },
     { tytul: 'Wykończenie od dewelopera', sciezka: 'koszt-wykonczenia', lista: WYKONCZENIA, jedn: 'm²',
       opis: 'Stan deweloperski bez demontaży, za to z gładziami na całej powierzchni i łazienką powstającą od zera.' },
+    { tytul: 'Remont pokoju', sciezka: 'koszt-pokoju', lista: POKOJE, jedn: 'm²',
+      opis: 'Najprostszy zakres: gładzie, malowanie, podłoga, listwy i drzwi. Do zrobienia etapami, pomieszczenie po pomieszczeniu.' },
     { tytul: 'Remont łazienki', sciezka: 'koszt-lazienki', lista: LAZIENKI, jedn: 'm²',
       opis: 'Skucie, hydroizolacja, płytki, cztery punkty wodne i biały montaż. Uwaga: im mniejsza łazienka, tym wyższa stawka za metr.' },
     { tytul: 'Remont kuchni', sciezka: 'koszt-kuchni', lista: KUCHNIE, jedn: 'm²',
@@ -955,6 +957,85 @@ export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag }) 
       mainEntity: [
         { '@type': 'Question', name: `Ile kosztuje remont balkonu ${bl.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta. Kwota obejmuje robociznę i materiały budowlane, bez ceny balustrady.` } },
         { '@type': 'Question', name: 'Czy w cenie jest balustrada?', acceptedAnswer: { '@type': 'Answer', text: 'Policzony jest montaż, ale nie sama balustrada, bo jej cena zależy od materiału: stalowa malowana proszkowo kosztuje kilkakrotnie mniej niż szklana w profilu aluminiowym.' } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
+  });
+}
+
+/* ---------- metraże pokoi ---------- */
+
+export const POKOJE = [
+  { m: 12, wym: '3,0 × 4,0 m', opis: 'Mniejsza sypialnia albo pokój dziecka.', uwaga: 'Przy dwunastu metrach ścian jest ponad trzy razy więcej niż podłogi, więc gładzie i malowanie stanowią większość kosztorysu. Wymiana samej podłogi bez ścian to zupełnie inna kwota.' },
+  { m: 16, wym: '4,0 × 4,0 m', opis: 'Typowa sypialnia w mieszkaniu z wielkiej płyty.', uwaga: 'To metraż, przy którym warto rozważyć cyklinowanie zamiast nowej podłogi, jeśli pod wykładziną jest parkiet. Różnica w kosztach bywa niewielka, a materiał zostaje ten sam.' },
+  { m: 20, wym: '4,0 × 5,0 m', opis: 'Salon w mieszkaniu dwupokojowym albo duża sypialnia.', uwaga: 'Powyżej dwudziestu metrów opłaca się zamawiać gładzie i malowanie razem z innym pomieszczeniem: ekipa i tak rozstawia sprzęt, a stawka za metr przy większej powierzchni bywa niższa.' },
+  { m: 25, wym: '5,0 × 5,0 m', opis: 'Duży salon albo pokój dzienny połączony z jadalnią.', uwaga: 'Przy tej wielkości rośnie znaczenie oświetlenia: jeden punkt na środku sufitu nie wystarczy, a dołożenie kolejnych po malowaniu oznacza kucie w gotowej powierzchni.' },
+];
+
+export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const bok = Math.sqrt(pk.m);
+  const obwod = 4 * bok;
+  const sciany = obwod * 2.6 * 0.92;
+  const powierzchnie = sciany + pk.m;
+
+  const zakres = [
+    ['demontaz_podlogi', pk.m], ['zrywanie_tapet', sciany * 0.4], ['wywoz_gruzu', pk.m * 0.03],
+    ['gladz', powierzchnie], ['gruntowanie', powierzchnie], ['malowanie', powierzchnie],
+    ['samopoziomujaca', pk.m], ['panele', pk.m], ['listwy', obwod],
+    ['punkt_elektryczny', 4], ['montaz_drzwi', 1], ['sprzatanie', pk.m],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / pk.m)}">${money(Math.round(suma(c.coef, 1) / pk.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Remont pokoju ${pk.m} m²: cena w ${YEAR} roku`,
+    description: `Ile kosztuje remont pokoju ${pk.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Gładzie, malowanie, podłoga, listwy i drzwi.`,
+    path: `/koszt-pokoju/${pk.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/pokoj/">Pokój</a> · ${pk.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Około ${pk.wym} · ${Math.round(sciany)} m² ścian</p>
+  <h1>Remont pokoju ${pk.m} m²</h1>
+  <p class="lede">Remont pokoju o powierzchni ${pk.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${pk.opis} Wyliczenie obejmuje zdjęcie starej podłogi i tapet z wywozem, gładzie na ścianach i suficie, gruntowanie, malowanie, wyrównanie podkładu, panele z listwami, cztery punkty elektryczne, wymianę drzwi i sprzątanie. Przy ${pk.m} m² podłogi wychodzi około ${Math.round(sciany)} m² ścian, czyli ponad trzy razy więcej powierzchni do wykończenia niż sama podłoga.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${pk.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres, na przykład zostawić podłogę albo dołożyć sufit podwieszany? Przejdź do <a href="${R}kalkulator/pokoj/">kalkulatora pokoju</a>. Kolejność prac opisuje <a href="${R}poradnik/kolejnosc-prac-remontowych/">poradnik o remoncie mieszkania</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje remont pokoju ${pk.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, przy pełnym zakresie z podłogą i drzwiami.` } },
+        { '@type': 'Question', name: `Ile metrów ścian ma pokój ${pk.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Przy wysokości 2,6 metra wychodzi około ${Math.round(sciany)} m² ścian po odjęciu otworów, a razem z sufitem około ${Math.round(powierzchnie)} m². Dlatego malowanie kosztuje więcej, niż wynikałoby z metrażu podłogi.` } },
       ],
     },
     script: `${calcScript}

@@ -109,6 +109,53 @@ export const CALCS = [
       window.__sub = F(a) + ' m² powierzchni';`,
   },
   {
+    slug: 'pokoj',
+    h1: 'Remont pokoju',
+    title: `Kalkulator remontu pokoju ${YEAR}: ile kosztuje`,
+    desc: 'Policz koszt remontu pokoju: gładzie, malowanie, podłoga, listwy, punkty elektryczne i drzwi. Kosztorys pozycja po pozycji, ceny w zł.',
+    lede: 'Najprostszy remont w mieszkaniu i jedyny, który da się zrobić etapami, pomieszczenie po pomieszczeniu, bez wyprowadzania się.',
+    faq: [
+      ['Ile kosztuje remont pokoju 20 m²?', 'Przy zakresie obejmującym gładzie, malowanie, podłogę i listwy liczy się zwykle od kilku do kilkunastu tysięcy złotych, zależnie od miasta i standardu materiałów. Sama odświeżająca warstwa farby to koszt kilkakrotnie niższy.'],
+      ['Ile metrów ścian ma pokój 20 m²?', 'Przy typowej wysokości 2,6 metra i kwadratowym rzucie wychodzi około 45 m² ścian, a razem z sufitem około 65 m². To dlatego malowanie pokoju kosztuje więcej, niż wynikałoby z samego metrażu podłogi.'],
+      ['Czy da się wyremontować pokój mieszkając w mieszkaniu?', 'Tak, i to główna zaleta remontu pomieszczeniami. Wymaga wyniesienia mebli, zabezpieczenia przejścia folią i pogodzenia się z pyłem przy szlifowaniu gładzi. Prace mokre wydłużają się, bo trudniej intensywnie wietrzyć.'],
+      ['Czy trzeba wymieniać podłogę przy odświeżaniu pokoju?', 'Nie zawsze. Jeśli pod wykładziną jest parkiet w dobrym stanie, cyklinowanie bywa tańsze od nowych paneli. Panele w dobrym stanie wystarczy oczyścić, a wymienić same listwy.'],
+    ],
+    fields: (opts) => `
+      <div class="fields-2">
+        ${field({ name: 'len', label: 'Długość pokoju', value: 5, min: 1.5, max: 15, step: .1, suffix: 'm' })}
+        ${field({ name: 'wid', label: 'Szerokość pokoju', value: 4, min: 1.5, max: 15, step: .1, suffix: 'm' })}
+      </div>
+      <div class="fields-2">
+        ${field({ name: 'h', label: 'Wysokość', value: 2.6, min: 2, max: 4.5, step: .05, suffix: 'm' })}
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+      </div>
+      ${select({ name: 'level', label: 'Standard materiałów', options: [{ v: 'ekonom', t: 'Ekonomiczny' }, { v: 'standard', t: 'Standardowy', sel: true }, { v: 'premium', t: 'Premium' }] })}
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'demont', label: 'Zdjęcie starej podłogi i tapet', checked: true })}
+      ${check({ name: 'gladz', label: 'Gładzie na ścianach i suficie', checked: true })}
+      ${check({ name: 'malowanie', label: 'Malowanie', checked: true })}
+      ${check({ name: 'podloga', label: 'Nowa podłoga z listwami', checked: true })}
+      ${check({ name: 'cyklinowanie', label: 'Zamiast nowej podłogi: cyklinowanie parkietu' })}
+      ${check({ name: 'elektryka', label: 'Dodatkowe punkty elektryczne', qty: 4 })}
+      ${check({ name: 'drzwi', label: 'Wymiana drzwi', qty: 1 })}
+      ${check({ name: 'sufit', label: 'Sufit podwieszany z oświetleniem' })}`,
+    logic: `
+      const pow = (v.len || 0) * (v.wid || 0);
+      const sciany = 2 * ((v.len || 0) + (v.wid || 0)) * (v.h || 0) * 0.92;
+      const powierzchnie = sciany + pow;
+      if (v.demont) { add('demontaz_podlogi', pow); add('zrywanie_tapet', sciany * 0.4); add('wywoz_gruzu', pow * 0.03); }
+      if (v.gladz) { add('gladz', powierzchnie); add('gruntowanie', powierzchnie); }
+      if (v.malowanie) add('malowanie', powierzchnie);
+      if (v.podloga && !v.cyklinowanie) { add('samopoziomujaca', pow); add('panele', pow); add('listwy', 2 * ((v.len || 0) + (v.wid || 0))); }
+      if (v.cyklinowanie) add('cyklinowanie', pow);
+      if (v.elektryka) add('punkt_elektryczny', v.elektryka_qty || 0);
+      if (v.drzwi) add('montaz_drzwi', v.drzwi_qty || 0);
+      if (v.sufit) { add('gk_sufit', pow); add('montaz_lampy', 4); }
+      add('sprzatanie', pow);
+      window.__area = pow;
+      window.__sub = F(Math.round(pow * 10) / 10) + ' m² podłogi, ' + F(Math.round(sciany)) + ' m² ścian';`,
+  },
+  {
     slug: 'balkon',
     h1: 'Remont balkonu',
     title: `Kalkulator remontu balkonu ${YEAR}: cena za m²`,
@@ -590,6 +637,7 @@ const GRUPY = [
     nazwa: 'Pojedyncze pomieszczenia',
     opis: 'Remontujesz jedno pomieszczenie i chcesz policzyć je dokładnie.',
     poz: [
+      ['pokoj', 'Pokój', 'Gładzie, malowanie, podłoga i listwy. Najprostszy remont, do zrobienia etapami.'],
       ['lazienka', 'Łazienka', 'Płytki, hydroizolacja, biały montaż i punkty wodne sztuka po sztuce.'],
       ['kuchnia', 'Kuchnia', 'Instalacje pod sprzęt, fartuch nad blatem, gładzie i podłoga.'],
     ],
