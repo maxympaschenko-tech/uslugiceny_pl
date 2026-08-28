@@ -548,3 +548,83 @@ export function remontDomuPage({ dm, cities, unitPrice, standardScope, sourceFla
 bindSort(document.getElementById('board'));`,
   });
 }
+
+/* ---------- metraże łazienek ---------- */
+
+export const LAZIENKI = [
+  { m: 4,  wym: '2,0 × 2,0 m', opis: 'Mała łazienka w bloku, zwykle z kabiną zamiast wanny.', uwaga: 'Na czterech metrach o koszcie decyduje nie powierzchnia, tylko liczba urządzeń. Hydroizolacja, punkty wodne i biały montaż kosztują tyle samo co w łazience dwa razy większej, dlatego stawka za metr wychodzi tu najwyższa w całym mieszkaniu.' },
+  { m: 5,  wym: '2,2 × 2,3 m', opis: 'Typowa łazienka w mieszkaniu dwupokojowym, z wanną i pralką.', uwaga: 'Przy tej wielkości wanna i pralka mieszczą się bez kompromisów, ale warto z góry ustalić, czy pralka stanie pod blatem, bo to zmienia rozmieszczenie punktu wodnego i odpływu.' },
+  { m: 6,  wym: '2,4 × 2,5 m', opis: 'Łazienka w mieszkaniu trzypokojowym albo w domu.', uwaga: 'Sześć metrów pozwala zmieścić i wannę, i osobną kabinę, ale każde dodatkowe urządzenie to kolejny punkt wodno-kanalizacyjny, a te liczy się osobno i kosztują więcej niż sam montaż ceramiki.' },
+  { m: 8,  wym: '2,8 × 2,9 m', opis: 'Duża łazienka rodzinna, często z oknem i osobną strefą prysznica.', uwaga: 'Powyżej ośmiu metrów rośnie udział okładzin w kosztorysie, więc wybór półki cenowej płytek waży tu więcej niż przy małej łazience, gdzie dominuje biały montaż.' },
+];
+
+export function lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const bok = Math.sqrt(lz.m);
+  const obwod = 4 * bok;
+  const sciany = obwod * 2.4;
+
+  const zakres = [
+    ['skuwanie_plytek', sciany + lz.m], ['wywoz_gruzu', (sciany + lz.m) * 0.03],
+    ['hydroizolacja', lz.m + obwod * 0.6], ['plytki_podloga', lz.m], ['plytki_sciana', sciany],
+    ['silikonowanie', obwod + 4], ['zabudowa_rury', 3],
+    ['montaz_wanny', 1], ['montaz_baterii', 3], ['punkt_wod_kan', 4],
+    ['montaz_wc', 1], ['montaz_umywalki', 1], ['podlaczenie_pralki', 1],
+    ['grzejnik', 1], ['punkt_elektryczny', 4],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / lz.m)}">${money(Math.round(suma(c.coef, 1) / lz.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Remont łazienki ${lz.m} m²: cena w ${YEAR} roku`,
+    description: `Ile kosztuje remont łazienki ${lz.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta. Płytki, hydroizolacja, biały montaż i elektryka.`,
+    path: `/koszt-lazienki/${lz.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/lazienka/">Łazienka</a> · ${lz.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Około ${lz.wym} · aktualizacja ${SITE.updated}</p>
+  <h1>Remont łazienki ${lz.m} m²</h1>
+  <p class="lede">Pełny remont łazienki o powierzchni ${lz.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${lz.opis} Wyliczenie obejmuje skucie starych płytek i wywóz gruzu, hydroizolację, płytki na podłodze i ścianach do wysokości 2,4 m, zabudowę pionu, cztery punkty wodno-kanalizacyjne, wannę, WC ze stelażem, umywalkę, baterie, grzejnik drabinkowy, podłączenie pralki i cztery punkty elektryczne. Bez ceny samej ceramiki i armatury, którą kupuje inwestor.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${lz.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć swój zakres, z kabiną zamiast wanny albo z ogrzewaniem podłogowym? Przejdź do <a href="${R}kalkulator/lazienka/">kalkulatora łazienki</a>. Kolejność prac opisuje <a href="${R}poradnik/remont-lazienki-krok-po-kroku/">poradnik krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje remont łazienki ${lz.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, czyli około ${money(Math.round(suma(1, 1) / lz.m))} zł za metr. Kwota obejmuje robociznę i materiały budowlane, bez ceramiki i armatury.` } },
+        { '@type': 'Question', name: 'Dlaczego mała łazienka kosztuje tyle co duża?', acceptedAnswer: { '@type': 'Answer', text: 'Bo o koszcie decyduje liczba urządzeń, a nie powierzchnia. Hydroizolacja, punkty wodno-kanalizacyjne i biały montaż kosztują tyle samo w łazience czterometrowej co w ośmiometrowej, a różnicę robi jedynie ilość płytek.' } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
+  });
+}
