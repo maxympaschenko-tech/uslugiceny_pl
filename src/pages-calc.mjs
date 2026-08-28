@@ -113,7 +113,7 @@ export const CALCS = [
     h1: 'Remont kuchni',
     title: `Kalkulator remontu kuchni ${YEAR}: ile kosztuje`,
     desc: 'Policz koszt remontu kuchni: płytki nad blatem, punkty wodne pod zlew i zmywarkę, obwody pod płytę i piekarnik, gładzie i podłoga. Ceny w zł.',
-    lede: 'Kuchnia jest po łazience najdroższym pomieszczeniem w przeliczeniu na metr, i to nie przez okładziny, tylko przez instalacje. Płyta, piekarnik i zmywarka to trzy osobne obwody.',
+    lede: 'Kuchnia jest po łazience najdroższym pomieszczeniem w przeliczeniu na metr, i to nie przez okładziny, tylko przez instalacje. Płyta, piekarnik i zmywarka to trzy osobne obwody. Kolejność prac opisuje <a href="${R}poradnik/remont-kuchni-krok-po-kroku/">osobny poradnik</a>.',
     faq: [
       ['Ile kosztuje remont kuchni?', 'Bez mebli i sprzętu liczy się zwykle od kilku do kilkunastu tysięcy złotych, zależnie od zakresu instalacji i wielkości pomieszczenia. Największą pozycją są punkty elektryczne i wodno-kanalizacyjne, a nie płytki nad blatem.'],
       ['Kiedy zamawiać meble kuchenne?', 'Pomiar do mebli robi się po tynkach i wylewce, ale rozmieszczenie gniazd i punktów wodnych trzeba znać wcześniej, na etapie instalacji. Dlatego projekt kuchni powstaje przed kuciem bruzd, a nie po wykończeniu ścian.'],

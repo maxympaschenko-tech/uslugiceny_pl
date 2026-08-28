@@ -727,7 +727,7 @@ export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag })
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${kh.uwaga}</p>
 
-  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć swój układ, z sufitem podwieszanym albo dłuższym blatem? Przejdź do <a href="${R}kalkulator/kuchnia/">kalkulatora kuchni</a>. Kolejność prac opisuje <a href="${R}poradnik/kolejnosc-prac-remontowych/">poradnik o remoncie mieszkania</a>.</p>
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć swój układ, z sufitem podwieszanym albo dłuższym blatem? Przejdź do <a href="${R}kalkulator/kuchnia/">kalkulatora kuchni</a>. Kolejność prac opisuje <a href="${R}poradnik/remont-kuchni-krok-po-kroku/">poradnik o remoncie kuchni</a>.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
