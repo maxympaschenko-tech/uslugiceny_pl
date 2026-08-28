@@ -157,18 +157,18 @@ await write(
     <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, styropian albo wełna mineralna.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny i ocieplenie poddasza.</p></div>
   </div>
-  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie 15 kalkulatorów</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
+  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie ${CALCS.length + 2} kalkulatory</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
 </div></section>
 
 <section><div class="wrap">
   <h2>Katalog robót</h2>
   <p class="section-note">Każda pozycja ma własną stronę z rozbiciem stawki na robociznę i materiał, listą czynników cenotwórczych i cenami w dziesięciu miastach.</p>
-  <div class="cards">${categories
+  <ul class="kategorie">${categories
     .map((c) => {
       const n = works.filter((w) => w.cat === c.id).length;
-      return `<div class="card"><span class="card-ikona">${ikona(c.id)}</span><h3><a href="${R}uslugi/${c.slug}/">${c.name}</a></h3><p class="big">${n}</p><p>${c.lead}</p></div>`;
+      return `<li><a href="${R}uslugi/${c.slug}/">${ikona(c.id)}<span class="kat-nazwa">${c.name}</span><span class="kat-ile">${n}</span></a></li>`;
     })
-    .join('')}</div>
+    .join('')}</ul>
   <p class="receipt-foot" style="margin-top:1rem"><a href="${R}uslugi/">Zobacz wszystkie ${works.length} pozycji</a></p>
 </div></section>
 
