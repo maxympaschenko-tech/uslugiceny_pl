@@ -822,7 +822,7 @@ bindSort(document.getElementById('board'));`,
 
 /* ---------- spis gotowych wyliczeń ---------- */
 
-export function wyliczeniaIndexPage({ METRAZE, LAZIENKI, KUCHNIE, PODDASZA, DOMY, DOMY_REMONT, WYKONCZENIA }) {
+export function wyliczeniaIndexPage({ METRAZE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
   const serie = [
     { tytul: 'Remont mieszkania', sciezka: 'koszt-remontu', lista: METRAZE, jedn: 'm²',
       opis: 'Pełny zakres pod klucz: demontaże, tynki, gładzie, wylewka, podłogi, płytki w strefach mokrych, elektryka, biały montaż i drzwi.' },
@@ -832,6 +832,8 @@ export function wyliczeniaIndexPage({ METRAZE, LAZIENKI, KUCHNIE, PODDASZA, DOMY
       opis: 'Skucie, hydroizolacja, płytki, cztery punkty wodne i biały montaż. Uwaga: im mniejsza łazienka, tym wyższa stawka za metr.' },
     { tytul: 'Remont kuchni', sciezka: 'koszt-kuchni', lista: KUCHNIE, jedn: 'm²',
       opis: 'Obwody pod płytę, piekarnik i zmywarkę, punkty wodne, kanał pod okap, fartuch nad blatem i podłoga. Bez mebli i sprzętu.' },
+    { tytul: 'Remont balkonu', sciezka: 'koszt-balkonu', lista: BALKONY, jedn: 'm²',
+      opis: 'Skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne i obróbki z kapinosem. Bez ceny samej balustrady.' },
     { tytul: 'Wykończenie poddasza', sciezka: 'koszt-poddasza', lista: PODDASZA, jedn: 'm²',
       opis: 'Ocieplenie wełną w dwóch warstwach, zabudowa skosów, ścianki kolankowe, instalacje i podłoga. Skosy liczone osobno.' },
     { tytul: 'Kompleksowy remont domu', sciezka: 'koszt-remontu-domu', lista: DOMY_REMONT, jedn: 'm²',
@@ -861,5 +863,79 @@ export function wyliczeniaIndexPage({ METRAZE, LAZIENKI, KUCHNIE, PODDASZA, DOMY
   <h2 style="margin-top:2.2rem">Twój zakres wygląda inaczej?</h2>
   <p class="section-note">Gotowe wyliczenia zakładają typowy zakres prac. Jeśli chcesz coś dodać albo odjąć, przejdź do <a href="${R}kalkulatory/">kalkulatorów</a>, gdzie każdą pozycję można zaznaczyć osobno. A jeśli masz już wycenę od ekipy, porównaj ją z rynkiem w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>.</p>
 </div></section>`,
+  });
+}
+
+/* ---------- metraże balkonów ---------- */
+
+export const BALKONY = [
+  { m: 3,  kr: 2, opis: 'Mały balkon w bloku, szerokość jednego okna.', uwaga: 'Przy trzech metrach koszt dojazdu, rozstawienia sprzętu i zabezpieczenia terenu pod balkonem rozkłada się na niewielką powierzchnię, więc stawka za metr jest tu najwyższa. Ekipy często podają minimalną kwotę za zlecenie, niezależnie od metrażu.' },
+  { m: 6,  kr: 3, opis: 'Typowy balkon w mieszkaniu z lat siedemdziesiątych.', uwaga: 'To najczęściej remontowany metraż. Jeśli w budynku remontuje się kilka balkonów naraz, warto dogadać się z sąsiadami: jedno rusztowanie i jeden dojazd potrafią obniżyć koszt jednostkowy o kilkanaście procent.' },
+  { m: 10, kr: 4, opis: 'Duży balkon albo loggia w nowszym budownictwie.', uwaga: 'Powyżej dziesięciu metrów rośnie znaczenie odwodnienia: sam spadek może nie wystarczyć i potrzebny bywa wpust z odprowadzeniem, a przy loggii dodatkowo uszczelnienie styku ze ścianą budynku.' },
+  { m: 20, kr: 6, opis: 'Taras nad pomieszczeniem albo duży taras naziemny.', uwaga: 'Taras nad pomieszczeniem to inna kategoria trudności niż balkon: przeciek trafia wprost do wnętrza, dlatego stosuje się tu izolację dwuwarstwową i wykonuje próbę wodną, a nie traktuje jej jako opcji.' },
+];
+
+export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const zakres = [
+    ['skucie_balkonu', bl.m], ['wywoz_gruzu', bl.m * 0.06],
+    ['hydroizolacja_balkonu', bl.m], ['plytki_mrozoodporne', bl.m],
+    ['silikonowanie', bl.kr + Math.sqrt(bl.m) * 2],
+    ['obrobki_balkonu', bl.kr], ['balustrada', bl.kr],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / bl.m)}">${money(Math.round(suma(c.coef, 1) / bl.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Remont balkonu ${bl.m} m²: cena w ${YEAR} roku`,
+    description: `Ile kosztuje remont balkonu ${bl.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Skucie, hydroizolacja, płytki mrozoodporne i obróbki.`,
+    path: `/koszt-balkonu/${bl.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/balkon/">Balkon</a> · ${bl.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Krawędź około ${bl.kr} mb · aktualizacja ${SITE.updated}</p>
+  <h1>Remont balkonu ${bl.m} m²</h1>
+  <p class="lede">Remont balkonu o powierzchni ${bl.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${bl.opis} Wyliczenie obejmuje skucie starej posadzki z wywozem, hydroizolację z wyrobieniem spadków, płytki mrozoodporne z fugą epoksydową, silikonowanie dylatacji, obróbki blacharskie z kapinosem oraz montaż balustrady. Kwota nie zawiera ceny samej balustrady ani reprofilacji płyty, jeśli zbrojenie okaże się skorodowane.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${bl.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres albo doliczyć malowanie ścian? Przejdź do <a href="${R}kalkulator/balkon/">kalkulatora balkonu</a>. Kolejność prac opisuje <a href="${R}poradnik/remont-balkonu-krok-po-kroku/">poradnik krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje remont balkonu ${bl.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta. Kwota obejmuje robociznę i materiały budowlane, bez ceny balustrady.` } },
+        { '@type': 'Question', name: 'Czy w cenie jest balustrada?', acceptedAnswer: { '@type': 'Answer', text: 'Policzony jest montaż, ale nie sama balustrada, bo jej cena zależy od materiału: stalowa malowana proszkowo kosztuje kilkakrotnie mniej niż szklana w profilu aluminiowym.' } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
   });
 }
