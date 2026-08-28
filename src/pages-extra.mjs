@@ -661,3 +661,84 @@ export function lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag }
 bindSort(document.getElementById('board'));`,
   });
 }
+
+/* ---------- metraże kuchni ---------- */
+
+export const KUCHNIE = [
+  { m: 6,  blat: 3, opis: 'Mała kuchnia w bloku, zwykle w układzie jednorzędowym.', uwaga: 'Przy sześciu metrach cała różnica siedzi w instalacjach: obwody pod płytę, piekarnik i zmywarkę kosztują tyle samo co w kuchni dwa razy większej. Dlatego stawka za metr wychodzi tu najwyższa.' },
+  { m: 8,  blat: 4, opis: 'Typowa kuchnia w mieszkaniu trzypokojowym.', uwaga: 'To metraż, przy którym warto rozstrzygnąć, czy zmywarka stanie pod blatem obok zlewu, czy dalej. Każdy metr od pionu to dodatkowa długość podejścia i wyższy koszt punktu wodnego.' },
+  { m: 10, blat: 5, opis: 'Kuchnia z miejscem na stół albo wyspę.', uwaga: 'Wyspa oznacza doprowadzenie wody, odpływu i zasilania w posadzce, a więc bruzdy w wylewce. Decyzję o niej trzeba podjąć przed wylaniem podkładu, nie po.' },
+  { m: 12, blat: 6, opis: 'Duża kuchnia otwarta na salon.', uwaga: 'Przy kuchni otwartej rośnie znaczenie wentylacji: okap musi realnie wyprowadzać powietrze, bo zapachy idą wprost do części dziennej. Kanał planuje się razem z sufitem podwieszanym.' },
+];
+
+export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const bok = Math.sqrt(kh.m);
+  const obwod = 4 * bok;
+  const sciany = obwod * 2.6 * 0.9;
+  const fartuch = kh.blat * 0.6;
+
+  const zakres = [
+    ['skuwanie_plytek', fartuch + kh.m * 0.5], ['wywoz_gruzu', kh.m * 0.05],
+    ['punkt_elektryczny', 12], ['bruzdowanie', obwod * 1.2],
+    ['punkt_wod_kan', 2], ['kanaly_wentylacyjne', 3],
+    ['gladz', sciany + kh.m], ['gruntowanie', sciany + kh.m], ['malowanie', sciany + kh.m],
+    ['plytki_sciana', fartuch], ['silikonowanie', kh.blat + 2],
+    ['plytki_podloga', kh.m], ['samopoziomujaca', kh.m], ['sprzatanie', kh.m],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / kh.m)}">${money(Math.round(suma(c.coef, 1) / kh.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Remont kuchni ${kh.m} m²: cena w ${YEAR} roku`,
+    description: `Ile kosztuje remont kuchni ${kh.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta. Instalacje, fartuch, gładzie i podłoga, bez mebli.`,
+    path: `/koszt-kuchni/${kh.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/kuchnia/">Kuchnia</a> · ${kh.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Blat około ${kh.blat} mb · aktualizacja ${SITE.updated}</p>
+  <h1>Remont kuchni ${kh.m} m²</h1>
+  <p class="lede">Remont kuchni o powierzchni ${kh.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie, bez mebli i sprzętu.</p>
+  <p class="section-note">${kh.opis} Wyliczenie obejmuje demontaż starej zabudowy i wywóz, obwody pod płytę, piekarnik i zmywarkę, gniazda nad blatem, dwa punkty wodno-kanalizacyjne, kanał pod okap, gładzie z malowaniem, fartuch nad blatem oraz płytki na podłodze. Meble, sprzęt i armaturę kupuje inwestor.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${kh.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć swój układ, z sufitem podwieszanym albo dłuższym blatem? Przejdź do <a href="${R}kalkulator/kuchnia/">kalkulatora kuchni</a>. Kolejność prac opisuje <a href="${R}poradnik/kolejnosc-prac-remontowych/">poradnik o remoncie mieszkania</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje remont kuchni ${kh.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, bez mebli i sprzętu. Największą pozycją są instalacje, a nie okładziny.` } },
+        { '@type': 'Question', name: 'Czy w tej kwocie są meble kuchenne?', acceptedAnswer: { '@type': 'Answer', text: 'Nie. Wyliczenie obejmuje prace budowlane i instalacyjne. Meble na wymiar, sprzęt i armaturę kupuje inwestor, a ich koszt bywa wyższy niż cały remont pomieszczenia.' } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
+  });
+}

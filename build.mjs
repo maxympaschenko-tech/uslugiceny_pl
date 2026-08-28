@@ -12,7 +12,7 @@ import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, peln
 import { HASLA, slownikPage } from './src/pages-slownik.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
-import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage } from './src/pages-extra.mjs';
+import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
 
@@ -182,6 +182,8 @@ await write(
   <h2>Ile kosztuje remont mieszkania o powierzchni</h2>
   <p class="section-note">Gotowe wyliczenia dla najczęstszych metraży, w trzech standardach i dziesięciu miastach.</p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
+  <p class="section-note" style="margin-top:1.2rem">Remont kuchni o powierzchni:</p>
+  <div class="city-links">${KUCHNIE.map((m) => `<a href="${R}koszt-kuchni/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem">Remont łazienki o powierzchni:</p>
   <div class="city-links">${LAZIENKI.map((m) => `<a href="${R}koszt-lazienki/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem">Kompleksowy remont domu:</p>
@@ -807,6 +809,14 @@ for (const lz of LAZIENKI) {
   extraUrls.push(`/koszt-lazienki/${lz.m}-m2/`);
 }
 
+for (const kh of KUCHNIE) {
+  await write(
+    `koszt-kuchni/${kh.m}-m2`,
+    kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag: draftFlag })
+  );
+  extraUrls.push(`/koszt-kuchni/${kh.m}-m2/`);
+}
+
 /* ================= poradniki ================= */
 
 const catSlug = (id) => categories.find((c) => c.id === id).slug;
@@ -937,6 +947,7 @@ const indeks = [
   ...WYKONCZENIA.map((m) => ({ t: `Wykończenie mieszkania ${m.m} m²`, u: `${R}koszt-wykonczenia/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...DOMY_REMONT.map((m) => ({ t: `Remont domu ${m.m} m²`, u: `${R}koszt-remontu-domu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...LAZIENKI.map((m) => ({ t: `Remont łazienki ${m.m} m²`, u: `${R}koszt-lazienki/${m.m}-m2/`, k: 'metraż', o: m.opis })),
+  ...KUCHNIE.map((m) => ({ t: `Remont kuchni ${m.m} m²`, u: `${R}koszt-kuchni/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
   { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
   { t: 'Porównaj dwa miasta', u: `${R}porownaj-miasta/`, k: 'narzędzie', o: 'Zestaw dwa miasta i zobacz różnicę w stawkach pozycja po pozycji.' },
