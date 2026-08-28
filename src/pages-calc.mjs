@@ -109,6 +109,50 @@ export const CALCS = [
       window.__sub = F(a) + ' m² powierzchni';`,
   },
   {
+    slug: 'poddasze',
+    h1: 'Wykończenie poddasza',
+    title: `Kalkulator wykończenia poddasza ${YEAR}: koszt adaptacji`,
+    desc: 'Policz koszt adaptacji poddasza: ocieplenie wełną, paroizolacja, zabudowa skosów płytą, ścianki kolankowe, gładzie, podłoga i instalacje. Ceny w zł.',
+    lede: 'Poddasze wykańcza się raz, a błąd w paroizolacji ujawnia się dopiero po dwóch sezonach, kiedy wełna jest już zamknięta pod płytą.',
+    faq: [
+      ['Ile kosztuje wykończenie poddasza?', 'Ocieplenie, zabudowa skosów, ścianki, instalacja elektryczna i podłoga to około tysiąca złotych za metr powierzchni podłogi. Rynkowe widełki bywają wyższe, od tysiąca do tysiąca czterystu, bo obejmują też okna dachowe i łazienkę na poddaszu, które w tym kalkulatorze są osobnymi pozycjami do zaznaczenia.'],
+      ['Jaka grubość ocieplenia poddasza?', 'Dziś przyjmuje się od 25 do 30 centymetrów wełny w dwóch warstwach układanych krzyżowo: pierwsza między krokwiami, druga w poprzek pod nimi. Druga warstwa likwiduje mostki termiczne na drewnie, dlatego pomijanie jej jest częstym i kosztownym uproszczeniem.'],
+      ['Czy paroizolacja jest konieczna?', 'Tak, i musi być szczelna, ze sklejonymi zakładami oraz uszczelnieniem przy kominie i oknach. Nieszczelna folia wpuszcza wilgoć z pomieszczenia w wełnę, która traci właściwości i przestaje grzać, a problem widać dopiero po kilku sezonach.'],
+      ['Jak liczyć powierzchnię poddasza ze skosami?', 'Do powierzchni użytkowej wlicza się zwykle części o wysokości powyżej 1,4 metra, a te powyżej 2,2 metra liczy się w całości. Do wyceny prac bierzemy jednak całą powierzchnię do zabudowania, bo skos też trzeba ocieplić i obłożyć płytą.'],
+    ],
+    fields: (opts) => `
+      ${field({ name: 'pow', label: 'Powierzchnia poddasza', value: 60, min: 10, max: 300, suffix: 'm²', hint: 'Cała powierzchnia do zabudowania, razem ze skosami.' })}
+      ${field({ name: 'skosy', label: 'Powierzchnia skosów i sufitu', value: 75, min: 0, max: 400, suffix: 'm²', hint: 'Zwykle o jedną czwartą większa od powierzchni podłogi.' })}
+      <div class="fields-2">
+        ${select({ name: 'city', label: 'Miasto', options: opts })}
+        ${select({ name: 'level', label: 'Standard', options: [{ v: 'ekonom', t: 'Ekonomiczny' }, { v: 'standard', t: 'Standardowy', sel: true }, { v: 'premium', t: 'Premium' }] })}
+      </div>
+      <p class="group-title">Zakres</p>
+      ${check({ name: 'ocieplenie', label: 'Ocieplenie wełną z paroizolacją', checked: true })}
+      ${check({ name: 'zabudowa', label: 'Zabudowa skosów płytą gipsowo-kartonową', checked: true })}
+      ${check({ name: 'kolankowa', label: 'Ścianki kolankowe i działowe', checked: true, qty: 20 })}
+      ${check({ name: 'elektryka', label: 'Instalacja elektryczna', checked: true })}
+      ${check({ name: 'wodkan', label: 'Punkty wodne pod łazienkę na poddaszu', qty: 4 })}
+      ${check({ name: 'podloga', label: 'Wylewka i podłoga', checked: true })}
+      ${check({ name: 'okna', label: 'Okna dachowe', qty: 2 })}`,
+    logic: `
+      const pow = v.pow || 0;
+      const skosy = v.skosy || 0;
+      if (v.ocieplenie) add('ocieplenie_poddasza', skosy);
+      if (v.zabudowa) add('gk_sufit', skosy);
+      if (v.kolankowa) add('scianka_gk', v.kolankowa_qty || 0);
+      if (v.elektryka) { add('punkt_elektryczny', pow * 0.4); add('montaz_lampy', Math.max(3, Math.round(pow * 0.1))); }
+      if (v.wodkan) add('punkt_wod_kan', v.wodkan_qty || 0);
+      if (v.podloga) { add('wylewka_cem', pow); add('panele', pow); add('listwy', pow * 0.8); }
+      if (v.okna) add('okno_dachowe', v.okna_qty || 0);
+      add('gladz', skosy + (v.kolankowa_qty || 0));
+      add('gruntowanie', skosy + (v.kolankowa_qty || 0));
+      add('malowanie', skosy + (v.kolankowa_qty || 0));
+      add('sprzatanie', pow);
+      window.__area = pow;
+      window.__sub = F(pow) + ' m² podłogi, ' + F(skosy) + ' m² skosów';`,
+  },
+  {
     slug: 'kuchnia',
     h1: 'Remont kuchni',
     title: `Kalkulator remontu kuchni ${YEAR}: ile kosztuje`,
