@@ -742,3 +742,80 @@ export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag })
 bindSort(document.getElementById('board'));`,
   });
 }
+
+/* ---------- metraże poddaszy ---------- */
+
+export const PODDASZA = [
+  { m: 40, opis: 'Poddasze nad małym domem albo jedna kondygnacja w bliźniaku.', uwaga: 'Przy czterdziestu metrach skosy zajmują nieproporcjonalnie dużą część powierzchni, więc udział zabudowy i ocieplenia w kosztorysie jest tu najwyższy.' },
+  { m: 60, opis: 'Typowe poddasze w domu jednorodzinnym, zwykle dwa pokoje i łazienka.', uwaga: 'To metraż, przy którym warto rozstrzygnąć, czy na poddaszu stanie łazienka. Punkty wodne wymagają podejść od pionu i wpływają na układ ścianek działowych, więc decyzja zapada przed zabudową skosów.' },
+  { m: 80, opis: 'Duże poddasze użytkowe, często z osobną strefą dzienną.', uwaga: 'Powyżej osiemdziesięciu metrów rośnie znaczenie wentylacji i chłodzenia: latem poddasze nagrzewa się najbardziej ze wszystkich kondygnacji, a sama gruba wełna nie wystarczy bez sprawnej szczeliny pod pokryciem.' },
+];
+
+export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const skosy = Math.round(pd.m * 1.25);
+  const kolankowa = Math.round(Math.sqrt(pd.m) * 3);
+
+  const zakres = [
+    ['ocieplenie_poddasza', skosy], ['gk_sufit', skosy], ['scianka_gk', kolankowa],
+    ['punkt_elektryczny', pd.m * 0.4], ['montaz_lampy', Math.max(3, Math.round(pd.m * 0.1))],
+    ['wylewka_cem', pd.m], ['panele', pd.m], ['listwy', pd.m * 0.8],
+    ['gladz', skosy + kolankowa], ['gruntowanie', skosy + kolankowa], ['malowanie', skosy + kolankowa],
+    ['sprzatanie', pd.m],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 5);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / pd.m)}">${money(Math.round(suma(c.coef, 1) / pd.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Wykończenie poddasza ${pd.m} m²: cena w ${YEAR}`,
+    description: `Ile kosztuje adaptacja poddasza ${pd.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Ocieplenie, zabudowa skosów, ścianki, instalacje i podłoga.`,
+    path: `/koszt-poddasza/${pd.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/poddasze/">Poddasze</a> · ${pd.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Około ${skosy} m² skosów · aktualizacja ${SITE.updated}</p>
+  <h1>Wykończenie poddasza ${pd.m} m²</h1>
+  <p class="lede">Adaptacja poddasza o powierzchni ${pd.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${pd.opis} Wyliczenie obejmuje ocieplenie wełną w dwóch warstwach, zabudowę skosów i sufitu płytą, ${kolankowa} m² ścianek kolankowych i działowych, instalację elektryczną, wylewkę z podłogą oraz gładzie z malowaniem. Bez okien dachowych i bez łazienki na poddaszu, które liczymy osobno w <a href="${R}kalkulator/poddasze/">kalkulatorze</a>.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${pd.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz doliczyć okna dachowe albo łazienkę? Przejdź do <a href="${R}kalkulator/poddasze/">kalkulatora poddasza</a>. Kolejność prac opisuje <a href="${R}poradnik/wykonczenie-poddasza-krok-po-kroku/">poradnik krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje wykończenie poddasza ${pd.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, czyli około ${money(Math.round(suma(1, 1) / pd.m))} zł za metr podłogi. Bez okien dachowych i łazienki.` } },
+        { '@type': 'Question', name: 'Dlaczego liczy się powierzchnię skosów osobno?', acceptedAnswer: { '@type': 'Answer', text: `Bo to ona decyduje o kosztach ocieplenia i zabudowy płytą, a jest zwykle o jedną czwartą większa od powierzchni podłogi. Przy ${pd.m} m² podłogi wychodzi około ${skosy} m² do ocieplenia i obłożenia.` } },
+      ],
+    },
+    script: `${calcScript}
+bindSort(document.getElementById('board'));`,
+  });
+}
