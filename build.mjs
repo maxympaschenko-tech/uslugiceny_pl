@@ -314,7 +314,7 @@ for (const city of cities) {
 <td class="num" data-v="${tot}"><b>${money(Math.round(tot))}</b></td></tr>`;
         })
         .join('');
-      return `<h3 class="group-title">${cat.name}</h3>
+      return `<h3 class="group-title" id="k-${cat.slug}">${cat.name}</h3>
 <div class="board-wrap"><table class="board">
 <thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Robocizna</th><th>Materiał</th><th>Razem</th></tr></thead>
 <tbody>${trs}</tbody></table></div>`;
@@ -342,6 +342,8 @@ for (const city of cities) {
 
   <h2 style="margin-top:2rem">Cennik robót ${city.loc}</h2>
   <p class="section-note">Słowo „własny” w kolumnie Materiał oznacza, że tę pozycję zwykle kupuje inwestor, a ekipa liczy wyłącznie robociznę. Kliknięcie nagłówka sortuje tabelę.</p>
+  <p class="section-note" style="margin-bottom:.4rem">Przejdź od razu do kategorii:</p>
+  <div class="city-links">${categories.map((c) => `<a href="#k-${c.slug}">${c.name}</a>`).join('')}</div>
   ${rows}
   <h2 style="margin-top:2rem">Policz swój zakres</h2>
   <div class="city-links">
