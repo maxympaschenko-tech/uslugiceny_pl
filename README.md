@@ -92,15 +92,15 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 | `/<kategoria>/<usluga>/` | 97 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, powiązane treści |
 | `/<kategoria>/<usluga>/<miasto>/` | 970 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
-| `/kalkulator/*` | 13 | mieszkanie, wykończenie, łazienka, wylewka, malowanie, płytki, gładzie, elewacja, dach, kostka, ogrodzenie, okna, klimatyzacja |
-| `/koszt-remontu/*`, `/koszt-wykonczenia/*`, `/koszt-ocieplenia/*`, `/koszt-remontu-domu/*` | 18 | gotowe wyliczenia dla konkretnych metraży |
-| `/poradnik/*` | 9 | kolejność prac krok po kroku, schemat HowTo |
-| `/porownanie/*` | 10 | zestawienia rozwiązań z werdyktem |
+| `/kalkulator/*` | 14 | mieszkanie, wykończenie, łazienka, kuchnia, wylewka, malowanie, płytki, gładzie, elewacja, dach, kostka, ogrodzenie, okna, klimatyzacja |
+| `/koszt-remontu/*`, `/koszt-lazienki/*`, `/koszt-kuchni/*`, `/koszt-wykonczenia/*`, `/koszt-ocieplenia/*`, `/koszt-remontu-domu/*` | 26 | gotowe wyliczenia dla konkretnych metraży |
+| `/poradnik/*` | 12 | kolejność prac krok po kroku, 140 etapów, schemat HowTo |
+| `/porownanie/*` | 13 | zestawienia rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 62 hasła, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem ponad 1150 stron plus sitemap, robots.txt i strona 404.
+Razem ponad 1160 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
@@ -124,9 +124,10 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 
 | Skrypt | Czego pilnuje |
 |---|---|
-| `kontrola-danych.py` | struktura cennika, źródła przy kategoriach, powiązanie każdej pozycji z treścią, zgodność słownych opisów różnicy cen z liczbami |
+| `kontrola-danych.py` | struktura cennika, źródła przy kategoriach, powiązanie każdej pozycji z treścią i z etapem w poradniku, zgodność słownych opisów różnicy cen z liczbami |
 | `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
+| `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 
 ## Plan rozwoju
 

@@ -179,18 +179,19 @@ await write(
 </div></section>
 
 <section><div class="wrap">
-  <h2>Ile kosztuje remont mieszkania o powierzchni</h2>
-  <p class="section-note">Gotowe wyliczenia dla najczęstszych metraży, w trzech standardach i dziesięciu miastach.</p>
+  <h2>Gotowe wyliczenia</h2>
+  <p class="section-note">Policzone zakresy dla najczęstszych metraży, każdy w trzech standardach i dziesięciu miastach. Jeśli szukasz kwoty na już, zacznij stąd zamiast od kalkulatora.</p>
+  <p class="section-note" style="margin-bottom:.4rem"><b>Remont mieszkania o powierzchni:</b></p>
   <div class="city-links">${METRAZE.map((m) => `<a href="${R}koszt-remontu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem">Remont kuchni o powierzchni:</p>
+  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont kuchni o powierzchni:</b></p>
   <div class="city-links">${KUCHNIE.map((m) => `<a href="${R}koszt-kuchni/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem">Remont łazienki o powierzchni:</p>
+  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont łazienki o powierzchni:</b></p>
   <div class="city-links">${LAZIENKI.map((m) => `<a href="${R}koszt-lazienki/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem">Kompleksowy remont domu:</p>
+  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Kompleksowy remont domu:</b></p>
   <div class="city-links">${DOMY_REMONT.map((m) => `<a href="${R}koszt-remontu-domu/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem">Wykończenie mieszkania od dewelopera:</p>
+  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Wykończenie mieszkania od dewelopera:</b></p>
   <div class="city-links">${WYKONCZENIA.map((m) => `<a href="${R}koszt-wykonczenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="section-note" style="margin-top:1.2rem">Ocieplenie domu o powierzchni:</p>
+  <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Ocieplenie domu o powierzchni:</b></p>
   <div class="city-links">${DOMY.map((m) => `<a href="${R}koszt-ocieplenia/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="receipt-foot" style="margin-top:1rem">Zajrzyj też do <a href="${R}poradnik/">poradników</a> o kolejności prac i do <a href="${R}porownanie/">porównań</a>: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna.</p>
 </div></section>
