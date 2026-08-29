@@ -578,3 +578,66 @@ export function aktualizacjePage({ works, meta }) {
     },
   });
 }
+
+/* ---------- jak czytać kosztorys ---------- */
+
+export function jakCzytacPage({ works, units }) {
+  const przyklady = [
+    ['Robota bez jednostki', 'Pozycja „łazienka” za 15 000 zł nie mówi nic. Ta sama kwota może obejmować wszystko albo samo płytkowanie. Każda pozycja powinna mieć jednostkę: metr kwadratowy, metr bieżący, punkt albo sztukę.'],
+    ['Brak ilości', 'Stawka bez ilości jest niepełna. „Gładzie 42 zł/m²” brzmi konkretnie, ale dopiero „gładzie 42 zł/m² × 148 m² = 6 216 zł” pozwala sprawdzić, czy ktoś nie policzył ścian dwa razy albo o połowę za mało.'],
+    ['Materiał wliczony czy nie', 'Najczęstsze źródło różnic między ofertami. Jedna ekipa podaje 150 zł/m² z materiałem, druga 60 zł/m² bez, i wygląda to jak dwie i pół raza taniej. Przy każdej pozycji musi być jasne, kto kupuje materiał.'],
+    ['Pozycje warunkowe', 'Rzeczy widoczne dopiero po demontażu: odparzony tynk, skorodowane zbrojenie, nierówna wylewka. Dobry kosztorys wymienia je jako warunkowe ze stawką jednostkową, zamiast milczeć i dopisywać w trakcie.'],
+    ['Wywóz i utylizacja', 'Gruz to osobna pozycja z opłatą za przyjęcie odpadów. Jeśli jej nie ma, warto zapytać, czy jest w cenie demontażu, czy dojdzie później.'],
+    ['Termin i harmonogram', 'Kosztorys bez terminu to tylko cena. Przy pracach z przerwami technologicznymi, jak wylewka czy hydroizolacja, harmonogram jest równie ważny jak kwota.'],
+  ];
+
+  const jedn = Object.entries(units).map(([k, v]) => [v.name, {
+    m2: 'Powierzchnie: tynki, gładzie, malowanie, płytki, podłogi, ocieplenia.',
+    mb: 'Długości: listwy, obróbki, krawężniki, rynny, ogrodzenia, obwód ramy okna.',
+    szt: 'Pojedyncze montaże: ceramika, drzwi, okna, oprawy, urządzenia.',
+    pkt: 'Punkty instalacyjne: gniazdo, włącznik, podejście wodne, grzejnik.',
+    m3: 'Objętości: wywóz gruzu, prace ziemne.',
+    kwp: 'Moc instalacji fotowoltaicznej, w kilowatopikach.',
+  }[k] || '']);
+
+  return layout({
+    title: 'Jak czytać kosztorys od ekipy remontowej',
+    description: 'Co musi być w kosztorysie, żeby dało się go sprawdzić i porównać z inną ofertą: jednostki, ilości, materiał, pozycje warunkowe i harmonogram.',
+    path: '/jak-czytac-kosztorys/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Jak czytać kosztorys`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Poradnik</p>
+  <h1>Jak czytać kosztorys</h1>
+  <p class="lede">Dwie oferty na ten sam remont potrafią różnić się dwukrotnie i obie być uczciwe. Różnica siedzi nie w stawkach, tylko w tym, co każda z nich obejmuje.</p>
+  <p class="section-note">Najczęstszy błąd przy wyborze wykonawcy to porównywanie sum końcowych. Sumę da się zestawić z sumą tylko wtedy, gdy oba kosztorysy mają ten sam zakres, a to zdarza się rzadko. Poniżej sześć rzeczy, które decydują o tym, czy dokument w ogóle nadaje się do porównania.</p>
+
+  <h2 style="margin-top:2rem">Czego szukać w kosztorysie</h2>
+  ${przyklady.map(([t, o]) => `<h3 style="margin:1.2rem 0 .3rem">${t}</h3><p class="section-note">${o}</p>`).join('')}
+
+  <h2 style="margin-top:2.2rem">Jednostki, w których rozlicza się roboty</h2>
+  <p class="section-note">Jeśli pozycja ma inną jednostkę niż poniżej, warto dopytać dlaczego. Nietypowe rozliczenie samo w sobie nie jest błędem, ale utrudnia porównanie z rynkiem.</p>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Jednostka</th><th data-sort="off">Co się w niej rozlicza</th></tr></thead>
+    <tbody>${jedn.filter((j) => j[1]).map(([n, o]) => `<tr><td><b>${n}</b></td><td style="text-align:left;white-space:normal">${o}</td></tr>`).join('')}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2.2rem">Kosztorys ślepy, czyli jak porównywać uczciwie</h2>
+  <p class="section-note">Najlepszy sposób na porównanie ofert to rozesłanie wszystkim tego samego zestawienia zakresu i ilości, bez cen. Wykonawcy wpisują tylko stawki, a Ty dostajesz dokumenty, które da się zestawić wiersz po wierszu. Taki dokument nazywa się kosztorysem ślepym i można go złożyć z <a href="${R}cennik/">pełnego cennika</a>, wypisując pozycje, które Cię dotyczą.</p>
+  <p class="section-note">Przy okazji odpada najczęstszy problem: różne rozumienie zakresu. Jeśli w Twoim zestawieniu jest „wywóz gruzu, 3 m³”, żadna oferta nie pominie tej pozycji po cichu.</p>
+
+  <h2 style="margin-top:2.2rem">Co zrobić z gotową wyceną</h2>
+  <p class="section-note">Przelicz kwotę na jednostkę i porównaj z medianą rynkową w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Odchylenie kilkunastu procent w górę mieści się w normalnym rozrzucie: dobra ekipa z zapełnionym kalendarzem ma prawo kosztować więcej. Większa różnica to sygnał do rozmowy, a nie do zerwania kontaktu.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: 'Dlaczego dwie oferty na ten sam remont tak się różnią?', acceptedAnswer: { '@type': 'Answer', text: 'Najczęściej dlatego, że obejmują różny zakres. Jedna wlicza materiał, druga nie, jedna liczy demontaż i wywóz gruzu, druga zakłada gotowe podłoże. Porównywać można dopiero po zestawieniu pozycja po pozycji.' } },
+        { '@type': 'Question', name: 'Co to jest kosztorys ślepy?', acceptedAnswer: { '@type': 'Answer', text: 'Zestawienie zakresu i ilości robót bez cen, rozsyłane wykonawcom do wyceny. Dzięki temu każda oferta ma ten sam zakres i da się je porównać wiersz po wierszu, zamiast zestawiać same sumy końcowe.' } },
+        { '@type': 'Question', name: 'Co powinna zawierać każda pozycja kosztorysu?', acceptedAnswer: { '@type': 'Answer', text: 'Nazwę roboty, jednostkę, ilość, stawkę jednostkową i informację, czy materiał jest po stronie wykonawcy. Bez tego pozycji nie da się sprawdzić ani porównać.' } },
+      ],
+    },
+  });
+}
