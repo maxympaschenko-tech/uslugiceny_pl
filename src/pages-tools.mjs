@@ -510,8 +510,21 @@ bindSort(document.getElementById('tab'));`,
 export const AKTUALIZACJE = [
   {
     data: '2026-08',
+    tytul: 'Weryfikacja punktowa doprowadzona do końca',
+    opis: 'Przejście przez pozostałe kategorie i porównanie każdej stawki z osobna z publicznymi cennikami. Udział pozycji, dla których źródło podaje liczbę dla tej konkretnej roboty, wzrósł z 44 do 97 na 102.',
+    zmiany: [
+      ['Dekarstwo', 'Więźba 95 → 72 zł/m², obróbki blacharskie 48 → 36 zł/mb. Rąbek stojący podniesiony ze 135 do 165 zł/m², bo był poniżej realiów.'],
+      ['Brukarstwo', 'Odwodnienie liniowe 220 → 400 zł/mb, obrzeża 33 → 60, krawężniki 56 → 85. Kostka betonowa obniżona ze 187 do 150 zł/m².'],
+      ['Biały montaż', 'Wanna 420 → 590 zł, kabina 460 → 680 zł, WC ze stelażem 360 → 540 zł. Wszystkie pozycje były zaniżone wobec rynku.'],
+      ['Elektryka i stolarka', 'Rozdzielnica 1140 → 1770 zł, drzwi zewnętrzne 680 → 420 zł, drzwi wewnętrzne 340 → 280 zł.'],
+      ['Rozbiórki', 'Wyburzenie ścianki 65 → 85 zł/m², wywóz gruzu 280 → 240 zł/m³ po rozbiciu na wynoszenie i utylizację, demontaż podłogi 22 → 30 zł/m².'],
+      ['Pozostałe', 'Pięć pozycji zostaje oznaczonych jako orientacyjne, bo źródła podają dla nich wyłącznie szerokie widełki dla całej grupy robót. Udawanie precyzji, której nie ma, byłoby gorsze niż jej brak.'],
+    ],
+  },
+  {
+    data: '2026-08',
     tytul: 'Weryfikacja punktowa całego cennika',
-    opis: 'Przejście pozycja po pozycji przez wszystkie kategorie i porównanie stawek z publicznymi cennikami wykonawców. Udział stawek mających w źródle liczbę dla konkretnej roboty wzrósł z 44 do 86 na 94 pozycje.',
+    opis: 'Przejście pozycja po pozycji przez wszystkie kategorie i porównanie stawek z publicznymi cennikami wykonawców. Pierwsze przejście przez cennik pozycja po pozycji, obejmujące instalacje grzewcze, dekarstwo, brukarstwo i hydraulikę.',
     zmiany: [
       ['Instalacje grzewcze', 'Punkt CO obniżony z 880 do 260 zł, montaż pompy ciepła z 6800 do 4400 zł, grzejnik z 280 do 170 zł. Stawki wyprowadzone wcześniej z analogii okazały się nawet trzykrotnie zawyżone.'],
       ['Dekarstwo', 'Więźba 95 → 72 zł/m², obróbki blacharskie 48 → 36 zł/mb. Rąbek stojący podniesiony ze 135 do 165 zł/m², bo był poniżej realiów rynkowych.'],
