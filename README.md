@@ -130,6 +130,25 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 
+## Budowanie przyrostowe
+
+`build.mjs` nie kasuje katalogu `dist` i nadpisuje tylko pliki o zmienionej treści.
+Ma to jeden konkretny cel: `lftp` wysyła na serwer pliki nowsze niż zdalne, więc
+przepisanie wszystkich stron przy każdej poprawce oznaczało wysyłkę całego serwisu.
+
+Konsekwencje, o których warto wiedzieć:
+
+- zmiana w `style.css` przebudowuje **wszystkie** strony, bo adres arkusza zawiera
+  odcisk jego treści (`style.css?v=hash`) i zmienia się w każdym dokumencie
+- zmiana w jednej pozycji cennika przebudowuje jej stronę oraz strony miejskie tej
+  pozycji, katalog kategorii i wszystko, co pokazuje jej stawkę
+- strony, których build już nie generuje, są usuwane z `dist` osobnym krokiem;
+  bez tego zostawałyby na serwerze po skasowaniu sekcji
+- w CI katalog `dist` jest zapamiętywany przez `actions/cache`, inaczej każdy
+  przebieg zaczynałby od pustego katalogu i porównanie nie miałoby czego szukać
+
+Licznik na końcu budowania pokazuje, ile plików faktycznie zapisano.
+
 ## Znany dług techniczny
 
 Trzy najstarsze kalkulatory (mieszkanie, łazienka, wylewka) są napisane bezpośrednio

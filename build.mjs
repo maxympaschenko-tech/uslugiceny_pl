@@ -1117,6 +1117,7 @@ for (const f of await wszystkiePliki(OUT)) {
 
 console.log(
   `Gotowe: ${urls.length} stron w ${OUT}/` +
-    (usuniete ? ` (usuniete: ${usuniete})` : '') +
-    (pominiete ? ` (zapisane: ${zapisane}, bez zmian: ${pominiete})` : '')
+    ` (zapisane: ${zapisane}, bez zmian: ${pominiete}` +
+    (usuniete ? `, usuniete: ${usuniete}` : '') +
+    ')'
 );
