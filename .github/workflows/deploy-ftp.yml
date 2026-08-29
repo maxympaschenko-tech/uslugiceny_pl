@@ -7,6 +7,10 @@
 # lftp trzyma kilka rownoleglych polaczen, sam ponawia proby i wysyla
 # tylko pliki nowsze od tych na serwerze.
 #
+# Katalog dist jest zapamietywany miedzy uruchomieniami. Build nadpisuje tylko
+# pliki o zmienionej tresci, wiec czasy modyfikacji reszty zostaja nietkniete
+# i lftp wysyla kilka stron zamiast 1250 przy kazdej drobnej poprawce.
+#
 # Sekrety: Settings > Secrets and variables > Actions
 #   FTP_SERVER    uageek.ftp.tools
 #   FTP_USER      uageek_usl
@@ -33,6 +37,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Odtworz poprzednia wersje dist
+        uses: actions/cache@v4
+        with:
+          path: dist
+          key: dist-${{ github.sha }}
+          restore-keys: |
+            dist-
 
       - name: Build
         env:
