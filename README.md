@@ -129,6 +129,19 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 
+## Znany dług techniczny
+
+Trzy najstarsze kalkulatory (mieszkanie, łazienka, wylewka) są napisane bezpośrednio
+w `build.mjs`, a nie w tablicy `CALCS` w `src/pages-calc.mjs` jak pozostałe czternaście.
+Mają własną logikę: kalkulator mieszkania korzysta z grup zakresu (`standardScope.groups`),
+których wspólny szablon nie obsługuje.
+
+Świadomie tego nie ujednolicam: przeniesienie wymagałoby rozszerzenia szablonu o rzeczy
+potrzebne tylko jednej stronie, a ryzyko zepsucia trzech najważniejszych kalkulatorów
+przewyższa zysk z jednolitości. Konsekwencja jest jedna i trzeba o niej pamiętać:
+zmiany dotyczące wszystkich kalkulatorów (jak dopisanie sekcji kontekstu) wymagają
+edycji w dwóch miejscach.
+
 ## Plan rozwoju
 
 - [x] Szkielet: cennik w 10 miastach, 3 kalkulatory, metodyka

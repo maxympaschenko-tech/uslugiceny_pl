@@ -156,6 +156,7 @@ await write(
     <div class="card"><h3><a href="${R}kalkulator/kuchnia/">Kuchnia</a></h3><p>Instalacje pod płytę, piekarnik i zmywarkę, fartuch nad blatem i podłoga.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, styropian albo wełna mineralna.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny i ocieplenie poddasza.</p></div>
+    <div class="card"><h3><a href="${R}kalkulator/materialy/">Ile materiału kupić</a></h3><p>Przelicznik z metrów na worki, wiadra i paczki, razem z zapasem na odpad i docinki.</p></div>
   </div>
   <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie ${CALCS.length + 2} kalkulatory</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
 </div></section>
@@ -987,6 +988,7 @@ const indeks = [
   { t: 'Wszystkie kalkulatory', u: `${R}kalkulatory/`, k: 'spis', o: 'Piętnaście kalkulatorów kosztorysu w jednym miejscu.' },
   { t: 'Kalkulator remontu mieszkania', u: `${R}kalkulator/remont-mieszkania/`, k: 'kalkulator', o: 'Kosztorys mieszkania pod klucz według metrażu.' },
   { t: 'Kalkulator remontu łazienki', u: `${R}kalkulator/lazienka/`, k: 'kalkulator', o: 'Płytki, hydroizolacja i biały montaż sztuka po sztuce.' },
+  { t: 'Ile materiału kupić', u: `${R}kalkulator/materialy/`, k: 'kalkulator', o: 'Przelicznik z metrów na worki, wiadra i paczki, z zapasem.' },
   { t: 'Kalkulator remontu pokoju', u: `${R}kalkulator/pokoj/`, k: 'kalkulator', o: 'Gładzie, malowanie, podłoga i listwy dla jednego pomieszczenia.' },
   { t: 'Kalkulator remontu kuchni', u: `${R}kalkulator/kuchnia/`, k: 'kalkulator', o: 'Instalacje pod sprzęt, fartuch nad blatem, gładzie i podłoga.' },
   { t: 'Kalkulator wykończenia poddasza', u: `${R}kalkulator/poddasze/`, k: 'kalkulator', o: 'Ocieplenie, zabudowa skosów, ścianki kolankowe i podłoga.' },

@@ -125,6 +125,7 @@ ${body}
           <li><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania</a></li>
           <li><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></li>
           <li><a href="${R}kalkulator/pokoj/">Pokój</a></li>
+          <li><a href="${R}kalkulator/materialy/">Ile materiału kupić</a></li>
           <li><a href="${R}kalkulator/lazienka/">Łazienka</a></li>
           <li><a href="${R}kalkulator/kuchnia/">Kuchnia</a></li>
           <li><a href="${R}kalkulator/poddasze/">Poddasze</a></li>

@@ -112,6 +112,28 @@ export const CALCS = [
       window.__sub = F(a) + ' m² powierzchni';`,
   },
   {
+    slug: 'materialy',
+    h1: 'Ile materiału kupić',
+    title: `Kalkulator materiałów budowlanych ${YEAR}: ile kupić`,
+    desc: 'Policz, ile kupić farby, płytek, kleju, gładzi i paneli. Przelicznik z powierzchni na opakowania, razem z zapasem na odpad i docinki.',
+    lede: 'Wykonawca podaje ilości w metrach, sklep sprzedaje w workach, wiadrach i paczkach. Ten przelicznik zamienia jedno na drugie i dolicza zapas, o którym najczęściej się zapomina.',
+    faq: [
+      ['Ile zapasu płytek kupić?', 'Przy prostym układzie liczy się około pięciu procent, przy ukosie i jodle nawet piętnaście. Warto kupić wszystko z jednej partii produkcyjnej, bo odcienie między partiami potrafią się różnić na tyle, że widać granicę na ścianie.'],
+      ['Ile farby na pokój?', 'Litr wystarcza średnio na dziesięć metrów przy jednej warstwie, ale chłonne podłoże i ciemny kolor potrafią to zmienić o połowę. Standardem są dwie warstwy, przy zmianie koloru na jaśniejszy trzy.'],
+      ['Czy warto kupować materiały samemu?', 'Bywa taniej, ale przenosi na Ciebie odpowiedzialność za ilości, dowóz i braki w trakcie prac. Przerwa, bo zabrakło jednego worka kleju, kosztuje więcej niż różnica w cenie. Przy pozycjach oznaczonych w cenniku jako „własny” materiał i tak kupuje inwestor.'],
+      ['Skąd biorą się różnice w zużyciu?', 'Z chłonności podłoża, grubości warstwy i techniki pracy. Podane liczby to wartości typowe dla średnich warunków. Producent zawsze podaje zużycie na opakowaniu i to ono jest wiążące.'],
+    ],
+    fields: (opts) => `
+      <p class="panel-note">Podaj powierzchnie, a przelicznik pokaże, ile kupić. Ilości zaokrąglone w górę do pełnych opakowań, z zapasem.</p>
+      ${field({ name: 'sciany', label: 'Powierzchnia ścian i sufitów', value: 60, min: 0, max: 600, step: 1, suffix: 'm²' })}
+      ${field({ name: 'podloga', label: 'Powierzchnia podłogi', value: 20, min: 0, max: 300, step: .5, suffix: 'm²' })}
+      ${field({ name: 'plytki', label: 'Powierzchnia pod płytki', value: 25, min: 0, max: 300, step: .5, suffix: 'm²' })}
+      ${select({ name: 'uklad', label: 'Układ płytek', options: [{ v: '5', t: 'Prosty, zapas 5%', sel: true }, { v: '10', t: 'Cegiełka, zapas 10%' }, { v: '15', t: 'Jodła lub ukos, zapas 15%' }] })}
+      ${select({ name: 'warstwy', label: 'Warstwy farby', options: [{ v: '1', t: 'Jedna' }, { v: '2', t: 'Dwie', sel: true }, { v: '3', t: 'Trzy' }] })}`,
+    logic: '',
+    wlasnyWynik: true,
+  },
+  {
     slug: 'pokoj',
     kontekst: [['Co najczęściej wypada z wyceny', 'To, co widać dopiero po zdjęciu starej podłogi: nierówna wylewka, ubytki przy ścianach albo legary do wymiany. Drugi klasyk to listwy, o których pamięta się przy podłodze, ale nie przy budżecie.'], ['Co podnosi kwotę', 'Praca w mieszkaniu zamieszkanym: wynoszenie mebli, zabezpieczanie przejść i sprzątanie po każdym dniu. Ekipy liczą to w stawce, choć rzadko wypisują jako osobną pozycję.']],
     h1: 'Remont pokoju',
@@ -580,6 +602,7 @@ export const CALCS = [
 ];
 
 export function calcPage({ c, cityOptions, W_JSON, CITY_MAP, sourceFlag }) {
+  if (c.wlasnyWynik) return materialyPage({ c, sourceFlag });
   return layout({
     title: c.title,
     description: c.desc,
@@ -654,6 +677,7 @@ const GRUPY = [
     opis: 'Remontujesz jedno pomieszczenie i chcesz policzyć je dokładnie.',
     poz: [
       ['pokoj', 'Pokój', 'Gładzie, malowanie, podłoga i listwy. Najprostszy remont, do zrobienia etapami.'],
+      ['materialy', 'Ile materiału kupić', 'Przelicznik z metrów na worki, wiadra i paczki, razem z zapasem na odpad.'],
       ['lazienka', 'Łazienka', 'Płytki, hydroizolacja, biały montaż i punkty wodne sztuka po sztuce.'],
       ['kuchnia', 'Kuchnia', 'Instalacje pod sprzęt, fartuch nad blatem, gładzie i podłoga.'],
     ],
@@ -705,5 +729,90 @@ export function kalkulatoryIndexPage() {
   <h2 style="margin-top:2.2rem">Nie wiesz, od którego zacząć?</h2>
   <p class="section-note">Jeśli szukasz kwoty na już, szybciej trafisz do <a href="${R}">gotowych wyliczeń</a> dla typowych metraży. Jeśli masz już wycenę od ekipy, sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. A jeśli dopiero planujesz zakres, zacznij od <a href="${R}poradnik/">poradników o kolejności prac</a>.</p>
 </div></section>`,
+  });
+}
+
+/* ---------- kalkulator materiałów ---------- */
+
+function materialyPage({ c, sourceFlag }) {
+  return layout({
+    title: c.title,
+    description: c.desc,
+    path: `/kalkulator/${c.slug}/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulatory/">Kalkulatory</a> · ${c.h1}`,
+    body: `
+<section><div class="wrap">
+  <h1>${c.h1}</h1>
+  <p class="lede">${c.lede}</p>
+  ${sourceFlag}
+
+  <div class="calc-grid" style="margin-top:1.5rem">
+    <div class="panel">
+      <h2>Powierzchnie</h2>
+      <form id="calc">${c.fields([])}</form>
+    </div>
+    <div class="sticky-sheet">
+      <div class="receipt">
+        <div class="receipt-head">Lista zakupów<strong data-suma>—</strong><span data-sub>ilości z zapasem, w pełnych opakowaniach</span></div>
+        <ul class="rows" data-rows></ul>
+        <p class="receipt-foot">Zużycie zależy od chłonności podłoża i techniki pracy. Podane wartości są typowe dla średnich warunków, a wiążące jest zawsze to, co producent podaje na opakowaniu.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:2.2rem">Skąd te ilości</h2>
+  <p class="section-note">Farba: litr na dziesięć metrów przy jednej warstwie. Grunt: litr na sześć metrów. Gładź: około jednego kilograma na metr przy dwóch cienkich warstwach, czyli worek dwudziestokilogramowy na dwadzieścia metrów. Klej do płytek: pięć kilogramów na metr przy grzebieniu 8 mm. Fuga: pół kilograma na metr przy typowej szerokości spoiny. Podkład pod panele: rolka na piętnaście metrów.</p>
+
+  <h2 style="margin-top:2.2rem">Zapas, o którym warto pamiętać</h2>
+  <p class="section-note">Do płytek dolicza się od pięciu do piętnastu procent zależnie od układu, i kupuje wszystko z jednej partii produkcyjnej. Do paneli pięć procent przy układzie prostym. Farby lepiej wziąć o jedno opakowanie więcej niż mniej: dokupiona później z innej partii potrafi różnić się odcieniem, a przy jasnych barwach widać to na styku ścian.</p>
+
+  <h2 style="margin-top:2.5rem">Częste pytania</h2>
+  ${c.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: c.faq.map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+    script: `${calcScript}
+(function(){
+  const f = document.getElementById('calc');
+  const rows = document.querySelector('[data-rows]');
+  const suma = document.querySelector('[data-suma]');
+  const wiersz = (nazwa, ile, jedn, uwaga) =>
+    '<li><span class="label"><span>' + nazwa + '</span>' + (uwaga ? '<span class="qty">' + uwaga + '</span>' : '') +
+    '</span><span class="val">' + F(ile) + ' ' + jedn + '</span></li>';
+  bindForm(f, () => {
+    const v = readForm(f);
+    const sc = v.sciany || 0, pod = v.podloga || 0, pl = v.plytki || 0;
+    const warstwy = parseInt(v.warstwy || '2', 10);
+    const zapas = 1 + parseInt(v.uklad || '5', 10) / 100;
+    const poz = [];
+    if (sc > 0) {
+      poz.push(['Grunt', Math.ceil(sc / 6 / 5), 'op. 5 l', 'litr na 6 m²']);
+      poz.push(['Gładź', Math.ceil(sc / 20), 'worek 20 kg', 'kg na m²']);
+      poz.push(['Farba', Math.ceil((sc * warstwy) / 10 / 5), 'op. 5 l', warstwy + ' warstwy']);
+    }
+    if (pl > 0) {
+      poz.push(['Płytki', Math.ceil(pl * zapas), 'm²', 'z zapasem ' + Math.round((zapas - 1) * 100) + '%']);
+      poz.push(['Klej do płytek', Math.ceil((pl * 5) / 25), 'worek 25 kg', '5 kg na m²']);
+      poz.push(['Fuga', Math.ceil((pl * 0.5) / 5), 'op. 5 kg', 'pół kg na m²']);
+      poz.push(['Silikon sanitarny', Math.max(1, Math.ceil(Math.sqrt(pl) * 0.6)), 'tuba', 'narożniki i styki']);
+    }
+    if (pod > 0) {
+      poz.push(['Panele', Math.ceil(pod * 1.05), 'm²', 'z zapasem 5%']);
+      poz.push(['Podkład pod panele', Math.ceil(pod / 15), 'rolka 15 m²', '']);
+      poz.push(['Listwy przypodłogowe', Math.ceil((4 * Math.sqrt(pod)) / 2.5), 'szt. 2,5 m', 'obwód pomieszczenia']);
+    }
+    rows.innerHTML = poz.map(p => wiersz(p[0], p[1], p[2], p[3])).join('') ||
+      '<li><span class="label"><span>Podaj powierzchnie po lewej</span></span><span class="val">—</span></li>';
+    suma.textContent = poz.length ? poz.length + ' pozycji' : '—';
+  });
+})();`,
   });
 }
