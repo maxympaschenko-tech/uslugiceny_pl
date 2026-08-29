@@ -1,6 +1,6 @@
 import { mkdir, writeFile, cp, rm, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import cities from './src/data/cities.json' with { type: 'json' };
 import worksFile from './src/data/works.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
@@ -43,6 +43,7 @@ await mkdir(OUT, { recursive: true });
 let zapisane = 0;
 let pominiete = 0;
 const wygenerowane = new Set();
+const zmienione = [];
 const write = async (path, html) => {
   const file = join(OUT, path, 'index.html');
   wygenerowane.add(file);
@@ -56,6 +57,7 @@ const write = async (path, html) => {
     // pliku jeszcze nie ma, zapisujemy normalnie
   }
   await writeFile(file, html);
+  zmienione.push(relative(OUT, file));
   zapisane++;
 };
 
@@ -1114,6 +1116,11 @@ for (const f of await wszystkiePliki(OUT)) {
     usuniete++;
   }
 }
+
+// Pliki kopiowane do korzenia (ikony, .htaccess, sitemap) zawsze traktujemy
+// jako zmienione: sa male, a ich pominiecie bylo by trudne do wykrycia.
+const zawszeWysylaj = [...doKorzenia, 'sitemap.xml', 'robots.txt', 'search-index.json', 'assets/style.css'];
+await writeFile('zmienione.txt', [...zmienione, ...zawszeWysylaj].join('\n') + '\n');
 
 console.log(
   `Gotowe: ${urls.length} stron w ${OUT}/` +
