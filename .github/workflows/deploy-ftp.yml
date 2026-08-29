@@ -2,14 +2,13 @@
 # Hosting: ukraine.com.ua, panel adm.tools, konto uageek, serwer Apache.
 # Katalog strony: /home/uageek/uslugiceny.pl/www/
 #
-# Wysylka przez lftp, a nie przez zwykla akcje FTP: serwer zrywa polaczenie
-# przy dlugim jednowatkowym transferze (Server sent FIN packet unexpectedly).
-# lftp trzyma kilka rownoleglych polaczen, sam ponawia proby i wysyla
-# tylko pliki nowsze od tych na serwerze.
+# Wysylka jest przyrostowa. Build zapisuje tylko strony o zmienionej tresci
+# i wypisuje ich liste do zmienione.txt. Workflow wysyla wylacznie te pliki,
+# zamiast przechodzic po FTP cale drzewo 1250 stron: samo obejscie katalogow
+# przez lftp trwalo kilkanascie minut, nawet gdy nie bylo czego wysylac.
 #
-# Katalog dist jest zapamietywany miedzy uruchomieniami. Build nadpisuje tylko
-# pliki o zmienionej tresci, wiec czasy modyfikacji reszty zostaja nietkniete
-# i lftp wysyla kilka stron zamiast 1250 przy kazdej drobnej poprawce.
+# Gdy zmian jest duzo (np. po zmianie arkusza stylow, ktory wystepuje w kazdej
+# stronie), oplaca sie zwykly mirror i wtedy workflow przelacza sie na niego.
 #
 # Sekrety: Settings > Secrets and variables > Actions
 #   FTP_SERVER    uageek.ftp.tools
@@ -30,7 +29,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -58,6 +57,7 @@ jobs:
           test -f dist/sitemap.xml
           test -f dist/.htaccess
           echo "Stron: $(find dist -name index.html | wc -l)"
+          echo "Do wyslania: $(wc -l < zmienione.txt)"
 
       - name: Instalacja lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
@@ -69,19 +69,30 @@ jobs:
           PASS: ${{ secrets.FTP_PASSWORD }}
           DIR: ${{ secrets.FTP_DIR }}
         run: |
-          lftp -c "
-            set ftp:ssl-allow true;
-            set ssl:verify-certificate no;
-            set ftp:passive-mode true;
-            set net:max-retries 5;
-            set net:reconnect-interval-base 5;
-            set net:timeout 30;
-            set mirror:parallel-transfer-count 4;
-            set cmd:fail-exit true;
-            open -u '$USER','$PASS' '$HOST';
-            mirror -R --only-newer --no-perms --verbose=1 dist/ '$DIR';
-            bye
-          "
+          set -e
+          ILE=$(wc -l < zmienione.txt)
+          USTAWIENIA="set ftp:ssl-allow true; set ssl:verify-certificate no; set ftp:passive-mode true; set net:max-retries 5; set net:reconnect-interval-base 5; set net:timeout 30; set cmd:fail-exit true;"
+
+          if [ "$ILE" -gt 400 ]; then
+            echo "Zmian: $ILE, uzywam pelnego mirrora"
+            lftp -c "$USTAWIENIA set mirror:parallel-transfer-count 4; open -u '$USER','$PASS' '$HOST'; mirror -R --only-newer --no-perms --verbose=1 dist/ '$DIR'; bye"
+          else
+            echo "Zmian: $ILE, wysylam pojedyncze pliki"
+            {
+              echo "$USTAWIENIA"
+              echo "open -u '$USER','$PASS' '$HOST';"
+              echo "cd '$DIR';"
+              while read -r f; do
+                [ -z "$f" ] && continue
+                [ -f "dist/$f" ] || continue
+                d=$(dirname "$f")
+                if [ "$d" != "." ]; then echo "mkdir -p -f '$d';"; fi
+                echo "put -O '$d' 'dist/$f';"
+              done < zmienione.txt
+              echo "bye"
+            } > /tmp/polecenia.lftp
+            lftp -f /tmp/polecenia.lftp
+          fi
 
       - name: Sprawdzenie strony
         run: |
