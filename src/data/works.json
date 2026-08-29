@@ -142,6 +142,18 @@
       {
         "name": "oleba.pl, cennik robocizny remontowej Warszawa",
         "date": "2026-08"
+      },
+      {
+        "name": "kb.pl, cennik montazu desek tarasowych",
+        "date": "2026-01"
+      },
+      {
+        "name": "dobre-kompozyty.pl, cena za m2 ukladania deski kompozytowej",
+        "date": "2026-04"
+      },
+      {
+        "name": "ecentrumdrewna.pl, kalkulacja kosztow tarasu kompozytowego",
+        "date": "2026-07"
       }
     ]
   },
@@ -389,7 +401,10 @@
       "zrodla": [
         28,
         29,
-        30
+        30,
+        34,
+        35,
+        36
       ]
     }
   ],
@@ -1870,6 +1885,51 @@
         "Sposób mocowania: do czoła płyty, do posadzki albo do ściany, każdy z innym nakładem pracy.",
         "Wysokość i rozstaw wypełnień wynikające z przepisów, przy balkonach powyżej pewnej wysokości zaostrzone.",
         "Sama balustrada kupowana jest zwykle przez inwestora, tu liczona jest robocizna."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "konstrukcja_tarasu",
+      "cat": "balkon",
+      "unit": "m2",
+      "labour": 75,
+      "material": 85,
+      "name": "Podkonstrukcja tarasu z legarami",
+      "factors": [
+        "Rodzaj legarów: aluminiowe są droższe od kompozytowych, ale nie pracują pod wpływem wilgoci.",
+        "Rozstaw legarów wynikający z grubości deski: przy kompozycie 30 do 40 cm w osi, przy drewnie egzotycznym gęściej.",
+        "Wsporniki regulowane zamiast wylewki, gdy podłoże jest nierówne albo nie chce się dokładać ciężaru.",
+        "Warstwa izolacji pod legarami: kilkanaście złotych za metr, które chronią konstrukcję przed wilgocią z betonu."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "deska_kompozytowa",
+      "cat": "balkon",
+      "unit": "m2",
+      "labour": 110,
+      "material": 265,
+      "name": "Montaż deski kompozytowej",
+      "factors": [
+        "Grubość i rodzaj profilu: deski komorowe są tańsze od pełnych, ale mniej odporne na obciążenia punktowe.",
+        "Kształt tarasu: nieregularny obrys i schody zwiększają liczbę docinek oraz zużycie profili wykończeniowych.",
+        "Spadek od budynku, minimum jeden procent, bez którego woda stoi pod deskami i niszczy legary.",
+        "Przy powierzchni poniżej piętnastu metrów ekipy liczą zwykle stawkę ryczałtową za całe zlecenie."
+      ],
+      "sprawdzone": "2026-08"
+    },
+    {
+      "id": "deska_tarasowa_drewno",
+      "cat": "balkon",
+      "unit": "m2",
+      "labour": 95,
+      "material": 185,
+      "name": "Montaż deski tarasowej z drewna",
+      "factors": [
+        "Gatunek: sosna i świerk najtańsze, modrzew syberyjski w średnim przedziale, gatunki egzotyczne kilkakrotnie drożej.",
+        "Impregnacja przed montażem i olejowanie po nim, powtarzane co jeden do dwóch sezonów.",
+        "Rozstaw legarów gęstszy niż przy kompozycie, bo drewno bardziej ugina się między podporami.",
+        "Deska w cieniu pokrywa się glonami i wymaga częstszego czyszczenia oraz pasków antypoślizgowych."
       ],
       "sprawdzone": "2026-08"
     }

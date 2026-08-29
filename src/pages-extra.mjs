@@ -290,6 +290,17 @@ export const POROWNANIA = [
     przeciwB: ['Zabiera od czterech do ośmiu centymetrów z każdej ściany, co w małym pomieszczeniu widać.', 'Ciężkie meble wymagają wcześniejszego wzmocnienia rusztu w konkretnych miejscach.', 'Uszkodzenie mechaniczne robi dziurę, podczas gdy tynk trzeba mocno uderzyć.'],
     werdykt: 'Równy mur, małe pomieszczenie i szafki na ścianie: tynk. Ściana mocno krzywa, konieczność schowania instalacji albo termin, w którym nie ma miejsca na schnięcie: płyta, licząc się z utratą kilku centymetrów i koniecznością planowania wzmocnień pod ciężkie meble.',
   },
+  {
+    slug: 'deska-kompozytowa-czy-drewniana',
+    h1: 'Deska kompozytowa czy drewniana na taras',
+    a: 'deska_tarasowa_drewno', b: 'deska_kompozytowa',
+    lede: 'Kompozyt kosztuje na starcie około jedną trzecią więcej, ale nie wymaga olejowania co dwa sezony. Rachunek wyrównuje się po kilku latach, a potem odwraca.',
+    za: ['Niższy koszt na starcie, zwłaszcza przy sośnie i świerku.', 'Naturalny wygląd i przyjemniejszy w dotyku przy pełnym słońcu.', 'Uszkodzoną deskę da się przeszlifować i przywrócić do stanu wyjściowego.'],
+    przeciw: ['Impregnacja przed montażem i olejowanie co jeden do dwóch sezonów.', 'W cieniu pokrywa się glonami i robi śliskie, więc wymaga częstszego czyszczenia.', 'Pracuje wraz z wilgotnością: szczeliny między deskami zmieniają się przez rok.'],
+    zaB: ['Praktycznie bezobsługowa: bez impregnacji, olejowania i szlifowania.', 'Nie sinieje, nie pęka i zachowuje kolor przez lata dzięki pigmentom odpornym na promieniowanie.', 'Stabilna wymiarowo, więc szczeliny pozostają równe niezależnie od pogody.'],
+    przeciwB: ['Wyraźnie droższa na starcie, a najtańsze deski komorowe gorzej znoszą obciążenia punktowe.', 'Nagrzewa się w pełnym słońcu jak każdy ciemny materiał.', 'Uszkodzenia mechanicznego nie da się zeszlifować, wymienia się całą deskę.'],
+    werdykt: 'Taras użytkowany intensywnie, bez ochoty na coroczną konserwację: kompozyt, licząc się z wyższym kosztem początkowym. Taras w cieniu, mały metraż albo chęć uzyskania naturalnego wyglądu przy niższym budżecie: drewno, ale z realnym planem olejowania co dwa sezony, bo bez tego szarzeje i sinieje.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag }) {
