@@ -130,6 +130,18 @@
       {
         "name": "ALBIN, cennik remontu balkonu i tarasu w Warszawie",
         "date": "2026-04"
+      },
+      {
+        "name": "muratordom.pl, cennik wyburzania scian dzialowych i nosnych",
+        "date": "2026-02"
+      },
+      {
+        "name": "cennikibudowlane.com.pl, wyburzenia i rozbiorki: ceny za m2",
+        "date": "2026-05"
+      },
+      {
+        "name": "oleba.pl, cennik robocizny remontowej Warszawa",
+        "date": "2026-08"
       }
     ]
   },
@@ -168,7 +180,10 @@
         0,
         1,
         2,
-        4
+        4,
+        31,
+        32,
+        33
       ]
     },
     {
@@ -201,7 +216,8 @@
       "zrodla": [
         1,
         2,
-        3
+        3,
+        32
       ]
     },
     {
@@ -430,34 +446,36 @@
       "id": "wyburzenie_scianki",
       "cat": "demont",
       "unit": "m2",
-      "labour": 65,
+      "labour": 85,
       "material": 0,
       "name": "Wyburzenie ścianki działowej",
       "factors": [
         "Rodzaj ścianki: karton-gips schodzi w godzinę, cegła dziurawka to inny nakład pracy.",
         "Konieczność ekspertyzy, gdy ścianka może pełnić funkcję nośną.",
         "Przejścia instalacyjne w ściance, które trzeba przepiąć przed rozbiórką."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "demontaz_podlogi",
       "cat": "demont",
       "unit": "m2",
-      "labour": 22,
+      "labour": 30,
       "material": 0,
       "name": "Demontaż starej podłogi",
       "factors": [
         "Rodzaj warstwy: panele zdejmuje się szybko, klejony parkiet lub płytki znacznie wolniej.",
         "Czy pod spodem jest legarowanie albo stara wylewka do skucia.",
         "Wysokość kondygnacji i dostępność windy przy znoszeniu materiału."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "wywoz_gruzu",
       "cat": "demont",
       "unit": "m3",
-      "labour": 190,
-      "material": 90,
+      "labour": 145,
+      "material": 95,
       "spread": 0.3,
       "name": "Wywóz gruzu z kontenerem",
       "materialLabel": "kontener i utylizacja",
@@ -465,7 +483,8 @@
         "Odległość do najbliższego punktu utylizacji i opłata za przyjęcie odpadów.",
         "Możliwość podstawienia kontenera pod budynkiem: brak miejsca oznacza znoszenie w workach.",
         "Segregacja: gruz czysty jest tańszy w utylizacji niż zmieszany z opakowaniami i styropianem."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "tynk_gipsowy",
