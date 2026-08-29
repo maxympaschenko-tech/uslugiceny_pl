@@ -268,8 +268,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
         { name: w.name, path },
       ]),
     ],
-    script: `${calcScript}
-const W = ${JSON.stringify({ id: w.id, labour: w.labour, material: w.material, perCm: !!w.perCm, unit: u })};
+    script: `const W = ${JSON.stringify({ id: w.id, labour: w.labour, material: w.material, perCm: !!w.perCm, unit: u })};
 const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
 (function(){
   const f = document.getElementById('calc');
@@ -381,8 +380,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
         { name: city.name, path: `/${cat.slug}/${slugify(w.name)}/${city.slug}/` },
       ]),
     ],
-    script: `${calcScript}
-const W = ${JSON.stringify({ labour: w.labour, material: w.material, perCm: !!w.perCm })};
+    script: `const W = ${JSON.stringify({ labour: w.labour, material: w.material, perCm: !!w.perCm })};
 const COEF = ${city.coef};
 (function(){
   const f = document.getElementById('calc');
@@ -436,8 +434,7 @@ export function categoryPage({ cat, works, units, unitPrice }) {
     <tbody>${rows}</tbody>
   </table></div>
 </div></section>`,
-    script: `${calcScript}
-bindSort(document.getElementById('list'));`,
+    script: `bindSort(document.getElementById('list'));`,
   });
 }
 

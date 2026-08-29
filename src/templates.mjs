@@ -19,6 +19,8 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 export let CSS_V = '';
 export const ustawWersjeStylow = (v) => { CSS_V = v; };
+export let JS_V = '';
+export const ustawWersjeSkryptu = (v) => { JS_V = v; };
 
 export function layout({ title, description, path, body, jsonLd = null, script = '', breadcrumb = null }) {
   const url = SITE.base + path;
@@ -212,7 +214,10 @@ ${body}
   });
 })();
 </script>
-${script ? `<script>${script}</script>` : ''}
+${script ? `<script src="${R}assets/kalkulator.js?v=${JS_V}" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function(){
+${script}
+});</script>` : ''}
 </body>
 </html>`;
 }

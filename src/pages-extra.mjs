@@ -96,8 +96,7 @@ export function metrazPage({ mm, cities, turnkeyPerM2, levels, cityOptions, W_JS
         },
       ],
     },
-    script: `${calcScript}
-const W = ${W_JSON};
+    script: `const W = ${W_JSON};
 const CITIES = ${CITY_MAP};
 const SCOPE = ${SCOPE_JSON};
 (function(){
@@ -465,8 +464,7 @@ export function ocieplenieMetrazPage({ dm, cities, unitPrice, cityOptions, W_JSO
         { '@type': 'Question', name: 'Ile metrów ściany ma dom o tej powierzchni?', acceptedAnswer: { '@type': 'Answer', text: `Dla bryły zbliżonej do kwadratu wychodzi około ${sciany} m² po odjęciu okien i drzwi. Dom wydłużony albo z wykuszami ma tych metrów więcej przy tej samej powierzchni użytkowej.` } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }
 
@@ -542,8 +540,7 @@ export function wykonczenieMetrazPage({ wm, cities, unitPrice, levels, sourceFla
         { '@type': 'Question', name: `Ile kosztuje wykończenie mieszkania ${wm.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Robocizna z materiałami budowlanymi to od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, czyli mniej więcej ${money(Math.round(suma(1, 1) / wm.m))} zł za metr. Bez drzwi, armatury i opraw, które kupuje inwestor.` } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }
 
@@ -621,8 +618,7 @@ export function remontDomuPage({ dm, cities, unitPrice, standardScope, sourceFla
         { '@type': 'Question', name: 'Co robić najpierw przy remoncie domu?', acceptedAnswer: { '@type': 'Answer', text: 'Najpierw dach, potem elewacja, na końcu wnętrza. Nieszczelne pokrycie zniszczy nowe ocieplenie, a ocieplenie po wykończeniu wnętrz wymusza kucie przy wymianie okien.' } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }
 
@@ -701,8 +697,7 @@ export function lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag }
         { '@type': 'Question', name: 'Dlaczego mała łazienka kosztuje tyle co duża?', acceptedAnswer: { '@type': 'Answer', text: 'Bo o koszcie decyduje liczba urządzeń, a nie powierzchnia. Hydroizolacja, punkty wodno-kanalizacyjne i biały montaż kosztują tyle samo w łazience czterometrowej co w ośmiometrowej, a różnicę robi jedynie ilość płytek.' } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }
 
@@ -782,8 +777,7 @@ export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag })
         { '@type': 'Question', name: 'Czy w tej kwocie są meble kuchenne?', acceptedAnswer: { '@type': 'Answer', text: 'Nie. Wyliczenie obejmuje prace budowlane i instalacyjne. Meble na wymiar, sprzęt i armaturę kupuje inwestor, a ich koszt bywa wyższy niż cały remont pomieszczenia.' } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }
 
@@ -859,8 +853,7 @@ export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag }
         { '@type': 'Question', name: 'Dlaczego liczy się powierzchnię skosów osobno?', acceptedAnswer: { '@type': 'Answer', text: `Bo to ona decyduje o kosztach ocieplenia i zabudowy płytą, a jest zwykle o jedną czwartą większa od powierzchni podłogi. Przy ${pd.m} m² podłogi wychodzi około ${skosy} m² do ocieplenia i obłożenia.` } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }
 
@@ -981,8 +974,7 @@ export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag }) 
         { '@type': 'Question', name: 'Czy w cenie jest balustrada?', acceptedAnswer: { '@type': 'Answer', text: 'Policzony jest montaż, ale nie sama balustrada, bo jej cena zależy od materiału: stalowa malowana proszkowo kosztuje kilkakrotnie mniej niż szklana w profilu aluminiowym.' } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }
 
@@ -1060,7 +1052,6 @@ export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag }) {
         { '@type': 'Question', name: `Ile metrów ścian ma pokój ${pk.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Przy wysokości 2,6 metra wychodzi około ${Math.round(sciany)} m² ścian po odjęciu otworów, a razem z sufitem około ${Math.round(powierzchnie)} m². Dlatego malowanie kosztuje więcej, niż wynikałoby z metrażu podłogi.` } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('board'));`,
+    script: `bindSort(document.getElementById('board'));`,
   });
 }

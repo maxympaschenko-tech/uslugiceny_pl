@@ -79,8 +79,7 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
         { '@type': 'Question', name: 'Czy najtańsza oferta jest najlepsza?', acceptedAnswer: { '@type': 'Answer', text: 'Zwykle nie. Cena wyraźnie poniżej widełek najczęściej oznacza węższy zakres prac, a nie większą hojność wykonawcy. Warto porównać oferty pozycja po pozycji, a nie tylko sumy końcowe.' } },
       ],
     },
-    script: `${calcScript}
-const DANE = ${JSON.stringify(dane)};
+    script: `const DANE = ${JSON.stringify(dane)};
 const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
 (function(){
   const f = document.getElementById('calc');
@@ -304,8 +303,7 @@ export function porownajMiastaPage({ works, categories, units, cities, unitPrice
         acceptedAnswer: { '@type': 'Answer', text: 'Różnica siedzi niemal w całości w robociźnie: dostępności ekip, poziomie płac i kosztach prowadzenia działalności. Materiały budowlane kosztują w całym kraju podobnie, bo pochodzą z tych samych sieci dystrybucji.' },
       }],
     },
-    script: `${calcScript}
-const D = ${JSON.stringify(dane)};
+    script: `const D = ${JSON.stringify(dane)};
 const KAT = ${JSON.stringify(categories.map((c) => ({ id: c.id, name: c.name })))};
 const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
 (function(){
@@ -390,8 +388,7 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
 
   ${wiersze}
 </div></section>`,
-    script: `${calcScript}
-const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
+    script: `const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
 (function(){
   const f = document.getElementById('calc');
   const info = document.querySelector('[data-info]');
@@ -500,8 +497,7 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
         { '@type': 'Question', name: 'Gdzie negocjacja ceny remontu ma największy sens?', acceptedAnswer: { '@type': 'Answer', text: 'Tam, gdzie kwota to niemal wyłącznie robocizna, czyli przy demontażach, montażach i pracach przygotowawczych. Przy okładzinach o cenie decyduje głównie wybrana półka materiału.' } },
       ],
     },
-    script: `${calcScript}
-bindSort(document.getElementById('tab'));`,
+    script: `bindSort(document.getElementById('tab'));`,
   });
 }
 

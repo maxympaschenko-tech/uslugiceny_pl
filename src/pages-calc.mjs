@@ -651,8 +651,7 @@ export function calcPage({ c, cityOptions, W_JSON, CITY_MAP, sourceFlag }) {
         acceptedAnswer: { '@type': 'Answer', text: a },
       })),
     },
-    script: `${calcScript}
-const W = ${W_JSON};
+    script: `const W = ${W_JSON};
 const CITIES = ${CITY_MAP};
 (function(){
   const f = document.getElementById('calc');
@@ -794,8 +793,7 @@ function materialyPage({ c, sourceFlag }) {
         acceptedAnswer: { '@type': 'Answer', text: a },
       })),
     },
-    script: `${calcScript}
-(function(){
+    script: `(function(){
   const f = document.getElementById('calc');
   const rows = document.querySelector('[data-rows]');
   const suma = document.querySelector('[data-suma]');

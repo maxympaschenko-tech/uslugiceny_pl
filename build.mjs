@@ -4,7 +4,7 @@ import { dirname, join, relative } from 'node:path';
 import cities from './src/data/cities.json' with { type: 'json' };
 import worksFile from './src/data/works.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
-import { layout, estimateSheet, calcScript, field, select, check, money, tytul, ustawWersjeStylow } from './src/templates.mjs';
+import { layout, estimateSheet, calcScript, field, select, check, money, tytul, ustawWersjeStylow, ustawWersjeSkryptu } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage, kalkulatoryIndexPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
@@ -63,6 +63,11 @@ const CITY_MAP = JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 const cityOptions = cities.map((c) => ({ v: c.slug, t: c.name }));
 
 ustawWersjeStylow(CSS_HASH);
+// Wspolny silnik kalkulatorow trafia do osobnego pliku: powtarzany w kazdej
+// z 1239 stron zajmowal ponad 6 MB w katalogu wynikowym, a przegladarka i tak
+// pobierala go od nowa przy kazdym przejsciu.
+const JS_HASH = createHash('sha1').update(calcScript).digest('hex').slice(0, 8);
+ustawWersjeSkryptu(JS_HASH);
 
 // Nie kasujemy calego katalogu i nie nadpisujemy plikow, ktore sie nie zmienily.
 // Powod jest praktyczny: lftp wysyla na serwer pliki nowsze niz zdalne, wiec
@@ -298,8 +303,7 @@ await write(
         creator: { '@type': 'Organization', name: 'uslugiceny.pl' },
       },
     ],
-    script: `${calcScript}
-const W = ${W_JSON};
+    script: `const W = ${W_JSON};
 const CITIES = ${CITY_MAP};
 const SCOPE = ${JSON.stringify(standardScope.items)};
 (function(){
@@ -414,8 +418,7 @@ for (const city of cities) {
         name: city.name,
         address: { '@type': 'PostalAddress', addressCountry: 'PL', addressLocality: city.name },
       },
-      script: `${calcScript}
-document.querySelectorAll('table.board').forEach(bindSort);`,
+      script: `document.querySelectorAll('table.board').forEach(bindSort);`,
     })
   );
 }
@@ -466,8 +469,7 @@ await write(
   <h2 style="margin-top:2.2rem">Kolejność, która oszczędza pieniądze</h2>
   <p class="section-note">Od góry do dołu i od brudnego do czystego: demontaże, instalacje, tynki, wylewka, płytki, gładzie, malowanie, podłogi, drzwi. Etap zrobiony nie w porę trzeba powtórzyć, a najdroższy błąd to podłoga położona przed pracami mokrymi. Pełny opis w <a href="${R}poradnik/kolejnosc-prac-remontowych/">poradniku o kolejności prac</a>.</p>
 </div></section>`,
-    script: `${calcScript}
-const W = ${W_JSON};
+    script: `const W = ${W_JSON};
 const CITIES = ${CITY_MAP};
 const SCOPE = ${JSON.stringify(standardScope)};
 (function(){
@@ -553,8 +555,7 @@ await write(
   <h2 style="margin-top:2.2rem">Zanim zamówisz materiały</h2>
   <p class="section-note">Wanna, kabina, stelaż i armatura muszą być wybrane przed rozpoczęciem prac, bo od konkretnych modeli zależy rozmieszczenie punktów wodnych i wysokość podejść. Kolejność prac krok po kroku opisuje <a href="${R}poradnik/remont-lazienki-krok-po-kroku/">osobny poradnik</a>.</p>
 </div></section>`,
-    script: `${calcScript}
-const W = ${W_JSON};
+    script: `const W = ${W_JSON};
 const CITIES = ${CITY_MAP};
 (function(){
   const f = document.getElementById('calc');
@@ -652,8 +653,7 @@ await write(
         { '@type': 'HowToStep', text: 'Dodaj koszt robocizny za metr kwadratowy i materiału za metr sześcienny.' },
       ],
     },
-    script: `${calcScript}
-const W = ${W_JSON};
+    script: `const W = ${W_JSON};
 const CITIES = ${CITY_MAP};
 (function(){
   const f = document.getElementById('calc');
@@ -753,8 +753,7 @@ await write(
   <h2 style="margin-top:2rem">Czego ta metoda nie obejmuje</h2>
   <p class="section-note">Mediana widełek to punkt odniesienia, nie wycena. Ekipa z pełnym kalendarzem podaje więcej, ekipa szukająca zlecenia mniej, a przy małym metrażu dochodzi dojazd i rozruch sprzętu, które przy jednym pomieszczeniu potrafią podnieść stawkę za metr o kilkadziesiąt procent.</p>
 </div></section>`,
-    script: `${calcScript}
-document.querySelectorAll('table.board').forEach(bindSort);`,
+    script: `document.querySelectorAll('table.board').forEach(bindSort);`,
   })
 );
 
@@ -1137,6 +1136,8 @@ const doKorzenia = [
   '.htaccess', 'favicon.ico', 'favicon.svg', 'favicon-32.png', 'favicon-96.png',
   'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'site.webmanifest', 'og-image.png',
 ];
+await writeFile(join(OUT, 'assets', 'kalkulator.js'), calcScript);
+
 for (const f of doKorzenia) {
   await cp(join('src/assets', f), join(OUT, f));
   await rm(join(OUT, 'assets', f), { force: true });
