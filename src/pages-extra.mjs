@@ -279,6 +279,17 @@ export const POROWNANIA = [
     przeciwB: ['Sam z siebie nie daje powierzchni pod malowanie: zostaje faktura.', 'Etap mokry, wymagający intensywnego wietrzenia i czasu na wyschnięcie.', 'Przy równych ścianach bywa zbędny i wtedy jest czystym kosztem.'],
     werdykt: 'Surowa ściana albo widoczne krzywizny: najpierw tynk, potem gładź, oba etapy w kosztorysie. Ściana już otynkowana i równa, na przykład w mieszkaniu od dewelopera: sama gładź. Zamawianie gładzi na krzywej ścianie w nadziei, że wyrówna, to najczęstsze nieporozumienie przy wycenie.',
   },
+  {
+    slug: 'zabudowa-plyta-czy-tynkowanie',
+    h1: 'Zabudowa płytą czy tynkowanie',
+    a: 'tynk_gipsowy', b: 'gk_sciana',
+    lede: 'Płyta wychodzi około dwa razy drożej za metr, więc przy prostej ścianie tynk wygrywa bez dyskusji. Przy krzywej albo takiej, w której trzeba schować instalacje, różnica w cenie przestaje być argumentem.',
+    za: ['Tańszy przy równym murze i większych powierzchniach, zwłaszcza maszynowo.', 'Nie zabiera przestrzeni: warstwa kilkunastu milimetrów zamiast kilku centymetrów.', 'Ściana pozostaje pełna, więc uniesie szafki i telewizor bez wcześniejszego wzmacniania.'],
+    przeciw: ['Etap mokry: wilgoć musi odejść, zanim ruszą kolejne prace.', 'Przy krzywym murze grubość warstwy rośnie, a razem z nią koszt i czas schnięcia.', 'Nie schowa przewodów ani rur bez kucia bruzd.'],
+    zaB: ['Wyrównuje nawet mocno krzywą ścianę bez grubych warstw zaprawy.', 'Pozwala schować instalacje w ruszcie, bez bruzdowania muru.', 'Technologia sucha: brak przerw na schnięcie skraca cały remont.'],
+    przeciwB: ['Zabiera od czterech do ośmiu centymetrów z każdej ściany, co w małym pomieszczeniu widać.', 'Ciężkie meble wymagają wcześniejszego wzmocnienia rusztu w konkretnych miejscach.', 'Uszkodzenie mechaniczne robi dziurę, podczas gdy tynk trzeba mocno uderzyć.'],
+    werdykt: 'Równy mur, małe pomieszczenie i szafki na ścianie: tynk. Ściana mocno krzywa, konieczność schowania instalacji albo termin, w którym nie ma miejsca na schnięcie: płyta, licząc się z utratą kilku centymetrów i koniecznością planowania wzmocnień pod ciężkie meble.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag }) {
