@@ -89,23 +89,23 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 |---|---|---|
 | `/` | 1 | szybka wycena, trzy ścieżki wejścia, tablica cen za m² |
 | `/uslugi/` i `/uslugi/<kategoria>/` | 14 | spis robót ze stawkami, wstęp merytoryczny |
-| `/<kategoria>/<usluga>/` | 102 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
-| `/<kategoria>/<usluga>/<miasto>/` | 1020 | stawka lokalna i odchylenie od średniej krajowej |
+| `/<kategoria>/<usluga>/` | 105 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
+| `/<kategoria>/<usluga>/<miasto>/` | 1050 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
 | `/kalkulatory/` i `/kalkulator/*` | 19 | spis oraz 18 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, ilości materiałów |
 | `/koszty/` i `/koszt-*/` | 38 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dom, ocieplenie, wykończenie |
 | `/poradnik/*` | 15 | spis oraz 14 poradników krok po kroku, ponad 150 etapów, schemat HowTo |
-| `/porownanie/*` | 15 | spis oraz 14 zestawień rozwiązań z werdyktem |
-| `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 62 hasła, pełne zestawienie stawek, udział robocizny |
+| `/porownanie/*` | 17 | spis oraz 16 zestawień rozwiązań z werdyktem |
+| `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 70 haseł, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem ponad 1250 stron plus sitemap, robots.txt i strona 404.
+Razem 1285 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 94 z 102 stawek sprawdzonych punktowo, czyli takich, dla których źródło
+**Stan weryfikacji:** 100 z 105 stawek sprawdzonych punktowo, czyli takich, dla których źródło
 podaje liczbę dla tej konkretnej roboty. Pozostałe wyprowadzono z widełek dla całej grupy robót
 i są oznaczone na swoich stronach jako orientacyjne. Historia zmian jest na `/aktualizacje/`.
 
