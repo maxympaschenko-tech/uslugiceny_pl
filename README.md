@@ -130,6 +130,29 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 
+## Wdrożenie
+
+| Etap | Czas |
+|---|---|
+| budowa 1251 stron | 2 s |
+| instalacja lftp | 14 s |
+| wysyłka zmienionych plików | 13 s |
+| **cały deploy** | **42 s** |
+
+Dojście do tych liczb zajęło kilka podejść i warto pamiętać, co dało efekt:
+
+1. Pierwotnie deploy trwał **33 minuty**: build kasował cały katalog i zapisywał
+   wszystko od nowa, więc każdy plik miał świeży czas modyfikacji i `lftp --only-newer`
+   wysyłał 1250 plików przy każdej poprawce.
+2. Build przyrostowy plus cache `dist` w CI skrócił to do **19 minut**. Wciąż dużo,
+   bo czas szedł nie na transfer, tylko na obejście drzewa: `mirror` sprawdza po kolei
+   każdy plik w kilkuset katalogach, a każde zapytanie to osobna runda do serwera.
+3. Build wypisuje listę zmienionych stron do `zmienione.txt`, a workflow wysyła
+   wyłącznie je. Efekt: **42 sekundy**.
+
+Przy więcej niż 400 zmienionych plikach workflow wraca do `mirror`, bo wtedy
+porównanie całości jest szybsze niż setki osobnych poleceń `put`.
+
 ## Budowanie przyrostowe
 
 `build.mjs` nie kasuje katalogu `dist` i nadpisuje tylko pliki o zmienionej treści.
