@@ -33,13 +33,30 @@ const cityOptions = cities.map((c) => ({ v: c.slug, t: c.name }));
 
 ustawWersjeStylow(CSS_HASH);
 
-await rm(OUT, { recursive: true, force: true });
+// Nie kasujemy calego katalogu i nie nadpisujemy plikow, ktore sie nie zmienily.
+// Powod jest praktyczny: lftp wysyla na serwer pliki nowsze niz zdalne, wiec
+// przepisanie 1250 plikow o niezmienionej tresci oznacza wyslanie ich wszystkich
+// przy kazdej najdrobniejszej poprawce. Zachowanie oryginalnego czasu modyfikacji
+// sprawia, ze na serwer ida tylko realnie zmienione strony.
 await mkdir(OUT, { recursive: true });
 
+let zapisane = 0;
+let pominiete = 0;
+const wygenerowane = new Set();
 const write = async (path, html) => {
   const file = join(OUT, path, 'index.html');
+  wygenerowane.add(file);
   await mkdir(dirname(file), { recursive: true });
+  try {
+    if ((await readFile(file, 'utf8')) === html) {
+      pominiete++;
+      return;
+    }
+  } catch {
+    // pliku jeszcze nie ma, zapisujemy normalnie
+  }
   await writeFile(file, html);
+  zapisane++;
 };
 
 /* ---------- ten sam silnik po stronie serwera ---------- */
@@ -1076,4 +1093,30 @@ for (const f of doKorzenia) {
   await rm(join(OUT, 'assets', f), { force: true });
 }
 
-console.log(`Gotowe: ${urls.length} stron w ${OUT}/`);
+// Usuwamy strony, ktorych build juz nie tworzy. Bez tego skasowana sekcja
+// zostawalaby w dist i, co gorsza, na serwerze.
+import { readdir } from 'node:fs/promises';
+const wszystkiePliki = async (dir) => {
+  const wpisy = await readdir(dir, { withFileTypes: true });
+  const out = [];
+  for (const e of wpisy) {
+    const p = join(dir, e.name);
+    if (e.isDirectory()) out.push(...(await wszystkiePliki(p)));
+    else out.push(p);
+  }
+  return out;
+};
+const chronione = new Set(doKorzenia.map((f) => join(OUT, f)));
+let usuniete = 0;
+for (const f of await wszystkiePliki(OUT)) {
+  if (f.endsWith('index.html') && !wygenerowane.has(f)) {
+    await rm(f);
+    usuniete++;
+  }
+}
+
+console.log(
+  `Gotowe: ${urls.length} stron w ${OUT}/` +
+    (usuniete ? ` (usuniete: ${usuniete})` : '') +
+    (pominiete ? ` (zapisane: ${zapisane}, bez zmian: ${pominiete})` : '')
+);
