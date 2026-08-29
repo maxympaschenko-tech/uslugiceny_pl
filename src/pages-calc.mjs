@@ -10,6 +10,7 @@ const YEAR = new Date().getFullYear();
 export const CALCS = [
   {
     slug: 'malowanie',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Przygotowanie podłoża. Malarz wycenia malowanie, a odkryte po zdjęciu mebli pęknięcia, dziury po kołkach i odparzony tynk to osobne pozycje. Przy starych ścianach warto od razu założyć naprawy, bo dopisane w trakcie zawsze wyglądają jak podnoszenie ceny.'], ['Co podnosi kwotę', 'Ciemny kolor na jasnym podłożu wymaga trzeciej warstwy, a intensywne barwy czasem czwartej. Sufit maluje się wolniej niż ściany, bo praca odbywa się nad głową. Wysokość powyżej trzech metrów oznacza rusztowanie i osobną stawkę.']],
     h1: 'Malowanie ścian i sufitów',
     title: `Kalkulator malowania ${YEAR}: ile kosztuje malowanie`,
     desc: 'Policz koszt malowania: powierzchnia ścian i sufitów, gruntowanie, gładzie, zdzieranie tapet. Robocizna i materiał osobno, ceny w zł.',
@@ -46,6 +47,7 @@ export const CALCS = [
   },
   {
     slug: 'plytki',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Przygotowanie podłoża. Płytkarz podaje cenę za ułożenie, ale krzywa ściana wymaga wcześniejszego wyrównania, a nierówna posadzka masy samopoziomującej. Przy dużym formacie to nie jest opcja, tylko warunek wykonania.'], ['Co podnosi kwotę', 'Format płytki, układ inny niż prosty, liczba docinek wokół gniazd i rur oraz fuga epoksydowa zamiast cementowej. Mała łazienka wychodzi drożej za metr niż duży salon, bo docinków jest niemal tyle samo, a powierzchni kilka razy mniej.']],
     h1: 'Układanie płytek',
     title: `Kalkulator układania płytek ${YEAR}: cena za m²`,
     desc: 'Ile kosztuje ułożenie płytek: podłoga, ściany, format wielkoformatowy, hydroizolacja, fugowanie. Kosztorys pozycja po pozycji w zł.',
@@ -80,6 +82,7 @@ export const CALCS = [
   },
   {
     slug: 'gladzie-i-tynki',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Narożniki, ościeża i skosy. Maszynowe tynkowanie idzie szybko na płaskiej ścianie, a każdy załamany detal robi się ręcznie. Przy mieszkaniu z wieloma otworami różnica potrafi sięgnąć kilkunastu procent.'], ['Co podnosi kwotę', 'Trzecia warstwa gładzi pod farby o wysokim połysku i tam, gdzie światło pada bokiem. Siatki na pęknięciach i na stykach różnych materiałów. Odkurzanie po szlifowaniu, które bywa liczone osobno, a bez którego malowanie nie ma sensu.']],
     h1: 'Gładzie i tynki',
     title: `Kalkulator gładzi i tynków ${YEAR}: cena za m²`,
     desc: 'Policz koszt tynkowania i gładzi: tynk maszynowy, gładź dwuwarstwowa, gruntowanie, zabudowa z płyt gipsowo-kartonowych. Ceny w zł za m².',
@@ -110,6 +113,7 @@ export const CALCS = [
   },
   {
     slug: 'pokoj',
+    kontekst: [['Co najczęściej wypada z wyceny', 'To, co widać dopiero po zdjęciu starej podłogi: nierówna wylewka, ubytki przy ścianach albo legary do wymiany. Drugi klasyk to listwy, o których pamięta się przy podłodze, ale nie przy budżecie.'], ['Co podnosi kwotę', 'Praca w mieszkaniu zamieszkanym: wynoszenie mebli, zabezpieczanie przejść i sprzątanie po każdym dniu. Ekipy liczą to w stawce, choć rzadko wypisują jako osobną pozycję.']],
     h1: 'Remont pokoju',
     title: `Kalkulator remontu pokoju ${YEAR}: ile kosztuje`,
     desc: 'Policz koszt remontu pokoju: gładzie, malowanie, podłoga, listwy, punkty elektryczne i drzwi. Kosztorys pozycja po pozycji, ceny w zł.',
@@ -157,6 +161,7 @@ export const CALCS = [
   },
   {
     slug: 'balkon',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Reprofilacja płyty. Dopóki stara posadzka nie zejdzie, nikt nie wie, w jakim stanie jest beton i zbrojenie. Skorodowany pręt oznacza naprawę zaprawą PCC, czyli pozycję, której nie da się przewidzieć przed rozpoczęciem prac.'], ['Co podnosi kwotę', 'Piętro i sposób dostępu: wyższe kondygnacje oznaczają rusztowanie albo podnośnik, a to według kosztorysów potrafi być około jednej ósmej całości. Taras nad pomieszczeniem wymaga izolacji dwuwarstwowej i próby wodnej.']],
     h1: 'Remont balkonu',
     title: `Kalkulator remontu balkonu ${YEAR}: cena za m²`,
     desc: 'Policz koszt remontu balkonu: skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne, obróbki blacharskie i balustrada. Ceny w zł.',
@@ -195,6 +200,7 @@ export const CALCS = [
   },
   {
     slug: 'poddasze',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Stan więźby i pokrycia. Zabudowa skosów zamyka konstrukcję na lata, więc wymiana uszkodzonej krokwi albo naprawa membrany musi zdarzyć się wcześniej. Po zabudowie każda taka poprawka to rozbiórka gotowego wykończenia.'], ['Co podnosi kwotę', 'Łazienka na poddaszu: punkty wodne, podejścia od pionu i wentylacja. Okna dachowe, zwłaszcza duże, przy których trzeba przeciąć krokiew i wykonać wymian. Skomplikowana bryła dachu z lukarnami i koszami.']],
     h1: 'Wykończenie poddasza',
     title: `Kalkulator wykończenia poddasza ${YEAR}: koszt adaptacji`,
     desc: 'Policz koszt adaptacji poddasza: ocieplenie wełną, paroizolacja, zabudowa skosów płytą, ścianki kolankowe, gładzie, podłoga i instalacje. Ceny w zł.',
@@ -239,6 +245,7 @@ export const CALCS = [
   },
   {
     slug: 'kuchnia',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Przeróbki instalacji wynikające z projektu mebli. Przesunięcie zlewu na przeciwległą ścianę wygląda niewinnie na rysunku, a oznacza nowe podejście z odpowiednim spadkiem, czyli pozycję kilkakrotnie droższą od samego montażu.'], ['Co podnosi kwotę', 'Liczba obwodów pod sprzęt, bo płyta indukcyjna, piekarnik i zmywarka to trzy osobne. Fartuch z materiału innego niż płytki. Sufit podwieszany pod oświetlenie punktowe nad blatem.']],
     h1: 'Remont kuchni',
     title: `Kalkulator remontu kuchni ${YEAR}: ile kosztuje`,
     desc: 'Policz koszt remontu kuchni: płytki nad blatem, punkty wodne pod zlew i zmywarkę, obwody pod płytę i piekarnik, gładzie i podłoga. Ceny w zł.',
@@ -290,6 +297,7 @@ export const CALCS = [
   },
   {
     slug: 'wykonczenie-pod-klucz',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Poprawki po deweloperze. Krzywe ściany, nierówna wylewka i niedokładne ościeża to rzeczy, które przy odbiorze zgłasza się do usunięcia, a po rozpoczęciu prac stają się kosztem inwestora.'], ['Co podnosi kwotę', 'Standard okładzin i liczba punktów elektrycznych ponad podstawowy układ dewelopera. Ścianki działowe wydzielające garderobę albo pralnię. Sufity podwieszane, jeśli mają ukryć rekuperację lub klimatyzację.']],
     h1: 'Wykończenie mieszkania od dewelopera',
     title: `Kalkulator wykończenia mieszkania od dewelopera ${YEAR}`,
     desc: 'Policz koszt wykończenia mieszkania w stanie deweloperskim: gładzie, malowanie, podłogi, łazienka, biały montaż i drzwi. Ceny w zł za m².',
@@ -341,6 +349,7 @@ export const CALCS = [
   },
   {
     slug: 'wymiana-okien',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Obróbka ościeży po montażu i parapety. Sam montaż to jedna pozycja, ale okno zostawia po sobie surowe ościeże, które trzeba otynkować, wygładzić i pomalować, a to osobna robota, często innej ekipy.'], ['Co podnosi kwotę', 'Piętro i sposób wniesienia stolarki. Wielka płyta z warstwową ścianą, gdzie montaż trwa dwa razy dłużej. Rolety zewnętrzne, zwłaszcza podtynkowe, które wymagają skrzynki przewidzianej przed tynkowaniem.']],
     h1: 'Wymiana okien',
     title: `Kalkulator wymiany okien ${YEAR}: ile kosztuje montaż`,
     desc: 'Policz koszt wymiany okien: demontaż starej stolarki, montaż za metr obwodu ramy, ciepły montaż warstwowy, obróbka ościeży, parapety i rolety.',
@@ -385,6 +394,7 @@ export const CALCS = [
   },
   {
     slug: 'klimatyzacja',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Zasilanie. Klimatyzator potrzebuje osobnego obwodu z rozdzielnicy, a nie podpięcia pod istniejące gniazdo. Druga pozycja to odprowadzenie skroplin, które przy braku spadku wymaga pompki.'], ['Co podnosi kwotę', 'Długość trasy chłodniczej i prowadzenie jej podtynkowo zamiast w korycie. Montaż jednostki zewnętrznej powyżej parteru, wymagający podnośnika albo alpinisty. W bloku dochodzi czas na uzyskanie zgody wspólnoty.']],
     h1: 'Klimatyzacja i wentylacja',
     title: `Kalkulator klimatyzacji ${YEAR}: koszt montażu`,
     desc: 'Policz koszt montażu klimatyzacji split i multi-split, rekuperacji oraz kanałów wentylacyjnych. Robocizna i materiał osobno, ceny w zł.',
@@ -414,6 +424,7 @@ export const CALCS = [
   },
   {
     slug: 'ocieplenie-elewacji',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Przygotowanie podłoża i obróbki. Stary tynk trzeba umyć, zagruntować, a miejscami skuć. Do tego dochodzą parapety zewnętrzne, ocieplenie glifów okiennych i wykończenie cokołu, czyli detale, które łatwo pominąć przy liczeniu samych metrów ściany.'], ['Co podnosi kwotę', 'Skomplikowanie bryły: wykusze, gzymsy i balkony podnoszą robociznę o jedną trzecią przy tej samej powierzchni. Wysokość budynku, od której zależy koszt rusztowania. Wełna zamiast styropianu, wymagająca gęstszego kołkowania.']],
     h1: 'Ocieplenie i elewacja',
     title: `Kalkulator ocieplenia elewacji ${YEAR}: koszt za m²`,
     desc: 'Policz koszt ocieplenia domu: styropian albo wełna, warstwa zbrojona, tynk silikonowy lub mineralny, rusztowanie i cokół. Ceny w zł za m².',
@@ -454,6 +465,7 @@ export const CALCS = [
   },
   {
     slug: 'kostka-brukowa',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Wywóz urobku z korytowania. Pod nawierzchnię trzeba wybrać od trzydziestu do czterdziestu pięciu centymetrów gruntu, a to przy sześćdziesięciu metrach daje kilkanaście metrów sześciennych ziemi do wywiezienia.'], ['Co podnosi kwotę', 'Wzór inny niż prosty, bo jodełka i układ ukośny to więcej odpadu i wolniejsza praca. Grunt gliniasty wymagający geowłókniny i grubszej podbudowy. Brak dojazdu dla maszyn, przez który kruszywo rozwozi się taczką.']],
     h1: 'Kostka brukowa',
     title: `Kalkulator kostki brukowej ${YEAR}: cena za m²`,
     desc: 'Policz koszt ułożenia kostki brukowej: podbudowa, obrzeża, krawężniki, odwodnienie liniowe i niwelacja terenu. Ceny w zł za m².',
@@ -489,6 +501,7 @@ export const CALCS = [
   },
   {
     slug: 'ogrodzenie',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Fundamenty i przewody. Słupki idą poniżej strefy przemarzania, a przy bramie stopy są większe, bo przenoszą obciążenie ruchome. Zasilanie napędu i domofon trzeba ułożyć przed betonowaniem, inaczej dochodzi rozkuwanie.'], ['Co podnosi kwotę', 'Podmurówka, która potrafi kosztować tyle co same przęsła. Teren pochyły, wymagający schodkowania. Automatyka bramy z fotokomórkami i listwą bezpieczeństwa, liczona osobno od samej bramy.']],
     h1: 'Ogrodzenie posesji',
     title: `Kalkulator ogrodzenia ${YEAR}: cena za metr bieżący`,
     desc: 'Policz koszt ogrodzenia panelowego: przęsła, podmurówka, brama przesuwna i furtka. Ceny w zł za metr bieżący.',
@@ -518,6 +531,7 @@ export const CALCS = [
   },
   {
     slug: 'dach',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Stan więźby, widoczny dopiero po zdjęciu pokrycia, oraz obróbki wokół kominów i w koszach. To właśnie obróbki, a nie połać, są najczęstszym miejscem przecieków i najbardziej pracochłonnym detalem.'], ['Co podnosi kwotę', 'Skomplikowanie dachu: lukarny, kosze i jaskółki zwiększają pracochłonność i ilość odpadu. Ciężkie pokrycie wymagające wzmocnienia więźby. Wysokość i konieczność rusztowania przy budynkach powyżej dwóch kondygnacji.']],
     h1: 'Pokrycie dachu',
     title: `Kalkulator dachu ${YEAR}: koszt pokrycia i wymiany za m²`,
     desc: 'Policz koszt pokrycia dachu: blachodachówka, dachówka ceramiczna, rąbek, papa. Membrana, obróbki, rynny, okna dachowe i ocieplenie poddasza.',
@@ -583,6 +597,8 @@ export function calcPage({ c, cityOptions, W_JSON, CITY_MAP, sourceFlag }) {
     </div>
     <div class="sticky-sheet">${estimateSheet({ title: c.h1, sub: '' })}</div>
   </div>
+
+  ${(c.kontekst || []).map(([t, p]) => `<h2 style="margin-top:2.2rem">${t}</h2><p class="section-note">${p}</p>`).join('')}
 
   <h2 style="margin-top:2.5rem">Częste pytania</h2>
   ${c.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}

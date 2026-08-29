@@ -402,6 +402,15 @@ await write(
     </div>
     <div class="sticky-sheet">${estimateSheet({ title: 'Mieszkanie', sub: '' })}</div>
   </div>
+
+  <h2 style="margin-top:2.2rem">Co obejmuje typowy zakres</h2>
+  <p class="section-note">Wyliczenie zakłada pełny remont: demontaże i wywóz gruzu, tynki i gładzie, wylewkę, panele, płytki w strefach mokrych, instalację elektryczną, biały montaż, drzwi i sprzątanie. Nie obejmuje mebli, sprzętu, armatury ani opraw oświetleniowych, bo te kupuje inwestor i ich koszt zależy wyłącznie od wybranych modeli.</p>
+
+  <h2 style="margin-top:2.2rem">Co najczęściej wypada z wyceny</h2>
+  <p class="section-note">Rzeczy widoczne dopiero po demontażu: odparzone tynki, nierówna wylewka, aluminiowa instalacja do wymiany. Przy mieszkaniach z wielkiej płyty warto założyć zapas kilkunastu procent na takie niespodzianki, bo pojawiają się niemal zawsze.</p>
+
+  <h2 style="margin-top:2.2rem">Kolejność, która oszczędza pieniądze</h2>
+  <p class="section-note">Od góry do dołu i od brudnego do czystego: demontaże, instalacje, tynki, wylewka, płytki, gładzie, malowanie, podłogi, drzwi. Etap zrobiony nie w porę trzeba powtórzyć, a najdroższy błąd to podłoga położona przed pracami mokrymi. Pełny opis w <a href="${R}poradnik/kolejnosc-prac-remontowych/">poradniku o kolejności prac</a>.</p>
 </div></section>`,
     script: `${calcScript}
 const W = ${W_JSON};
@@ -480,6 +489,15 @@ await write(
     </div>
     <div class="sticky-sheet">${estimateSheet({ title: 'Łazienka', sub: '' })}</div>
   </div>
+
+  <h2 style="margin-top:2.2rem">Co najczęściej wypada z wyceny</h2>
+  <p class="section-note">Przeróbki instalacji. Przesunięcie WC albo prysznica o metr wygląda niewinnie na rysunku, a oznacza nowe podejście kanalizacyjne z zachowaniem spadku, czyli pozycję droższą niż cały biały montaż. Drugi klasyk to zabudowa pionu z rewizją, o której pamięta się dopiero, gdy trzeba dostać się do zaworu.</p>
+
+  <h2 style="margin-top:2.2rem">Co podnosi kwotę</h2>
+  <p class="section-note">Prysznic bez brodzika, wymagający wyrobienia spadków i odpływu liniowego. Płytki wielkoformatowe, przy których podłoże musi być niemal idealnie płaskie. Ogrzewanie podłogowe z osobnym sterownikiem. I metraż w drugą stronę niż intuicja: im mniejsza łazienka, tym wyższa stawka za metr, bo urządzeń jest tyle samo.</p>
+
+  <h2 style="margin-top:2.2rem">Zanim zamówisz materiały</h2>
+  <p class="section-note">Wanna, kabina, stelaż i armatura muszą być wybrane przed rozpoczęciem prac, bo od konkretnych modeli zależy rozmieszczenie punktów wodnych i wysokość podejść. Kolejność prac krok po kroku opisuje <a href="${R}poradnik/remont-lazienki-krok-po-kroku/">osobny poradnik</a>.</p>
 </div></section>`,
     script: `${calcScript}
 const W = ${W_JSON};
@@ -558,6 +576,15 @@ await write(
     </div>
     <div class="sticky-sheet">${estimateSheet({ title: 'Wylewka', sub: '' })}</div>
   </div>
+
+  <h2 style="margin-top:2.2rem">Co najczęściej wypada z wyceny</h2>
+  <p class="section-note">Izolacja i folia pod wylewką. Sama zaprawa to jedna pozycja, ale pod nią idzie jeszcze styropian podłogowy, folia i taśmy dylatacyjne przy ścianach. Druga rzecz to wyrównanie wierzchu masą samopoziomującą, jeśli okładzina wymaga płaskości większej niż daje sama wylewka.</p>
+
+  <h2 style="margin-top:2.2rem">Co podnosi kwotę</h2>
+  <p class="section-note">Brak dojazdu dla miksokreta, przez który mieszankę trzeba przygotować i wnieść ręcznie. Ogrzewanie podłogowe wymagające dylatacji na pola robocze. Duża różnica poziomów, przy której grubość warstwy rośnie, a razem z nią zużycie zaprawy i czas schnięcia.</p>
+
+  <h2 style="margin-top:2.2rem">Czas, którego nie da się skrócić</h2>
+  <p class="section-note">Wylewka cementowa potrzebuje mniej więcej tygodnia na każdy centymetr grubości, zanim można na niej układać okładziny. Przy pięciu centymetrach to ponad miesiąc, i tego terminu nie skróci ani nagrzewnica, ani zapewnienie ekipy, że „już wyschła”. Wilgotność sprawdza się miernikiem.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
