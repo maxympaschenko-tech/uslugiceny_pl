@@ -628,6 +628,7 @@ export function jakCzytacPage({ works, units }) {
 
   <h2 style="margin-top:2.2rem">Co zrobić z gotową wyceną</h2>
   <p class="section-note">Przelicz kwotę na jednostkę i porównaj z medianą rynkową w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Odchylenie kilkunastu procent w górę mieści się w normalnym rozrzucie: dobra ekipa z zapełnionym kalendarzem ma prawo kosztować więcej. Większa różnica to sygnał do rozmowy, a nie do zerwania kontaktu.</p>
+  <p class="section-note">Gdy kosztorys jest już uzgodniony, kolejne kroki opisują poradniki o <a href="${R}umowa-z-ekipa/">umowie z ekipą</a> i o <a href="${R}odbior-prac/">odbiorze prac</a>.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -676,7 +677,7 @@ export function umowaPage() {
   <p class="section-note">Nie zastąpi też obecności na budowie. Najtańszy sposób uniknięcia poprawek to obejrzenie każdego etapu, zanim zakryje go następny: instalacji przed tynkiem, hydroizolacji przed płytkami, więźby przed zabudową skosów.</p>
 
   <h2 style="margin-top:2.2rem">Zanim podpiszesz</h2>
-  <p class="section-note">Sprawdź, czy kwota mieści się w rynkowych widełkach: przelicz ją na jednostkę w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Upewnij się, że kosztorys da się w ogóle porównać z innymi, według listy w poradniku <a href="${R}jak-czytac-kosztorys/">jak czytać kosztorys</a>. I zajrzyj do <a href="${R}poradnik/">kolejności prac</a>, żeby harmonogram w umowie miał sens technologiczny, a nie tylko kalendarzowy.</p>
+  <p class="section-note">Po podpisaniu przyda się jeszcze <a href="${R}odbior-prac/">lista kontrolna do odbioru</a>, najlepiej uzgodniona z wykonawcą już na starcie. Sprawdź też, czy kwota mieści się w rynkowych widełkach: przelicz ją na jednostkę w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Upewnij się, że kosztorys da się w ogóle porównać z innymi, według listy w poradniku <a href="${R}jak-czytac-kosztorys/">jak czytać kosztorys</a>. I zajrzyj do <a href="${R}poradnik/">kolejności prac</a>, żeby harmonogram w umowie miał sens technologiczny, a nie tylko kalendarzowy.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -686,6 +687,80 @@ export function umowaPage() {
         { '@type': 'Question', name: 'Ryczałt czy rozliczenie kosztorysowe?', acceptedAnswer: { '@type': 'Answer', text: 'Ryczałt to jedna kwota za cały zakres, bezpieczniejsza dla inwestora, ale wykonawca dolicza do niej zapas na niespodzianki. Rozliczenie kosztorysowe płaci się za faktycznie wykonane ilości, co bywa uczciwsze przy zmiennym zakresie, ale wymaga kontrolowania obmiaru.' } },
         { '@type': 'Question', name: 'Jaka zaliczka dla ekipy remontowej jest normalna?', acceptedAnswer: { '@type': 'Answer', text: 'Zaliczka na materiał potrzebny na start jest standardem. Zapłata z góry za całość nie. Bezpieczny układ to płatności po zakończonych etapach, z ostatnią transzą po odbiorze i usunięciu usterek.' } },
         { '@type': 'Question', name: 'Czy wykonawca musi dać gwarancję?', acceptedAnswer: { '@type': 'Answer', text: 'Rękojmia za wady wynika z przepisów i obejmuje roboty budowlane niezależnie od zapisów umowy. Gwarancja jest dobrowolną deklaracją wykonawcy, dlatego warto zapisać w umowie jej długość i zakres.' } },
+      ],
+    },
+  });
+}
+
+/* ---------- odbiór prac ---------- */
+
+export function odbiorPage() {
+  const listy = [
+    ['Ściany i sufity', [
+      'Płaszczyzna sprawdzona łatą dwumetrową: odchyłka nie powinna przekraczać kilku milimetrów.',
+      'Światło z boku, najlepiej latarką wzdłuż ściany: tak ujawniają się fale i ślady po szpachlowaniu.',
+      'Narożniki pionowe i kąty proste w miejscach, gdzie staną meble na wymiar.',
+      'Kolor jednolity, bez prześwitów i śladów wałka na łączeniach warstw.',
+    ]],
+    ['Podłogi', [
+      'Brak klawiszowania: chodzenie po całej powierzchni, nie tylko po środku.',
+      'Szczelina dylatacyjna przy ścianach, ukryta pod listwą, nie wypełniona klejem.',
+      'Listwy przylegające na całej długości, bez szczelin w narożnikach.',
+      'Przy płytkach: równe fugi, brak pustek pod płytką sprawdzony opukaniem.',
+    ]],
+    ['Łazienka i kuchnia', [
+      'Spadki: woda wylana przy prysznicu odpływa, a nie stoi.',
+      'Silikon ciągły w narożnikach i na styku wanny ze ścianą, bez pęcherzy.',
+      'Rewizja do zaworów w zabudowie pionu, dostępna bez skuwania.',
+      'Sprawdzenie szczelności podejść przy pełnym otwarciu wody, także pod zlewem.',
+    ]],
+    ['Instalacje', [
+      'Protokół z pomiarów elektrycznych: ciągłość, rezystancja izolacji, test różnicówki.',
+      'Każdy włącznik steruje tym, czym powinien, a gniazda mają prawidłową biegunowość.',
+      'Grzejniki odpowietrzone i grzejące równomiernie na całej powierzchni.',
+      'Wentylacja: kartka przyłożona do kratki powinna się trzymać.',
+    ]],
+    ['Stolarka', [
+      'Skrzydła drzwi i okien zamykają się bez oporu i nie otwierają samoczynnie.',
+      'Okna: test kartki na całym obwodzie, sprawdza docisk uszczelki.',
+      'Ościeżnice w pionie, szczeliny wokół równe na całej wysokości.',
+      'Parapety uszczelnione pod ramą, bez śladów po skroplinach.',
+    ]],
+  ];
+
+  return layout({
+    title: 'Odbiór prac remontowych: lista kontrolna',
+    description: 'Co sprawdzić przy odbiorze remontu: ściany, podłogi, łazienka, instalacje i stolarka. Lista kontrolna i zasady spisywania protokołu usterek.',
+    path: '/odbior-prac/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Odbiór prac`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Lista kontrolna</p>
+  <h1>Odbiór prac remontowych</h1>
+  <p class="lede">Odbiór to nie formalność na koniec, tylko ostatni moment, w którym poprawki są jeszcze po stronie wykonawcy. Po zapłaceniu ostatniej transzy zmieniają się w Twój problem.</p>
+  <p class="section-note">Najlepiej odbierać etapami, a nie wszystko naraz: instalacje przed tynkiem, hydroizolację przed płytkami, wylewkę przed podłogą. Etap zakryty przez następny przestaje być sprawdzalny, a jego poprawa oznacza rozbiórkę tego, co powstało później.</p>
+
+  ${listy.map(([t, p]) => `
+  <h2 style="margin-top:2rem">${t}</h2>
+  <ul class="factors">${p.map((x) => `<li>${x}</li>`).join('')}</ul>`).join('')}
+
+  <h2 style="margin-top:2.2rem">Protokół usterek</h2>
+  <p class="section-note">Spisany na miejscu, z listą punktów i terminem usunięcia, podpisany przez obie strony. Zdjęcia przy każdej pozycji rozstrzygają późniejsze wątpliwości szybciej niż opis. Bez protokołu trudno dowieść, co było zgłoszone, a co pojawiło się później.</p>
+  <p class="section-note">Zatrzymanie części wynagrodzenia do czasu usunięcia usterek jest standardem rynkowym, a nie wyrazem nieufności. Wysokość ustala się w umowie, zwykle jako kilka procent wartości prac.</p>
+
+  <h2 style="margin-top:2.2rem">Czego nie sprawdzisz przy odbiorze</h2>
+  <p class="section-note">Skuteczności hydroizolacji, jakości wykonania instalacji pod tynkiem i tego, czy wylewka była dostatecznie sucha przed ułożeniem podłogi. Te rzeczy ujawniają się po miesiącach i dlatego obejmuje je rękojmia. To także powód, dla którego warto oglądać etapy w trakcie, a nie ufać, że wyjdzie na jaw przy odbiorze.</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Zanim podpiszesz protokół, sprawdź, czy zakres zgadza się z <a href="${R}jak-czytac-kosztorys/">kosztorysem</a>, a warunki odbioru z <a href="${R}umowa-z-ekipa/">umową</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: 'Jak sprawdzić równość ścian przy odbiorze?', acceptedAnswer: { '@type': 'Answer', text: 'Łatą dwumetrową przykładaną w kilku miejscach oraz światłem latarki prowadzonym wzdłuż ściany. Boczne światło ujawnia fale i ślady po szpachlowaniu, których nie widać w oświetleniu górnym.' } },
+        { '@type': 'Question', name: 'Czy można zatrzymać część zapłaty do usunięcia usterek?', acceptedAnswer: { '@type': 'Answer', text: 'Tak, i jest to standard rynkowy. Wysokość zatrzymanej kwoty ustala się w umowie, zwykle jako kilka procent wartości prac, wypłacanych po usunięciu usterek z protokołu.' } },
+        { '@type': 'Question', name: 'Kiedy odbierać poszczególne etapy remontu?', acceptedAnswer: { '@type': 'Answer', text: 'Zanim zakryje je następny etap: instalacje przed tynkowaniem, hydroizolację przed płytkami, wylewkę przed układaniem podłogi. Etap zakryty przestaje być sprawdzalny, a jego poprawa oznacza rozbiórkę późniejszych warstw.' } },
       ],
     },
   });
