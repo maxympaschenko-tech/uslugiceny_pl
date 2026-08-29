@@ -293,7 +293,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 
 /* ---------- strona usługi w mieście ---------- */
 
-export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane = [], meta = {} }) {
+export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane = [], meta = {}, sasiednie = [] }) {
   const p = unitPrice(w.id, city.coef, 1, w.perCm ? 5 : 1);
   const t = p.labour + p.material;
   const base = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
@@ -332,6 +332,22 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
   </div>
 
   ${pytaniaBlock(faq)}
+
+  ${
+    sasiednie.length
+      ? `<h2 style="margin-top:2rem">Inne roboty ${city.loc}</h2>
+<p class="section-note">Ceny z tej samej kategorii, przeliczone na ${city.name}.</p>
+<div class="board-wrap"><table class="board">
+<thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Cena ${city.loc}</th></tr></thead>
+<tbody>${sasiednie
+          .map(
+            (s) => `<tr><td data-v="${s.name}"><a href="${s.url}">${s.name}</a></td>
+<td class="num">${s.unit}</td><td class="num"><b>${money(s.cena)} zł</b></td></tr>`
+          )
+          .join('')}</tbody></table></div>
+<p class="receipt-foot">Pełne zestawienie: <a href="${R}ceny/${city.slug}/">cennik wszystkich robót ${city.loc}</a>.</p>`
+      : ''
+  }
 
   ${powiazaneBlock(powiazane)}
 

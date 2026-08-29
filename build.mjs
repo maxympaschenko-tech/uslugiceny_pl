@@ -752,7 +752,23 @@ for (const cat of categories) {
     for (const city of cities) {
       await write(
         `${cat.slug}/${wSlug}/${city.slug}`,
-        serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane: powiazania[w.id] || [], meta })
+        serviceCityPage({
+          w, cat, city, units, cities, unitPrice, cityOptions,
+          powiazane: powiazania[w.id] || [],
+          meta,
+          sasiednie: works
+            .filter((x) => x.cat === w.cat && x.id !== w.id)
+            .slice(0, 6)
+            .map((x) => {
+              const p = unitPrice(x.id, city.coef, 1, x.perCm ? 5 : 1);
+              return {
+                name: x.name,
+                unit: units[x.unit].name,
+                cena: Math.round(p.labour + p.material),
+                url: `${R}${cat.slug}/${slugify(x.name)}/${city.slug}/`,
+              };
+            }),
+        })
       );
       serviceUrls.push(`/${cat.slug}/${wSlug}/${city.slug}/`);
     }
