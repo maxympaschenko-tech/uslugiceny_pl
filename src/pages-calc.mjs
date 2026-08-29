@@ -187,12 +187,13 @@ export const CALCS = [
     h1: 'Remont balkonu',
     title: `Kalkulator remontu balkonu ${YEAR}: cena za m²`,
     desc: 'Policz koszt remontu balkonu: skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne, obróbki blacharskie i balustrada. Ceny w zł.',
-    lede: 'Na balkonie płaci się za to, czego nie widać. Hydroizolacja i spadki to ułamek kosztu, a ich pominięcie oznacza przeciek do mieszkania poniżej.',
+    lede: 'Na balkonie płaci się za to, czego nie widać. Hydroizolacja i spadki to ułamek kosztu, a ich pominięcie oznacza przeciek do mieszkania poniżej. Nawierzchnię można wybrać: płytki albo deska na legarach.',
     faq: [
       ['Ile kosztuje remont balkonu?', 'Balkon sześciometrowy w standardzie podstawowym zamyka się zwykle w przedziale od pięciu do dziesięciu tysięcy złotych razem z balustradą. Nasze wyliczenie podaje robociznę z materiałami budowlanymi, bez ceny samej balustrady, którą kupuje inwestor.'],
       ['Czy remont balkonu wymaga zgody wspólnoty?', 'Wymiana posadzki i hydroizolacji zwykle nie. Zgoda jest potrzebna, gdy zmienia się wygląd zewnętrzny: kolor balustrady, sposób wykończenia od strony elewacji, zadaszenie albo oszklenie. Warto sprawdzić regulamin wspólnoty przed rozpoczęciem prac.'],
       ['Jakie płytki na balkon?', 'Wyłącznie mrozoodporne, o nasiąkliwości poniżej trzech procent, i antypoślizgowe. Zwykła ceramika z wnętrza pęka po pierwszej zimie. Fugę stosuje się epoksydową, bo cementowa nie znosi zamarzania i soli.'],
       ['Dlaczego balkon przecieka mimo nowych płytek?', 'Bo płytki i fuga nie są szczelne, a warstwą chroniącą strop jest hydroizolacja pod nimi. Sama wymiana okładziny bez izolacji i spadków to najczęstszy i najdroższy błąd przy remoncie balkonu.'],
+      ['Płytki czy deska na balkonie?', 'Deska układana na legarach tworzy taras wentylowany: woda odpływa i odparowuje pod spodem, więc rozwiązanie wybacza drobne błędy w spadkach i jest trwalsze. Wymaga jednak kilku centymetrów wysokości, co przy progu drzwi balkonowych bywa rozstrzygające. Płytki nie podnoszą poziomu, ale nie mają marginesu błędu przy izolacji.'],
     ],
     fields: (opts) => `
       ${field({ name: 'pow', label: 'Powierzchnia balkonu', value: 6, min: 1, max: 60, step: .5, suffix: 'm²' })}
@@ -204,7 +205,12 @@ export const CALCS = [
       <p class="group-title">Zakres</p>
       ${check({ name: 'skucie', label: 'Skucie starej posadzki', checked: true })}
       ${check({ name: 'hydro', label: 'Hydroizolacja ze spadkami', checked: true })}
-      ${check({ name: 'plytki', label: 'Płytki mrozoodporne', checked: true })}
+      ${select({ name: 'nawierzchnia', label: 'Nawierzchnia', options: [
+        { v: 'plytki', t: 'Płytki mrozoodporne', sel: true },
+        { v: 'kompozyt', t: 'Deska kompozytowa na legarach' },
+        { v: 'drewno', t: 'Deska drewniana na legarach' },
+        { v: 'brak', t: 'Bez nawierzchni, sama izolacja' },
+      ] })}
       ${check({ name: 'obrobki', label: 'Obróbki blacharskie i kapinos', checked: true })}
       ${check({ name: 'balustrada', label: 'Montaż balustrady' })}
       ${check({ name: 'malowanie', label: 'Malowanie ścian balkonu farbą elewacyjną' })}`,
@@ -213,7 +219,16 @@ export const CALCS = [
       const kr = v.krawedz || 0;
       if (v.skucie) { add('skucie_balkonu', pow); add('wywoz_gruzu', pow * 0.06); }
       if (v.hydro) add('hydroizolacja_balkonu', pow);
-      if (v.plytki) { add('plytki_mrozoodporne', pow); add('silikonowanie', kr + Math.sqrt(pow) * 2); }
+      if (v.nawierzchnia === 'plytki') {
+        add('plytki_mrozoodporne', pow);
+        add('silikonowanie', kr + Math.sqrt(pow) * 2);
+      } else if (v.nawierzchnia === 'kompozyt') {
+        add('konstrukcja_tarasu', pow);
+        add('deska_kompozytowa', pow);
+      } else if (v.nawierzchnia === 'drewno') {
+        add('konstrukcja_tarasu', pow);
+        add('deska_tarasowa_drewno', pow);
+      }
       if (v.obrobki) add('obrobki_balkonu', kr);
       if (v.balustrada) add('balustrada', kr);
       if (v.malowanie) add('tynk_silikonowy', Math.sqrt(pow) * 2.4);
