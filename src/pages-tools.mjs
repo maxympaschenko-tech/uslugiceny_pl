@@ -7,12 +7,24 @@ const YEAR = new Date().getFullYear();
 
 /* ---------- sprawdzenie oferty wykonawcy ---------- */
 
-export function sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice }) {
+export function sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice, slugify }) {
   const opcje = categories.flatMap((c) =>
     works.filter((w) => w.cat === c.id).map((w) => ({ v: w.id, t: `${c.name}: ${w.name}` }))
   );
+  const catSlug = (id) => categories.find((c) => c.id === id).slug;
   const dane = Object.fromEntries(
-    works.map((w) => [w.id, { name: w.name, unit: units[w.unit].name, labour: w.labour, material: w.material, perCm: !!w.perCm, spread: w.spread ?? 0.18 }])
+    works.map((w) => [
+      w.id,
+      {
+        name: w.name,
+        unit: units[w.unit].name,
+        labour: w.labour,
+        material: w.material,
+        perCm: !!w.perCm,
+        spread: w.spread ?? 0.18,
+        url: `${R}${catSlug(w.cat)}/${slugify(w.name)}/`,
+      },
+    ])
   );
 
   return layout({
@@ -58,6 +70,7 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
         <ul class="rows" data-rows></ul>
         <div class="total"><span class="t-label">Różnica wobec mediany</span><span class="t-val" data-roznica>—</span></div>
         <p class="receipt-foot" data-rada></p>
+        <p class="receipt-foot" data-gdziedalej></p>
       </div>
     </div>
   </div>
@@ -124,6 +137,9 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
     rozn.textContent = (odchylenie > 0 ? '+' : '') + odchylenie + '%';
     rozn.className = 't-val werdykt-' + klasa;
     box.querySelector('[data-rada]').textContent = rada;
+    box.querySelector('[data-gdziedalej]').innerHTML =
+      'Szczegóły tej roboty: <a href="' + w.url + '">' + w.name.toLowerCase() + '</a>. ' +
+      'Wszystkie stawki w wybranym mieście: <a href="' + '${R}ceny/' + v.city + '/">cennik ' + cityName + '</a>.';
     box.querySelector('[data-min]').textContent = F(R(min)) + ' zł';
     box.querySelector('[data-mediana]').textContent = F(R(mediana)) + ' zł';
     box.querySelector('[data-max]').textContent = F(R(max)) + ' zł';

@@ -1027,7 +1027,7 @@ for (const s of staticPages) {
 
 /* ================= narzędzia ================= */
 
-await write('sprawdz-oferte', sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice }));
+await write('sprawdz-oferte', sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice, slugify }));
 await write('szukaj', szukajPage());
 await write('kiedy-remontowac', sezonowoscPage());
 await write('slownik', slownikPage({ byId, categories, units, unitPrice, slugify }));
