@@ -330,7 +330,7 @@ for (const city of cities) {
         .map((w) => {
           const p = unitPrice(w.id, city.coef, 1, 1);
           const tot = p.labour + p.material;
-          return `<tr><td data-v="${w.name}">${w.name}${w.perCm ? ' <span class="qty">za 1 cm grubości</span>' : ''}</td>
+          return `<tr><td data-v="${w.name}"><a href="${R}${cat.slug}/${slugify(w.name)}/${city.slug}/">${w.name}</a>${w.perCm ? ' <span class="qty">za 1 cm grubości</span>' : ''}</td>
 <td class="num" data-v="${units[w.unit].name}">${units[w.unit].name}</td>
 <td class="num" data-v="${p.labour}">${money(Math.round(p.labour))}</td>
 <td class="num" data-v="${p.material}">${p.material ? money(Math.round(p.material)) : 'własny'}</td>
