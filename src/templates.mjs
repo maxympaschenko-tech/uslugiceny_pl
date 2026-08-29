@@ -140,6 +140,7 @@ ${body}
         <ul>
           <li><a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a></li>
           <li><a href="${R}jak-czytac-kosztorys/">Jak czytać kosztorys</a></li>
+          <li><a href="${R}umowa-z-ekipa/">Umowa z ekipą</a></li>
           <li><a href="${R}cennik/">Pełny cennik</a></li>
           <li><a href="${R}porownaj-miasta/">Porównaj dwa miasta</a></li>
           <li><a href="${R}struktura-kosztow/">Robocizna czy materiał</a></li>

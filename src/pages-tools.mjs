@@ -641,3 +641,52 @@ export function jakCzytacPage({ works, units }) {
     },
   });
 }
+
+/* ---------- umowa z wykonawcą ---------- */
+
+export function umowaPage() {
+  const punkty = [
+    ['Zakres i kosztorys jako załącznik', 'Umowa powinna odsyłać do kosztorysu i traktować go jako część dokumentu. Bez tego spór o to, czy gruntowanie było w cenie, sprowadza się do słowa przeciwko słowu. Załącznik z pozycjami, ilościami i stawkami rozstrzyga takie kwestie w minutę.'],
+    ['Wynagrodzenie: ryczałt czy kosztorys', 'Ryczałt to jedna kwota za cały zakres: bezpieczniejszy dla inwestora, ale wykonawca dolicza do niego zapas na niespodzianki. Rozliczenie kosztorysowe płaci się za faktycznie wykonane ilości: uczciwsze, gdy zakres może się zmienić, ale wymaga kontrolowania obmiaru.'],
+    ['Harmonogram i przerwy technologiczne', 'Termin zakończenia bez rozpisania etapów niewiele znaczy przy pracach, w których schnięcie trwa dłużej niż robota. Warto zapisać kamienie milowe: koniec instalacji, koniec prac mokrych, gotowość do układania podłóg.'],
+    ['Zaliczki i płatności etapami', 'Zaliczka na materiał jest normalna, zapłata z góry za całość nie. Bezpieczny układ to płatności po zakończonych etapach, z ostatnią transzą po odbiorze. Wysokość pierwszej zaliczki zwykle odpowiada kosztowi materiałów potrzebnych na start.'],
+    ['Kto kupuje materiał', 'Zapis, który usuwa największe źródło sporów. Jeśli materiał kupuje inwestor, umowa powinna określać, kto odpowiada za braki i przestoje wynikające z dostaw. Jeśli wykonawca, warto ustalić standard, a nie tylko rodzaj.'],
+    ['Kary za zwłokę i odstąpienie', 'Kara umowna działa w obie strony i sama w sobie nie jest oznaką braku zaufania. Warto określić, kiedy nie obowiązuje: opóźnienie z winy inwestora, brak decyzji o materiale, przerwa pogodowa przy pracach zewnętrznych.'],
+    ['Odbiór i usterki', 'Protokół odbioru z listą usterek i terminem ich usunięcia. Bez protokołu trudno później dowieść, co było zgłoszone. Część wynagrodzenia zatrzymana do czasu usunięcia usterek jest standardem, a nie złośliwością.'],
+    ['Gwarancja i rękojmia', 'Rękojmia za wady wynika z przepisów i obejmuje roboty budowlane przez określony czas niezależnie od tego, czy jest w umowie. Gwarancja to dobrowolna deklaracja wykonawcy i warto ją zapisać, razem z tym, co obejmuje.'],
+  ];
+
+  return layout({
+    title: 'Umowa z ekipą remontową: co powinna zawierać',
+    description: 'Na co zwrócić uwagę w umowie z wykonawcą: zakres, ryczałt czy kosztorys, harmonogram, zaliczki, kary, odbiór i gwarancja. Praktyczna lista punktów.',
+    path: '/umowa-z-ekipa/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Umowa z ekipą`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Poradnik</p>
+  <h1>Umowa z ekipą remontową</h1>
+  <p class="lede">Umowa nie służy do tego, żeby kogoś złapać. Służy do tego, żeby obie strony rozumiały zakres tak samo, zanim zacznie się praca.</p>
+  <p class="section-note">Większość sporów przy remoncie nie bierze się ze złej woli, tylko z różnego rozumienia tego samego ustalenia. Poniżej punkty, których brak najczęściej kończy się kłótnią, uszeregowane od najważniejszych.</p>
+
+  <h2 style="margin-top:2rem">Co powinno znaleźć się w umowie</h2>
+  ${punkty.map(([t, o]) => `<h3 style="margin:1.2rem 0 .3rem">${t}</h3><p class="section-note">${o}</p>`).join('')}
+
+  <h2 style="margin-top:2.2rem">Czego nie da się załatwić umową</h2>
+  <p class="section-note">Umowa nie zastąpi wyboru wykonawcy. Nie sprawi, że ekipa bez doświadczenia zrobi hydroizolację poprawnie, ani że dach będzie szczelny, jeśli obróbki wykonano niedbale. Reguluje, co się dzieje, gdy coś pójdzie nie tak, a nie to, czy pójdzie dobrze.</p>
+  <p class="section-note">Nie zastąpi też obecności na budowie. Najtańszy sposób uniknięcia poprawek to obejrzenie każdego etapu, zanim zakryje go następny: instalacji przed tynkiem, hydroizolacji przed płytkami, więźby przed zabudową skosów.</p>
+
+  <h2 style="margin-top:2.2rem">Zanim podpiszesz</h2>
+  <p class="section-note">Sprawdź, czy kwota mieści się w rynkowych widełkach: przelicz ją na jednostkę w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Upewnij się, że kosztorys da się w ogóle porównać z innymi, według listy w poradniku <a href="${R}jak-czytac-kosztorys/">jak czytać kosztorys</a>. I zajrzyj do <a href="${R}poradnik/">kolejności prac</a>, żeby harmonogram w umowie miał sens technologiczny, a nie tylko kalendarzowy.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: 'Ryczałt czy rozliczenie kosztorysowe?', acceptedAnswer: { '@type': 'Answer', text: 'Ryczałt to jedna kwota za cały zakres, bezpieczniejsza dla inwestora, ale wykonawca dolicza do niej zapas na niespodzianki. Rozliczenie kosztorysowe płaci się za faktycznie wykonane ilości, co bywa uczciwsze przy zmiennym zakresie, ale wymaga kontrolowania obmiaru.' } },
+        { '@type': 'Question', name: 'Jaka zaliczka dla ekipy remontowej jest normalna?', acceptedAnswer: { '@type': 'Answer', text: 'Zaliczka na materiał potrzebny na start jest standardem. Zapłata z góry za całość nie. Bezpieczny układ to płatności po zakończonych etapach, z ostatnią transzą po odbiorze i usunięciu usterek.' } },
+        { '@type': 'Question', name: 'Czy wykonawca musi dać gwarancję?', acceptedAnswer: { '@type': 'Answer', text: 'Rękojmia za wady wynika z przepisów i obejmuje roboty budowlane niezależnie od zapisów umowy. Gwarancja jest dobrowolną deklaracją wykonawcy, dlatego warto zapisać w umowie jej długość i zakres.' } },
+      ],
+    },
+  });
+}
