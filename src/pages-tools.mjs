@@ -43,12 +43,16 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
     <div class="panel">
       <h2>Oferta</h2>
       <form id="calc">
-        ${select({ name: 'praca', label: 'Rodzaj roboty', options: opcje })}
+        ${select({
+          name: 'praca',
+          label: 'Rodzaj roboty',
+          options: opcje.map((o) => ({ ...o, sel: o.v === 'plytki_sciana' })),
+        })}
         <div class="fields-2">
           ${field({ name: 'ilosc', label: 'Ilość', value: 20, min: 0.1, step: .5 })}
           ${select({ name: 'city', label: 'Miasto', options: cityOptions })}
         </div>
-        ${field({ name: 'kwota', label: 'Kwota z oferty, całość', value: 3000, min: 0, step: 10, suffix: 'zł' })}
+        ${field({ name: 'kwota', label: 'Kwota z oferty, całość', value: 3200, min: 0, step: 10, suffix: 'zł', hint: 'Wpisz sumę z wyceny za tę pozycję, razem z materiałem, jeśli kupuje go wykonawca.' })}
         ${select({ name: 'zakres', label: 'Co obejmuje oferta', options: [
           { v: 'razem', t: 'Robocizna i materiał', sel: true },
           { v: 'robocizna', t: 'Sama robocizna' },
