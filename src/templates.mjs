@@ -242,7 +242,7 @@ function estimate(W, lines, coef, levelK){
     const p = unitPrice(W, l.id, coef, levelK, l.cm);
     const lb = p.labour * l.qty, mt = p.material * l.qty;
     labour += lb; material += mt;
-    out.push({ id: l.id, cat: w.cat, name: w.name, unit: W.units[w.unit].name, qty: l.qty, labour: lb, material: mt });
+    out.push({ id: l.id, cat: w.cat, name: w.name, unit: W.units[w.unit].name, qty: l.qty, labour: lb, material: mt, url: w.url });
   }
   return { lines: out, labour, material, total: labour + material };
 }
@@ -255,7 +255,8 @@ function drawEstimate(root, W, est, opts){
     if (!rows.length) continue;
     html += '<li class="cat-head"><span>' + cat.name + '</span><span></span></li>';
     for (const l of rows){
-      html += '<li><span class="label"><span>' + l.name +
+      const nazwa = l.url ? '<a href="' + l.url + '">' + l.name + '</a>' : l.name;
+      html += '<li><span class="label"><span>' + nazwa +
         ' <span class="qty">' + F(l.qty) + ' ' + l.unit + '</span></span></span>' +
         '<span class="val">' + F(R(l.labour + l.material)) + '</span></li>';
     }

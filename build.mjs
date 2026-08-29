@@ -27,7 +27,38 @@ const R = SITE.root;
 const YEAR = new Date().getFullYear();
 const { works, categories, units, levels, meta, standardScope } = worksFile;
 const byId = Object.fromEntries(works.map((w) => [w.id, w]));
-const W_JSON = JSON.stringify({ byId, categories, units, levels });
+// Dane dla przegladarki zawieraja tylko to, czego uzywa kalkulator: nazwe,
+// jednostke, stawki i adres strony pozycji. Czynniki cenowe i znaczniki
+// weryfikacji sluza wylacznie generowaniu stron, a w przegladarce byly
+// martwym balastem: same factors to 25 kB w kazdym kalkulatorze.
+const byIdDlaPrzegladarki = Object.fromEntries(
+  Object.entries(byId).map(([id, w]) => {
+    const cat = categories.find((c) => c.id === w.cat);
+    return [
+      id,
+      {
+        id: w.id,
+        cat: w.cat,
+        unit: w.unit,
+        name: w.name,
+        labour: w.labour,
+        material: w.material,
+        ...(w.perCm ? { perCm: true } : {}),
+        ...(w.spread ? { spread: w.spread } : {}),
+        url: `${R}${cat.slug}/${slugify(w.name)}/`,
+      },
+    ];
+  })
+);
+// Kategorie tez odchudzamy: kalkulator potrzebuje tylko nazwy do naglowkow
+// w kosztorysie, a nie kilkuakapitowych opisow i wskazan zrodel.
+const kategorieDlaPrzegladarki = categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug }));
+const W_JSON = JSON.stringify({
+  byId: byIdDlaPrzegladarki,
+  categories: kategorieDlaPrzegladarki,
+  units,
+  levels,
+});
 const CITY_MAP = JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])));
 const cityOptions = cities.map((c) => ({ v: c.slug, t: c.name }));
 
