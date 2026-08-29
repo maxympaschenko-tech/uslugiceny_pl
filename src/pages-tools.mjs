@@ -765,3 +765,68 @@ export function odbiorPage() {
     },
   });
 }
+
+/* ---------- wybór wykonawcy ---------- */
+
+export function wyborEkipyPage() {
+  const sygnaly = [
+    ['Dobry znak', 'Chce obejrzeć miejsce przed wyceną', 'Rzetelna wycena wymaga zobaczenia stanu ścian, podłoża i dostępu. Kwota podana przez telefon po samym metrażu to zgadywanie, które później koryguje się w górę.'],
+    ['Dobry znak', 'Rozpisuje ofertę na pozycje', 'Kosztorys z jednostkami i ilościami oznacza, że wykonawca sam policzył zakres. Jedna kwota za całość bywa uczciwa, ale nie da się jej z niczym porównać.'],
+    ['Dobry znak', 'Mówi, czego nie zrobi', 'Ekipa, która przyznaje, że nie robi hydroizolacji tarasów albo nie bierze się za rąbek stojący, jest wiarygodniejsza niż taka, która robi wszystko.'],
+    ['Dobry znak', 'Pyta o terminy dostaw materiału', 'Znak, że planuje harmonogram, a nie zamierza improwizować. Przy materiale kupowanym przez inwestora to również sygnał, że rozumie ryzyko przestoju.'],
+    ['Sygnał ostrzegawczy', 'Cena wyraźnie poniżej rynku', 'Zwykle oznacza węższy zakres, a nie większą hojność. Przed odrzuceniem droższej oferty warto sprawdzić, co dokładnie zawiera tania: często brakuje w niej przygotowania podłoża albo wywozu gruzu.'],
+    ['Sygnał ostrzegawczy', 'Wysoka zaliczka z góry', 'Zaliczka na materiał jest normalna, przedpłata za całość nie. Ryzyko rośnie, gdy do tego dochodzi presja na szybką decyzję.'],
+    ['Sygnał ostrzegawczy', 'Brak umowy albo niechęć do jej podpisania', 'Umowa chroni obie strony i wykonawca pracujący uczciwie zwykle sam ją proponuje. Argument, że „u nas wszystko na słowo” brzmi sympatycznie do pierwszego sporu.'],
+    ['Sygnał ostrzegawczy', 'Termin od zaraz w sezonie', 'W kwietniu i maju dobre ekipy mają zapełnione kalendarze. Natychmiastowa dostępność w szczycie sezonu nie przesądza o niczym, ale warto wtedy dopytać o realizacje z ostatnich miesięcy.'],
+  ];
+
+  return layout({
+    title: 'Jak wybrać ekipę remontową',
+    description: 'Na co zwrócić uwagę przy wyborze wykonawcy: co świadczy o rzetelności, jakie sygnały powinny niepokoić i o co zapytać przed podpisaniem umowy.',
+    path: '/wybor-ekipy/',
+    breadcrumb: `<a href="${R}">Cennik</a> · Wybór ekipy`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Poradnik</p>
+  <h1>Jak wybrać ekipę remontową</h1>
+  <p class="lede">Wybór wykonawcy wpływa na końcowy koszt bardziej niż stawka za metr. Ta sama robota zrobiona dwa razy kosztuje dwa razy tyle, niezależnie od tego, jak tanio poszła za pierwszym razem.</p>
+  <p class="section-note">Nie prowadzimy rankingu ekip i nie pośredniczymy w zleceniach, więc nikogo tu nie polecamy. Poniżej to, co daje się ocenić samodzielnie, na etapie pierwszej rozmowy i pierwszej oferty.</p>
+
+  <h2 style="margin-top:2rem">Na co patrzeć</h2>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Typ</th><th data-sort="off">Obserwacja</th><th data-sort="off">Dlaczego to ważne</th></tr></thead>
+    <tbody>${sygnaly.map(([typ, obs, dlaczego]) => `<tr>
+      <td><span class="delta ${typ === 'Dobry znak' ? 'down' : 'up'}">${typ}</span></td>
+      <td style="text-align:left;white-space:normal"><b>${obs}</b></td>
+      <td style="text-align:left;white-space:normal">${dlaczego}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>
+
+  <h2 style="margin-top:2.2rem">O co zapytać przy pierwszej rozmowie</h2>
+  <ul class="factors">
+    <li>Czy w cenie jest przygotowanie podłoża, czy zakłada się, że jest gotowe.</li>
+    <li>Kto kupuje materiał i kto odpowiada za braki oraz przestoje z tego wynikające.</li>
+    <li>Ile osób będzie pracować i czy ekipa prowadzi równolegle inne budowy.</li>
+    <li>Jak wygląda harmonogram przy pracach z przerwami technologicznymi.</li>
+    <li>Czy przy odbiorze będzie protokół i jaka część wynagrodzenia zostaje do usunięcia usterek.</li>
+    <li>Co obejmuje gwarancja i na jak długo.</li>
+  </ul>
+
+  <h2 style="margin-top:2.2rem">Ile ofert zebrać</h2>
+  <p class="section-note">Trzy wystarczą, o ile wszystkie dotyczą tego samego zakresu. Zebranie dziesięciu ofert o różnym zakresie daje mniej informacji niż trzy porównywalne. Najprostszy sposób na porównywalność to rozesłanie wszystkim tego samego zestawienia pozycji bez cen, opisanego w poradniku <a href="${R}jak-czytac-kosztorys/">jak czytać kosztorys</a>.</p>
+
+  <h2 style="margin-top:2.2rem">Kolejne kroki</h2>
+  <p class="section-note">Gdy masz już wyceny, porównaj je z rynkiem w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>, ustal warunki według poradnika o <a href="${R}umowa-z-ekipa/">umowie</a>, a przed ostatnią płatnością przejdź <a href="${R}odbior-prac/">listę kontrolną odbioru</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: 'Ile ofert zebrać przed wyborem ekipy?', acceptedAnswer: { '@type': 'Answer', text: 'Trzy wystarczą, pod warunkiem że dotyczą tego samego zakresu. Dziesięć ofert o różnym zakresie daje mniej informacji niż trzy porównywalne, dlatego warto rozesłać wykonawcom identyczne zestawienie pozycji bez cen.' } },
+        { '@type': 'Question', name: 'Czy najtańsza oferta jest zła?', acceptedAnswer: { '@type': 'Answer', text: 'Nie zawsze, ale cena wyraźnie poniżej rynku najczęściej oznacza węższy zakres, a nie większą hojność. Warto sprawdzić, czy zawiera przygotowanie podłoża, wywóz gruzu i materiał, zanim uzna się ją za okazję.' } },
+        { '@type': 'Question', name: 'Czy wykonawca powinien obejrzeć miejsce przed wyceną?', acceptedAnswer: { '@type': 'Answer', text: 'Tak. Rzetelna wycena wymaga zobaczenia stanu ścian, podłoża i warunków dostępu. Kwota podana przez telefon na podstawie samego metrażu to szacunek, który zwykle koryguje się w górę w trakcie prac.' } },
+      ],
+    },
+  });
+}

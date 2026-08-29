@@ -8,7 +8,7 @@ import { layout, estimateSheet, calcScript, field, select, check, money, tytul, 
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage, kalkulatoryIndexPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
-import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, pelnyCennikPage, strukturaKosztowPage, aktualizacjePage, jakCzytacPage, umowaPage, odbiorPage } from './src/pages-tools.mjs';
+import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, pelnyCennikPage, strukturaKosztowPage, aktualizacjePage, jakCzytacPage, umowaPage, odbiorPage, wyborEkipyPage } from './src/pages-tools.mjs';
 import { HASLA, slownikPage } from './src/pages-slownik.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
@@ -199,16 +199,16 @@ await write(
 </div></section>
 
 <section><div class="wrap">
-  <h2>Zanim zadzwonisz po ekipę</h2>
-  <p class="section-note">Cztery rzeczy, które najczęściej decydują o kosztach bardziej niż sama stawka za metr.</p>
-  <div class="cards">
-    <div class="card"><h3><a href="${R}poradnik/">Kolejność prac</a></h3><p>Etap zrobiony nie w porę trzeba powtórzyć. Pięć poradników krok po kroku: mieszkanie, łazienka, dach, elewacja, okna.</p></div>
-    <div class="card"><h3><a href="${R}porownanie/">Co wybrać</a></h3><p>Osiem porównań rozstrzygniętych liczbami: wylewka cementowa czy anhydrytowa, panele czy deska, pompa ciepła czy kocioł.</p></div>
-    <div class="card"><h3><a href="${R}jak-czytac-kosztorys/">Jak czytać ofertę</a></h3><p>Dwie oferty na ten sam remont potrafią różnić się dwukrotnie i obie być uczciwe. Sześć rzeczy, które o tym decydują.</p></div>
-    <div class="card"><h3><a href="${R}umowa-z-ekipa/">Umowa z ekipą</a></h3><p>Osiem punktów, których brak najczęściej kończy się sporem. Ryczałt czy kosztorys, zaliczki, odbiór, gwarancja.</p></div>
-    <div class="card"><h3><a href="${R}odbior-prac/">Odbiór prac</a></h3><p>Lista kontrolna na 48 punktów: ściany, podłogi, łazienka, instalacje i stolarka. Plus zasady protokołu usterek.</p></div>
-    <div class="card"><h3><a href="${R}kiedy-remontowac/">Kiedy zamawiać</a></h3><p>Ta sama robota kosztuje inaczej w maju i w listopadzie. Kalendarz obłożenia ekip miesiąc po miesiącu.</p></div>
-  </div>
+  <h2>Droga od pomysłu do odbioru</h2>
+  <p class="section-note">Sześć etapów, na których o kosztach decyduje coś innego niż stawka za metr. Każdy ma osobny poradnik.</p>
+  <ol class="sciezka">
+    <li><span class="sc-nr">01</span><div><h3><a href="${R}poradnik/">Ustal zakres i kolejność</a></h3><p>Etap zrobiony nie w porę trzeba powtórzyć. Szesnaście poradników krok po kroku, od mieszkania po dach.</p></div></li>
+    <li><span class="sc-nr">02</span><div><h3><a href="${R}porownanie/">Wybierz rozwiązania</a></h3><p>Piętnaście porównań rozstrzygniętych liczbami: wylewka cementowa czy anhydrytowa, panele czy deska, pompa ciepła czy kocioł.</p></div></li>
+    <li><span class="sc-nr">03</span><div><h3><a href="${R}kiedy-remontowac/">Wybierz termin</a></h3><p>Ta sama robota kosztuje inaczej w maju i w listopadzie. Kalendarz obłożenia ekip miesiąc po miesiącu.</p></div></li>
+    <li><span class="sc-nr">04</span><div><h3><a href="${R}wybor-ekipy/">Znajdź wykonawcę</a></h3><p>Co świadczy o rzetelności, jakie sygnały powinny niepokoić i o co zapytać przy pierwszej rozmowie.</p></div></li>
+    <li><span class="sc-nr">05</span><div><h3><a href="${R}jak-czytac-kosztorys/">Porównaj oferty</a></h3><p>Dwie oferty na ten sam remont potrafią różnić się dwukrotnie i obie być uczciwe. Sześć rzeczy, które o tym decydują.</p></div></li>
+    <li><span class="sc-nr">06</span><div><h3><a href="${R}umowa-z-ekipa/">Podpisz umowę i odbierz prace</a></h3><p>Osiem punktów umowy, których brak kończy się sporem, oraz <a href="${R}odbior-prac/">lista kontrolna na 48 punktów</a> do odbioru.</p></div></li>
+  </ol>
 </div></section>
 
 `,
@@ -973,7 +973,8 @@ await write('aktualizacje', aktualizacjePage({ works, meta }));
 await write('jak-czytac-kosztorys', jakCzytacPage({ works, units }));
 await write('umowa-z-ekipa', umowaPage());
 await write('odbior-prac', odbiorPage());
-extraUrls.push('/sprawdz-oferte/', '/szukaj/', '/kiedy-remontowac/', '/slownik/', '/porownaj-miasta/', '/cennik/', '/struktura-kosztow/', '/aktualizacje/', '/jak-czytac-kosztorys/', '/umowa-z-ekipa/', '/odbior-prac/');
+await write('wybor-ekipy', wyborEkipyPage());
+extraUrls.push('/sprawdz-oferte/', '/szukaj/', '/kiedy-remontowac/', '/slownik/', '/porownaj-miasta/', '/cennik/', '/struktura-kosztow/', '/aktualizacje/', '/jak-czytac-kosztorys/', '/umowa-z-ekipa/', '/odbior-prac/', '/wybor-ekipy/');
 
 // Indeks wyszukiwarki: same strony docelowe, bez wariantów miejskich,
 // bo lista 900 pozycji nie pomaga, tylko zasypuje wyniki powtórzeniami.
@@ -1013,6 +1014,7 @@ const indeks = [
   ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
   { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
   { t: 'Porównaj dwa miasta', u: `${R}porownaj-miasta/`, k: 'narzędzie', o: 'Zestaw dwa miasta i zobacz różnicę w stawkach pozycja po pozycji.' },
+  { t: 'Jak wybrać ekipę remontową', u: `${R}wybor-ekipy/`, k: 'poradnik', o: 'Co swiadczy o rzetelnosci wykonawcy i jakie sygnaly powinny niepokoic.' },
   { t: 'Odbiór prac remontowych', u: `${R}odbior-prac/`, k: 'poradnik', o: 'Lista kontrolna: co sprawdzic przy odbiorze i jak spisac protokol.' },
   { t: 'Umowa z ekipą remontową', u: `${R}umowa-z-ekipa/`, k: 'poradnik', o: 'Co powinna zawierac umowa: zakres, harmonogram, zaliczki, odbior, gwarancja.' },
   { t: 'Jak czytać kosztorys', u: `${R}jak-czytac-kosztorys/`, k: 'poradnik', o: 'Co musi byc w kosztorysie, zeby dalo sie go porownac z inna oferta.' },

@@ -139,6 +139,7 @@ ${body}
         <p class="foot-h">Przydatne</p>
         <ul>
           <li><a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a></li>
+          <li><a href="${R}wybor-ekipy/">Jak wybrać ekipę</a></li>
           <li><a href="${R}jak-czytac-kosztorys/">Jak czytać kosztorys</a></li>
           <li><a href="${R}umowa-z-ekipa/">Umowa z ekipą</a></li>
           <li><a href="${R}odbior-prac/">Odbiór prac</a></li>
