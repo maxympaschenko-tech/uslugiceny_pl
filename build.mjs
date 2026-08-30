@@ -439,6 +439,19 @@ for (const city of cities) {
   <p class="eyebrow">Województwo ${city.voivodeship} · współczynnik cen ${city.coef.toFixed(2)}</p>
   <h1>Roboty remontowe ${city.loc}</h1>
   <p class="lede">Remont pod klucz wychodzi tu około ${money(Math.round(std))} zł za m², czyli ${diff === 0 ? 'dokładnie tyle, co średnio w kraju' : diff > 0 ? `o ${diff}% powyżej` : `o ${Math.abs(diff)}% poniżej`} średniej krajowej stawki.</p>
+  ${(() => {
+    // Procent sam w sobie nic nie mowi. Przeliczamy go na mieszkanie 50 m2
+    // i pokazujemy roznice wobec najtanszego miasta w zestawieniu.
+    const najtansze = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+    const tu = Math.round(std * 50);
+    const tam = Math.round(turnkeyPerM2(najtansze.coef, 1) * 50);
+    if (city.slug === najtansze.slug) {
+      const najdrozsze = cities.reduce((a, b) => (a.coef > b.coef ? a : b));
+      const maxKwota = Math.round(turnkeyPerM2(najdrozsze.coef, 1) * 50);
+      return `<p class="section-note">W praktyce: remont mieszkania 50 m² zamyka się tu w kwocie około ${money(tu)} zł, czyli o ${money(maxKwota - tu)} zł mniej niż ${najdrozsze.loc}, gdzie ten sam zakres kosztuje ${money(maxKwota)} zł. To najniższa stawka spośród dziesięciu miast w zestawieniu.</p>`;
+    }
+    return `<p class="section-note">W praktyce: remont mieszkania 50 m² to tutaj około ${money(tu)} zł, a ${najtansze.loc}, gdzie stawki są najniższe w zestawieniu, ten sam zakres kosztuje ${money(tam)} zł. Różnica ${money(Math.abs(tu - tam))} zł bierze się niemal wyłącznie z robocizny: materiały budowlane kosztują w całym kraju podobnie.</p>`;
+  })()}
   ${draftFlag}
   ${(() => {
     const uzyteWMiescie = new Set();
