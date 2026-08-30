@@ -404,7 +404,7 @@ const COEF = ${city.coef};
 
 /* ---------- strona kategorii ---------- */
 
-export function categoryPage({ cat, works, units, unitPrice }) {
+export function categoryPage({ cat, works, units, unitPrice, podlinkuj = (x) => x }) {
   const rows = works
     .map((w) => {
       const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
@@ -427,7 +427,12 @@ export function categoryPage({ cat, works, units, unitPrice }) {
 <section><div class="wrap">
   <h1>${ikona(cat.id)} ${cat.name}</h1>
   <p class="lede">${cat.lead}</p>
-  ${(cat.opis || []).map((a, i) => `<p class="${i === 0 ? 'kat-wstep' : 'section-note'}">${a}</p>`).join('')}
+  ${(() => {
+    const uzyteWKategorii = new Set();
+    return (cat.opis || [])
+      .map((a, i) => `<p class="${i === 0 ? 'kat-wstep' : 'section-note'}">${podlinkuj(a, uzyteWKategorii)}</p>`)
+      .join('');
+  })()}
 
   <h2 style="margin-top:2rem">Stawki w tej kategorii</h2>
   <p class="section-note">Średnie dla Polski razem z materiałem tam, gdzie kupuje go wykonawca. Kliknij pozycję, żeby zobaczyć rozbicie ceny i stawki w miastach.</p>
