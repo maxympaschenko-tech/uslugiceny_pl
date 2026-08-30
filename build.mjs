@@ -62,6 +62,12 @@ const W_JSON = JSON.stringify({
 const CITY_MAP = JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])));
 const cityOptions = cities.map((c) => ({ v: c.slug, t: c.name }));
 
+// Trzy najstarsze kalkulatory sa napisane wprost w tym pliku, poza tablica
+// CALCS (opisane w README jako znany dlug). Liczymy je tutaj, zeby liczba
+// w tresci nie rozjezdzala sie po dodaniu kolejnego.
+const KALKULATORY_WBUDOWANE = ['remont-mieszkania', 'lazienka', 'wylewka'];
+const LICZBA_KALKULATOROW = CALCS.length + KALKULATORY_WBUDOWANE.length;
+
 ustawWersjeStylow(CSS_HASH);
 // Wspolny silnik kalkulatorow trafia do osobnego pliku: powtarzany w kazdej
 // z 1239 stron zajmowal ponad 6 MB w katalogu wynikowym, a przegladarka i tak
@@ -251,7 +257,7 @@ await write(
     <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny i ocieplenie poddasza.</p></div>
     <div class="card"><h3><a href="${R}kalkulator/materialy/">Ile materiału kupić</a></h3><p>Przelicznik z metrów na worki, wiadra i paczki, razem z zapasem na odpad i docinki.</p></div>
   </div>
-  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie ${CALCS.length + 2} kalkulatory</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
+  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie ${LICZBA_KALKULATOROW} kalkulatory</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
 </div></section>
 
 <section><div class="wrap">
