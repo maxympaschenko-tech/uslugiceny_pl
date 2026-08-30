@@ -341,6 +341,26 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
   <p class="eyebrow">${city.name} · województwo ${city.voivodeship}</p>
   <h1>${w.name} ${city.loc}</h1>
   <p class="lede">Stawka ${city.loc} to około ${money(Math.round(t))} zł za ${u}, czyli ${diff === 0 ? 'tyle, ile średnio w kraju' : diff > 0 ? `o ${diff}% powyżej średniej krajowej` : `o ${Math.abs(diff)}% poniżej średniej krajowej`}.</p>
+  ${(() => {
+    // Skad ta roznica: wspolczynnik miejski dziala na robocizne w pelni,
+    // a na material tylko czesciowo, wiec odchylenie zalezy od tego,
+    // ile w danej pozycji jest pracy.
+    const udzialPracy = Math.round((p.labour / (p.labour + p.material)) * 100);
+    const najtansze = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+    const pNaj = unitPrice(w.id, najtansze.coef, 1, w.perCm ? 5 : 1);
+    const kwotaNaj = Math.round(pNaj.labour + pNaj.material);
+    const powod =
+      udzialPracy >= 75
+        ? `Ta pozycja to niemal wyłącznie robocizna (${udzialPracy}%), a stawki ekip różnią się między miastami najmocniej.`
+        : udzialPracy >= 45
+        ? `Robocizna to ${udzialPracy}% tej stawki, więc miasto wpływa na kwotę, ale w umiarkowanym stopniu.`
+        : `Materiał stanowi ${100 - udzialPracy}% kwoty i kosztuje w całym kraju podobnie, dlatego miasto zmienia tu niewiele.`;
+    const porownanie =
+      city.slug === najtansze.slug
+        ? `To najniższa stawka spośród dziesięciu miast w zestawieniu.`
+        : `Najtaniej wychodzi ${najtansze.loc}: ${money(kwotaNaj)} zł.`;
+    return `<p class="section-note">${powod} ${porownanie}</p>`;
+  })()}
   ${priceCard(w, units, t, t * (1 - spread), t * (1 + spread))}
 
   <div class="calc-grid" style="margin-top:1.6rem">
