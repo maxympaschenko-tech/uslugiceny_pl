@@ -408,7 +408,7 @@ export const PORADNIKI = [
   },
 ];
 
-export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify }) {
+export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x }) {
   const kroki = p.kroki.map((k) => {
     if (!k.w) return { ...k, cena: null };
     const w = byId[k.w];
@@ -440,7 +440,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify }) {
       <span class="krok-nr">${String(i + 1).padStart(2, '0')}</span>
       <div class="krok-tresc">
         <h2>${k.t}</h2>
-        <p>${k.txt}</p>
+        <p>${podlinkuj(k.txt)}</p>
         ${k.cena ? `<p class="krok-cena"><a href="${k.link}">${k.nazwa}</a> <b>${money(k.cena)} zł</b> za ${k.jedn}</p>` : '<p class="krok-cena">Etap bez robocizny: koszt zależy od tego, co kupisz.</p>'}
       </div>
     </li>`).join('')}
