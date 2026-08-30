@@ -45,6 +45,32 @@ for u, x in dane.items():
 print('--- martwe odnosniki wewnetrzne:', len(martwe))
 for l, gdzie in list(martwe.items())[:8]: print('   ', l, '<-', len(gdzie), 'stron')
 
+# liczby wpisane w tresc kontra stan faktyczny: obietnica typu
+# "wszystkie 17 kalkulatorow" psuje sie po cichu przy kazdym dodaniu strony
+import json as _json
+_dane = _json.load(open('src/data/works.json', encoding='utf-8'))
+_fakty = {
+    'kalkulatory': len(glob.glob('dist/kalkulator/*/index.html')),
+    'poradniki': len(glob.glob('dist/poradnik/*/index.html')) - 1,
+    'porownania': len(glob.glob('dist/porownanie/*/index.html')) - 1,
+    'pozycje': len(_dane['works']),
+    'kategorie': len(_dane['categories']),
+}
+_wzory = [
+    (r'wszystkie (\d+) kalkulator', 'kalkulatory'),
+    (r'(\d+) pozycji w (\d+) kategoriach', 'pozycje'),
+]
+_rozbieznosci = []
+for f in strony:
+    h = open(f, encoding='utf-8').read()
+    for wzor, klucz in _wzory:
+        for m in re.finditer(wzor, h):
+            if int(m.group(1)) != _fakty[klucz]:
+                _rozbieznosci.append(f"{f[5:]}: \"{m.group(0)}\" a jest {_fakty[klucz]}")
+print('--- liczby w tresci niezgodne ze stanem:', len(_rozbieznosci))
+for r in _rozbieznosci[:5]:
+    print('   ', r)
+
 # waga stron: budzet pilnuje, zeby kolejne sekcje nie rozdely dokumentu
 import os
 ciezkie = [(u, round(os.path.getsize(f)/1024)) for f, u in
