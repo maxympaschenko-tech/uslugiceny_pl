@@ -7,7 +7,7 @@ const YEAR = new Date().getFullYear();
 
 /* ---------- sprawdzenie oferty wykonawcy ---------- */
 
-export function sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice, slugify }) {
+export function sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice, slugify, turnkeyPerM2, levels }) {
   const opcje = categories.flatMap((c) =>
     works.filter((w) => w.cat === c.id).map((w) => ({ v: w.id, t: `${c.name}: ${w.name}` }))
   );
@@ -79,6 +79,25 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
     </div>
   </div>
 
+  <h2 style="margin-top:2.5rem">Albo sprawdź całą wycenę</h2>
+  <p class="section-note">Jeśli ekipa podała jedną kwotę za cały remont mieszkania, porównaj ją z naszym wyliczeniem dla tego metrażu. Zakres standardowy obejmuje demontaże i wywóz gruzu, tynki i gładzie, wylewkę, podłogi, płytki w strefach mokrych, instalację elektryczną, biały montaż i drzwi.</p>
+
+  <div class="panel" style="margin-top:1.2rem">
+    <form id="calosc">
+      <div class="fields-2">
+        ${field({ name: 'metraz', label: 'Powierzchnia mieszkania', value: 50, min: 10, max: 300, suffix: 'm²' })}
+        ${field({ name: 'suma', label: 'Kwota z wyceny, całość', value: 60000, min: 0, step: 500, suffix: 'zł' })}
+      </div>
+      <div class="fields-2">
+        ${select({ name: 'miasto2', label: 'Miasto', options: cityOptions })}
+        ${select({ name: 'poziom', label: 'Standard', options: (levels || []).map((l) => ({ v: l.id, t: l.name, sel: l.id === 'standard' })) })}
+      </div>
+    </form>
+    <div class="total"><span class="t-label">Ocena całej wyceny</span><span class="t-val" data-werdykt2>—</span></div>
+    <ul class="rows" data-rows2></ul>
+    <p class="receipt-foot" data-rada2></p>
+  </div>
+
   <h2 style="margin-top:2.5rem">Jak czytać wynik</h2>
   <h3 style="margin:1.2rem 0 .3rem">Poniżej widełek</h3>
   <p class="section-note">Bardzo niska cena rzadko oznacza okazję. Najczęściej z zakresu wypadł jakiś etap: gruntowanie, wywóz gruzu albo przygotowanie podłoża. Zanim się ucieszysz, poproś o rozpisanie oferty pozycja po pozycji i sprawdź, czego w niej nie ma.</p>
@@ -97,6 +116,14 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
       ],
     },
     script: `const DANE = ${JSON.stringify(dane)};
+const POD_KLUCZ = ${JSON.stringify(
+  Object.fromEntries(
+    cities.map((c) => [
+      c.slug,
+      Object.fromEntries((levels || []).map((l) => [l.id, Math.round(turnkeyPerM2(c.coef, l.k))])),
+    ])
+  )
+)};
 const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
 (function(){
   const f = document.getElementById('calc');
@@ -154,6 +181,37 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
     f.parentElement.querySelector('[data-jednostka]').textContent =
       'Mediana dla tej roboty ' + (v.zakres === 'robocizna' ? '(sama robocizna)' : '(z materiałem)') +
       ': ' + F(R(jedn)) + ' zł za ' + w.unit + '.';
+  });
+})();
+
+(function(){
+  const f = document.getElementById('calosc');
+  if (!f) return;
+  const werdykt = document.querySelector('[data-werdykt2]');
+  const rows = document.querySelector('[data-rows2]');
+  const rada = document.querySelector('[data-rada2]');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const [, nazwa] = CITIES[v.miasto2];
+    const zaM2 = (POD_KLUCZ[v.miasto2] || {})[v.poziom] || 0;
+    const mediana = zaM2 * (v.metraz || 0);
+    const dolna = mediana * 0.85, gorna = mediana * 1.15;
+    const oferta = v.suma || 0;
+    const odchylenie = mediana ? Math.round((oferta / mediana - 1) * 100) : 0;
+
+    rows.innerHTML =
+      '<li><span class="label"><span>Wycena od ekipy</span></span><span class="val">' + F(R(oferta)) + '</span></li>' +
+      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² w ' + nazwa + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
+      '<li><span class="label"><span>Widełki rynkowe</span></span><span class="val">' + F(R(dolna)) + ' – ' + F(R(gorna)) + '</span></li>';
+
+    werdykt.textContent = (odchylenie > 0 ? '+' : '') + odchylenie + '%';
+    werdykt.className = 't-val ' + (oferta < dolna ? 'werdykt-nisko' : oferta > gorna ? 'werdykt-wysoko' : 'werdykt-ok');
+    rada.textContent =
+      oferta < dolna
+        ? 'Kwota poniżej widełek. Zapytaj wprost, czego nie obejmuje: najczęściej brakuje wywozu gruzu, przygotowania podłoża albo materiału po stronie wykonawcy.'
+        : oferta > gorna
+        ? 'Kwota powyżej widełek. To bywa uzasadnione zakresem szerszym niż standardowy albo terminem na już, ale warto poprosić o rozpisanie na pozycje.'
+        : 'Kwota mieści się w widełkach dla tego metrażu i miasta. Przy porównywaniu ofert liczy się teraz zakres, a nie sama suma.';
   });
 })();`,
   });
@@ -361,6 +419,37 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
       : roznica > 0 ? nb + ' jest droższe od miasta ' + na + ' o ' + roznica + '% w robociźnie.'
       : nb + ' jest tańsze od miasta ' + na + ' o ' + Math.abs(roznica) + '% w robociźnie.';
   });
+})();
+
+(function(){
+  const f = document.getElementById('calosc');
+  if (!f) return;
+  const werdykt = document.querySelector('[data-werdykt2]');
+  const rows = document.querySelector('[data-rows2]');
+  const rada = document.querySelector('[data-rada2]');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const [, nazwa] = CITIES[v.miasto2];
+    const zaM2 = (POD_KLUCZ[v.miasto2] || {})[v.poziom] || 0;
+    const mediana = zaM2 * (v.metraz || 0);
+    const dolna = mediana * 0.85, gorna = mediana * 1.15;
+    const oferta = v.suma || 0;
+    const odchylenie = mediana ? Math.round((oferta / mediana - 1) * 100) : 0;
+
+    rows.innerHTML =
+      '<li><span class="label"><span>Wycena od ekipy</span></span><span class="val">' + F(R(oferta)) + '</span></li>' +
+      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² w ' + nazwa + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
+      '<li><span class="label"><span>Widełki rynkowe</span></span><span class="val">' + F(R(dolna)) + ' – ' + F(R(gorna)) + '</span></li>';
+
+    werdykt.textContent = (odchylenie > 0 ? '+' : '') + odchylenie + '%';
+    werdykt.className = 't-val ' + (oferta < dolna ? 'werdykt-nisko' : oferta > gorna ? 'werdykt-wysoko' : 'werdykt-ok');
+    rada.textContent =
+      oferta < dolna
+        ? 'Kwota poniżej widełek. Zapytaj wprost, czego nie obejmuje: najczęściej brakuje wywozu gruzu, przygotowania podłoża albo materiału po stronie wykonawcy.'
+        : oferta > gorna
+        ? 'Kwota powyżej widełek. To bywa uzasadnione zakresem szerszym niż standardowy albo terminem na już, ale warto poprosić o rozpisanie na pozycje.'
+        : 'Kwota mieści się w widełkach dla tego metrażu i miasta. Przy porównywaniu ofert liczy się teraz zakres, a nie sama suma.';
+  });
 })();`,
   });
 }
@@ -430,6 +519,37 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
   });
   bindSheetActions(document.querySelector('.panel'));
   document.querySelectorAll('table.board').forEach(bindSort);
+})();
+
+(function(){
+  const f = document.getElementById('calosc');
+  if (!f) return;
+  const werdykt = document.querySelector('[data-werdykt2]');
+  const rows = document.querySelector('[data-rows2]');
+  const rada = document.querySelector('[data-rada2]');
+  bindForm(f, () => {
+    const v = readForm(f);
+    const [, nazwa] = CITIES[v.miasto2];
+    const zaM2 = (POD_KLUCZ[v.miasto2] || {})[v.poziom] || 0;
+    const mediana = zaM2 * (v.metraz || 0);
+    const dolna = mediana * 0.85, gorna = mediana * 1.15;
+    const oferta = v.suma || 0;
+    const odchylenie = mediana ? Math.round((oferta / mediana - 1) * 100) : 0;
+
+    rows.innerHTML =
+      '<li><span class="label"><span>Wycena od ekipy</span></span><span class="val">' + F(R(oferta)) + '</span></li>' +
+      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² w ' + nazwa + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
+      '<li><span class="label"><span>Widełki rynkowe</span></span><span class="val">' + F(R(dolna)) + ' – ' + F(R(gorna)) + '</span></li>';
+
+    werdykt.textContent = (odchylenie > 0 ? '+' : '') + odchylenie + '%';
+    werdykt.className = 't-val ' + (oferta < dolna ? 'werdykt-nisko' : oferta > gorna ? 'werdykt-wysoko' : 'werdykt-ok');
+    rada.textContent =
+      oferta < dolna
+        ? 'Kwota poniżej widełek. Zapytaj wprost, czego nie obejmuje: najczęściej brakuje wywozu gruzu, przygotowania podłoża albo materiału po stronie wykonawcy.'
+        : oferta > gorna
+        ? 'Kwota powyżej widełek. To bywa uzasadnione zakresem szerszym niż standardowy albo terminem na już, ale warto poprosić o rozpisanie na pozycje.'
+        : 'Kwota mieści się w widełkach dla tego metrażu i miasta. Przy porównywaniu ofert liczy się teraz zakres, a nie sama suma.';
+  });
 })();`,
   });
 }
