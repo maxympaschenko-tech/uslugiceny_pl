@@ -114,9 +114,26 @@ const pytania = ({ w, units, kwota, jednostka, gdzie, min, max }) => {
     ],
     [
       'Czy w tej cenie jest materiał?',
-      w.material
-        ? 'Tak, podana kwota obejmuje robociznę i materiał w standardzie średnim. Wykonawcy dzielą tę sumę różnie, dlatego przy porównywaniu ofert warto pytać wprost, co obejmuje stawka za jednostkę.'
-        : 'Nie. Tę pozycję rozlicza się wyłącznie za robociznę, bo materiał albo urządzenie kupuje zwykle inwestor. Przy porównywaniu ofert sprawdź, czy druga strona nie wliczyła materiału w stawkę.',
+      (() => {
+        // Odpowiedz oparta na liczbach tej konkretnej pozycji, a nie jedno
+        // zdanie powtorzone na kazdej stronie: przy 781 pozycjach identyczny
+        // tekst wyglada jak wypelniacz, a nie jak odpowiedz.
+        if (!w.material) {
+          return `Nie, ${money(Math.round(kwota))} zł za ${jednostka} to sama robocizna. ${
+            w.unit === 'szt' || w.unit === 'pkt'
+              ? 'Urządzenie albo osprzęt kupuje inwestor i jego cena zależy wyłącznie od wybranego modelu.'
+              : 'Materiał kupuje inwestor, więc jego koszt dochodzi do tej kwoty osobno.'
+          } Przy porównywaniu ofert sprawdź, czy druga strona nie wliczyła materiału do stawki: to najczęstsza przyczyna pozornie ogromnych różnic między wycenami.`;
+        }
+        const udzialMat = Math.round((w.material * (w.perCm ? 5 : 1)) / kwota * 100);
+        const opisUdzialu =
+          udzialMat >= 60
+            ? `Materiał to większość tej kwoty, około ${udzialMat}%, więc o cenie decyduje przede wszystkim wybrana półka produktu.`
+            : udzialMat >= 30
+            ? `Materiał stanowi około ${udzialMat}% kwoty, reszta to robocizna.`
+            : `Materiał to tylko około ${udzialMat}% kwoty, więc niemal całość stanowi praca.`;
+        return `Tak, ${money(Math.round(kwota))} zł za ${jednostka} obejmuje robociznę i materiał w standardzie średnim. ${opisUdzialu} Wykonawcy dzielą tę sumę różnie, dlatego przy porównywaniu ofert warto pytać wprost, co obejmuje stawka.`;
+      })(),
     ],
   ];
   if (w.factors && w.factors[0]) {
