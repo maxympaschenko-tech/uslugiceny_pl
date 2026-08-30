@@ -2,9 +2,11 @@
 # dane cennika, wygenerowane strony, dane strukturalne i dostepnosc.
 name: Build check
 
+
 on:
   pull_request:
   workflow_dispatch:
+
 
 jobs:
   check:
@@ -15,11 +17,14 @@ jobs:
         with:
           node-version: 22
 
+
       - name: Spojnosc danych cennika
         run: python3 kontrola-danych.py
 
+
       - name: Budowanie
         run: node build.mjs
+
 
       - name: Tylko polski w wygenerowanych stronach
         run: |
@@ -29,14 +34,18 @@ jobs:
           fi
           echo "OK, wylacznie polski"
 
+
       - name: Dane strukturalne
         run: python3 kontrola-schematow.py
+
 
       - name: Dostepnosc
         run: python3 kontrola-dostepnosci.py
 
+
       - name: Audyt metadanych i odnosnikow
         run: python3 audyt.py | tee /tmp/wynik.txt
+
 
       - name: Progi jakosci
         run: |
@@ -50,6 +59,8 @@ jobs:
           sprawdz "tytuly dluzsze niz 65 znakow" 0
           sprawdz "strony bez dokladnie jednego H1" 0
           sprawdz "martwe odnosniki wewnetrzne" 0
+          sprawdz "liczby w tresci niezgodne ze stanem" 0
           sprawdz "strony ciezsze niz 120 kB" 0
           sprawdz "strony bez linkow przychodzacych" 1
           exit $fail
+
