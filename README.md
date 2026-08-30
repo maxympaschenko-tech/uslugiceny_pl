@@ -25,6 +25,21 @@ Zmienne środowiskowe:
 
 Domyślnie `SITE_URL` to `https://uslugiceny.pl`, więc lokalnie nic nie trzeba ustawiać.
 
+## Powtarzalność treści
+
+Przy tysiącu stron z jednego szablonu łatwo nie zauważyć, że jakieś zdanie stoi
+identycznie na kilkuset z nich. `narzedzia/powtorzenia.py` pokazuje listę
+najczęściej powtarzanych zdań razem z tym, na ilu procentach stron występują.
+
+Zasada, według której oceniam wynik: **rada może się powtarzać, opis pozycji nie**.
+Zdanie o tym, jak porównywać oferty, jest takie samo dla wylewki i dla montażu
+wanny, bo dotyczy sposobu czytania kosztorysu. Zdanie o tym, co obejmuje stawka,
+musi być liczone z danych tej pozycji, inaczej nie mówi nic o żadnej z nich.
+
+Tak powstały odpowiedzi podające kwotę i udział materiału zamiast jednego zdania
+powtórzonego 781 razy oraz wyjaśnienie różnicy między miastami z konkretną
+rozpiętością zamiast tego samego tekstu na 340 stronach.
+
 ## Znak marki
 
 Trzy słupki jako poziomy standardu: ekonomiczny, standardowy i premium, środkowy
@@ -168,6 +183,21 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
+
+## Powtarzalność treści
+
+Przy tysiącu stron z jednego szablonu łatwo nie zauważyć, że jakieś zdanie stoi
+identycznie na kilkuset z nich. `narzedzia/powtorzenia.py` pokazuje listę
+najczęściej powtarzanych zdań razem z tym, na ilu procentach stron występują.
+
+Zasada, według której oceniam wynik: **rada może się powtarzać, opis pozycji nie**.
+Zdanie o tym, jak porównywać oferty, jest takie samo dla wylewki i dla montażu
+wanny, bo dotyczy sposobu czytania kosztorysu. Zdanie o tym, co obejmuje stawka,
+musi być liczone z danych tej pozycji, inaczej nie mówi nic o żadnej z nich.
+
+Tak powstały odpowiedzi podające kwotę i udział materiału zamiast jednego zdania
+powtórzonego 781 razy oraz wyjaśnienie różnicy między miastami z konkretną
+rozpiętością zamiast tego samego tekstu na 340 stronach.
 
 ## Znak marki
 
