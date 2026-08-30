@@ -98,13 +98,36 @@ export function slownikPage({ byId, categories, units, unitPrice, slugify }) {
   <p class="eyebrow">${HASLA.length} haseł</p>
   <h1>Słownik pojęć</h1>
   <p class="lede">Oferta od ekipy bywa napisana językiem, którego inwestor nie musi znać. Tu tłumaczymy pojęcia, które najczęściej pojawiają się w kosztorysach.</p>
-  <div class="city-links" style="margin:1.4rem 0 2rem">${HASLA.map(([t, id]) => `<a href="#${id}">${t}</a>`).join('')}</div>
-  ${HASLA.map(([t, id, opis, wid]) => `
-  <div class="haslo" id="${id}">
-    <h2>${t}</h2>
+  ${(() => {
+    const posortowane = [...HASLA].sort((a, b) => a[0].localeCompare(b[0], 'pl'));
+    const litery = new Map();
+    for (const h of posortowane) {
+      const l = h[0][0].toUpperCase();
+      if (!litery.has(l)) litery.set(l, []);
+      litery.get(l).push(h);
+    }
+    // litery tez trzeba posortowac po polsku, inaczej S trafia na koniec
+    const kolejnosc = [...litery.keys()].sort((a, b) => a.localeCompare(b, 'pl'));
+    const pasek = `<nav class="alfabet" aria-label="Skocz do litery">${kolejnosc
+      .map((l) => `<a href="#litera-${l}">${l}</a>`)
+      .join('')}</nav>`;
+    const sekcje = kolejnosc
+      .map((l) => [l, litery.get(l)])
+      .map(
+        ([l, poz]) => `<h2 class="litera" id="litera-${l}">${l}</h2>
+${poz
+          .map(
+            ([t, id, opis, wid]) => `  <div class="haslo" id="${id}">
+    <h3>${t}</h3>
     <p>${opis}</p>
     ${link(wid)}
-  </div>`).join('')}
+  </div>`
+          )
+          .join('')}`
+      )
+      .join('');
+    return pasek + sekcje;
+  })()}
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',

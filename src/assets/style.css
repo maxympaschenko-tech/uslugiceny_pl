@@ -811,3 +811,24 @@ ol.sciezka p { margin: 0; font-size: var(--step--1); color: var(--ink-soft); max
   border-bottom: 1px dotted var(--ink-soft);
 }
 .haslo-link:hover { border-bottom-color: var(--ink); }
+
+/* ---------- pasek alfabetu w slowniku ---------- */
+
+.alfabet {
+  display: flex; flex-wrap: wrap; gap: .3rem;
+  margin: 1.4rem 0 2rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.alfabet a {
+  font-family: var(--f-mono); font-size: var(--step--1);
+  min-width: 2.1rem; padding: .35rem .5rem; text-align: center;
+  border: 1px solid var(--line); border-radius: var(--r-s);
+  text-decoration: none; color: var(--ink);
+}
+.alfabet a:hover { border-color: var(--ink); background: var(--surface); }
+h2.litera {
+  font-family: var(--f-mono); font-size: var(--step-1);
+  color: var(--ink-soft); margin: 2.2rem 0 .8rem;
+  padding-bottom: .3rem; border-bottom: 2px solid var(--signal);
+  scroll-margin-top: 1rem;
+}
