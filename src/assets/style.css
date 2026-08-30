@@ -832,3 +832,13 @@ h2.litera {
   padding-bottom: .3rem; border-bottom: 2px solid var(--signal);
   scroll-margin-top: 1rem;
 }
+
+/* ---------- znak marki ---------- */
+
+.brand { display: inline-flex; align-items: center; gap: .55rem; }
+.brand .znak { flex: none; color: var(--ink); border-radius: 7px; }
+.site-foot .brand .znak { color: #fff; }
+.brand-tekst { display: inline-flex; }
+@media (max-width: 26rem) {
+  .brand-tekst { font-size: var(--step--1); }
+}

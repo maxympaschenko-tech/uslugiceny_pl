@@ -17,6 +17,13 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 /* ---------- szkielet strony ---------- */
 
+export const ZNAK = (rozmiar = 30) => `<svg class="znak" width="${rozmiar}" height="${rozmiar}" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+<rect width="48" height="48" rx="9" fill="currentColor"/>
+<rect x="11" y="27" width="7" height="11" rx="2" fill="#fff"/>
+<rect x="20.5" y="20" width="7" height="18" rx="2" fill="#FFC93D"/>
+<rect x="30" y="13" width="7" height="25" rx="2" fill="#fff"/>
+</svg>`;
+
 export let CSS_V = '';
 export const ustawWersjeStylow = (v) => { CSS_V = v; };
 export let JS_V = '';
@@ -96,7 +103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="${R}">uslugiceny<span>.pl</span></a>
+    <a class="brand" href="${R}">${ZNAK(30)}<span class="brand-tekst">uslugiceny<span>.pl</span></span></a>
     <details class="menu">
       <summary aria-label="Menu"><span class="menu-kreski"></span><span class="menu-napis">Menu</span></summary>
       <nav class="nav">
@@ -118,7 +125,7 @@ ${body}
   <div class="wrap">
     <div class="foot-siatka">
       <div class="foot-marka">
-        <a class="brand" href="${R}">uslugiceny<span>.pl</span></a>
+        <a class="brand" href="${R}">${ZNAK(30)}<span class="brand-tekst">uslugiceny<span>.pl</span></span></a>
         <p>Stawki robót remontowych i budowlanych z podziałem na robociznę i materiał. Bez pośrednictwa w zleceniach i bez płatnych miejsc w rankingach.</p>
       </div>
       <div>
