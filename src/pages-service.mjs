@@ -214,7 +214,30 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
   </div>
 
   <h2 style="margin-top:2rem">Ceny w miastach</h2>
-  <p class="section-note">Stawki dla standardowego zakresu, posortowane od najtańszego miasta. Kliknij nazwę, żeby zobaczyć stronę miasta.</p>
+  ${(() => {
+    // Wniosek liczony z danych: sam wykres pokazuje slupki, ale nie mowi,
+    // czy roznica miedzy miastami jest w tej robocie duza, czy pomijalna.
+    // Uzywamy gotowego miejscownika z danych miast: "w Bialymstoku",
+    // a nie sklejanego "w miescie Bialystok".
+    const kwoty = cities.map((c) => {
+      const p = unitPrice(w.id, c.coef, 1, w.perCm ? 5 : 1);
+      return { loc: c.loc, kwota: p.labour + p.material };
+    });
+    const naj = kwoty.reduce((a, b) => (a.kwota < b.kwota ? a : b));
+    const max = kwoty.reduce((a, b) => (a.kwota > b.kwota ? a : b));
+    const roznica = Math.round((max.kwota / naj.kwota - 1) * 100);
+    const udzialPracy = Math.round((base.labour / (base.labour + base.material)) * 100);
+    // Rozrzut miedzy miastami wynika wprost z udzialu robocizny: wspolczynnik
+    // miejski dziala na prace w pelni, a na material tylko w niewielkim stopniu.
+    // Dlatego komentarz opisuje przyczyne, a nie sam skutek.
+    const komentarz =
+      udzialPracy >= 75
+        ? `Cała stawka albo jej większość to robocizna (${udzialPracy}%), a ta różni się między miastami najmocniej. Przy takich pozycjach lokalizacja waży najwięcej.`
+        : udzialPracy >= 45
+        ? `Robocizna to ${udzialPracy}% stawki, reszta to materiał kosztujący w całym kraju podobnie. Stąd umiarkowana różnica między miastami.`
+        : `Materiał stanowi ${100 - udzialPracy}% kwoty i kosztuje wszędzie podobnie, dlatego miasto zmienia tu niewiele. Większy wpływ ma wybrany produkt.`;
+    return `<p class="section-note">Od ${money(Math.round(naj.kwota))} zł ${naj.loc} do ${money(Math.round(max.kwota))} zł ${max.loc}, czyli różnica ${roznica}%. ${komentarz} Kliknij nazwę miasta, żeby zobaczyć jego pełny cennik.</p>`;
+  })()}
   ${slupkiMiast(
     [...cities]
       .map((c) => {
