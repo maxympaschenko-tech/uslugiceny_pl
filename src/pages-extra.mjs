@@ -302,7 +302,7 @@ export const POROWNANIA = [
   },
 ];
 
-export function porownaniePage({ p, byId, units, unitPrice, sourceFlag }) {
+export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {
   const pa = unitPrice(p.a, 1, 1, p.cm || 1);
   const pb = unitPrice(p.b, 1, 1, p.cm || 1);
   const wa = byId[p.a], wb = byId[p.b];
@@ -322,7 +322,7 @@ export function porownaniePage({ p, byId, units, unitPrice, sourceFlag }) {
     body: `
 <section><div class="wrap">
   <h1>${p.h1}?</h1>
-  <p class="lede">${p.lede}</p>
+  <p class="lede">${podlinkuj(p.lede)}</p>
   ${sourceFlag}
 
   <h2 style="margin-top:2rem">Różnica w cenie</h2>
@@ -345,7 +345,7 @@ export function porownaniePage({ p, byId, units, unitPrice, sourceFlag }) {
   </div>
 
   <h2 style="margin-top:2rem">Co wybrać</h2>
-  <p class="section-note">${p.werdykt}</p>
+  <p class="section-note">${podlinkuj(p.werdykt)}</p>
   <p class="receipt-foot">Ceny w miastach: <a href="${R}${byIdCat(byId, p.a)}/${slug(wa.name)}/">${wa.name}</a> i <a href="${R}${byIdCat(byId, p.b)}/${slug(wb.name)}/">${wb.name}</a>.</p>
 </div></section>`,
     jsonLd: {

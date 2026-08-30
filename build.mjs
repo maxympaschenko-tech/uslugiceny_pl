@@ -97,6 +97,42 @@ const write = async (path, html) => {
   zapisane++;
 };
 
+// Hasla posortowane od najdluzszych, zeby "plytka mrozoodporna" wygralo
+// z "plytka", a nie odwrotnie.
+const HASLA_DO_LINKOWANIA = [...HASLA]
+  .map(([nazwa, id]) => [nazwa, id])
+  .sort((a, b) => b[0].length - a[0].length);
+
+const podlinkujHasla = (html, uzyte = new Set()) => {
+  // dzielimy na fragmenty tekstu i znaczniki, zeby nie ruszac atrybutow
+  const czesci = html.split(/(<[^>]+>)/);
+  let wOdnosniku = 0;
+  return czesci
+    .map((cz) => {
+      if (cz.startsWith('<')) {
+        if (/^<a[\s>]/i.test(cz)) wOdnosniku++;
+        else if (/^<\/a>/i.test(cz)) wOdnosniku = Math.max(0, wOdnosniku - 1);
+        return cz;
+      }
+      if (wOdnosniku > 0) return cz;
+      let tekst = cz;
+      for (const [nazwa, id] of HASLA_DO_LINKOWANIA) {
+        if (uzyte.has(id)) continue;
+        const wzor = new RegExp(`(^|[^\\p{L}])(${nazwa.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&')})(?![\\p{L}])`, 'iu');
+        const m = tekst.match(wzor);
+        if (!m) continue;
+        uzyte.add(id);
+        tekst =
+          tekst.slice(0, m.index) +
+          m[1] +
+          `<a href="${R}slownik/#${id}" class="haslo-link">${m[2]}</a>` +
+          tekst.slice(m.index + m[0].length);
+      }
+      return tekst;
+    })
+    .join('');
+};
+
 /* ---------- ten sam silnik po stronie serwera ---------- */
 
 const unitPrice = (id, coef, k, cm) => {
@@ -865,7 +901,15 @@ extraUrls.push('/kalkulatory/', '/koszty/');
 await write('porownanie', porownaniaIndex(POROWNANIA));
 extraUrls.push('/porownanie/');
 for (const p of POROWNANIA) {
-  await write(`porownanie/${p.slug}`, porownaniePage({ p, byId, units, unitPrice, sourceFlag: draftFlag }));
+  const uzyteWPorownaniu = new Set();
+  await write(
+    `porownanie/${p.slug}`,
+    porownaniePage({
+      p, byId, units, unitPrice,
+      sourceFlag: draftFlag,
+      podlinkuj: (txt) => podlinkujHasla(txt, uzyteWPorownaniu),
+    })
+  );
   extraUrls.push(`/porownanie/${p.slug}/`);
 }
 
@@ -935,41 +979,6 @@ for (const pk of POKOJE) {
 
 /* ================= poradniki ================= */
 
-// Hasla posortowane od najdluzszych, zeby "plytka mrozoodporna" wygralo
-// z "plytka", a nie odwrotnie.
-const HASLA_DO_LINKOWANIA = [...HASLA]
-  .map(([nazwa, id]) => [nazwa, id])
-  .sort((a, b) => b[0].length - a[0].length);
-
-const podlinkujHasla = (html, uzyte = new Set()) => {
-  // dzielimy na fragmenty tekstu i znaczniki, zeby nie ruszac atrybutow
-  const czesci = html.split(/(<[^>]+>)/);
-  let wOdnosniku = 0;
-  return czesci
-    .map((cz) => {
-      if (cz.startsWith('<')) {
-        if (/^<a[\s>]/i.test(cz)) wOdnosniku++;
-        else if (/^<\/a>/i.test(cz)) wOdnosniku = Math.max(0, wOdnosniku - 1);
-        return cz;
-      }
-      if (wOdnosniku > 0) return cz;
-      let tekst = cz;
-      for (const [nazwa, id] of HASLA_DO_LINKOWANIA) {
-        if (uzyte.has(id)) continue;
-        const wzor = new RegExp(`(^|[^\\p{L}])(${nazwa.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&')})(?![\\p{L}])`, 'iu');
-        const m = tekst.match(wzor);
-        if (!m) continue;
-        uzyte.add(id);
-        tekst =
-          tekst.slice(0, m.index) +
-          m[1] +
-          `<a href="${R}slownik/#${id}" class="haslo-link">${m[2]}</a>` +
-          tekst.slice(m.index + m[0].length);
-      }
-      return tekst;
-    })
-    .join('');
-};
 
 const catSlug = (id) => categories.find((c) => c.id === id).slug;
 await write('poradnik', poradnikiIndex(PORADNIKI));
