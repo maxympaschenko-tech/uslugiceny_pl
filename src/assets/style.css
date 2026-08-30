@@ -837,7 +837,12 @@ h2.litera {
 
 .brand { display: inline-flex; align-items: center; gap: .55rem; }
 .brand .znak { flex: none; color: var(--ink); border-radius: 7px; }
+.znak .s-tlo { fill: #fff; }
+.znak .s-akcent { fill: var(--signal); }
+/* W stopce kwadrat jest bialy, wiec slupki musza sie odwrocic,
+   inaczej zlewaja sie z tlem znaku i zostaje sam zolty. */
 .site-foot .brand .znak { color: #fff; }
+.site-foot .znak .s-tlo { fill: var(--ink); }
 .brand-tekst { display: inline-flex; }
 @media (max-width: 26rem) {
   .brand-tekst { font-size: var(--step--1); }

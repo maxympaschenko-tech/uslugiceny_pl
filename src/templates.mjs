@@ -19,9 +19,9 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 export const ZNAK = (rozmiar = 30) => `<svg class="znak" width="${rozmiar}" height="${rozmiar}" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
 <rect width="48" height="48" rx="9" fill="currentColor"/>
-<rect x="11" y="27" width="7" height="11" rx="2" fill="#fff"/>
-<rect x="20.5" y="20" width="7" height="18" rx="2" fill="#FFC93D"/>
-<rect x="30" y="13" width="7" height="25" rx="2" fill="#fff"/>
+<rect class="s-tlo" x="11" y="27" width="7" height="11" rx="2"/>
+<rect class="s-akcent" x="20.5" y="20" width="7" height="18" rx="2"/>
+<rect class="s-tlo" x="30" y="13" width="7" height="25" rx="2"/>
 </svg>`;
 
 export let CSS_V = '';
