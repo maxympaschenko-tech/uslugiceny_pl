@@ -364,14 +364,19 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     // ile w danej pozycji jest pracy.
     const udzialPracy = Math.round((p.labour / (p.labour + p.material)) * 100);
     const najtansze = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+    const najdrozsze = cities.reduce((a, b) => (a.coef > b.coef ? a : b));
     const pNaj = unitPrice(w.id, najtansze.coef, 1, w.perCm ? 5 : 1);
+    const pMax = unitPrice(w.id, najdrozsze.coef, 1, w.perCm ? 5 : 1);
     const kwotaNaj = Math.round(pNaj.labour + pNaj.material);
+    // Zdanie zroznicowane kwotami tej pozycji, a nie samym progiem procentowym:
+    // identyczny tekst na kilkuset stronach czyta sie jak wypelniacz.
+    const roznicaDoNaj = Math.round(t - kwotaNaj);
     const powod =
       udzialPracy >= 75
-        ? `Ta pozycja to niemal wyłącznie robocizna (${udzialPracy}%), a stawki ekip różnią się między miastami najmocniej.`
+        ? `Niemal cała ta stawka (${udzialPracy}%) to robocizna, dlatego kwota rozpina się od ${money(kwotaNaj)} zł ${najtansze.loc} do ${money(Math.round(pMax.labour + pMax.material))} zł ${najdrozsze.loc}, zależnie od tego, ile ekipy w danym mieście mają zleceń.`
         : udzialPracy >= 45
-        ? `Robocizna to ${udzialPracy}% tej stawki, więc miasto wpływa na kwotę, ale w umiarkowanym stopniu.`
-        : `Materiał stanowi ${100 - udzialPracy}% kwoty i kosztuje w całym kraju podobnie, dlatego miasto zmienia tu niewiele.`;
+        ? `Robocizna to ${udzialPracy}% tej stawki, a materiał ${100 - udzialPracy}%. Ponieważ materiał kosztuje w całym kraju podobnie, miasto przesuwa kwotę o ${roznicaDoNaj === 0 ? 'zero' : money(Math.abs(roznicaDoNaj))} zł wobec najtańszego miasta w zestawieniu.`
+        : `Materiał to ${100 - udzialPracy}% tej kwoty i kosztuje wszędzie podobnie, dlatego różnica między najtańszym a najdroższym miastem wynosi tu tylko ${money(Math.round(pMax.labour + pMax.material - kwotaNaj))} zł. Więcej zmienia wybór konkretnego produktu.`;
     const porownanie =
       city.slug === najtansze.slug
         ? `To najniższa stawka spośród dziesięciu miast w zestawieniu.`
