@@ -1042,8 +1042,13 @@ function rozbicieBlock({ zakres, unitPrice, byId, categories }) {
     })
     .join('');
 
+  // Najwieksza czesc budzetu decyduje o tym, gdzie oszczedzanie ma sens.
+  // Bez tego zdania tabela jest tylko zbiorem liczb.
+  const [najwiekszaNazwa, najwiekszaKwota] = [...wgKategorii.entries()].sort((a, b) => b[1] - a[1])[0];
+  const udzial = Math.round((najwiekszaKwota / suma) * 100);
+
   return `<h2 style="margin-top:2rem">Z czego składa się ta kwota</h2>
-<p class="section-note">Podział na główne części budżetu, w standardzie średnim dla Polski. Pokazuje, gdzie warto szukać oszczędności, a gdzie kwota jest w zasadzie stała.</p>
+<p class="section-note">Podział na główne części budżetu, w standardzie średnim dla Polski. Największa pozycja to ${najwiekszaNazwa.toLowerCase()}, czyli ${udzial}% całości. Jeśli szukasz oszczędności, zacznij właśnie tam: obniżenie standardu w pozycji wartej kilka procent budżetu nie zmieni sumy końcowej, a bywa widoczne codziennie.</p>
 <div class="board-wrap"><table class="board">
 <thead><tr><th data-sort="off">Część prac</th><th>Koszt</th><th data-sort="off">Udział</th><th>%</th></tr></thead>
 <tbody>${wiersze}</tbody></table></div>`;
