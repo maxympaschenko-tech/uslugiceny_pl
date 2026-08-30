@@ -408,7 +408,7 @@ export const PORADNIKI = [
   },
 ];
 
-export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x }) {
+export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x, ileKosztuje = '' }) {
   const kroki = p.kroki.map((k) => {
     if (!k.w) return { ...k, cena: null };
     const w = byId[k.w];
@@ -445,6 +445,8 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
       </div>
     </li>`).join('')}
   </ol>
+
+  ${ileKosztuje}
 
   <h2 style="margin-top:2.5rem">Częste pytania</h2>
   ${p.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}

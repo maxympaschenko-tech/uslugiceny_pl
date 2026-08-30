@@ -1013,6 +1013,48 @@ for (const pk of POKOJE) {
   extraUrls.push(`/koszt-pokoju/${pk.m}-m2/`);
 }
 
+
+// Poradnik opisuje etapy, ale nie mowi, w jaka kwote sie skladaja.
+// Dla tych, ktore maja odpowiednik wsrod gotowych wyliczen, dokladamy
+// konkretna sume z odnosnikiem do pelnego rozbicia.
+const KOSZT_PORADNIKA = {
+  'remont-lazienki-krok-po-kroku': { adres: 'koszt-lazienki/6-m2', opis: 'łazienki o powierzchni 6 m²' },
+  'remont-kuchni-krok-po-kroku': { adres: 'koszt-kuchni/10-m2', opis: 'kuchni o powierzchni 10 m²' },
+  'kolejnosc-prac-remontowych': { adres: 'koszt-remontu/50-m2', opis: 'mieszkania o powierzchni 50 m²' },
+  'wykonczenie-mieszkania-krok-po-kroku': { adres: 'koszt-wykonczenia/45-m2', opis: 'mieszkania od dewelopera, 45 m²' },
+  'wykonczenie-poddasza-krok-po-kroku': { adres: 'koszt-poddasza/60-m2', opis: 'poddasza o powierzchni 60 m²' },
+  'remont-balkonu-krok-po-kroku': { adres: 'koszt-balkonu/6-m2', opis: 'balkonu o powierzchni 6 m²' },
+  'ocieplenie-domu-krok-po-kroku': { adres: 'koszt-ocieplenia/120-m2', opis: 'domu o powierzchni 120 m²' },
+};
+
+// Poradniki bez odpowiednika wsrod gotowych wyliczen kierujemy do kalkulatora:
+// tam zakres jest zmienny i pojedyncza kwota niewiele by powiedziala.
+const KALKULATOR_PORADNIKA = {
+  'wymiana-dachu-krok-po-kroku': ['dach', 'pokrycia dachu'],
+  'ogrodzenie-krok-po-kroku': ['ogrodzenie', 'ogrodzenia'],
+  'kostka-brukowa-krok-po-kroku': ['kostka-brukowa', 'nawierzchni z kostki'],
+  'wymiana-okien-krok-po-kroku': ['wymiana-okien', 'wymiany okien'],
+  'instalacja-elektryczna-krok-po-kroku': ['pokoj', 'remontu pomieszczenia'],
+  'modernizacja-ogrzewania-krok-po-kroku': ['klimatyzacja', 'instalacji grzewczych'],
+  'montaz-klimatyzacji-krok-po-kroku': ['klimatyzacja', 'klimatyzacji'],
+};
+
+// Kwote bierzemy z juz wygenerowanej strony metrazowej, zamiast liczyc ja
+// drugi raz: dwa niezalezne wyliczenia tego samego to gwarancja, ze predzej
+// czy pozniej sie rozjada. Strony metrazowe powstaja wczesniej w tym pliku.
+const kwotaZeStrony = async (adres) => {
+  try {
+    const html = await readFile(join(OUT, adres, 'index.html'), 'utf8');
+    // Dwa warianty zdania w seriach metrazowych:
+    //   "kosztuje od 11 631 zl ... do ..."
+    //   "kosztuje okolo 70 089 zl w Warszawie i 53 572 zl w Bialymstoku"
+    const m = html.match(/kosztuje (?:od |około )?([\d\s\u00a0]+) zł/);
+    return m ? m[1].replace(/[\s\u00a0]+/g, ' ').trim() : null;
+  } catch {
+    return null;
+  }
+};
+
 /* ================= poradniki ================= */
 
 
@@ -1021,7 +1063,22 @@ await write('poradnik', poradnikiIndex(PORADNIKI));
 extraUrls.push('/poradnik/');
 for (const p of PORADNIKI) {
   const uzyteWPoradniku = new Set();
+  const kosztInfo = KOSZT_PORADNIKA[p.slug];
+  let ileKosztuje = '';
+  const kalkInfo = KALKULATOR_PORADNIKA[p.slug];
+  if (kalkInfo) {
+    ileKosztuje = `<h2 style="margin-top:2.2rem">Ile to kosztuje</h2>
+<p class="section-note">Zakres tych prac zmienia się na tyle mocno wraz z wielkością i warunkami, że pojedyncza kwota niewiele by powiedziała. Policz swój przypadek w <a href="${R}kalkulator/${kalkInfo[0]}/">kalkulatorze ${kalkInfo[1]}</a>: podajesz wymiary i zakres, a kosztorys rozpisuje się pozycja po pozycji, z podziałem na robociznę i materiał.</p>`;
+  }
+  if (kosztInfo) {
+    const kwota = await kwotaZeStrony(kosztInfo.adres);
+    if (kwota) {
+      ileKosztuje = `<h2 style="margin-top:2.2rem">Ile to kosztuje</h2>
+<p class="section-note">Pełny zakres opisany powyżej, wykonany dla ${kosztInfo.opis}, to wydatek od około ${kwota} zł w najtańszym z dziesięciu miast w zestawieniu. Rozbicie na części budżetu, ceny w pozostałych miastach i trzy standardy wykończenia znajdziesz na stronie <a href="${R}${kosztInfo.adres}/">gotowego wyliczenia</a>.</p>`;
+    }
+  }
   await write(`poradnik/${p.slug}`, poradnikPage({
+        ileKosztuje,
         p,
         byId,
         units,
