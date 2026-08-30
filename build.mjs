@@ -99,9 +99,11 @@ const write = async (path, html) => {
 
 // Hasla posortowane od najdluzszych, zeby "plytka mrozoodporna" wygralo
 // z "plytka", a nie odwrotnie.
-const HASLA_DO_LINKOWANIA = [...HASLA]
-  .map(([nazwa, id]) => [nazwa, id])
-  .sort((a, b) => b[0].length - a[0].length);
+// Kazde haslo moze wystepowac pod kilkoma formami: polska odmiana sprawia,
+// ze "wiezba dachowa" w slowniku i "wiezby" w poradniku to dwa rozne ciagi.
+const HASLA_DO_LINKOWANIA = HASLA.flatMap(([nazwa, id, , , formy = []]) =>
+  [nazwa, ...formy].map((f) => [f, id])
+).sort((a, b) => b[0].length - a[0].length);
 
 const podlinkujHasla = (html, uzyte = new Set()) => {
   // dzielimy na fragmenty tekstu i znaczniki, zeby nie ruszac atrybutow
