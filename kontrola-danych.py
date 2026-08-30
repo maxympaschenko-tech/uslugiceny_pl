@@ -59,9 +59,27 @@ for c in cities:
 
 # --- opisy roznicy cen w porownaniach ---
 src = open('src/pages-extra.mjs', encoding='utf-8').read()
-por = re.findall(
-    r"slug: '([^']+)',\s*\n\s*h1: '[^']+',\s*\n\s*a: '([^']+)', b: '([^']+)'(?:, cm: (\d+))?,\s*\n\s*lede: '([^']*)'",
-    src)
+# Wpisy porownan rozbijamy na bloki i czytamy pola osobno. Poprzednia wersja
+# wymagala sztywnej kolejnosci slug, h1, a, b, lede i po dopisaniu pola
+# "przyklad" przestala cokolwiek znajdowac: kontrola milczala, zamiast
+# zglosic blad. Milczaca kontrola jest gorsza od jej braku.
+por = []
+for blok in re.split(r"\n  \{\n", src):
+    slug = re.search(r"slug: '([^']+)'", blok)
+    a = re.search(r"\ba: '([^']+)'", blok)
+    b = re.search(r"\bb: '([^']+)'", blok)
+    lede = re.search(r"lede: '([^']*)'", blok)
+    if not (slug and a and b and lede):
+        continue
+    cm = re.search(r"\bcm: (\d+)", blok)
+    por.append((slug.group(1), a.group(1), b.group(1), cm.group(1) if cm else None, lede.group(1)))
+# Jesli parsowanie przestanie dzialac po zmianie formatu wpisow, chcemy o tym
+# wiedziec od razu, a nie dowiedziec sie po miesiacach, ze kontrola milczy.
+liczba_w_pliku = src.count("    werdykt:")
+sprawdz(len(por) == liczba_w_pliku,
+        f"kontrola porownan znalazla {len(por)} wpisow, a w pliku jest {liczba_w_pliku}: "
+        f"prawdopodobnie zmienil sie format i regula przestala dzialac")
+
 progi = {'dwa razy': (1.7, 2.4), 'trzy razy': (2.6, 3.4), 'półtora raza': (1.35, 1.7)}
 for slug, a, b, cm, lede in por:
     cm = int(cm) if cm else 1
