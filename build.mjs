@@ -443,6 +443,7 @@ for (const city of cities) {
 
   <h2 style="margin-top:2rem">Cennik robót ${city.loc}</h2>
   <p class="section-note">Słowo „własny” w kolumnie Materiał oznacza, że tę pozycję zwykle kupuje inwestor, a ekipa liczy wyłącznie robociznę. Kliknięcie nagłówka sortuje tabelę.</p>
+  <p class="receipt-foot" style="margin:.8rem 0 1.2rem">Chcesz zestawić te stawki z innym miastem? Zobacz <a href="${R}porownaj-miasta/">porównanie dwóch miast pozycja po pozycji</a>. Ciekawi Cię, ile w tych kwotach to praca, a ile towar? Sprawdź <a href="${R}struktura-kosztow/">udział robocizny i materiału</a>.</p>
   <p class="section-note" style="margin-bottom:.4rem">Przejdź od razu do kategorii:</p>
   <div class="city-links">${categories.map((c) => `<a href="#k-${c.slug}">${c.name}</a>`).join('')}</div>
   ${rows}

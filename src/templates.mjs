@@ -129,44 +129,38 @@ ${body}
         <p>Stawki robót remontowych i budowlanych z podziałem na robociznę i materiał. Bez pośrednictwa w zleceniach i bez płatnych miejsc w rankingach.</p>
       </div>
       <div>
-        <p class="foot-h">Kalkulatory</p>
+        <p class="foot-h">Policz koszt</p>
         <ul>
-          <li><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania</a></li>
-          <li><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></li>
-          <li><a href="${R}kalkulator/pokoj/">Pokój</a></li>
-          <li><a href="${R}kalkulator/materialy/">Ile materiału kupić</a></li>
-          <li><a href="${R}kalkulator/lazienka/">Łazienka</a></li>
-          <li><a href="${R}kalkulator/kuchnia/">Kuchnia</a></li>
-          <li><a href="${R}kalkulator/poddasze/">Poddasze</a></li>
-          <li><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></li>
-          <li><a href="${R}kalkulator/dach/">Pokrycie dachu</a></li>
+          <li><a href="${R}kalkulatory/">Wszystkie kalkulatory</a></li>
           <li><a href="${R}koszty/">Gotowe wyliczenia</a></li>
-          <li><a href="${R}kalkulator/wymiana-okien/">Wymiana okien</a></li>
+          <li><a href="${R}cennik/">Pełny cennik</a></li>
+          <li><a href="${R}kalkulator/materialy/">Ile materiału kupić</a></li>
         </ul>
       </div>
       <div>
-        <p class="foot-h">Przydatne</p>
+        <p class="foot-h">Zanim zamówisz</p>
         <ul>
           <li><a href="${R}sprawdz-oferte/">Sprawdź ofertę wykonawcy</a></li>
           <li><a href="${R}wybor-ekipy/">Jak wybrać ekipę</a></li>
           <li><a href="${R}jak-czytac-kosztorys/">Jak czytać kosztorys</a></li>
-          <li><a href="${R}umowa-z-ekipa/">Umowa z ekipą</a></li>
-          <li><a href="${R}odbior-prac/">Odbiór prac</a></li>
-          <li><a href="${R}cennik/">Pełny cennik</a></li>
-          <li><a href="${R}porownaj-miasta/">Porównaj dwa miasta</a></li>
-          <li><a href="${R}struktura-kosztow/">Robocizna czy materiał</a></li>
-          <li><a href="${R}kiedy-remontowac/">Kiedy remontować taniej</a></li>
+          <li><a href="${R}umowa-z-ekipa/">Umowa i odbiór prac</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot-h">Wiedza</p>
+        <ul>
           <li><a href="${R}poradnik/">Poradniki krok po kroku</a></li>
           <li><a href="${R}porownanie/">Porównania rozwiązań</a></li>
           <li><a href="${R}slownik/">Słownik pojęć</a></li>
+          <li><a href="${R}kiedy-remontowac/">Kiedy remontować taniej</a></li>
         </ul>
       </div>
       <div>
         <p class="foot-h">Serwis</p>
         <ul>
-          <li><a href="${R}o-nas/">O serwisie</a></li>
           <li><a href="${R}jak-liczymy/">Jak liczymy</a></li>
           <li><a href="${R}aktualizacje/">Historia zmian</a></li>
+          <li><a href="${R}o-nas/">O serwisie</a></li>
           <li><a href="${R}kontakt/">Kontakt</a></li>
           <li><a href="${R}polityka-prywatnosci/">Polityka prywatności</a></li>
           <li><a href="#" id="zmien-zgode">Zmień zgodę na cookies</a></li>
