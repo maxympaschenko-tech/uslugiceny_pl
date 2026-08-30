@@ -5,12 +5,16 @@ w wyszukiwarce. Nie widac go ani w przegladarce, ani w audycie stron, dlatego
 sprawdzamy go osobno: poprawnosc JSON, obecnosc wymaganych pol i sensownosc
 wartosci, na przyklad czy dolna cena nie jest wyzsza od gornej.
 """
-import glob, re, json, sys
+import glob, re, json, sys, os
 from collections import Counter
 
 bledy = []
 typy = Counter()
-strony = glob.glob('dist/**/index.html', recursive=True) + ['dist/404.html']
+strony = [f for f in glob.glob('dist/**/index.html', recursive=True) + ['dist/404.html']
+          if os.path.exists(f)]
+if not strony:
+    raise SystemExit('BLAD: kontrola schematow nie znalazla ZADNYCH STRON w dist/. '
+                     'Uruchom najpierw node build.mjs.')
 
 for f in strony:
     h = open(f, encoding='utf-8').read()
@@ -51,6 +55,14 @@ for f in strony:
                     bledy.append(f"{f}: Service bez zakresu cen")
                 elif lo > hi:
                     bledy.append(f"{f}: dolna cena wyzsza od gornej")
+
+# Zero schematow oznacza, ze regula przestala je znajdowac, a nie ze wszystko
+# jest w porzadku. Kontrola, ktora milczy po zmianie formatu, jest gorsza
+# od jej braku.
+if not typy:
+    print('BLAD: nie znaleziono ZADNYCH SCHEMATOW. '
+          'Zmienil sie sposob osadzania danych strukturalnych albo brakuje katalogu dist/.')
+    sys.exit(1)
 
 if bledy:
     print(f"ZNALEZIONO {len(bledy)} problemow:")

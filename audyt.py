@@ -1,7 +1,11 @@
 import glob, re, os, json
 from collections import Counter, defaultdict
 
-strony = glob.glob('dist/**/index.html', recursive=True) + ['dist/404.html']
+strony = [f for f in glob.glob('dist/**/index.html', recursive=True) + ['dist/404.html']
+          if os.path.exists(f)]
+if not strony:
+    raise SystemExit('BLAD: audyt nie znalazl ZADNYCH STRON w dist/. '
+                     'Uruchom najpierw node build.mjs.')
 dane = {}
 for f in strony:
     h = open(f, encoding='utf-8').read()

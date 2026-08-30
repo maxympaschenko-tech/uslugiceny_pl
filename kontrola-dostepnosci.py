@@ -61,6 +61,10 @@ for f in strony:
             bledy.append(f"{f}: pole bez etykiety i nazwy")
             break
 
+if not strony:
+    print('BLAD: kontrola dostepnosci nie znalazla ZADNYCH STRON w dist/.')
+    sys.exit(1)
+
 if bledy:
     print(f"ZNALEZIONO {len(bledy)} problemow:")
     for b in bledy[:20]:
