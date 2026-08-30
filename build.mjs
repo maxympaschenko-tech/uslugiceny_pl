@@ -807,11 +807,20 @@ for (const cat of categories) {
   serviceUrls.push(`/uslugi/${cat.slug}/`);
 
   for (const w of list) {
+    const uzyteWUsludze = new Set();
     const wSlug = slugify(w.name);
     const related = list.filter((r) => r.id !== w.id).slice(0, 3);
     await write(
       `${cat.slug}/${wSlug}`,
-      servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane: powiazania[w.id] || [], meta })
+      servicePage({
+        w, cat, units, cities, unitPrice, related, cityOptions,
+        powiazane: powiazania[w.id] || [],
+        meta,
+        // slownik linkujemy tylko na stronie ogolnopolskiej: na 1050 stronach
+        // miejskich te same odnosniki nie wnosza nic nowego, a rozmnazaja
+        // wewnetrzne polaczenia do jednej strony
+        podlinkuj: (txt) => podlinkujHasla(txt, uzyteWUsludze),
+      })
     );
     serviceUrls.push(`/${cat.slug}/${wSlug}/`);
 

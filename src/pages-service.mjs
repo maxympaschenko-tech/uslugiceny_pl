@@ -148,14 +148,16 @@ const powiazaneBlock = (lista) =>
         .join('')}</div>`
     : '';
 
-const factorsBlock = (w) =>
+const factorsBlock = (w, podlinkuj = (x) => x) =>
   w.factors
-    ? `<h2>Co wpływa na ostateczną cenę</h2><ul class="factors">${w.factors.map((f) => `<li>${f}</li>`).join('')}</ul>`
+    ? `<h2>Co wpływa na ostateczną cenę</h2><ul class="factors">${w.factors
+        .map((f) => `<li>${podlinkuj(f)}</li>`)
+        .join('')}</ul>`
     : '';
 
 /* ---------- strona usługi (cała Polska) ---------- */
 
-export function servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane = [], meta = {} }) {
+export function servicePage({ w, cat, units, cities, unitPrice, related, cityOptions, powiazane = [], meta = {}, podlinkuj = (x) => x }) {
   const base = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
   const avg = base.labour + base.material;
   const spread = w.spread ?? 0.18;
@@ -206,7 +208,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
       ${splitTable(w, units, base.labour, base.material)}
       ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
-      ${factorsBlock(w)}
+      ${factorsBlock(w, podlinkuj)}
     </div>
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions)}</div>
   </div>
@@ -292,7 +294,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 
 /* ---------- strona usługi w mieście ---------- */
 
-export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane = [], meta = {}, sasiednie = [] }) {
+export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOptions, powiazane = [], meta = {}, sasiednie = [], podlinkuj = (x) => x }) {
   const p = unitPrice(w.id, city.coef, 1, w.perCm ? 5 : 1);
   const t = p.labour + p.material;
   const base = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
@@ -324,7 +326,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
       ${splitTable(w, units, p.labour, p.material)}
       ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
-      ${factorsBlock(w)}
+      ${factorsBlock(w, podlinkuj)}
       <p class="section-note">Pełny cennik robót ${city.loc}: <a href="${R}ceny/${city.slug}/">zobacz wszystkie pozycje</a>.</p>
     </div>
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions, city.slug)}</div>
