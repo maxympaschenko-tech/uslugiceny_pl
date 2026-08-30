@@ -25,6 +25,24 @@ Zmienne środowiskowe:
 
 Domyślnie `SITE_URL` to `https://uslugiceny.pl`, więc lokalnie nic nie trzeba ustawiać.
 
+## Waga stron
+
+Kod liczący kosztorys jest w `/assets/kalkulator.js`, wspólnym dla całego serwisu,
+a nie wklejany do każdej strony. Do przeglądarki trafiają tylko te pola pozycji,
+których używa kalkulator: nazwa, jednostka, stawki i adres strony. Czynniki cenowe,
+znaczniki weryfikacji i opisy kategorii służą generowaniu stron i zostają po stronie
+buildu.
+
+| Strona | Przed | Po |
+|---|---|---|
+| kalkulator | 81 kB | 38 kB |
+| strona główna | 86 kB | 51 kB |
+| katalog `dist` | 32 MB | 25 MB |
+
+Uwaga przy zmianach: skrypty stron są owinięte w `DOMContentLoaded`, bo zewnętrzny
+plik z `defer` wykonuje się dopiero po sparsowaniu dokumentu. Kod wstawiony poza tym
+opakowaniem nie znajdzie funkcji silnika.
+
 ## Wdrożenie
 
 Strona jedzie na własny hosting przez FTP, workflow `.github/workflows/deploy-ftp.yml`
@@ -129,6 +147,24 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
+
+## Waga stron
+
+Kod liczący kosztorys jest w `/assets/kalkulator.js`, wspólnym dla całego serwisu,
+a nie wklejany do każdej strony. Do przeglądarki trafiają tylko te pola pozycji,
+których używa kalkulator: nazwa, jednostka, stawki i adres strony. Czynniki cenowe,
+znaczniki weryfikacji i opisy kategorii służą generowaniu stron i zostają po stronie
+buildu.
+
+| Strona | Przed | Po |
+|---|---|---|
+| kalkulator | 81 kB | 38 kB |
+| strona główna | 86 kB | 51 kB |
+| katalog `dist` | 32 MB | 25 MB |
+
+Uwaga przy zmianach: skrypty stron są owinięte w `DOMContentLoaded`, bo zewnętrzny
+plik z `defer` wykonuje się dopiero po sparsowaniu dokumentu. Kod wstawiony poza tym
+opakowaniem nie znajdzie funkcji silnika.
 
 ## Wdrożenie
 
