@@ -25,6 +25,27 @@ Zmienne środowiskowe:
 
 Domyślnie `SITE_URL` to `https://uslugiceny.pl`, więc lokalnie nic nie trzeba ustawiać.
 
+## Znak marki
+
+Trzy słupki jako poziomy standardu: ekonomiczny, standardowy i premium, środkowy
+w kolorze sygnałowym. Nawiązuje do tego, czym serwis operuje na każdej stronie,
+i pozostaje czytelny przy 16 px.
+
+| Element | Gdzie |
+|---|---|
+| SVG w nagłówku i stopce | `ZNAK()` w `src/templates.mjs` |
+| ikony, favicon, obraz udostępnień | `narzedzia/ikony.py` |
+| kolory słupków | klasy `.s-tlo` i `.s-akcent` w `style.css` |
+
+Kwadrat znaku dziedziczy kolor tekstu (`currentColor`), więc w ciemnej stopce robi
+się biały. Dlatego słupki mają własne klasy i na ciemnym tle przemalowują się na
+grafit: bez tego biały znak na białym tle znikał i zostawał sam żółty słupek.
+
+Zmiana geometrii wymaga poprawki w **dwóch** miejscach: w `ZNAK()` oraz w stałej
+`SLUPKI` w skrypcie ikon. Po zmianie uruchom `python3 narzedzia/ikony.py`
+i obejrzyj wynik, bo błędy w znaku są wyłącznie wizualne i żadna z kontroli
+ich nie wychwyci.
+
 ## Waga stron
 
 Kod liczący kosztorys jest w `/assets/kalkulator.js`, wspólnym dla całego serwisu,
@@ -147,6 +168,27 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
+
+## Znak marki
+
+Trzy słupki jako poziomy standardu: ekonomiczny, standardowy i premium, środkowy
+w kolorze sygnałowym. Nawiązuje do tego, czym serwis operuje na każdej stronie,
+i pozostaje czytelny przy 16 px.
+
+| Element | Gdzie |
+|---|---|
+| SVG w nagłówku i stopce | `ZNAK()` w `src/templates.mjs` |
+| ikony, favicon, obraz udostępnień | `narzedzia/ikony.py` |
+| kolory słupków | klasy `.s-tlo` i `.s-akcent` w `style.css` |
+
+Kwadrat znaku dziedziczy kolor tekstu (`currentColor`), więc w ciemnej stopce robi
+się biały. Dlatego słupki mają własne klasy i na ciemnym tle przemalowują się na
+grafit: bez tego biały znak na białym tle znikał i zostawał sam żółty słupek.
+
+Zmiana geometrii wymaga poprawki w **dwóch** miejscach: w `ZNAK()` oraz w stałej
+`SLUPKI` w skrypcie ikon. Po zmianie uruchom `python3 narzedzia/ikony.py`
+i obejrzyj wynik, bo błędy w znaku są wyłącznie wizualne i żadna z kontroli
+ich nie wychwyci.
 
 ## Waga stron
 
