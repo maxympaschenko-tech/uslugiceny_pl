@@ -126,6 +126,7 @@ const SCOPE = ${SCOPE_JSON};
 export const POROWNANIA = [
   {
     slug: 'wylewka-cementowa-czy-anhydrytowa',
+    przyklad: { opis: '50 m² podłogi', ile: 50 },
     h1: 'Wylewka cementowa czy anhydrytowa',
     a: 'wylewka_cem', b: 'wylewka_anhydryt', cm: 5,
     lede: 'Różnica w cenie za metr jest niewielka, różnica w technologii ogromna. Wybór przesądza o tym, ile tygodni podłoga będzie schnąć i czy zniesie wilgoć.',
@@ -137,6 +138,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'panele-czy-deska-podlogowa',
+    przyklad: { opis: '30 m² salonu', ile: 30 },
     h1: 'Panele czy deska podłogowa',
     a: 'panele', b: 'parkiet',
     lede: 'Deska kosztuje mniej więcej trzy razy tyle co panele, ale przeżywa dwa albo trzy remonty. Rachunek zależy od tego, jak długo planujesz tu mieszkać.',
@@ -148,6 +150,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'wanna-czy-kabina-prysznicowa',
+    przyklad: { opis: 'jedno stanowisko', ile: 1 },
     h1: 'Wanna czy kabina prysznicowa',
     a: 'montaz_wanny', b: 'montaz_kabiny',
     lede: 'Koszt montażu obu rozwiązań jest zbliżony. Prawdziwa różnica zaczyna się przy posadzce, odpływie i tym, ile miejsca zostaje w łazience.',
@@ -159,6 +162,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'styropian-czy-welna-mineralna',
+    przyklad: { opis: '150 m² elewacji', ile: 150 },
     h1: 'Styropian czy wełna mineralna na elewację',
     a: 'ocieplenie_styropian', b: 'ocieplenie_welna',
     lede: 'Styropian to trzy czwarte polskiego rynku i wyraźnie niższy koszt. Wełna wygrywa tam, gdzie liczy się ogień, dźwięk i oddychanie ściany.',
@@ -170,6 +174,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'kostka-betonowa-czy-granitowa',
+    przyklad: { opis: '60 m² podjazdu', ile: 60 },
     h1: 'Kostka betonowa czy granitowa',
     a: 'kostka_brukowa', b: 'kostka_granitowa',
     lede: 'Granit kosztuje mniej więcej dwa razy tyle, ale nie ma daty ważności. Beton po dwudziestu latach blaknie i kruszy się przy krawędziach.',
@@ -181,6 +186,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'pompa-ciepla-czy-kociol-gazowy',
+    przyklad: { opis: 'jedno źródło ciepła', ile: 1 },
     h1: 'Pompa ciepła czy kocioł gazowy',
     a: 'kociol_gazowy', b: 'pompa_ciepla',
     lede: 'Montaż pompy kosztuje kilkakrotnie więcej niż wymiana kotła. Rachunek wychodzi na zero dopiero po latach, więc decyduje nie cena instalacji, tylko to, jak długo zamierzasz tu mieszkać.',
@@ -192,6 +198,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'blachodachowka-czy-dachowka-ceramiczna',
+    przyklad: { opis: '150 m² połaci', ile: 150 },
     h1: 'Blachodachówka czy dachówka ceramiczna',
     a: 'blachodachowka', b: 'dachowka_ceramiczna',
     lede: 'Dachówka wychodzi około trzy czwarte drożej za metr i waży kilkakrotnie więcej. Za to przeżyje właściciela, podczas gdy blacha ma określony termin przydatności.',
@@ -203,6 +210,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'tynk-silikonowy-czy-mineralny',
+    przyklad: { opis: '150 m² elewacji', ile: 150 },
     h1: 'Tynk silikonowy czy mineralny',
     a: 'tynk_mineralny', b: 'tynk_silikonowy',
     lede: 'Różnica w cenie za metr jest niewielka i cała siedzi w materiale. Decyduje to, czy elewacja ma się sama myć deszczem, czy ma oddychać.',
@@ -214,6 +222,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'panele-czy-plytki-na-podloge',
+    przyklad: { opis: '30 m² salonu', ile: 30 },
     h1: 'Panele czy płytki na podłogę',
     a: 'panele', b: 'plytki_podloga',
     lede: 'Płytki wychodzą około półtora raza drożej za metr, ale w kuchni i przedpokoju wygrywają bezapelacyjnie. W salonie i sypialni sprawa nie jest już oczywista.',
@@ -225,6 +234,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'tapeta-czy-farba',
+    przyklad: { opis: '45 m² ścian pokoju', ile: 45 },
     h1: 'Tapeta czy farba',
     a: 'malowanie', b: 'tapetowanie',
     lede: 'Tapetowanie wychodzi około półtora raza drożej od malowania, ale to nie robocizna przesądza o wyborze. Decyduje to, jak często zamierzasz zmieniać wystrój.',
@@ -236,6 +246,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'sufit-podwieszany-czy-gladz',
+    przyklad: { opis: '20 m² sufitu', ile: 20 },
     h1: 'Sufit podwieszany czy gładź',
     a: 'gladz', b: 'gk_sufit',
     lede: 'Sufit z płyty kosztuje kilkakrotnie więcej niż wygładzenie istniejącego stropu i zabiera kilkanaście centymetrów wysokości. Płaci się za to, czego nie widać: instalacje i oświetlenie.',
@@ -247,6 +258,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'cyklinowanie-czy-nowa-podloga',
+    przyklad: { opis: '25 m² parkietu', ile: 25 },
     h1: 'Cyklinowanie czy nowa podłoga',
     a: 'cyklinowanie', b: 'panele',
     lede: 'Odnowienie starego parkietu bywa tańsze od najprostszych paneli, a daje materiał, którego dziś w tej cenie się nie kupuje. Pytanie brzmi, ile warstwy użytkowej zostało.',
@@ -258,6 +270,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'wylewka-czy-masa-samopoziomujaca',
+    przyklad: { opis: '50 m² podłogi', ile: 50 },
     h1: 'Wylewka czy masa samopoziomująca',
     a: 'samopoziomujaca', b: 'wylewka_cem', cm: 5,
     lede: 'To nie są dwa warianty tego samego, choć bywają mylone. Wylewka tworzy podkład o grubości kilku centymetrów, masa wyrównuje kilka milimetrów na gotowym podłożu.',
@@ -269,6 +282,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'tynk-czy-gladz',
+    przyklad: { opis: '60 m² ścian', ile: 60 },
     h1: 'Tynk czy gładź',
     a: 'gladz', b: 'tynk_gipsowy',
     lede: 'Mylone najczęściej ze wszystkich pozycji w kosztorysie. To nie alternatywa, tylko dwie warstwy: tynk wyrównuje ścianę, gładź ją wykańcza.',
@@ -280,6 +294,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'zabudowa-plyta-czy-tynkowanie',
+    przyklad: { opis: '40 m² ściany', ile: 40 },
     h1: 'Zabudowa płytą czy tynkowanie',
     a: 'tynk_gipsowy', b: 'gk_sciana',
     lede: 'Płyta wychodzi około dwa razy drożej za metr, więc przy prostej ścianie tynk wygrywa bez dyskusji. Przy krzywej albo takiej, w której trzeba schować instalacje, różnica w cenie przestaje być argumentem.',
@@ -291,6 +306,7 @@ export const POROWNANIA = [
   },
   {
     slug: 'deska-kompozytowa-czy-drewniana',
+    przyklad: { opis: '20 m² tarasu', ile: 20 },
     h1: 'Deska kompozytowa czy drewniana na taras',
     a: 'deska_tarasowa_drewno', b: 'deska_kompozytowa',
     lede: 'Kompozyt kosztuje na starcie około jedną trzecią więcej, ale nie wymaga olejowania co dwa sezony. Rachunek wyrównuje się po kilku latach, a potem odwraca.',
@@ -343,6 +359,17 @@ export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinku
     <div class="card"><h3>${wb.name}: za</h3><ul class="factors">${p.zaB.map((x) => `<li>${x}</li>`).join('')}</ul></div>
     <div class="card"><h3>${wb.name}: przeciw</h3><ul class="factors">${p.przeciwB.map((x) => `<li>${x}</li>`).join('')}</ul></div>
   </div>
+
+  <h2 style="margin-top:2rem">Ile to znaczy w złotówkach</h2>
+  <p class="section-note">Przy typowym zakresie, czyli ${p.przyklad ? p.przyklad.opis : '20 jednostek'}, różnica między rozwiązaniami wynosi ${money(Math.round(Math.abs(tb - ta) * (p.przyklad ? p.przyklad.ile : 20)))} zł.</p>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Rozwiązanie</th><th>Za jednostkę</th><th>${p.przyklad ? p.przyklad.opis : '20 jednostek'}</th></tr></thead>
+    <tbody>
+      <tr><td>${wa.name}</td><td class="num">${money(Math.round(ta))} zł</td><td class="num"><b>${money(Math.round(ta * (p.przyklad ? p.przyklad.ile : 20)))} zł</b></td></tr>
+      <tr><td>${wb.name}</td><td class="num">${money(Math.round(tb))} zł</td><td class="num"><b>${money(Math.round(tb * (p.przyklad ? p.przyklad.ile : 20)))} zł</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="section-note">Stawki średnie dla Polski, razem z materiałem tam, gdzie kupuje go wykonawca. W konkretnym mieście kwoty przesuwają się o współczynnik lokalny, ale proporcja między rozwiązaniami zostaje ta sama.</p>
 
   <h2 style="margin-top:2rem">Co wybrać</h2>
   <p class="section-note">${podlinkuj(p.werdykt)}</p>
