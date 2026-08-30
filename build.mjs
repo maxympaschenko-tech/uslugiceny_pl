@@ -963,7 +963,7 @@ for (const dm of DOMY_REMONT) {
 for (const lz of LAZIENKI) {
   await write(
     `koszt-lazienki/${lz.m}-m2`,
-    lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag: draftFlag })
+    lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag: draftFlag, byId, categories })
   );
   extraUrls.push(`/koszt-lazienki/${lz.m}-m2/`);
 }
@@ -971,7 +971,7 @@ for (const lz of LAZIENKI) {
 for (const kh of KUCHNIE) {
   await write(
     `koszt-kuchni/${kh.m}-m2`,
-    kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag: draftFlag })
+    kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag: draftFlag, byId, categories })
   );
   extraUrls.push(`/koszt-kuchni/${kh.m}-m2/`);
 }
@@ -979,7 +979,7 @@ for (const kh of KUCHNIE) {
 for (const pd of PODDASZA) {
   await write(
     `koszt-poddasza/${pd.m}-m2`,
-    poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag: draftFlag })
+    poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag: draftFlag, byId, categories })
   );
   extraUrls.push(`/koszt-poddasza/${pd.m}-m2/`);
 }
@@ -987,7 +987,7 @@ for (const pd of PODDASZA) {
 for (const bl of BALKONY) {
   await write(
     `koszt-balkonu/${bl.m}-m2`,
-    balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag: draftFlag })
+    balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag: draftFlag, byId, categories })
   );
   extraUrls.push(`/koszt-balkonu/${bl.m}-m2/`);
 }
@@ -995,7 +995,7 @@ for (const bl of BALKONY) {
 for (const pk of POKOJE) {
   await write(
     `koszt-pokoju/${pk.m}-m2`,
-    pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag: draftFlag })
+    pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag: draftFlag, byId, categories })
   );
   extraUrls.push(`/koszt-pokoju/${pk.m}-m2/`);
 }

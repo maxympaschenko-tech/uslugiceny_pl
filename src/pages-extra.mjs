@@ -658,7 +658,7 @@ export const LAZIENKI = [
   { m: 8,  wym: '2,8 × 2,9 m', opis: 'Duża łazienka rodzinna, często z oknem i osobną strefą prysznica.', uwaga: 'Powyżej ośmiu metrów rośnie udział okładzin w kosztorysie, więc wybór półki cenowej płytek waży tu więcej niż przy małej łazience, gdzie dominuje biały montaż.' },
 ];
 
-export function lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag }) {
+export function lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag, byId, categories }) {
   const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
   const bok = Math.sqrt(lz.m);
   const obwod = 4 * bok;
@@ -710,6 +710,8 @@ export function lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag }
     <tbody>${rows}</tbody>
   </table></div>
 
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
+
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${lz.uwaga}</p>
 
@@ -737,7 +739,7 @@ export const KUCHNIE = [
   { m: 12, blat: 6, opis: 'Duża kuchnia otwarta na salon.', uwaga: 'Przy kuchni otwartej rośnie znaczenie wentylacji: okap musi realnie wyprowadzać powietrze, bo zapachy idą wprost do części dziennej. Kanał planuje się razem z sufitem podwieszanym.' },
 ];
 
-export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag }) {
+export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag, byId, categories }) {
   const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
   const bok = Math.sqrt(kh.m);
   const obwod = 4 * bok;
@@ -790,6 +792,8 @@ export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag })
     <tbody>${rows}</tbody>
   </table></div>
 
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
+
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${kh.uwaga}</p>
 
@@ -816,7 +820,7 @@ export const PODDASZA = [
   { m: 80, opis: 'Duże poddasze użytkowe, często z osobną strefą dzienną.', uwaga: 'Powyżej osiemdziesięciu metrów rośnie znaczenie wentylacji i chłodzenia: latem poddasze nagrzewa się najbardziej ze wszystkich kondygnacji, a sama gruba wełna nie wystarczy bez sprawnej szczeliny pod pokryciem.' },
 ];
 
-export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag }) {
+export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag, byId, categories }) {
   const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
   const skosy = Math.round(pd.m * 1.25);
   const kolankowa = Math.round(Math.sqrt(pd.m) * 3);
@@ -865,6 +869,8 @@ export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag }
     <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
+
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
 
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${pd.uwaga}</p>
@@ -941,7 +947,7 @@ export const BALKONY = [
   { m: 20, kr: 6, opis: 'Taras nad pomieszczeniem albo duży taras naziemny.', uwaga: 'Taras nad pomieszczeniem to inna kategoria trudności niż balkon: przeciek trafia wprost do wnętrza, dlatego stosuje się tu izolację dwuwarstwową i wykonuje próbę wodną, a nie traktuje jej jako opcji.' },
 ];
 
-export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag }) {
+export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag, byId, categories }) {
   const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
   const zakres = [
     ['skucie_balkonu', bl.m], ['wywoz_gruzu', bl.m * 0.06],
@@ -987,6 +993,8 @@ export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag }) 
     <tbody>${rows}</tbody>
   </table></div>
 
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
+
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${bl.uwaga}</p>
 
@@ -1005,6 +1013,42 @@ export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag }) 
   });
 }
 
+
+/* ---------- rozbicie kwoty na czesci budzetu ---------- */
+
+function rozbicieBlock({ zakres, unitPrice, byId, categories }) {
+  if (!byId || !categories) return '';
+  const wgKategorii = new Map();
+  let suma = 0;
+  for (const [id, ile] of zakres) {
+    const w = byId[id];
+    if (!w) continue;
+    const p = unitPrice(id, 1, 1, w.perCm ? 5 : 1);
+    const kwota = (p.labour + p.material) * ile;
+    suma += kwota;
+    const kat = categories.find((c) => c.id === w.cat);
+    const nazwa = kat ? kat.name : 'Pozostałe';
+    wgKategorii.set(nazwa, (wgKategorii.get(nazwa) || 0) + kwota);
+  }
+  if (!suma) return '';
+  const wiersze = [...wgKategorii.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([nazwa, kwota]) => {
+      const proc = Math.round((kwota / suma) * 100);
+      return `<tr><td data-v="${nazwa}">${nazwa}</td>
+<td class="num" data-v="${Math.round(kwota)}">${money(Math.round(kwota))} zł</td>
+<td data-v="${proc}" style="min-width:8rem"><div class="podzial-pasek" title="${proc}%"><span class="pr-robocizna" style="width:${proc}%"></span><span class="pr-material" style="width:${100 - proc}%"></span></div></td>
+<td class="num" data-v="${proc}">${proc}%</td></tr>`;
+    })
+    .join('');
+
+  return `<h2 style="margin-top:2rem">Z czego składa się ta kwota</h2>
+<p class="section-note">Podział na główne części budżetu, w standardzie średnim dla Polski. Pokazuje, gdzie warto szukać oszczędności, a gdzie kwota jest w zasadzie stała.</p>
+<div class="board-wrap"><table class="board">
+<thead><tr><th data-sort="off">Część prac</th><th>Koszt</th><th data-sort="off">Udział</th><th>%</th></tr></thead>
+<tbody>${wiersze}</tbody></table></div>`;
+}
+
 /* ---------- metraże pokoi ---------- */
 
 export const POKOJE = [
@@ -1014,7 +1058,7 @@ export const POKOJE = [
   { m: 25, wym: '5,0 × 5,0 m', opis: 'Duży salon albo pokój dzienny połączony z jadalnią.', uwaga: 'Przy tej wielkości rośnie znaczenie oświetlenia: jeden punkt na środku sufitu nie wystarczy, a dołożenie kolejnych po malowaniu oznacza kucie w gotowej powierzchni.' },
 ];
 
-export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag }) {
+export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag, byId, categories }) {
   const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
   const bok = Math.sqrt(pk.m);
   const obwod = 4 * bok;
@@ -1064,6 +1108,8 @@ export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag }) {
     <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
+
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
 
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${pk.uwaga}</p>
