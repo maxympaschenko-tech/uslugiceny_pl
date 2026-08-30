@@ -81,7 +81,7 @@ a:hover { color: var(--ink); }
   font-weight: 700; font-size: 1.24rem; letter-spacing: -0.025em;
   text-decoration: none; color: var(--ink); white-space: nowrap;
 }
-.brand span { color: var(--ink-soft); font-weight: 600; }
+.brand-tekst > span { color: var(--ink-soft); font-weight: 600; }
 
 .nav { display: flex; gap: 1.4rem; font-size: var(--step--1); }
 .nav a {
@@ -463,7 +463,7 @@ ul.factors li::before {
 .site-foot a { color: #CBD4DF; text-decoration: none; }
 .site-foot a:hover { color: var(--signal); }
 .site-foot .brand { color: #fff; }
-.site-foot .brand span { color: #94A2B4; }
+.site-foot .brand-tekst > span { color: #94A2B4; }
 
 .foot-siatka {
   display: grid; gap: 2rem 1.5rem;
