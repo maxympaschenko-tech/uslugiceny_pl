@@ -1,6 +1,6 @@
 // Strony usług: /kategoria/usluga/ oraz /kategoria/usluga/miasto/
 // To ta część, która daje skalę: 42 roboty × (1 + 10 miast) = 462 strony.
-import { layout, estimateSheet, calcScript, field, select, money, tytul } from './templates.mjs';
+import { layout, odmien, estimateSheet, calcScript, field, select, money, tytul } from './templates.mjs';
 import { SITE } from './config.mjs';
 import { ikona, pasekPodzialu, slupkiMiast } from './icons.mjs';
 
@@ -505,6 +505,36 @@ export function categoryPage({ cat, works, units, unitPrice, podlinkuj = (x) => 
     <thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Średnio</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
+
+  ${(() => {
+    // Podsumowanie kategorii liczone z danych: przy trzynastu dzialach
+    // czytelnik potrzebuje szybkiej orientacji, zanim wejdzie w pozycje.
+    const dane = works.map((w) => {
+      const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
+      const suma = p.labour + p.material;
+      return { w, suma, udzialPracy: Math.round((p.labour / suma) * 100) };
+    });
+    const najtansza = dane.reduce((a, b) => (a.suma < b.suma ? a : b));
+    const najdrozsza = dane.reduce((a, b) => (a.suma > b.suma ? a : b));
+    const sredniUdzial = Math.round(dane.reduce((s, x) => s + x.udzialPracy, 0) / dane.length);
+    const bezMaterialu = dane.filter((x) => !x.w.material).length;
+    const jednostki = [...new Set(works.map((w) => units[w.unit].name))];
+
+    const komentarz =
+      sredniUdzial >= 70
+        ? `W tej kategorii płaci się przede wszystkim za pracę: średnio ${sredniUdzial}% stawki to robocizna. Dlatego ceny różnią się między miastami mocniej niż w kategoriach, gdzie dominuje materiał, a negocjacja dotyczy stawki ekipy, nie wyboru produktu.`
+        : sredniUdzial >= 45
+        ? `Robocizna i materiał ważą tu podobnie: średnio ${sredniUdzial}% kwoty to praca. Na końcową cenę wpływa zarówno wybór wykonawcy, jak i półka cenowa materiału.`
+        : `O cenie decyduje tu głównie materiał: praca to średnio ${sredniUdzial}% stawki. Największą oszczędność daje wybór produktu, a nie targowanie się o robociznę.`;
+
+    return `<h2 style="margin-top:2rem">Ta kategoria w liczbach</h2>
+<div class="cards">
+  <div class="card"><h3>Rozpiętość stawek</h3><p class="big">${money(Math.round(najtansza.suma))}–${money(Math.round(najdrozsza.suma))}</p><p>zł za jednostkę. Najtaniej: ${najtansza.w.name.toLowerCase()}, najdrożej: ${najdrozsza.w.name.toLowerCase()}.</p></div>
+  <div class="card"><h3>Udział robocizny</h3><p class="big">${sredniUdzial}%</p><p>średnio w tej kategorii${bezMaterialu ? `, a ${odmien(bezMaterialu, 'jedna pozycja rozliczana jest', 'przy ' + bezMaterialu + ' pozycjach rozlicza się', 'przy ' + bezMaterialu + ' pozycjach rozlicza się')} wyłącznie robociznę` : ''}.</p></div>
+  <div class="card"><h3>Jednostki rozliczeń</h3><p class="big">${jednostki.length}</p><p>${jednostki.join(', ').replace(/\.$/, '')}. Sprawdź, czy oferta od ekipy używa tych samych.</p></div>
+</div>
+<p class="section-note" style="margin-top:1rem">${komentarz}</p>`;
+  })()}
 </div></section>`,
     script: `bindSort(document.getElementById('list'));`,
   });
