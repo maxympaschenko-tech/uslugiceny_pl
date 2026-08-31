@@ -1176,7 +1176,7 @@ for (const s of staticPages) {
 /* ================= narzędzia ================= */
 
 await write('sprawdz-oferte', sprawdzOfertePage({ works, categories, units, cities, cityOptions, unitPrice, slugify, turnkeyPerM2, levels }));
-await write('szukaj', szukajPage());
+await write('szukaj', szukajPage({ works, categories, units, unitPrice, slugify }));
 await write('kiedy-remontowac', sezonowoscPage());
 await write('slownik', slownikPage({ byId, categories, units, unitPrice, slugify }));
 await write('porownaj-miasta', porownajMiastaPage({ works, categories, units, cities, unitPrice }));

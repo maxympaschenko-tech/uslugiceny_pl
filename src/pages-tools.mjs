@@ -219,7 +219,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 
 /* ---------- wyszukiwarka ---------- */
 
-export function szukajPage() {
+export function szukajPage({ works, categories, units, unitPrice, slugify } = {}) {
   return layout({
     title: 'Szukaj w cenniku',
     description: 'Wyszukiwarka robót remontowych, kalkulatorów i poradników w serwisie uslugiceny.pl.',
@@ -238,6 +238,41 @@ export function szukajPage() {
   <h2 style="margin-top:1.8rem">Wyniki</h2>
   <p class="section-note" id="ile"></p>
   <div id="wyniki" class="cards"></div>
+
+  ${works && categories && slugify ? (() => {
+    // Pusta strona wyszukiwarki nie powinna byc pusta: podpowiadamy kategorie
+    // i najczesciej szukane roboty, zeby dalo sie zaczac bez wpisywania.
+    const popularne = [
+      'plytki_sciana', 'gladz', 'malowanie', 'wylewka_cem', 'panele',
+      'montaz_wanny', 'punkt_elektryczny', 'ocieplenie_styropian',
+      'blachodachowka', 'kostka_brukowa',
+    ]
+      .map((id) => works.find((w) => w.id === id))
+      .filter(Boolean);
+
+    return `<div id="podpowiedzi">
+  <h2 style="margin-top:2rem">Kategorie</h2>
+  <div class="city-links">${categories
+      .map((c) => `<a href="${R}uslugi/${c.slug}/">${c.name}</a>`)
+      .join('')}</div>
+
+  <h2 style="margin-top:1.8rem">Najczęściej szukane roboty</h2>
+  <div class="board-wrap"><table class="board">
+    <thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Średnio w Polsce</th></tr></thead>
+    <tbody>${popularne
+      .map((w) => {
+        const cat = categories.find((c) => c.id === w.cat);
+        const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
+        return `<tr><td><a href="${R}${cat.slug}/${slugify(w.name)}/">${w.name}</a></td>
+<td class="num">${units[w.unit].name}</td>
+<td class="num"><b>${money(Math.round(p.labour + p.material))} zł</b></td></tr>`;
+      })
+      .join('')}</tbody>
+  </table></div>
+
+  <p class="section-note" style="margin-top:1rem">Szukasz gotowej kwoty dla swojego metrażu? Zobacz <a href="${R}koszty/">policzone zakresy</a>. Chcesz złożyć kosztorys samodzielnie? Zacznij od <a href="${R}kalkulatory/">kalkulatorów</a>.</p>
+</div>`;
+  })() : ''}
 </div></section>`,
     script: `
 const norm = (s) => s.toLowerCase()
@@ -264,8 +299,11 @@ const POMIJANE = new Set(['ile','kosztuje','koszt','koszty','cena','ceny','cenni
 // Dla dluzszych slow porownujemy rdzen, czyli slowo bez dwoch ostatnich liter.
 const rdzen = (s) => (s.length >= 6 ? s.slice(0, -2) : s.length >= 4 ? s.slice(0, -1) : s);
 
+const podp = document.getElementById('podpowiedzi');
+
 function szukaj(){
   const q = norm(wej.value.trim());
+  if (podp) podp.hidden = q.length >= 2;
   if (q.length < 2) { wyn.innerHTML = ''; ile.textContent = ''; return; }
   const slowa = q.split(/\\s+/).filter(s => s && !POMIJANE.has(s));
   if (!slowa.length) { wyn.innerHTML = ''; ile.textContent = 'Wpisz nazwę roboty, na przykład „płytki” albo „wylewka”.'; return; }
