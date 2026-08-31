@@ -204,6 +204,7 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
+| `narzedzia/jezyk.py` | literówki typu „i i", spacje przed interpunkcją, przyimek z mianownikiem nazwy miasta, błędne formy liczby mnogiej |
 
 ## Odmiana w tekstach generowanych
 
