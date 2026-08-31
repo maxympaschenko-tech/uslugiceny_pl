@@ -205,6 +205,7 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 | `narzedzia/jezyk.py` | literówki typu „i i", spacje przed interpunkcją, przyimek z mianownikiem nazwy miasta, błędne formy liczby mnogiej |
+| `narzedzia/szerokosc.py` | typowe przyczyny poziomego przewijania na telefonie: sztywne szerokości, tabele bez opakowania, brak `min-width: 0` |
 
 ## Odmiana w tekstach generowanych
 
