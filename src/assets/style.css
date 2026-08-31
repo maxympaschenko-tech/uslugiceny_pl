@@ -880,3 +880,12 @@ h2.litera {
 .sm-srodek { text-align: center; }
 .sm-koniec { text-align: right; }
 .sm-opis:hover b { text-decoration: underline; }
+
+/* ---------- zabezpieczenie przed poziomym przewijaniem ---------- */
+
+/* Tabela w rozwijanym bloku rozpychala dokument na waskim ekranie: element
+   siatki domyslnie nie kurczy sie ponizej zawartosci, wiec overflow-x na
+   opakowaniu nie dzialal. */
+.board-wrap { max-width: 100%; min-width: 0; }
+details > .board-wrap, details .board-wrap { width: 100%; }
+.wrap > *, .calc-grid > * { min-width: 0; }
