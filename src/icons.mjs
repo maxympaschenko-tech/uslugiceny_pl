@@ -57,17 +57,29 @@ export function pasekPodzialu(labour, material) {
 // Słupki cen w miastach. Prosty wykres z danych, które i tak są w tabeli:
 // tabela odpowiada na pytanie ile, wykres na pytanie gdzie taniej.
 export function slupkiMiast(dane, jednostka) {
-  const max = Math.max(...dane.map((d) => d.v));
-  return `<div class="slupki">
-  ${dane
-    .map(
-      (d) => `<div class="slupek">
-    <span class="s-miasto">${d.name}</span>
-    <span class="s-tor"><span class="s-wypelnienie" style="width:${(d.v / max) * 100}%"></span></span>
-    <span class="s-wartosc">${d.label}</span>
-  </div>`
-    )
-    .join('')}
-  <p class="s-stopka">Stawka za ${jednostka}, od najtańszego miasta</p>
-</div>`;
+  // Trzy punkty odniesienia zamiast dziesieciu: najtaniej, mediana, najdrozej.
+  // Pelna lista miast jest nizej, w rozwijanej tabeli z podzialem na robocizne
+  // i material, wiec powtarzanie jej tutaj tylko zajmowalo miejsce.
+  const wg = [...dane].sort((a, b) => a.v - b.v);
+  const naj = wg[0];
+  const srodek = wg[Math.floor(wg.length / 2)];
+  const max = wg[wg.length - 1];
+  const pozycja = (d) => ((d.v - naj.v) / (max.v - naj.v || 1)) * 100;
+
+  return `<div class="skala-miast">
+  <div class="sm-tor">
+    <span class="sm-pas"></span>
+    ${wg
+      .map(
+        (d) => `<span class="sm-punkt" style="left:${pozycja(d)}%" title="${d.name}: ${d.label}"></span>`
+      )
+      .join('')}
+  </div>
+  <div class="sm-opisy">
+    <a class="sm-opis" href="${naj.url}"><b>${naj.label}</b><span>${naj.name}</span></a>
+    <a class="sm-opis sm-srodek" href="${srodek.url}"><b>${srodek.label}</b><span>mediana</span></a>
+    <a class="sm-opis sm-koniec" href="${max.url}"><b>${max.label}</b><span>${max.name}</span></a>
+  </div>
+</div>
+<p class="s-stopka">Stawka za ${jednostka} w dziesięciu miastach. Pełna lista w tabeli poniżej.</p>`;
 }

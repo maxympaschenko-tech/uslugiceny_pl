@@ -259,7 +259,12 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     [...cities]
       .map((c) => {
         const q = unitPrice(w.id, c.coef, 1, w.perCm ? 5 : 1);
-        return { name: c.name, v: q.labour + q.material, label: money(Math.round(q.labour + q.material)) + ' zł' };
+        return {
+          name: c.name,
+          v: q.labour + q.material,
+          label: money(Math.round(q.labour + q.material)) + ' zł',
+          url: `${R}ceny/${c.slug}/`,
+        };
       })
       .sort((a, b) => a.v - b.v),
     u

@@ -856,3 +856,25 @@ h2.litera {
 @media (max-width: 26rem) {
   .brand-tekst { font-size: var(--step--1); }
 }
+
+
+/* ---------- skala cen w miastach ---------- */
+
+.skala-miast { margin: 1rem 0 .3rem; }
+.sm-tor { position: relative; height: 1.5rem; }
+.sm-pas {
+  position: absolute; left: 0; right: 0; top: .65rem; height: 4px;
+  background: linear-gradient(90deg, var(--down) 0%, var(--line) 50%, var(--up) 100%);
+  border-radius: 2px;
+}
+.sm-punkt {
+  position: absolute; top: .35rem; width: 9px; height: 9px; margin-left: -4px;
+  background: var(--surface); border: 2px solid var(--ink); border-radius: 50%;
+}
+.sm-opisy { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .4rem; }
+.sm-opis { text-decoration: none; color: var(--ink); display: grid; }
+.sm-opis b { font-family: var(--f-mono); font-size: var(--step-0); }
+.sm-opis span { font-size: var(--step--2); color: var(--ink-soft); }
+.sm-srodek { text-align: center; }
+.sm-koniec { text-align: right; }
+.sm-opis:hover b { text-decoration: underline; }
