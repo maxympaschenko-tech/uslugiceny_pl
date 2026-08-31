@@ -124,7 +124,7 @@ const POD_KLUCZ = ${JSON.stringify(
     ])
   )
 )};
-const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
+const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name, c.loc]])))};
 (function(){
   const f = document.getElementById('calc');
   const box = document.getElementById('wynik');
@@ -192,7 +192,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
   const rada = document.querySelector('[data-rada2]');
   bindForm(f, () => {
     const v = readForm(f);
-    const [, nazwa] = CITIES[v.miasto2];
+    const [, , gdzie] = CITIES[v.miasto2];
     const zaM2 = (POD_KLUCZ[v.miasto2] || {})[v.poziom] || 0;
     const mediana = zaM2 * (v.metraz || 0);
     const dolna = mediana * 0.85, gorna = mediana * 1.15;
@@ -201,7 +201,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 
     rows.innerHTML =
       '<li><span class="label"><span>Wycena od ekipy</span></span><span class="val">' + F(R(oferta)) + '</span></li>' +
-      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² w ' + nazwa + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
+      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² ' + gdzie + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
       '<li><span class="label"><span>Widełki rynkowe</span></span><span class="val">' + F(R(dolna)) + ' – ' + F(R(gorna)) + '</span></li>';
 
     werdykt.textContent = (odchylenie > 0 ? '+' : '') + odchylenie + '%';
@@ -383,7 +383,7 @@ export function porownajMiastaPage({ works, categories, units, cities, unitPrice
     },
     script: `const D = ${JSON.stringify(dane)};
 const KAT = ${JSON.stringify(categories.map((c) => ({ id: c.id, name: c.name })))};
-const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
+const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name, c.loc]])))};
 (function(){
   const f = document.getElementById('calc');
   const tab = document.getElementById('tabela');
@@ -429,7 +429,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
   const rada = document.querySelector('[data-rada2]');
   bindForm(f, () => {
     const v = readForm(f);
-    const [, nazwa] = CITIES[v.miasto2];
+    const [, , gdzie] = CITIES[v.miasto2];
     const zaM2 = (POD_KLUCZ[v.miasto2] || {})[v.poziom] || 0;
     const mediana = zaM2 * (v.metraz || 0);
     const dolna = mediana * 0.85, gorna = mediana * 1.15;
@@ -438,7 +438,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
 
     rows.innerHTML =
       '<li><span class="label"><span>Wycena od ekipy</span></span><span class="val">' + F(R(oferta)) + '</span></li>' +
-      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² w ' + nazwa + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
+      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² ' + gdzie + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
       '<li><span class="label"><span>Widełki rynkowe</span></span><span class="val">' + F(R(dolna)) + ' – ' + F(R(gorna)) + '</span></li>';
 
     werdykt.textContent = (odchylenie > 0 ? '+' : '') + odchylenie + '%';
@@ -497,7 +497,7 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
 
   ${wiersze}
 </div></section>`,
-    script: `const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
+    script: `const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name, c.loc]])))};
 (function(){
   const f = document.getElementById('calc');
   const info = document.querySelector('[data-info]');
@@ -529,7 +529,7 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
   const rada = document.querySelector('[data-rada2]');
   bindForm(f, () => {
     const v = readForm(f);
-    const [, nazwa] = CITIES[v.miasto2];
+    const [, , gdzie] = CITIES[v.miasto2];
     const zaM2 = (POD_KLUCZ[v.miasto2] || {})[v.poziom] || 0;
     const mediana = zaM2 * (v.metraz || 0);
     const dolna = mediana * 0.85, gorna = mediana * 1.15;
@@ -538,7 +538,7 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
 
     rows.innerHTML =
       '<li><span class="label"><span>Wycena od ekipy</span></span><span class="val">' + F(R(oferta)) + '</span></li>' +
-      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² w ' + nazwa + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
+      '<li><span class="label"><span>Nasze wyliczenie</span><span class="qty">' + F(R(zaM2)) + ' zł/m² ' + gdzie + '</span></span><span class="val">' + F(R(mediana)) + '</span></li>' +
       '<li><span class="label"><span>Widełki rynkowe</span></span><span class="val">' + F(R(dolna)) + ' – ' + F(R(gorna)) + '</span></li>';
 
     werdykt.textContent = (odchylenie > 0 ? '+' : '') + odchylenie + '%';
