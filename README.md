@@ -25,6 +25,41 @@ Zmienne środowiskowe:
 
 Domyślnie `SITE_URL` to `https://uslugiceny.pl`, więc lokalnie nic nie trzeba ustawiać.
 
+## Zasada: liczby wymagają zdania
+
+Serwis pokazuje dużo liczb i przez długi czas na tym poprzestawał. Wykres cen
+w miastach, tabela składników, przedział od-do: wszystko poprawne, a czytelnik
+i tak zostawał z pytaniem „i co z tego".
+
+Dlatego każdy typ strony kończy się zdaniem wyliczonym z danych, które
+odpowiada na to pytanie:
+
+| Strona | Zdanie |
+|---|---|
+| usługa | skąd bierze się rozrzut między miastami |
+| usługa w mieście | dlaczego akurat tyle i gdzie jest najtaniej |
+| cennik miasta | ile to znaczy w złotówkach na mieszkaniu 50 m² |
+| metraż | która część budżetu jest największa |
+| porównanie | ile wynosi różnica przy typowym zakresie |
+| poradnik | w jaką sumę składają się opisane etapy |
+| kategoria | czy negocjuje się stawkę ekipy, czy wybiera produkt |
+
+Zdanie musi wynikać z danych, nie z szablonu. Test jest prosty: jeśli to samo
+zdanie pasuje do wylewki i do montażu wanny, to nie mówi nic o żadnej z nich.
+
+## Zasada: grafika albo pokazuje coś ponad liczby, albo znika
+
+Trzy elementy graficzne wyleciały albo zostały przerobione, bo tego nie robiły:
+
+- **wykres słupkowy cen w miastach**: przy rozpiętości 33–48 zł na skali od zera
+  wszystkie słupki wyglądały tak samo. Zastąpiony skalą z dziesięcioma punktami,
+  na której widać, że miasta układają się w dwie grupy
+- **pasek robocizna-materiał** przy pozycjach bez materiału: jednolity, zero
+  informacji. Znika z 374 stron
+- **linijka pod przedziałem cen**: znacznik stał zawsze pośrodku niezależnie od
+  danych. Teraz stoi tam, gdzie średnia leży w przedziale, co pokazuje asymetrię
+  rozkładu
+
 ## Odmiana w tekstach generowanych
 
 Polska odmiana to najczęstsze źródło błędów w tym projekcie: wracała sześć razy,
@@ -206,6 +241,41 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 | `narzedzia/jezyk.py` | literówki typu „i i", spacje przed interpunkcją, przyimek z mianownikiem nazwy miasta, błędne formy liczby mnogiej |
 | `narzedzia/szerokosc.py` | typowe przyczyny poziomego przewijania na telefonie: sztywne szerokości, tabele bez opakowania, brak `min-width: 0` |
+
+## Zasada: liczby wymagają zdania
+
+Serwis pokazuje dużo liczb i przez długi czas na tym poprzestawał. Wykres cen
+w miastach, tabela składników, przedział od-do: wszystko poprawne, a czytelnik
+i tak zostawał z pytaniem „i co z tego".
+
+Dlatego każdy typ strony kończy się zdaniem wyliczonym z danych, które
+odpowiada na to pytanie:
+
+| Strona | Zdanie |
+|---|---|
+| usługa | skąd bierze się rozrzut między miastami |
+| usługa w mieście | dlaczego akurat tyle i gdzie jest najtaniej |
+| cennik miasta | ile to znaczy w złotówkach na mieszkaniu 50 m² |
+| metraż | która część budżetu jest największa |
+| porównanie | ile wynosi różnica przy typowym zakresie |
+| poradnik | w jaką sumę składają się opisane etapy |
+| kategoria | czy negocjuje się stawkę ekipy, czy wybiera produkt |
+
+Zdanie musi wynikać z danych, nie z szablonu. Test jest prosty: jeśli to samo
+zdanie pasuje do wylewki i do montażu wanny, to nie mówi nic o żadnej z nich.
+
+## Zasada: grafika albo pokazuje coś ponad liczby, albo znika
+
+Trzy elementy graficzne wyleciały albo zostały przerobione, bo tego nie robiły:
+
+- **wykres słupkowy cen w miastach**: przy rozpiętości 33–48 zł na skali od zera
+  wszystkie słupki wyglądały tak samo. Zastąpiony skalą z dziesięcioma punktami,
+  na której widać, że miasta układają się w dwie grupy
+- **pasek robocizna-materiał** przy pozycjach bez materiału: jednolity, zero
+  informacji. Znika z 374 stron
+- **linijka pod przedziałem cen**: znacznik stał zawsze pośrodku niezależnie od
+  danych. Teraz stoi tam, gdzie średnia leży w przedziale, co pokazuje asymetrię
+  rozkładu
 
 ## Odmiana w tekstach generowanych
 
