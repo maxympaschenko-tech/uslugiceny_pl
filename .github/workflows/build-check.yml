@@ -3,9 +3,13 @@
 name: Build check
 
 
+
+
 on:
   pull_request:
   workflow_dispatch:
+
+
 
 
 jobs:
@@ -18,12 +22,18 @@ jobs:
           node-version: 22
 
 
+
+
       - name: Spojnosc danych cennika
         run: python3 kontrola-danych.py
 
 
+
+
       - name: Budowanie
         run: node build.mjs
+
+
 
 
       - name: Tylko polski w wygenerowanych stronach
@@ -35,16 +45,27 @@ jobs:
           echo "OK, wylacznie polski"
 
 
+
+
       - name: Dane strukturalne
         run: python3 kontrola-schematow.py
+
+
 
 
       - name: Dostepnosc
         run: python3 kontrola-dostepnosci.py
 
+      - name: Jezyk
+        run: python3 narzedzia/jezyk.py
+
+
+
 
       - name: Audyt metadanych i odnosnikow
         run: python3 audyt.py | tee /tmp/wynik.txt
+
+
 
 
       - name: Progi jakosci
@@ -63,4 +84,6 @@ jobs:
           sprawdz "strony ciezsze niz 120 kB" 0
           sprawdz "strony bez linkow przychodzacych" 1
           exit $fail
+
+
 
