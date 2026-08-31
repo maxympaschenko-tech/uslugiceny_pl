@@ -481,7 +481,11 @@ ul.factors li::before {
 @media (max-width: 34rem) {
   .foot-siatka { grid-template-columns: 1fr 1fr; gap: 1.4rem 1rem; }
   .foot-marka { grid-column: 1 / -1; }
-  .foot-siatka li { margin-bottom: .55rem; }
+  /* Odnosniki w stopce mialy 17 px wysokosci, czyli mniej niz polowe
+     zalecanego celu dotykowego. Powiekszamy pole klikniecia bez zmiany
+     wygladu: odstepy zamiast wiekszej czcionki. */
+  .foot-siatka li { margin-bottom: 0; }
+  .foot-siatka li a { display: block; padding: .55rem 0; }
 }
 
 .foot-marka p { margin: .7rem 0 0; max-width: 34ch; line-height: 1.55; color: #7E8B9D; }
