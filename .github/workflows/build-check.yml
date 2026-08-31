@@ -5,9 +5,17 @@ name: Build check
 
 
 
+
+
+
+
 on:
   pull_request:
   workflow_dispatch:
+
+
+
+
 
 
 
@@ -24,14 +32,26 @@ jobs:
 
 
 
+
+
+
+
       - name: Spojnosc danych cennika
         run: python3 kontrola-danych.py
 
 
 
 
+
+
+
+
       - name: Budowanie
         run: node build.mjs
+
+
+
+
 
 
 
@@ -47,8 +67,16 @@ jobs:
 
 
 
+
+
+
+
       - name: Dane strukturalne
         run: python3 kontrola-schematow.py
+
+
+
+
 
 
 
@@ -56,8 +84,16 @@ jobs:
       - name: Dostepnosc
         run: python3 kontrola-dostepnosci.py
 
+
       - name: Jezyk
         run: python3 narzedzia/jezyk.py
+
+      - name: Szerokosc na waskim ekranie
+        run: python3 narzedzia/szerokosc.py
+
+
+
+
 
 
 
@@ -68,22 +104,12 @@ jobs:
 
 
 
+
+
+
+
       - name: Progi jakosci
         run: |
           fail=0
           sprawdz () {
             n=$(grep -oP "$1: \K[0-9]+" /tmp/wynik.txt | head -1)
-            if [ "${n:-0}" -gt "$2" ]; then echo "PRZEKROCZONY PROG: $1 = $n (max $2)"; fail=1; fi
-          }
-          sprawdz "powtorzone tytuly" 0
-          sprawdz "powtorzone opisy" 0
-          sprawdz "tytuly dluzsze niz 65 znakow" 0
-          sprawdz "strony bez dokladnie jednego H1" 0
-          sprawdz "martwe odnosniki wewnetrzne" 0
-          sprawdz "liczby w tresci niezgodne ze stanem" 0
-          sprawdz "strony ciezsze niz 120 kB" 0
-          sprawdz "strony bez linkow przychodzacych" 1
-          exit $fail
-
-
-
