@@ -396,7 +396,7 @@ export function sezonowoscPage() {
 
 /* ---------- porownanie dwoch miast ---------- */
 
-export function porownajMiastaPage({ works, categories, units, cities, unitPrice }) {
+export function porownajMiastaPage({ works, categories, units, cities, unitPrice, turnkeyPerM2, levels }) {
   const dane = Object.fromEntries(
     works.map((w) => [w.id, { name: w.name, cat: w.cat, unit: units[w.unit].name, labour: w.labour, material: w.material, perCm: !!w.perCm }])
   );
@@ -439,6 +439,17 @@ export function porownajMiastaPage({ works, categories, units, cities, unitPrice
     script: `const D = ${JSON.stringify(dane)};
 const KAT = ${JSON.stringify(categories.map((c) => ({ id: c.id, name: c.name })))};
 const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name, c.loc]])))};
+// Gotowa tabela stawek za m2 remontu pod klucz: wspolczynnik miejski dziala
+// na robocizne w pelni, a na material tylko czesciowo, wiec mnozenie w
+// przegladarce dawaloby inne liczby niz strony miast.
+const POD_KLUCZ = ${JSON.stringify(
+  Object.fromEntries(
+    cities.map((c) => [
+      c.slug,
+      Object.fromEntries((levels || []).map((l) => [l.id, Math.round(turnkeyPerM2(c.coef, l.k))])),
+    ])
+  )
+)};
 (function(){
   const f = document.getElementById('calc');
   const tab = document.getElementById('tabela');
@@ -469,10 +480,21 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
     const roznica = Math.round((cb / ca - 1) * 100);
     document.querySelector('[data-roznica]').textContent = (roznica > 0 ? '+' : '') + roznica + '%';
     document.querySelector('[data-roznica]').className = 't-val ' + (roznica > 0 ? 'werdykt-wysoko' : roznica < 0 ? 'werdykt-ok' : '');
+    // Sam procent nic nie mowi: przeliczamy go na remont mieszkania 50 m2
+    // i na jedna typowa pozycje, zeby roznica miala skale.
+    const zaM2a = POD_KLUCZ[v.a] ? POD_KLUCZ[v.a].standard : 0;
+    const zaM2b = POD_KLUCZ[v.b] ? POD_KLUCZ[v.b].standard : 0;
+    const remontA = Math.round(zaM2a * 50);
+    const remontB = Math.round(zaM2b * 50);
+    const gdzieA = CITIES[v.a][2], gdzieB = CITIES[v.b][2];
+
     document.querySelector('[data-podsumowanie]').textContent =
-      roznica === 0 ? 'Oba miasta mają ten sam współczynnik stawek.'
-      : roznica > 0 ? nb + ' jest droższe od miasta ' + na + ' o ' + roznica + '% w robociźnie.'
-      : nb + ' jest tańsze od miasta ' + na + ' o ' + Math.abs(roznica) + '% w robociźnie.';
+      roznica === 0
+        ? 'Oba miasta mają ten sam współczynnik stawek, więc kwoty wychodzą identyczne.'
+        : (roznica > 0 ? nb + ' jest droższe o ' + roznica : nb + ' jest tańsze o ' + Math.abs(roznica)) +
+          '% w robociźnie. W praktyce: remont mieszkania 50 m² kosztuje ' +
+          F(remontA) + ' zł ' + gdzieA + ' i ' + F(remontB) + ' zł ' + gdzieB +
+          ', czyli różnica ' + F(Math.abs(remontB - remontA)) + ' zł przy tym samym zakresie.';
   });
 })();
 
