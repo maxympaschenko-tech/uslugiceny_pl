@@ -329,7 +329,9 @@ h3 { font-family: var(--f-display); font-weight: 700; letter-spacing: -0.02em; }
 .price-card::after {
   content: ""; grid-area: scale; margin-top: .7rem; height: 22px;
   background:
-    linear-gradient(var(--ink), var(--ink)) 50% 0 / 2px 14px no-repeat,
+    /* znacznik stoi tam, gdzie srednia lezy w przedziale, a nie zawsze
+       posrodku: przy pozycjach z dluga gorna kaskada widac asymetrie */
+    linear-gradient(var(--ink), var(--ink)) var(--pc-poz, 50%) 0 / 2px 14px no-repeat,
     repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 10%) 0 100% / 100% 11px no-repeat,
     repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 2%) 0 100% / 100% 6px no-repeat,
     linear-gradient(var(--line), var(--line)) 0 100% / 100% 1px no-repeat;

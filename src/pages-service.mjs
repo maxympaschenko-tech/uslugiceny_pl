@@ -59,7 +59,7 @@ const crumbLd = (items) => ({
 /* ---------- wspólne bloki ---------- */
 
 const priceCard = (w, units, avg, min, max) => `
-<div class="price-card">
+<div class="price-card" style="--pc-poz:${Math.max(4, Math.min(96, Math.round(((avg - min) / (max - min || 1)) * 100)))}%">
   <div class="pc-item"><span class="pc-label">Od</span><span class="pc-v">${money(Math.round(min))} zł</span></div>
   <div class="pc-item pc-main"><span class="pc-label">Średnio</span><span class="pc-v">${money(Math.round(avg))} zł</span><span class="pc-unit">za ${unitPl(units, w)}</span></div>
   <div class="pc-item"><span class="pc-label">Do</span><span class="pc-v">${money(Math.round(max))} zł</span></div>

@@ -42,6 +42,10 @@ export function pasekPodzialu(labour, material) {
   const suma = labour + material;
   if (!suma) return '';
   const pr = Math.round((labour / suma) * 100);
+  // Przy pozycjach bez materialu pasek jest jednolity i nie niesie zadnej
+  // informacji, a zajmuje miejsce razem z legenda. Tabela nad nim i tak
+  // mowi wprost, ze material kupuje inwestor.
+  if (pr === 100 || pr === 0) return '';
   return `<div class="podzial" role="img" aria-label="Robocizna ${pr} procent, materiał ${100 - pr} procent">
   <div class="podzial-pasek">
     <span class="pr-robocizna" style="width:${pr}%"></span>
