@@ -89,6 +89,20 @@ def obraz_udostepnien(naglowek, podtytul, stopka):
     return img
 
 
+# Warianty obrazu udostępnień dla głównych działów. Jeden obraz na cały serwis
+# sprawia, że kalkulator łazienki udostępnia się z hasłem o dziesięciu miastach.
+WARIANTY = {
+    'og-image.png': ('Ile kosztuje remont', 'w dziesięciu miastach',
+                     '105 pozycji cennika · robocizna i materiał osobno · 2026'),
+    'og-kalkulatory.png': ('Policz kosztorys', 'pozycja po pozycji',
+                           '18 kalkulatorów · robocizna i materiał osobno · 2026'),
+    'og-poradniki.png': ('Kolejność prac', 'krok po kroku',
+                         '14 poradników · co po czym i dlaczego · 2026'),
+    'og-miasta.png': ('Stawki lokalne', 'w dziesięciu miastach',
+                      'Cennik robót remontowych · aktualizacja 2026'),
+}
+
+
 if __name__ == '__main__':
     os.makedirs(KATALOG, exist_ok=True)
     znak(32).save(f'{KATALOG}/favicon-32.png')
@@ -107,10 +121,7 @@ if __name__ == '__main__':
                 '<rect x="30" y="13" width="7" height="25" rx="2" fill="#fff"/>\n'
                 '</svg>\n')
 
-    obraz_udostepnien(
-        'Ile kosztuje remont',
-        'w dziesięciu miastach',
-        '105 pozycji cennika · robocizna i materiał osobno · 2026',
-    ).save(f'{KATALOG}/og-image.png', optimize=True)
+    for plik, (naglowek, podtytul, stopka) in WARIANTY.items():
+        obraz_udostepnien(naglowek, podtytul, stopka).save(f'{KATALOG}/{plik}', optimize=True)
 
-    print('Gotowe: ikony i obraz udostępnień w', KATALOG)
+    print(f'Gotowe: ikony i {len(WARIANTY)} obrazy udostępnień w', KATALOG)

@@ -38,6 +38,15 @@ export const ustawWersjeStylow = (v) => { CSS_V = v; };
 export let JS_V = '';
 export const ustawWersjeSkryptu = (v) => { JS_V = v; };
 
+// Obraz udostepnien dobierany do dzialu: bez tego kalkulator lazienki
+// udostepnia sie z haslem o cenach w dziesieciu miastach.
+const obrazDlaSciezki = (path) => {
+  if (path.startsWith('/kalkulator')) return 'og-kalkulatory.png';
+  if (path.startsWith('/poradnik') || path.startsWith('/porownanie')) return 'og-poradniki.png';
+  if (path.startsWith('/ceny/')) return 'og-miasta.png';
+  return 'og-image.png';
+};
+
 export function layout({ title, description, path, body, jsonLd = null, script = '', breadcrumb = null }) {
   const url = SITE.base + path;
   const R = SITE.root;
@@ -56,7 +65,7 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:site_name" content="uslugiceny.pl">
-<meta property="og:image" content="${SITE.base}${R}og-image.png">
+<meta property="og:image" content="${SITE.base}${R}${obrazDlaSciezki(path)}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="uslugiceny.pl - ceny robót remontowych w Polsce">

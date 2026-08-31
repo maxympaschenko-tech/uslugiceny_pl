@@ -1283,7 +1283,7 @@ await cp('src/assets', join(OUT, 'assets'), { recursive: true });
 const doKorzenia = [
   '.htaccess', 'favicon.ico', 'favicon.svg', 'favicon-32.png', 'favicon-96.png',
   'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
-  'site.webmanifest', 'og-image.png',
+  'site.webmanifest', 'og-image.png', 'og-kalkulatory.png', 'og-poradniki.png', 'og-miasta.png',
 ];
 await writeFile(join(OUT, 'assets', 'kalkulator.js'), calcScript);
 
