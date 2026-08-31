@@ -11,7 +11,8 @@
       "Warszawa ma najwyższe w kraju stawki robocizny i jednocześnie najkrótsze terminy dostępności ekip. Dobra brygada bywa zajęta na kilka miesięcy do przodu, więc kto szuka wykonawcy na już, płaci dopłatę za pośpiech.",
       "Zasób mieszkaniowy dzieli się tu wyraźnie na dwa światy. Wielka płyta z lat siedemdziesiątych oznacza ściany warstwowe, w których kucie bruzd bywa ograniczone, a wymiana okien wymaga szczególnej ostrożności przy ościeżach. Kamienice w centrum to z kolei stropy drewniane, tynki wapienne i częsty nadzór konserwatorski.",
       "Na koszty wpływa też sama logistyka. Brak miejsca na kontener pod klatką, strefy płatnego parkowania i ograniczenia wjazdu potrafią dołożyć do kosztorysu więcej niż różnica w stawce za metr gładzi."
-    ]
+    ],
+    "gen": "Warszawy"
   },
   {
     "slug": "krakow",
@@ -25,7 +26,8 @@
       "Kraków jest drugim najdroższym rynkiem remontowym w kraju, a w ścisłym centrum stawki potrafią dorównywać warszawskim. Wynika to nie tyle z zamożności, ile z trudności samych zleceń.",
       "Stare Miasto i Kazimierz to zabudowa objęta ochroną konserwatorską, gdzie wymiana stolarki czy ingerencja w elewację wymaga uzgodnień, a materiały bywają narzucone. Prace w takich budynkach trwają dłużej i wycenia się je inaczej niż w bloku.",
       "Poza centrum obraz jest zwyczajny: osiedla z wielkiej płyty i nowe budownictwo, gdzie stawki wracają do średniej dla dużych miast."
-    ]
+    ],
+    "gen": "Krakowa"
   },
   {
     "slug": "wroclaw",
@@ -39,7 +41,8 @@
       "Wrocław ma jeden z najlepiej rozwiniętych rynków wykonawczych w kraju, co przekłada się na realną konkurencję między ekipami. Przy większych zleceniach warto zebrać kilka ofert, bo rozrzut bywa tu wyraźniejszy niż w mniejszych miastach.",
       "Charakterystyczne są dwa typy zasobu: przedwojenne kamienice z wysokimi pomieszczeniami i nowe osiedla na obrzeżach. Wysokość powyżej trzech metrów zmienia wycenę gładzi i malowania, bo wchodzą rusztowania.",
       "Przy kamienicach częstym zaskoczeniem jest stan instalacji. Wymiana elektryki i pionów potrafi pochłonąć znaczną część budżetu przewidzianego na wykończenie."
-    ]
+    ],
+    "gen": "Wrocławia"
   },
   {
     "slug": "lodz",
@@ -53,7 +56,8 @@
       "Łódź jest najtańsza spośród pięciu największych polskich miast pod względem robocizny, przy praktycznie tych samych cenach materiałów. Udział pracy w kosztorysie jest tu wyraźnie niższy niż w Warszawie czy Wrocławiu.",
       "Miasto ma ogromny zasób przedwojennych kamienic, z których część jest w trakcie rewitalizacji. Remont w takim budynku to inna technologia niż w bloku: stropy drewniane, tynki na trzcinie i ściany, które rzadko są proste.",
       "Dla inwestora oznacza to prostą zależność: metr kwadratowy remontu kosztuje mniej, ale zakres prac w starym budynku bywa dwa razy szerszy, niż zakładano na początku."
-    ]
+    ],
+    "gen": "Łodzi"
   },
   {
     "slug": "poznan",
@@ -67,7 +71,8 @@
       "Poznań ma stabilny i przewidywalny rynek remontowy, ze stawkami nieco poniżej Wrocławia i wyraźnie poniżej Warszawy. Ekipy rzadziej niż w stolicy stosują dopłaty za krótki termin.",
       "Duża część zleceń pochodzi z aglomeracji, gdzie dominuje zabudowa jednorodzinna. Stąd ponadprzeciętny udział prac elewacyjnych, dekarskich i brukarskich w stosunku do samych remontów mieszkań.",
       "W samym mieście zasób jest mieszany: kamienice w centrum, bloki z lat siedemdziesiątych i nowe osiedla na obrzeżach."
-    ]
+    ],
+    "gen": "Poznania"
   },
   {
     "slug": "gdansk",
@@ -81,7 +86,8 @@
       "Gdańsk ma stawki zbliżone do krakowskich, ale własną specyfikę wynikającą z klimatu morskiego. Wilgotne, słone powietrze i silne wiatry skracają żywotność elewacji, obróbek blacharskich i pokryć dachowych.",
       "W praktyce oznacza to, że elewacje i dachy wymagają tu materiałów o wyższej odporności, a przeglądy trzeba robić częściej niż w głębi kraju. Oszczędność na klasie tynku czy blachy zwraca się negatywnie szybciej niż gdzie indziej.",
       "Sezon prac zewnętrznych bywa krótszy przez wiatr i opady, więc kalendarze dobrych ekip dekarskich zapełniają się wcześnie."
-    ]
+    ],
+    "gen": "Gdańska"
   },
   {
     "slug": "szczecin",
@@ -95,7 +101,8 @@
       "Szczecin ma stawki poniżej średniej dla dużych miast, ale rynek wykonawczy jest tu wrażliwy na bliskość granicy. Część fachowców pracuje sezonowo w Niemczech, co okresowo zawęża dostępność ekip.",
       "Zasób mieszkaniowy to w dużej mierze bloki z lat siedemdziesiątych i osiemdziesiątych oraz przedwojenna zabudowa w śródmieściu. Typowe zlecenie to remont mieszkania w bloku z wymianą instalacji.",
       "Klimat jest łagodniejszy niż na wschodzie kraju, ale wilgotność sprawia, że przy elewacjach i piwnicach warto zwrócić uwagę na izolacje."
-    ]
+    ],
+    "gen": "Szczecina"
   },
   {
     "slug": "lublin",
@@ -109,7 +116,8 @@
       "Lublin należy do tańszej połowy tej dziesiątki, przy rosnącej liczbie nowych osiedli. Wykończenie mieszkania w stanie deweloperskim to tutaj jedno z najczęstszych zleceń.",
       "W stanie deweloperskim zakres prac jest węższy niż przy remoncie: nie ma demontaży ani wywozu gruzu, za to dochodzą gładzie na całej powierzchni i pełne wykończenie łazienki.",
       "Starsza zabudowa w centrum bywa objęta ochroną konserwatorską, co dotyczy głównie elewacji i stolarki od strony ulicy."
-    ]
+    ],
+    "gen": "Lublina"
   },
   {
     "slug": "bydgoszcz",
@@ -123,7 +131,8 @@
       "Bydgoszcz ma jedne z najniższych stawek w tej dziesiątce, przy pełnej dostępności materiałów i sprzętu. Różnica wobec Warszawy sięga przy tych samych pracach kilkudziesięciu procent.",
       "Dominuje zabudowa z lat sześćdziesiątych i siedemdziesiątych, gdzie typowym zleceniem jest kompleksowy remont z wymianą instalacji elektrycznej i hydraulicznej.",
       "W takich mieszkaniach warto od razu zaplanować nową rozdzielnicę: instalacja aluminiowa sprzed pół wieku nie jest przystosowana do dzisiejszej liczby odbiorników."
-    ]
+    ],
+    "gen": "Bydgoszczy"
   },
   {
     "slug": "bialystok",
@@ -137,6 +146,7 @@
       "Białystok jest najtańszym miastem w tym zestawieniu pod względem robocizny, przy cenach materiałów praktycznie takich samych jak w Warszawie. Udział pracy w kosztorysie jest tu najniższy z całej dziesiątki.",
       "Klimat jest ostrzejszy niż w zachodniej Polsce, z niższymi temperaturami zimą. Przy termomodernizacji przekłada się to na grubsze warstwy izolacji, a sezon prac elewacyjnych jest tu krótszy, bo systemy ETICS wymagają temperatury powyżej pięciu stopni.",
       "Dla planujących ocieplenie oznacza to jedno: termin trzeba rezerwować z wyprzedzeniem, bo okno pogodowe zamyka się wcześniej niż nad morzem czy na zachodzie kraju."
-    ]
+    ],
+    "gen": "Białegostoku"
   }
 ]

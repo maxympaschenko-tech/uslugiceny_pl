@@ -80,6 +80,12 @@ sprawdz(len(por) == liczba_w_pliku,
         f"kontrola porownan znalazla {len(por)} wpisow, a w pliku jest {liczba_w_pliku}: "
         f"prawdopodobnie zmienil sie format i regula przestala dzialac")
 
+# Miasta musza miec komplet form gramatycznych. Brak ktorejkolwiek konczy sie
+# sklejaniem przyimka z mianownikiem, czyli bledem, ktory wracal osiem razy.
+for m in cities:
+    for pole, opis in [('loc', 'miejscownik'), ('gen', 'dopelniacz')]:
+        sprawdz(bool(m.get(pole)), f"miasto {m['name']}: brak formy '{pole}' ({opis})")
+
 progi = {'dwa razy': (1.7, 2.4), 'trzy razy': (2.6, 3.4), 'półtora raza': (1.35, 1.7)}
 for slug, a, b, cm, lede in por:
     cm = int(cm) if cm else 1

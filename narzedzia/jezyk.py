@@ -26,6 +26,10 @@ WZORCE = [
     (r'\S +[.,;:](?!\d)', 'spacja przed interpunkcją'),
     (r'\bzl\b', 'zapis „zl" zamiast „zł"'),
     (rf'\bw ({MIASTA})\b', 'przyimek z mianownikiem nazwy miasta'),
+    # Konstrukcje, w ktorych nazwa miasta powinna byc odmieniona. Osma odslona
+    # tego samego bledu: raz bylo "w Warszawa", raz "od miasta Warszawa".
+    (rf'\b(?:od|do|dla|niz|przy|nad|pod|za) miasta ({MIASTA})\b', 'nazwa miasta po slowie „miasta" bez odmiany'),
+    (rf'\b(?:niz|od|do) ({MIASTA})\b(?! ma | jest | to )', 'nazwa miasta w mianowniku po przyimku'),
     (r'\(\s+|\s+\)', 'spacja wewnątrz nawiasu'),
     (r'\b\d*[2-4] (pozycji|stron|haseł|źródeł)\b', 'zła forma liczby mnogiej'),
 ]
