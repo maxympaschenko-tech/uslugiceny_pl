@@ -254,12 +254,23 @@ fetch('${R}search-index.json').then(r => r.json()).then(d => {
   if (p) { wej.value = p; szukaj(); }
 });
 
+// Slowa, ktore ludzie dopisuja do zapytania, a ktore nie wystepuja w nazwach
+// pozycji. Bez ich pominiecia "ile kosztuje remont" nie znajduje niczego.
+const POMIJANE = new Set(['ile','kosztuje','koszt','koszty','cena','ceny','cennik',
+  'za','w','we','na','do','i','z','jak','czy','jest','sie','moj','moja',
+  'm2','m²','mb','szt','zl','zł','pln','robocizna','2026','cennik']);
+
+// Polska odmiana: "wanna" ma znalezc "wanny", "plytka" ma znalezc "plytki".
+// Dla dluzszych slow porownujemy rdzen, czyli slowo bez dwoch ostatnich liter.
+const rdzen = (s) => (s.length >= 6 ? s.slice(0, -2) : s.length >= 4 ? s.slice(0, -1) : s);
+
 function szukaj(){
   const q = norm(wej.value.trim());
   if (q.length < 2) { wyn.innerHTML = ''; ile.textContent = ''; return; }
-  const slowa = q.split(/\\s+/);
+  const slowa = q.split(/\\s+/).filter(s => s && !POMIJANE.has(s));
+  if (!slowa.length) { wyn.innerHTML = ''; ile.textContent = 'Wpisz nazwę roboty, na przykład „płytki” albo „wylewka”.'; return; }
   const trafienia = INDEKS
-    .filter(x => slowa.every(s => x.szukaj.includes(s)))
+    .filter(x => slowa.every(s => x.szukaj.includes(rdzen(s))))
     .slice(0, 40);
   ile.textContent = trafienia.length
     ? 'Znaleziono ' + trafienia.length + (trafienia.length === 40 ? ' i więcej' : '') + ' pozycji.'
