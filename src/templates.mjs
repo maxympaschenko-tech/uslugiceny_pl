@@ -24,6 +24,15 @@ export const ZNAK = (rozmiar = 30) => `<svg class="znak" width="${rozmiar}" heig
 <rect class="s-tlo" x="30" y="13" width="7" height="25" rx="2"/>
 </svg>`;
 
+// Polska liczba mnoga: 1 pozycja, 2-4 pozycje, 5+ pozycji, ale 12-14 pozycji.
+// Bez tego karty z licznikami pisza "34 pozycji" zamiast "34 pozycje".
+export const odmien = (n, jedna, dwie, piec) => {
+  if (n === 1) return jedna;
+  const ost = n % 10;
+  const setki = n % 100;
+  return ost >= 2 && ost <= 4 && !(setki >= 12 && setki <= 14) ? dwie : piec;
+};
+
 export let CSS_V = '';
 export const ustawWersjeStylow = (v) => { CSS_V = v; };
 export let JS_V = '';

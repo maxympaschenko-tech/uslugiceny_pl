@@ -1,5 +1,5 @@
 // Dwa narzędzia, które nie liczą kosztorysu, tylko pomagają go ocenić i znaleźć.
-import { layout, calcScript, field, select, money } from './templates.mjs';
+import { layout, odmien, calcScript, field, select, money } from './templates.mjs';
 import { SITE } from './config.mjs';
 
 const R = SITE.root;
@@ -272,8 +272,14 @@ function szukaj(){
   const trafienia = INDEKS
     .filter(x => slowa.every(s => x.szukaj.includes(rdzen(s))))
     .slice(0, 40);
+  // Polska liczba mnoga: 1 pozycja, 2-4 pozycje, 5+ pozycji, ale 12-14 pozycji.
+  const odmiana = (n) => {
+    if (n === 1) return 'pozycję';
+    const ost = n % 10, dwie = n % 100;
+    return ost >= 2 && ost <= 4 && !(dwie >= 12 && dwie <= 14) ? 'pozycje' : 'pozycji';
+  };
   ile.textContent = trafienia.length
-    ? 'Znaleziono ' + trafienia.length + (trafienia.length === 40 ? ' i więcej' : '') + ' pozycji.'
+    ? 'Znaleziono ' + trafienia.length + (trafienia.length === 40 ? ' i więcej' : '') + ' ' + odmiana(trafienia.length) + '.'
     : 'Nic nie znaleziono. Spróbuj krótszego słowa, na przykład „płytki” zamiast „układanie płytek w łazience”.';
   wyn.innerHTML = trafienia.map(x =>
     '<div class="card"><h3><a href="' + x.u + '">' + x.t + '</a></h3><p>' + (x.o || '') + '</p></div>'
@@ -614,8 +620,8 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
 
   <h2 style="margin-top:1.8rem">Cennik w liczbach</h2>
   <div class="cards">
-    <div class="card"><h3>Sama robocizna</h3><p class="big">${sameRobocizna}</p><p>pozycji, w których nie ma żadnego materiału po stronie wykonawcy: demontaże, montaże urządzeń kupowanych przez inwestora, sprzątanie.</p></div>
-    <div class="card"><h3>Przewaga materiału</h3><p class="big">${przewagaMaterialu.length}</p><p>pozycji, w których materiał kosztuje więcej niż praca. Tu o cenie decyduje półka cenowa produktu.</p></div>
+    <div class="card"><h3>Sama robocizna</h3><p class="big">${sameRobocizna}</p><p>${odmien(sameRobocizna, 'pozycja, w której', 'pozycje, w których', 'pozycji, w których')} nie ma żadnego materiału po stronie wykonawcy: demontaże, montaże urządzeń kupowanych przez inwestora, sprzątanie.</p></div>
+    <div class="card"><h3>Przewaga materiału</h3><p class="big">${przewagaMaterialu.length}</p><p>${odmien(przewagaMaterialu.length, 'pozycja, w której', 'pozycje, w których', 'pozycji, w których')} materiał kosztuje więcej niż praca. Tu o cenie decyduje półka cenowa produktu.</p></div>
     <div class="card"><h3>Najwięcej materiału</h3><p class="big">${100 - poz[poz.length - 1].udzial}%</p><p>taki udział ma materiał w pozycji „${poz[poz.length - 1].name}”, największy w całym cenniku.</p></div>
   </div>
 
@@ -709,8 +715,8 @@ export function aktualizacjePage({ works, meta }) {
 
   <h2 style="margin-top:1.8rem">Stan weryfikacji</h2>
   <div class="cards">
-    <div class="card"><h3>Sprawdzone punktowo</h3><p class="big">${sprawdzone}</p><p>pozycji, dla których źródło podaje liczbę dla tej konkretnej roboty.</p></div>
-    <div class="card"><h3>Z przedziału grupy</h3><p class="big">${works.length - sprawdzone}</p><p>pozycji wyprowadzonych z widełek dla całej grupy robót, oznaczonych na swoich stronach jako orientacyjne.</p></div>
+    <div class="card"><h3>Sprawdzone punktowo</h3><p class="big">${sprawdzone}</p><p>${odmien(sprawdzone, 'pozycja, dla której', 'pozycje, dla których', 'pozycji, dla których')} źródło podaje liczbę dla tej konkretnej roboty.</p></div>
+    <div class="card"><h3>Z przedziału grupy</h3><p class="big">${works.length - sprawdzone}</p><p>${odmien(works.length - sprawdzone, 'pozycja wyprowadzona', 'pozycje wyprowadzone', 'pozycji wyprowadzonych')} z widełek dla całej grupy robót, oznaczonych na swoich stronach jako orientacyjne.</p></div>
     <div class="card"><h3>Źródła</h3><p class="big">${(meta.sources || []).length}</p><p>opracowań i cenników, na których opiera się cennik. Lista z datami jest na stronie <a href="${R}jak-liczymy/">Jak liczymy</a>.</p></div>
   </div>
 
