@@ -25,6 +25,27 @@ Zmienne środowiskowe:
 
 Domyślnie `SITE_URL` to `https://uslugiceny.pl`, więc lokalnie nic nie trzeba ustawiać.
 
+## Odmiana w tekstach generowanych
+
+Polska odmiana to najczęstsze źródło błędów w tym projekcie: wracała sześć razy,
+w tytułach, opisach, pytaniach, wyjaśnieniach i w kodzie działającym w przeglądarce.
+Schemat zawsze ten sam: generator skleja przyimek z nazwą w mianowniku.
+
+Zasady, które to zamykają:
+
+- **Nazwa miasta nigdy nie jest sklejana z przyimkiem.** W `cities.json` jest pole
+  `loc` z gotowym miejscownikiem (`w Warszawie`, `we Wrocławiu`, `w Łodzi`) i to
+  ono trafia do tekstu. Dotyczy też danych przekazywanych do przeglądarki.
+- **Nazwa roboty zostaje w mianowniku.** Zdania buduje się wokół niej, zamiast ją
+  odmieniać: „Płytki na ścianie w Krakowie: jaka jest cena?" zamiast „Ile kosztuje
+  płytki...".
+- **Hasła słownika mają listę form.** Pole piąte we wpisie zawiera odmiany, pod
+  którymi pojęcie występuje w tekstach, bo „więźba dachowa" w słowniku i „więźby"
+  w poradniku to dla wyszukiwania dwa różne ciągi.
+
+Sprawdzenie po zmianie: `grep -rE '\bw (Warszawa|Kraków|Łódź)' dist/` powinno
+zwracać zero trafień.
+
 ## Powtarzalność treści
 
 Przy tysiącu stron z jednego szablonu łatwo nie zauważyć, że jakieś zdanie stoi
@@ -183,6 +204,27 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
+
+## Odmiana w tekstach generowanych
+
+Polska odmiana to najczęstsze źródło błędów w tym projekcie: wracała sześć razy,
+w tytułach, opisach, pytaniach, wyjaśnieniach i w kodzie działającym w przeglądarce.
+Schemat zawsze ten sam: generator skleja przyimek z nazwą w mianowniku.
+
+Zasady, które to zamykają:
+
+- **Nazwa miasta nigdy nie jest sklejana z przyimkiem.** W `cities.json` jest pole
+  `loc` z gotowym miejscownikiem (`w Warszawie`, `we Wrocławiu`, `w Łodzi`) i to
+  ono trafia do tekstu. Dotyczy też danych przekazywanych do przeglądarki.
+- **Nazwa roboty zostaje w mianowniku.** Zdania buduje się wokół niej, zamiast ją
+  odmieniać: „Płytki na ścianie w Krakowie: jaka jest cena?" zamiast „Ile kosztuje
+  płytki...".
+- **Hasła słownika mają listę form.** Pole piąte we wpisie zawiera odmiany, pod
+  którymi pojęcie występuje w tekstach, bo „więźba dachowa" w słowniku i „więźby"
+  w poradniku to dla wyszukiwania dwa różne ciągi.
+
+Sprawdzenie po zmianie: `grep -rE '\bw (Warszawa|Kraków|Łódź)' dist/` powinno
+zwracać zero trafień.
 
 ## Powtarzalność treści
 
