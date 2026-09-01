@@ -32,6 +32,11 @@ WZORCE = [
     (rf'\b(?:niz|od|do) ({MIASTA})\b(?! ma | jest | to )', 'nazwa miasta w mianowniku po przyimku'),
     (r'\(\s+|\s+\)', 'spacja wewnątrz nawiasu'),
     (r'\b\d*[2-4] (pozycji|stron|haseł|źródeł)\b', 'zła forma liczby mnogiej'),
+    # Nazwy pozycji bywaja w liczbie mnogiej ("Plytki na scianie"), wiec zdania
+    # z czasownikiem w liczbie pojedynczej daja blad. Stad konstrukcje bez
+    # czasownika w opisach stawek.
+    (r'(Płytki|Obróbki|Listwy|Rynny|Gładzie|Tynki|Panele|Legary)[^.!?]{0,60}?\b(kosztuje|dokłada|wynosi|obejmuje)\b',
+     'czasownik w liczbie pojedynczej po nazwie mnogiej'),
 ]
 
 

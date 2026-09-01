@@ -203,8 +203,8 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
   const matWord = w.materialLabel || 'materiałem';
   const faq = pytania({ w, units, kwota: avg, jednostka: u, gdzie: '', min, max });
   const lead = w.material
-    ? `${w.name} kosztuje średnio ${money(Math.round(avg))} zł za ${u} razem z ${matWord === 'materiałem' ? 'materiałem' : 'kosztem kontenera'}. Sama robocizna to ${money(Math.round(base.labour))} zł, ${w.materialLabel || 'materiał'} dokłada ${money(Math.round(base.material))} zł.`
-    : `${w.name} kosztuje średnio ${money(Math.round(avg))} zł za ${u}. To wyłącznie robocizna: ${w.name.toLowerCase().includes('wywóz') ? 'kontener i utylizację liczy się osobno' : 'materiał lub urządzenie kupuje inwestor'}.`;
+    ? `${w.name}: średnio ${money(Math.round(avg))} zł za ${u} razem z ${matWord === 'materiałem' ? 'materiałem' : 'kosztem kontenera'}. Sama robocizna to ${money(Math.round(base.labour))} zł, do tego ${w.materialLabel || 'materiał'} za ${money(Math.round(base.material))} zł.`
+    : `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}. To wyłącznie robocizna, ${w.name.toLowerCase().includes('wywóz') ? 'kontener i utylizację liczy się osobno' : 'materiał lub urządzenie kupuje inwestor'}.`;
 
   return layout({
     title: tytul(`${w.name} - cena ${YEAR}`, `: ile kosztuje za ${u}`),
