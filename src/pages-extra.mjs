@@ -1167,7 +1167,7 @@ export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag, byI
   <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
   <p class="section-note">${pk.uwaga}</p>
 
-  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres, na przykład zostawić podłogę albo dołożyć sufit podwieszany? Przejdź do <a href="${R}kalkulator/pokoj/">kalkulatora pokoju</a>. Kolejność prac opisuje <a href="${R}poradnik/kolejnosc-prac-remontowych/">poradnik o remoncie mieszkania</a>.</p>
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres, na przykład zostawić podłogę albo dołożyć sufit podwieszany? Przejdź do <a href="${R}kalkulator/pokoj/">kalkulatora pokoju</a>. Kolejność prac krok po kroku opisuje <a href="${R}poradnik/remont-pokoju-krok-po-kroku/">osobny poradnik</a>.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',

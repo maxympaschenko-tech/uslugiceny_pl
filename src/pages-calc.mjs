@@ -145,6 +145,7 @@ export const CALCS = [
       ['Ile metrów ścian ma pokój 20 m²?', 'Przy typowej wysokości 2,6 metra i kwadratowym rzucie wychodzi około 45 m² ścian, a razem z sufitem około 65 m². To dlatego malowanie pokoju kosztuje więcej, niż wynikałoby z samego metrażu podłogi.'],
       ['Czy da się wyremontować pokój mieszkając w mieszkaniu?', 'Tak, i to główna zaleta remontu pomieszczeniami. Wymaga wyniesienia mebli, zabezpieczenia przejścia folią i pogodzenia się z pyłem przy szlifowaniu gładzi. Prace mokre wydłużają się, bo trudniej intensywnie wietrzyć.'],
       ['Czy trzeba wymieniać podłogę przy odświeżaniu pokoju?', 'Nie zawsze. Jeśli pod wykładziną jest parkiet w dobrym stanie, cyklinowanie bywa tańsze od nowych paneli. Panele w dobrym stanie wystarczy oczyścić, a wymienić same listwy.'],
+      ['W jakiej kolejności prowadzić prace?', 'Demontaże, instalacje, naprawa ścian, gruntowanie, malowanie, dopiero potem podłoga i listwy. Malowanie po ułożeniu paneli oznacza zabezpieczanie całej powierzchni folią i poprawki przy listwach. Pełny opis znajdziesz w poradniku o remoncie pokoju.'],
     ],
     fields: (opts) => `
       <div class="fields-2">
