@@ -725,6 +725,17 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
 export const AKTUALIZACJE = [
   {
     data: '2026-08',
+    tytul: 'Korekta stawek glazurniczych',
+    opis: 'Przegląd udziału robocizny w kategoriach pokazał, że przy płytkach praca stanowiła tylko 39 procent kwoty, co nie zgadza się z charakterem tej roboty. Sprawdzenie w sześciu cennikach potwierdziło zaniżenie.',
+    zmiany: [
+      ['Płytki na ścianie', 'Robocizna 58 → 80 zł/m². Cenniki podają 70 do 100 zł za glazurę ścienną, a przy gresie 60×60 nawet 100 do 180. Nasza stawka leżała poniżej dolnej granicy rynku.'],
+      ['Płytki na podłodze', 'Robocizna 68 → 92 zł/m², wobec rynkowych 80 do 120 dla terakoty podłogowej.'],
+      ['Płytki wielkoformatowe', 'Robocizna 120 → 160 zł/m². Format 90×90 i większy wymaga niemal idealnie płaskiego podłoża i dwóch osób do przenoszenia, stąd rynkowe 180 do 230.'],
+      ['Skutek dla wyliczeń', 'Łazienka 6 m² podrożała z 11 446 do 12 028 zł w najtańszym mieście, a w Warszawie do 15 739 zł. Obie kwoty mieszczą się w rynkowym przedziale 12 do 18 tysięcy za remont pod klucz.'],
+    ],
+  },
+  {
+    data: '2026-08',
     tytul: 'Ostatnie pozycje bez punktowego źródła',
     opis: 'Przejście przez pozycje, które dotąd miały stawkę wyprowadzoną z widełek dla całej grupy robót. Udział stawek sprawdzonych punktowo wzrósł do 103 na 105.',
     zmiany: [

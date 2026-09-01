@@ -178,6 +178,18 @@
       {
         "name": "alleremont.pl, zabudowa karton-gips: cennik za m2",
         "date": "2026-06"
+      },
+      {
+        "name": "adrem.org.pl, ukladanie plytek: cena za m2",
+        "date": "2026-04"
+      },
+      {
+        "name": "alleremont.pl, cennik glazurnika 2026",
+        "date": "2026-06"
+      },
+      {
+        "name": "ogarnijremont.pl, ukladanie plytek i cennik glazurnika",
+        "date": "2026-04"
       }
     ]
   },
@@ -274,7 +286,10 @@
       "zrodla": [
         0,
         1,
-        2
+        2,
+        43,
+        44,
+        45
       ]
     },
     {
@@ -752,7 +767,7 @@
       "id": "plytki_podloga",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 68,
+      "labour": 92,
       "material": 92,
       "factors": [
         "Format i rodzaj płytki: gres wielkoformatowy wymaga dwóch osób i innych narzędzi.",
@@ -767,7 +782,7 @@
       "id": "plytki_sciana",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 58,
+      "labour": 80,
       "material": 92,
       "factors": [
         "Format płytki: im większa, tym trudniejsze ułożenie i wyższa stawka za metr.",
@@ -782,7 +797,7 @@
       "id": "plytki_wielkoformat",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 120,
+      "labour": 160,
       "material": 165,
       "spread": 0.25,
       "name": "Płytki wielkoformatowe",
