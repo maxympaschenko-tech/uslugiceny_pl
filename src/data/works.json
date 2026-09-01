@@ -154,6 +154,18 @@
       {
         "name": "ecentrumdrewna.pl, kalkulacja kosztow tarasu kompozytowego",
         "date": "2026-07"
+      },
+      {
+        "name": "cenauslug.pl, montaz styropianu pod ogrzewanie podlogowe",
+        "date": "2026-05"
+      },
+      {
+        "name": "cennikibudowlane.com.pl, cennik parkietu i podlog drewnianych",
+        "date": "2026-07"
+      },
+      {
+        "name": "nowoczesny.pl, montaz listew przypodlogowych i silikonowanie",
+        "date": "2026-05"
       }
     ]
   },
@@ -229,7 +241,9 @@
         1,
         2,
         3,
-        32
+        32,
+        37,
+        38
       ]
     },
     {
@@ -652,14 +666,15 @@
       "id": "izolacja_styropian",
       "cat": "floor",
       "unit": "m2",
-      "labour": 18,
+      "labour": 22,
       "material": 26,
       "name": "Izolacja podłogi ze styropianu",
       "factors": [
         "Grubość i klasa styropianu: podłogowy EPS 100 jest droższy od zwykłego.",
         "Konieczność ułożenia folii i taśm dylatacyjnych przy ścianach.",
         "Docinki wokół rur i przejść instalacyjnych."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "panele",
@@ -679,15 +694,16 @@
       "id": "parkiet",
       "cat": "floor",
       "unit": "m2",
-      "labour": 125,
-      "material": 185,
+      "labour": 85,
+      "material": 190,
       "spread": 0.24,
       "name": "Montaż deski podłogowej",
       "factors": [
         "Rodzaj deski: lita wymaga innej technologii niż warstwowa.",
         "Wykończenie na miejscu: cyklinowanie i olejowanie to osobny etap.",
         "Układ i szerokość deski, bo wąska oznacza więcej metrów bieżących pracy."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "listwy",
@@ -766,14 +782,15 @@
       "id": "silikonowanie",
       "cat": "tiles",
       "unit": "mb",
-      "labour": 22,
-      "material": 6,
+      "labour": 9,
+      "material": 4,
       "name": "Silikonowanie",
       "factors": [
         "Liczba narożników i styków różnych materiałów.",
         "Rodzaj silikonu: sanitarny z ochroną przed pleśnią kosztuje więcej.",
         "Konieczność usunięcia starej fugi silikonowej przed nałożeniem nowej."
-      ]
+      ],
+      "sprawdzone": "2026-08"
     },
     {
       "id": "punkt_wod_kan",
