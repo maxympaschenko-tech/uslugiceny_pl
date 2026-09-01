@@ -438,7 +438,7 @@ export function porownajMiastaPage({ works, categories, units, cities, unitPrice
     },
     script: `const D = ${JSON.stringify(dane)};
 const KAT = ${JSON.stringify(categories.map((c) => ({ id: c.id, name: c.name })))};
-const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name, c.loc]])))};
+const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name, c.loc, c.gen]])))};
 // Gotowa tabela stawek za m2 remontu pod klucz: wspolczynnik miejski dziala
 // na robocizne w pelni, a na material tylko czesciowo, wiec mnozenie w
 // przegladarce dawaloby inne liczby niz strony miast.
@@ -491,7 +491,9 @@ const POD_KLUCZ = ${JSON.stringify(
     document.querySelector('[data-podsumowanie]').textContent =
       roznica === 0
         ? 'Oba miasta mają ten sam współczynnik stawek, więc kwoty wychodzą identyczne.'
-        : (roznica > 0 ? nb + ' jest droższe o ' + roznica : nb + ' jest tańsze o ' + Math.abs(roznica)) +
+        : (roznica > 0
+            ? nb + ' jest droższe od ' + CITIES[v.a][3] + ' o ' + roznica
+            : nb + ' jest tańsze od ' + CITIES[v.a][3] + ' o ' + Math.abs(roznica)) +
           '% w robociźnie. W praktyce: remont mieszkania 50 m² kosztuje ' +
           F(remontA) + ' zł ' + gdzieA + ' i ' + F(remontB) + ' zł ' + gdzieB +
           ', czyli różnica ' + F(Math.abs(remontB - remontA)) + ' zł przy tym samym zakresie.';
