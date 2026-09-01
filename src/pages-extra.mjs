@@ -316,6 +316,18 @@ export const POROWNANIA = [
     przeciwB: ['Wyraźnie droższa na starcie, a najtańsze deski komorowe gorzej znoszą obciążenia punktowe.', 'Nagrzewa się w pełnym słońcu jak każdy ciemny materiał.', 'Uszkodzenia mechanicznego nie da się zeszlifować, wymienia się całą deskę.'],
     werdykt: 'Taras użytkowany intensywnie, bez ochoty na coroczną konserwację: kompozyt, licząc się z wyższym kosztem początkowym. Taras w cieniu, mały metraż albo chęć uzyskania naturalnego wyglądu przy niższym budżecie: drewno, ale z realnym planem olejowania co dwa sezony, bo bez tego szarzeje i sinieje.',
   },
+  {
+    slug: 'plytki-wielkoformatowe-czy-standardowe',
+    przyklad: { opis: '25 m² łazienki', ile: 25 },
+    h1: 'Płytki wielkoformatowe czy standardowe',
+    a: 'plytki_sciana', b: 'plytki_wielkoformat',
+    lede: 'Wielki format kosztuje niemal dwa razy tyle za metr, a różnica bierze się głównie z robocizny: dwie osoby do przenoszenia, podłoże wypoziomowane niemal idealnie i cięcie mokrą piłą.',
+    za: ['Wyraźnie tańsze w robociźnie i w materiale.', 'Jedna osoba wystarczy do montażu, więc łatwiej o wykonawcę.', 'Wybaczają drobne nierówności podłoża: klej wyrównuje kilka milimetrów.'],
+    przeciw: ['Więcej fug, czyli więcej miejsc, w których zbiera się brud.', 'W małym pomieszczeniu gęsta siatka fug potrafi optycznie je pomniejszyć.', 'Przy dużej powierzchni widać każdą nierówność w liniach spoin.'],
+    zaB: ['Mało fug, więc powierzchnia wygląda spokojniej i łatwiej się myje.', 'Optycznie powiększa małe pomieszczenia, zwłaszcza łazienki.', 'Mniej miejsc narażonych na przecieki i przebarwienia spoin.'],
+    przeciwB: ['Wymaga podłoża wypoziomowanego niemal idealnie, często z dodatkową masą samopoziomującą.', 'Montaż w dwie osoby i cięcie mokrą piłą, co podnosi robociznę.', 'Uszkodzona płytka to duża i widoczna naprawa, a docinki bywają kosztowne.'],
+    werdykt: 'Mała łazienka, gdzie chodzi o efekt wizualny i łatwe czyszczenie: wielki format, licząc się z kosztem przygotowania podłoża. Duża powierzchnia użytkowa, kuchnia, przedpokój albo ograniczony budżet: format standardowy, który wybacza więcej i wymaga jednego montera zamiast dwóch.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {
