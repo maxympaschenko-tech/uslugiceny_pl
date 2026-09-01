@@ -98,6 +98,9 @@ jobs:
 
 
 
+      - name: Dzialanie kalkulatorow
+        run: node narzedzia/kalkulatory.mjs
+
       - name: Audyt metadanych i odnosnikow
         run: python3 audyt.py | tee /tmp/wynik.txt
 
