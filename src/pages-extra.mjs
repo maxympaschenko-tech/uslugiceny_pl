@@ -352,6 +352,18 @@ export const POROWNANIA = [
     przeciwB: ['Wyraźnie droższe i wymaga wykonawcy z profilarką oraz doświadczeniem.', 'Naprawa punktowa jest trudniejsza: rąbek trzeba rozgiąć i zamknąć na nowo.', 'Krótsza lista ekip w mniejszych miejscowościach, co wydłuża termin.'],
     werdykt: 'Typowy dach dwuspadowy o normalnym nachyleniu i ograniczony budżet: blacha trapezowa. Dach o małym kącie, skomplikowana bryła albo plan na kilkadziesiąt lat bez wymiany: rąbek stojący, pod warunkiem że w okolicy jest ekipa, która robi to regularnie.',
   },
+  {
+    slug: 'krawezniki-czy-obrzeza',
+    przyklad: { opis: '40 mb obramowania', ile: 40 },
+    h1: 'Krawężniki czy obrzeża',
+    a: 'obrzeza', b: 'krawezniki',
+    lede: 'Oba elementy trzymają nawierzchnię w ryzach, ale krawężnik przenosi obciążenie kołami, a obrzeże tylko oddziela. Pomylenie ich kończy się rozjeżdżoną kostką przy wjeździe.',
+    za: ['Tańsze i węższe, więc nie zabierają miejsca przy wąskich ścieżkach.', 'Wystarczają wszędzie tam, gdzie nie wjeżdża samochód: chodniki, opaski, obrzeża trawnika.', 'Łatwiejsze w ułożeniu, bo nie wymagają tak masywnej ławy betonowej.'],
+    przeciw: ['Nie przeniosą obciążenia kołami: przy wjeździe pękają albo się przechylają.', 'Niższy profil słabiej powstrzymuje rozjeżdżanie się kostki na bokach.', 'Przy podjeździe trzeba je i tak wymienić na krawężnik, czyli płacić dwa razy.'],
+    zaB: ['Przenoszą obciążenie kołami, więc nadają się pod podjazd i wjazd do garażu.', 'Wyższy profil skutecznie trzyma nawierzchnię i podbudowę.', 'Dłuższa żywotność w miejscach, gdzie kostka pracuje pod ciężarem.'],
+    przeciwB: ['Droższe i szersze, co przy wąskiej ścieżce zabiera użyteczną szerokość.', 'Wymagają solidniejszej ławy betonowej z oporem, czyli więcej pracy ziemnej.', 'Przy chodniku bez ruchu kołowego to przepłacanie za wytrzymałość, z której nikt nie skorzysta.'],
+    werdykt: 'Podjazd, wjazd do garażu i każde miejsce, gdzie stanie samochód: krawężnik, bez wyjątków. Chodnik, opaska wokół domu, ścieżka w ogrodzie i obramowanie trawnika: obrzeże. Najczęstszy błąd to jedno obramowanie na całą posesję, zwykle to tańsze, i wymiana po dwóch sezonach właśnie w miejscu wjazdu.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {
