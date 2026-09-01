@@ -328,6 +328,30 @@ export const POROWNANIA = [
     przeciwB: ['Wymaga podłoża wypoziomowanego niemal idealnie, często z dodatkową masą samopoziomującą.', 'Montaż w dwie osoby i cięcie mokrą piłą, co podnosi robociznę.', 'Uszkodzona płytka to duża i widoczna naprawa, a docinki bywają kosztowne.'],
     werdykt: 'Mała łazienka, gdzie chodzi o efekt wizualny i łatwe czyszczenie: wielki format, licząc się z kosztem przygotowania podłoża. Duża powierzchnia użytkowa, kuchnia, przedpokój albo ograniczony budżet: format standardowy, który wybacza więcej i wymaga jednego montera zamiast dwóch.',
   },
+  {
+    slug: 'split-czy-multi-split',
+    przyklad: { opis: 'jedna instalacja', ile: 1 },
+    h1: 'Klimatyzacja split czy multi-split',
+    a: 'klimatyzacja_split', b: 'klimatyzacja_multisplit',
+    lede: 'Multi-split kosztuje niemal dwa razy tyle, ale obsługuje kilka pomieszczeń z jednej jednostki zewnętrznej. Przy dwóch pokojach różnica prawie znika, przy jednym nie ma sensu.',
+    za: ['Tańszy przy jednym pomieszczeniu i prostszy w montażu.', 'Awaria dotyczy jednego pomieszczenia, reszta działa dalej.', 'Łatwiej dobrać moc dokładnie do pokoju, bez kompromisów.'],
+    przeciw: ['Każde kolejne pomieszczenie to osobna jednostka zewnętrzna na elewacji.', 'Przy trzech pokojach trzy agregaty: więcej hałasu i więcej miejsc do serwisu.', 'Wspólnoty coraz częściej ograniczają liczbę urządzeń widocznych z zewnątrz.'],
+    zaB: ['Jedna jednostka zewnętrzna na dwa do pięciu pomieszczeń.', 'Mniej ingerencji w elewację, co bywa rozstrzygające przy zgodzie wspólnoty.', 'Niższy koszt jednostkowy przy trzech i więcej pomieszczeniach.'],
+    przeciwB: ['Awaria agregatu wyłącza klimatyzację w całym mieszkaniu.', 'Dłuższe trasy chłodnicze, często prowadzone przez kilka pomieszczeń.', 'Przy jednym pokoju to przepłacanie za możliwość, z której się nie skorzysta.'],
+    werdykt: 'Jedno pomieszczenie albo dwa oddalone od siebie: split, po jednym na pokój. Trzy i więcej pomieszczeń, zwłaszcza gdy wspólnota ogranicza liczbę urządzeń na elewacji: multi-split. Granicą opłacalności są zwykle dwa pomieszczenia, przy których obie drogi wychodzą podobnie.',
+  },
+  {
+    slug: 'blacha-trapezowa-czy-rabek-stojacy',
+    przyklad: { opis: '150 m² połaci', ile: 150 },
+    h1: 'Blacha trapezowa czy rąbek stojący',
+    a: 'blacha_trapezowa', b: 'rabek_stojacy',
+    lede: 'Ta sama blacha, dwa różne sposoby łączenia arkuszy. Rąbek kosztuje niemal trzy razy tyle, bo powstaje na miejscu z rolki i nie ma w nim ani jednego przelotowego wkrętu.',
+    za: ['Najtańsze pokrycie z blachy, gotowe arkusze prosto z hurtowni.', 'Szybki montaż: dwie osoby kryją typowy dach w kilka dni.', 'Naprawa polega na wymianie pojedynczego arkusza.'],
+    przeciw: ['Mocowanie na przelotowe wkręty z uszczelkami, które starzeją się szybciej niż blacha.', 'Głośniejsze przy deszczu, jeśli poddasze nie jest porządnie ocieplone.', 'Przy małym kącie nachylenia rośnie ryzyko podciekania na łączeniach.'],
+    zaB: ['Brak przelotowych mocowań, więc nie ma miejsc, którymi woda może wejść.', 'Sprawdza się przy bardzo małym kącie nachylenia, gdzie inne pokrycia zawodzą.', 'Arkusze formowane na budowie z rolki, bez poprzecznych łączeń na całej długości połaci.'],
+    przeciwB: ['Wyraźnie droższe i wymaga wykonawcy z profilarką oraz doświadczeniem.', 'Naprawa punktowa jest trudniejsza: rąbek trzeba rozgiąć i zamknąć na nowo.', 'Krótsza lista ekip w mniejszych miejscowościach, co wydłuża termin.'],
+    werdykt: 'Typowy dach dwuspadowy o normalnym nachyleniu i ograniczony budżet: blacha trapezowa. Dach o małym kącie, skomplikowana bryła albo plan na kilkadziesiąt lat bez wymiany: rąbek stojący, pod warunkiem że w okolicy jest ekipa, która robi to regularnie.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {
