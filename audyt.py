@@ -93,3 +93,29 @@ for x in dane.values():
 sieroty = [u for u in wszystkie if przychodzace.get(u, 0) == 0 and u != '/']
 print('--- strony bez linkow przychodzacych:', len(sieroty))
 for u in sieroty[:10]: print('   ', u)
+
+
+# ---------- progi jakosci ----------
+#
+# Wczesniej progi byly zapisane w workflow jako skrypt bash. Edytor GitHuba
+# potrafi jednak zapisac tylko zaladowana czesc dlugiego pliku i uciac reszte,
+# co dwa razy zepsulo ten krok. Logika progow siedzi teraz tutaj, w pliku
+# wersjonowanym przez git, gdzie da sie ja poprawic bez przegladarki.
+
+PROGI = [
+    ('powtorzone tytuly', len(dupT), 0),
+    ('powtorzone opisy', len(dupD), 0),
+    ('tytuly dluzsze niz 65 znakow', len(dlugie), 0),
+    ('strony bez dokladnie jednego H1', len(zleH1), 0),
+    ('martwe odnosniki wewnetrzne', len(martwe), 0),
+    ('liczby w tresci niezgodne ze stanem', len(_rozbieznosci), 0),
+    ('strony ciezsze niz 120 kB', len(ciezkie), 0),
+    ('strony bez linkow przychodzacych', len(sieroty), 1),
+]
+
+przekroczone = [(nazwa, ile, prog) for nazwa, ile, prog in PROGI if ile > prog]
+if przekroczone:
+    print()
+    for nazwa, ile, prog in przekroczone:
+        print(f'PRZEKROCZONY PROG: {nazwa} = {ile} (max {prog})')
+    raise SystemExit(1)

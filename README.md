@@ -60,6 +60,16 @@ Trzy elementy graficzne wyleciały albo zostały przerobione, bo tego nie robił
   danych. Teraz stoi tam, gdzie średnia leży w przedziale, co pokazuje asymetrię
   rozkładu
 
+## Progi jakości
+
+Progi są w `audyt.py`, nie w workflow. Skrypt sam kończy się kodem błędu, gdy
+któryś zostanie przekroczony, więc CI nie potrzebuje osobnego kroku z bashem.
+
+Powód jest praktyczny: edytor GitHuba przy dłuższych plikach zapisuje tylko
+załadowaną część i ucina resztę. Dwa razy uszkodził tak krok z progami, za
+każdym razem niezauważalnie, bo w edytorze plik wyglądał na kompletny. Logika
+w pliku wersjonowanym przez git jest odporna na ten problem.
+
 ## Odmiana w tekstach generowanych
 
 Polska odmiana to najczęstsze źródło błędów w tym projekcie: wracała sześć razy,
@@ -236,7 +246,7 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | Skrypt | Czego pilnuje |
 |---|---|
 | `kontrola-danych.py` | struktura cennika, źródła przy kategoriach, powiązanie każdej pozycji z treścią i z etapem w poradniku, zgodność słownych opisów różnicy cen z liczbami |
-| `audyt.py` | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
+| `audyt.py` (progi w środku) | powtórzone tytuły i opisy, długość metadanych, liczba H1, martwe odnośniki, strony bez linków przychodzących, waga stron |
 | `kontrola-dostepnosci.py` | kontrast par kolorów, język dokumentu, przeskoki poziomów nagłówków, pola bez etykiety |
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 | `narzedzia/jezyk.py` | literówki typu „i i", spacje przed interpunkcją, przyimek z mianownikiem nazwy miasta, błędne formy liczby mnogiej |
@@ -277,6 +287,16 @@ Trzy elementy graficzne wyleciały albo zostały przerobione, bo tego nie robił
 - **linijka pod przedziałem cen**: znacznik stał zawsze pośrodku niezależnie od
   danych. Teraz stoi tam, gdzie średnia leży w przedziale, co pokazuje asymetrię
   rozkładu
+
+## Progi jakości
+
+Progi są w `audyt.py`, nie w workflow. Skrypt sam kończy się kodem błędu, gdy
+któryś zostanie przekroczony, więc CI nie potrzebuje osobnego kroku z bashem.
+
+Powód jest praktyczny: edytor GitHuba przy dłuższych plikach zapisuje tylko
+załadowaną część i ucina resztę. Dwa razy uszkodził tak krok z progami, za
+każdym razem niezauważalnie, bo w edytorze plik wyglądał na kompletny. Logika
+w pliku wersjonowanym przez git jest odporna na ten problem.
 
 ## Odmiana w tekstach generowanych
 
