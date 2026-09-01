@@ -940,7 +940,7 @@ export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag, 
 
 /* ---------- spis gotowych wyliczeń ---------- */
 
-export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
+export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DACHY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
   const serie = [
     { tytul: 'Remont mieszkania', sciezka: 'koszt-remontu', lista: METRAZE, jedn: 'm²',
       opis: 'Pełny zakres pod klucz: demontaże, tynki, gładzie, wylewka, podłogi, płytki w strefach mokrych, elektryka, biały montaż i drzwi.' },
@@ -954,6 +954,8 @@ export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDAS
       opis: 'Obwody pod płytę, piekarnik i zmywarkę, punkty wodne, kanał pod okap, fartuch nad blatem i podłoga. Bez mebli i sprzętu.' },
     { tytul: 'Remont balkonu', sciezka: 'koszt-balkonu', lista: BALKONY, jedn: 'm²',
       opis: 'Skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne i obróbki z kapinosem. Bez ceny samej balustrady.' },
+    { tytul: 'Wymiana dachu', sciezka: 'koszt-dachu', lista: DACHY, jedn: 'm²',
+      opis: 'Demontaż starego pokrycia, membrana z łaceniem, blachodachówka, obróbki, rynny i podbitka. Bez naprawy więźby, bo jej stan widać dopiero po zdjęciu pokrycia.' },
     { tytul: 'Wykończenie poddasza', sciezka: 'koszt-poddasza', lista: PODDASZA, jedn: 'm²',
       opis: 'Ocieplenie wełną w dwóch warstwach, zabudowa skosów, ścianki kolankowe, instalacje i podłoga. Skosy liczone osobno.' },
     { tytul: 'Kompleksowy remont domu', sciezka: 'koszt-remontu-domu', lista: DOMY_REMONT, jedn: 'm²',
@@ -1176,6 +1178,79 @@ export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag, byI
       mainEntity: [
         { '@type': 'Question', name: `Ile kosztuje remont pokoju ${pk.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, przy pełnym zakresie z podłogą i drzwiami.` } },
         { '@type': 'Question', name: `Ile metrów ścian ma pokój ${pk.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Przy wysokości 2,6 metra wychodzi około ${Math.round(sciany)} m² ścian po odjęciu otworów, a razem z sufitem około ${Math.round(powierzchnie)} m². Dlatego malowanie kosztuje więcej, niż wynikałoby z metrażu podłogi.` } },
+      ],
+    },
+    script: `bindSort(document.getElementById('board'));`,
+  });
+}
+
+/* ---------- metraże dachów ---------- */
+
+export const DACHY = [
+  { m: 100, obr: 22, ryn: 18, pod: 14, opis: 'Mały dom parterowy albo dach dwuspadowy bez lukarn.', uwaga: 'Przy stu metrach koszt rusztowania i dojazdu rozkłada się na niewielką powierzchnię, więc stawka za metr jest wyższa niż przy większym dachu. Ekipy często podają minimalną kwotę za zlecenie niezależnie od metrażu.' },
+  { m: 150, obr: 30, ryn: 24, pod: 20, opis: 'Typowy dach domu jednorodzinnego z poddaszem użytkowym.', uwaga: 'To najczęściej wymieniany metraż. Jeśli poddasze jest użytkowe, wymiana pokrycia to naturalny moment na docieplenie od zewnątrz: rusztowanie już stoi, a dostęp do krokwi jest otwarty.' },
+  { m: 200, obr: 38, ryn: 30, pod: 26, opis: 'Duży dach z lukarnami albo bryła wielospadowa.', uwaga: 'Powyżej dwustu metrów rośnie znaczenie kształtu dachu. Każda lukarna, kosz i jaskółka to dodatkowe obróbki blacharskie i więcej odpadu materiału, więc dwa dachy o tej samej powierzchni mogą różnić się kosztem o jedną trzecią.' },
+];
+
+export function dachMetrazPage({ dc, cities, unitPrice, levels, sourceFlag, byId, categories }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const zakres = [
+    ['demontaz_pokrycia', dc.m], ['wywoz_gruzu', dc.m * 0.04],
+    ['membrana_laty', dc.m], ['blachodachowka', dc.m],
+    ['obrobki_blacharskie', dc.obr], ['rynny', dc.ryn], ['podbitka', dc.pod],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / dc.m)}">${money(Math.round(suma(c.coef, 1) / dc.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Wymiana dachu ${dc.m} m²: cena w ${YEAR} roku`,
+    description: `Ile kosztuje wymiana pokrycia dachu ${dc.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Demontaż, membrana, blachodachówka, obróbki i rynny.`,
+    path: `/koszt-dachu/${dc.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/dach/">Dach</a> · ${dc.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Około ${dc.obr} mb obróbek, ${dc.ryn} mb rynien · aktualizacja ${SITE.updated}</p>
+  <h1>Wymiana dachu ${dc.m} m²</h1>
+  <p class="lede">Wymiana pokrycia na dachu o powierzchni ${dc.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${dc.opis} Wyliczenie obejmuje demontaż starego pokrycia z wywozem, membranę z łaceniem, krycie blachodachówką, obróbki blacharskie, system rynnowy i podbitkę. Nie obejmuje naprawy więźby ani wymiany okien dachowych, bo ich zakres widać dopiero po zdjęciu pokrycia.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${dc.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć inne pokrycie albo dołożyć ocieplenie poddasza? Przejdź do <a href="${R}kalkulator/dach/">kalkulatora dachu</a>. Kolejność prac opisuje <a href="${R}poradnik/wymiana-dachu-krok-po-kroku/">poradnik krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje wymiana dachu ${dc.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, przy pokryciu blachodachówką i pełnym zakresie z obróbkami i rynnami.` } },
+        { '@type': 'Question', name: 'Czy w cenie jest naprawa więźby?', acceptedAnswer: { '@type': 'Answer', text: 'Nie. Stan więźby widać dopiero po zdjęciu starego pokrycia, dlatego wymianę uszkodzonych krokwi wycenia się osobno. Warto założyć na to zapas w budżecie, bo przy starszych dachach potrzeba jej niemal zawsze.' } },
       ],
     },
     script: `bindSort(document.getElementById('board'));`,
