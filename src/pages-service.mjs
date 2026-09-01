@@ -207,7 +207,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     : `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}. To wyłącznie robocizna, ${w.name.toLowerCase().includes('wywóz') ? 'kontener i utylizację liczy się osobno' : 'materiał lub urządzenie kupuje inwestor'}.`;
 
   return layout({
-    title: tytul(`${w.name} - cena ${YEAR}`, `: ile kosztuje za ${u}`),
+    title: tytul(`${w.name} - cena ${YEAR}`, `: stawka za ${u}`),
     description: `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}, w przedziale od ${money(Math.round(min))} do ${money(Math.round(max))} zł. Robocizna i materiał osobno, stawki w 10 miastach.`,
     path,
     breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/${cat.slug}/">${cat.name}</a> · ${w.name}`,
