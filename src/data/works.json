@@ -166,6 +166,18 @@
       {
         "name": "nowoczesny.pl, montaz listew przypodlogowych i silikonowanie",
         "date": "2026-05"
+      },
+      {
+        "name": "merit.pl, montaz listew przypodlogowych: cennik",
+        "date": "2026-08"
+      },
+      {
+        "name": "cennikibudowlane.com.pl, cennik sufitow podwieszanych",
+        "date": "2026-07"
+      },
+      {
+        "name": "alleremont.pl, zabudowa karton-gips: cennik za m2",
+        "date": "2026-06"
       }
     ]
   },
@@ -224,7 +236,9 @@
         0,
         1,
         2,
-        4
+        4,
+        41,
+        42
       ]
     },
     {
@@ -243,7 +257,8 @@
         3,
         32,
         37,
-        38
+        38,
+        40
       ]
     },
     {
@@ -709,7 +724,7 @@
       "id": "listwy",
       "cat": "floor",
       "unit": "mb",
-      "labour": 18,
+      "labour": 25,
       "material": 16,
       "name": "Montaż listew przypodłogowych",
       "factors": [
