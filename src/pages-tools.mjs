@@ -725,6 +725,17 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
 export const AKTUALIZACJE = [
   {
     data: '2026-08',
+    tytul: 'Ostatnie pozycje bez punktowego źródła',
+    opis: 'Przejście przez pozycje, które dotąd miały stawkę wyprowadzoną z widełek dla całej grupy robót. Udział stawek sprawdzonych punktowo wzrósł do 103 na 105.',
+    zmiany: [
+      ['Silikonowanie', '28 → 13 zł/mb. Stawka była zawyżona ponad dwukrotnie: cenniki podają 5 do 10 zł robocizny za metr bieżący. Pozycja wchodzi do każdego wyliczenia łazienki i kuchni, więc błąd przekładał się na najczęściej odwiedzane strony.'],
+      ['Montaż deski podłogowej', '310 → 275 zł/m². Robocizna 125 zł leżała powyżej rynkowych 60 do 100, materiał podniesiony do 190 zł wobec przedziału 130 do 260 dla deski warstwowej.'],
+      ['Izolacja podłogi', '44 → 48 zł/m², w środku przedziału 18 do 45 zł robocizny plus styropian podłogowy.'],
+      ['Co zostaje orientacyjne', 'Dwie pozycje instalacyjne: multi-split i kanały wentylacyjne. Źródła podają dla nich wyłącznie szerokie widełki dla całej grupy robót, a udawanie precyzji, której nie ma, byłoby gorsze niż jej brak.'],
+    ],
+  },
+  {
+    data: '2026-08',
     tytul: 'Weryfikacja punktowa doprowadzona do końca',
     opis: 'Przejście przez pozostałe kategorie i porównanie każdej stawki z osobna z publicznymi cennikami. Udział pozycji, dla których źródło podaje liczbę dla tej konkretnej roboty, wzrósł z 44 do 97 na 102.',
     zmiany: [
