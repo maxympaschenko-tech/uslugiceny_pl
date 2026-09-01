@@ -86,6 +86,35 @@ for m in cities:
     for pole, opis in [('loc', 'miejscownik'), ('gen', 'dopelniacz')]:
         sprawdz(bool(m.get(pole)), f"miasto {m['name']}: brak formy '{pole}' ({opis})")
 
+# Proporcja robocizny do materialu wedlug charakteru roboty. Odchylenie nie
+# zawsze jest bledem, ale bywa jego pierwszym objawem: to wlasnie tak wyszlo
+# zanizenie stawek glazurniczych, gdzie praca stanowila 39 procent kwoty,
+# choc to jedna z najbardziej pracochlonnych robot wykonczeniowych.
+PROPORCJE = {
+    'demont':   (60, 100),
+    'walls':    (50, 100),
+    'tiles':    (45, 70),
+    'floor':    (25, 85),
+    'hydro':    (60, 100),
+    'electric': (45, 100),
+}
+for w in works['works']:
+    zakres = PROPORCJE.get(w['cat'])
+    if not zakres:
+        continue
+    mnoznik = 5 if w.get('perCm') else 1
+    material = w['material'] * mnoznik
+    suma = w['labour'] + material
+    if not suma:
+        continue
+    udzial = round(w['labour'] / suma * 100)
+    sprawdz(
+        zakres[0] <= udzial <= zakres[1],
+        f"{w['name']}: robocizna to {udzial}% stawki, a dla tej kategorii "
+        f"oczekujemy {zakres[0]}-{zakres[1]}%. Sprawdz, czy stawka nie jest "
+        f"zanizona albo zawyzona wobec rynku"
+    )
+
 progi = {'dwa razy': (1.7, 2.4), 'trzy razy': (2.6, 3.4), 'półtora raza': (1.35, 1.7)}
 for slug, a, b, cm, lede in por:
     cm = int(cm) if cm else 1

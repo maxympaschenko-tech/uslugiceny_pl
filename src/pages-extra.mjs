@@ -225,7 +225,7 @@ export const POROWNANIA = [
     przyklad: { opis: '30 m² salonu', ile: 30 },
     h1: 'Panele czy płytki na podłogę',
     a: 'panele', b: 'plytki_podloga',
-    lede: 'Płytki wychodzą około półtora raza drożej za metr, ale w kuchni i przedpokoju wygrywają bezapelacyjnie. W salonie i sypialni sprawa nie jest już oczywista.',
+    lede: 'Płytki wychodzą prawie dwa razy drożej za metr, ale w kuchni i przedpokoju wygrywają bezapelacyjnie. W salonie i sypialni sprawa nie jest już oczywista.',
     za: ['Wyraźnie tańsze w materiale i w montażu.', 'Cieplejsze w dotyku, przyjemne na boso bez ogrzewania podłogowego.', 'Montaż na klik w jeden dzień, bez klejenia i bez czekania na wiązanie.'],
     przeciw: ['Pęcznieją przy zalaniu i wtedy nadają się tylko do wymiany.', 'Zarysowań nie da się usunąć, uszkodzoną deskę trzeba wymienić.', 'Gorzej znoszą piasek wnoszony na butach, więc w przedpokoju zużywają się szybciej.'],
     zaB: ['Nie boją się wody, dlatego są jedynym rozsądnym wyborem w łazience i kuchni.', 'Znoszą piasek, pazury i ciężkie meble praktycznie bez śladu.', 'Najlepiej przewodzą ciepło, więc pod ogrzewaniem podłogowym dają najwyższą sprawność.'],
