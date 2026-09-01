@@ -251,6 +251,7 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `kontrola-schematow.py` | poprawność JSON-LD, wymagane pola schematów, sensowność wartości (np. dolna cena wyższa od górnej) |
 | `narzedzia/jezyk.py` | literówki typu „i i", spacje przed interpunkcją, przyimek z mianownikiem nazwy miasta, błędne formy liczby mnogiej |
 | `narzedzia/szerokosc.py` | typowe przyczyny poziomego przewijania na telefonie: sztywne szerokości, tabele bez opakowania, brak `min-width: 0` |
+| `narzedzia/spojnosc-cen.py` | czy ta sama pozycja pokazuje tę samą kwotę na stronie pozycji, w pełnym cenniku i na stronie kategorii |
 | `narzedzia/kalkulatory.mjs` | uruchamia silnik na trzech zakresach i sprawdza, czy kwoty są sensowne, czy współczynnik miejski działa tylko na robociznę i czy standardy układają się rosnąco |
 
 ## Zasada: liczby wymagają zdania
