@@ -940,7 +940,7 @@ export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag, 
 
 /* ---------- spis gotowych wyliczeń ---------- */
 
-export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DACHY, PODJAZDY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
+export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DACHY, PODJAZDY, OGRODZENIA, DOMY, DOMY_REMONT, WYKONCZENIA }) {
   const serie = [
     { tytul: 'Remont mieszkania', sciezka: 'koszt-remontu', lista: METRAZE, jedn: 'm²',
       opis: 'Pełny zakres pod klucz: demontaże, tynki, gładzie, wylewka, podłogi, płytki w strefach mokrych, elektryka, biały montaż i drzwi.' },
@@ -954,6 +954,8 @@ export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDAS
       opis: 'Obwody pod płytę, piekarnik i zmywarkę, punkty wodne, kanał pod okap, fartuch nad blatem i podłoga. Bez mebli i sprzętu.' },
     { tytul: 'Remont balkonu', sciezka: 'koszt-balkonu', lista: BALKONY, jedn: 'm²',
       opis: 'Skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne i obróbki z kapinosem. Bez ceny samej balustrady.' },
+    { tytul: 'Ogrodzenie', sciezka: 'koszt-ogrodzenia', lista: OGRODZENIA, jedn: 'mb',
+      opis: 'Przęsła panelowe ze słupkami, podmurówka prefabrykowana, brama przesuwna i furtka. Bez automatyki bramy, która zależy od wybranego napędu.' },
     { tytul: 'Podjazd z kostki', sciezka: 'koszt-podjazdu', lista: PODJAZDY, jedn: 'm²',
       opis: 'Niwelacja, korytowanie z wywozem, podbudowa, kostka betonowa, krawężniki i odwodnienie. Największą pozycją jest podbudowa, nie kostka.' },
     { tytul: 'Wymiana dachu', sciezka: 'koszt-dachu', lista: DACHY, jedn: 'm²',
@@ -1326,6 +1328,91 @@ export function podjazdMetrazPage({ pj, cities, unitPrice, levels, sourceFlag, b
       mainEntity: [
         { '@type': 'Question', name: `Ile kosztuje podjazd z kostki ${pj.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, przy kostce betonowej i pełnym zakresie z podbudową pod ruch samochodowy.` } },
         { '@type': 'Question', name: 'Dlaczego podbudowa kosztuje więcej niż kostka?', acceptedAnswer: { '@type': 'Answer', text: 'Bo pod ruch samochodowy trzeba wybrać od trzydziestu do czterdziestu pięciu centymetrów gruntu, wywieźć urobek i wypełnić wykop zagęszczanym kruszywem. To praca ziemna i transport, a nie sama warstwa materiału pod kostką.' } },
+      ],
+    },
+    script: `bindSort(document.getElementById('board'));`,
+  });
+}
+
+/* ---------- metraże ogrodzeń ---------- */
+
+export const OGRODZENIA = [
+  { m: 40, brama: 1, furtka: 1, opis: 'Działka miejska albo ogrodzenie frontowe z bramą.', uwaga: 'Przy czterdziestu metrach brama i furtka stanowią jedną trzecią kwoty, więc wybór automatyki waży tu więcej niż długość przęseł. Warto porównać ceny bram, zanim zamówi się całość.' },
+  { m: 60, brama: 1, furtka: 1, opis: 'Typowa działka jednorodzinna, ogrodzenie z trzech stron.', uwaga: 'To najczęściej zamawiana długość. Od strony sąsiada nie musi być podmurówki ani takiej samej wysokości, a rezygnacja z niej na dwóch bokach potrafi obniżyć kwotę o kilka tysięcy.' },
+  { m: 80, brama: 1, furtka: 2, opis: 'Duża działka albo ogrodzenie z osobnym wejściem gospodarczym.', uwaga: 'Przy tej długości pojawia się zwykle druga furtka i pytanie o teren pochyły. Ogrodzenie na skarpie wymaga schodkowania podmurówki, co podnosi robociznę o kilkanaście procent.' },
+];
+
+export function ogrodzenieMetrazPage({ og, cities, unitPrice, levels, sourceFlag, byId, categories }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const zakres = [
+    ['ogrodzenie_panelowe', og.m], ['podmurowka', og.m],
+    ['brama_przesuwna', og.brama], ['furtka', og.furtka],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / og.m)}">${money(Math.round(suma(c.coef, 1) / og.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Ogrodzenie ${og.m} mb: cena w ${YEAR} roku`,
+    description: `Ile kosztuje ogrodzenie panelowe ${og.m} mb z podmurówką, bramą i furtką: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł.`,
+    path: `/koszt-ogrodzenia/${og.m}-mb/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a> · ${og.m} mb`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Z bramą i ${og.furtka === 1 ? 'furtką' : 'dwiema furtkami'} · aktualizacja ${SITE.updated}</p>
+  <h1>Ogrodzenie ${og.m} mb</h1>
+  <p class="lede">Ogrodzenie panelowe o długości ${og.m} mb kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${og.opis} Wyliczenie obejmuje przęsła panelowe ze słupkami, podmurówkę prefabrykowaną, bramę przesuwną i ${og.furtka === 1 ? 'jedną furtkę' : 'dwie furtki'}. Nie obejmuje automatyki bramy ani zasilania, bo te zależą od odległości od budynku i wybranego napędu.</p>
+  ${(() => {
+    // Cenniki podaja zwykle stawke za metr samego ogrodzenia, bez bramy.
+    // Bez tego rozbicia nasza kwota wygladalaby na zawyzona wobec rynku.
+    const przesla = ['ogrodzenie_panelowe', 'podmurowka'].reduce((s, id) => {
+      const p = unitPrice(id, 1, 1, 1);
+      return s + p.labour + p.material;
+    }, 0);
+    const wjazd = [['brama_przesuwna', og.brama], ['furtka', og.furtka]].reduce((s, [id, ile]) => {
+      const p = unitPrice(id, 1, 1, 1);
+      return s + (p.labour + p.material) * ile;
+    }, 0);
+    return `<p class="section-note">Warto rozdzielić dwie części tej kwoty, bo cenniki podają zwykle stawkę za metr samego ogrodzenia. Przęsła z podmurówką to ${money(Math.round(przesla))} zł za metr bieżący przy średnich stawkach krajowych, czyli ${money(Math.round(przesla * og.m))} zł za ${og.m} mb. Brama i ${og.furtka === 1 ? 'furtka dokładają' : 'furtki dokładają'} ${money(Math.round(wjazd))} zł niezależnie od długości ogrodzenia, dlatego przy krótkim ogrodzeniu ważą najwięcej w przeliczeniu na metr.</p>`;
+  })()}
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/mb</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tej długości</h2>
+  <p class="section-note">${og.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć inny typ przęseł albo zrezygnować z podmurówki? Przejdź do <a href="${R}kalkulator/ogrodzenie/">kalkulatora ogrodzenia</a>. Kolejność prac opisuje <a href="${R}poradnik/ogrodzenie-krok-po-kroku/">poradnik krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje ogrodzenie ${og.m} mb?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, przy panelach z podmurówką, bramą przesuwną i ${og.furtka === 1 ? 'furtką' : 'dwiema furtkami'}.` } },
+        { '@type': 'Question', name: 'Czy podmurówka jest konieczna?', acceptedAnswer: { '@type': 'Answer', text: 'Nie wszędzie. Od frontu porządkuje wygląd i zatrzymuje zwierzęta, ale od strony sąsiada albo pola często wystarczą same przęsła. Rezygnacja z podmurówki na dwóch bokach działki potrafi obniżyć kwotę o kilka tysięcy złotych.' } },
       ],
     },
     script: `bindSort(document.getElementById('board'));`,
