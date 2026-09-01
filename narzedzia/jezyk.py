@@ -43,6 +43,20 @@ def tekst(html):
     return re.sub(r'<[^>]+>', ' ', html)
 
 
+def frazy_z_kodu():
+    """Teksty składane dopiero w przeglądarce nie trafiają do dist jako treść,
+    więc kontrola stron ich nie widzi. To ponad osiemset zdań: wyniki
+    kalkulatorów, werdykty narzędzi, komunikaty wyszukiwarki."""
+    znalezione = []
+    for f in glob.glob('src/**/*.mjs', recursive=True) + ['build.mjs']:
+        kod = open(f, encoding='utf-8').read()
+        for m in re.finditer(r"'([A-ZŁŚŻŹĆÓĘĄŃ][^']{25,200})'", kod):
+            fraza = m.group(1)
+            if ' ' in fraza and any(c.isalpha() for c in fraza):
+                znalezione.append((f, fraza))
+    return znalezione
+
+
 def main():
     strony = glob.glob('dist/**/index.html', recursive=True)
     if not strony:
@@ -62,8 +76,19 @@ def main():
                 znaleziska[opis] += 1
                 przyklady.setdefault(opis, (f[5:], ' '.join(t[max(0, m.start() - 45):m.end() + 25].split())))
 
+    # te same reguły stosujemy do tekstów składanych w przeglądarce
+    frazy = frazy_z_kodu()
+    for plik, fraza in frazy:
+        for wzor, opis in WZORCE:
+            if opis.startswith('zła forma'):
+                continue
+            if re.search(wzor, fraza):
+                znaleziska[opis + ' (kod)'] += 1
+                przyklady.setdefault(opis + ' (kod)', (plik, fraza[:90]))
+
     if not znaleziska:
-        print(f'Język w porządku: {len(strony)} stron, zero usterek z listy.')
+        print(f'Język w porządku: {len(strony)} stron i {len(frazy)} fraz '
+              f'składanych w przeglądarce, zero usterek z listy.')
         return
 
     print(f'ZNALEZIONO USTERKI na {len(strony)} sprawdzonych stronach:')
