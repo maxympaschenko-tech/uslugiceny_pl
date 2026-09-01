@@ -115,6 +115,17 @@ for w in works['works']:
         f"zanizona albo zawyzona wobec rynku"
     )
 
+# Porownanie ma sens tylko dla pozycji rozliczanych w tej samej jednostce.
+# Inaczej blok "ile to znaczy w zlotowkach" mnozy oba warianty przez ta sama
+# ilosc i wychodzi bzdura: szesc grzejnikow na lazienke 6 m2.
+for slug, a, b, cm, lede in por:
+    if by[a]['unit'] != by[b]['unit']:
+        bledy.append(
+            f"porownanie {slug}: pozycje maja rozne jednostki "
+            f"({by[a]['unit']} i {by[b]['unit']}), wiec przeliczenie na typowy "
+            f"zakres mnozylo by obie przez te sama ilosc"
+        )
+
 progi = {'dwa razy': (1.7, 2.4), 'trzy razy': (2.6, 3.4), 'półtora raza': (1.35, 1.7)}
 for slug, a, b, cm, lede in por:
     cm = int(cm) if cm else 1
