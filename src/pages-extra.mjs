@@ -1262,17 +1262,17 @@ export function dachMetrazPage({ dc, cities, unitPrice, levels, sourceFlag, byId
 /* ---------- metraże podjazdów i nawierzchni ---------- */
 
 export const PODJAZDY = [
-  { m: 30, kraw: 22, opis: 'Miejsce postojowe na jeden samochód albo krótki podjazd do garażu.', uwaga: 'Przy trzydziestu metrach koszt dojazdu sprzętu i wywozu urobku rozkłada się na małą powierzchnię, więc stawka za metr jest tu najwyższa. Ekipy często podają kwotę minimalną za zlecenie, niezależnie od metrażu.' },
-  { m: 60, kraw: 34, opis: 'Typowy podjazd z miejscem na dwa samochody i ścieżką do drzwi.', uwaga: 'To najczęściej zamawiany metraż. Warto od razu ustalić, gdzie stanie samochód, bo tam potrzebna jest grubsza podbudowa i krawężnik zamiast obrzeża. Rozdzielenie stref pozwala nie przepłacać za całą powierzchnię.' },
-  { m: 100, kraw: 48, opis: 'Podjazd z placem manewrowym albo nawierzchnia wokół całego domu.', uwaga: 'Powyżej stu metrów rośnie znaczenie odwodnienia: woda z takiej powierzchni musi mieć dokąd odpłynąć, a spadek w stronę budynku to najdroższy błąd w całej robocie.' },
+  { m: 30, kraw: 22, odw: 2, opis: 'Miejsce postojowe na jeden samochód albo krótki podjazd do garażu.', uwaga: 'Przy trzydziestu metrach koszt dojazdu sprzętu i wywozu urobku rozkłada się na małą powierzchnię, więc stawka za metr jest tu najwyższa. Ekipy często podają kwotę minimalną za zlecenie, niezależnie od metrażu.' },
+  { m: 60, kraw: 34, odw: 3, opis: 'Typowy podjazd z miejscem na dwa samochody i ścieżką do drzwi.', uwaga: 'To najczęściej zamawiany metraż. Warto od razu ustalić, gdzie stanie samochód, bo tam potrzebna jest grubsza podbudowa i krawężnik zamiast obrzeża. Rozdzielenie stref pozwala nie przepłacać za całą powierzchnię.' },
+  { m: 100, kraw: 48, odw: 4, opis: 'Podjazd z placem manewrowym albo nawierzchnia wokół całego domu.', uwaga: 'Powyżej stu metrów rośnie znaczenie odwodnienia: woda z takiej powierzchni musi mieć dokąd odpłynąć, a spadek w stronę budynku to najdroższy błąd w całej robocie.' },
 ];
 
 export function podjazdMetrazPage({ pj, cities, unitPrice, levels, sourceFlag, byId, categories }) {
   const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
   const zakres = [
-    ['niwelacja_terenu', pj.m], ['wywoz_gruzu', pj.m * 0.35],
+    ['niwelacja_terenu', pj.m], ['wywoz_gruzu', pj.m * 0.2],
     ['podbudowa', pj.m], ['kostka_brukowa', pj.m],
-    ['krawezniki', pj.kraw], ['odwodnienie_liniowe', Math.round(pj.m / 12)],
+    ['krawezniki', pj.kraw], ['odwodnienie_liniowe', pj.odw],
   ];
   const suma = (coef, k) =>
     zakres.reduce((s, [id, q]) => {
@@ -1303,7 +1303,7 @@ export function podjazdMetrazPage({ pj, cities, unitPrice, levels, sourceFlag, b
   <p class="eyebrow">Około ${pj.kraw} mb krawężników · aktualizacja ${SITE.updated}</p>
   <h1>Podjazd z kostki ${pj.m} m²</h1>
   <p class="lede">Podjazd z kostki brukowej o powierzchni ${pj.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
-  <p class="section-note">${pj.opis} Wyliczenie obejmuje niwelację terenu, korytowanie z wywozem urobku, podbudowę z kruszywa, ułożenie kostki betonowej, krawężniki oraz odwodnienie liniowe. Największą pozycją jest zwykle podbudowa, a nie sama kostka: pod ruch samochodowy wybiera się od trzydziestu do czterdziestu pięciu centymetrów gruntu.</p>
+  <p class="section-note">${pj.opis} Wyliczenie obejmuje niwelację terenu, korytowanie z wywozem urobku, podbudowę z kruszywa, ułożenie kostki betonowej, krawężniki oraz odwodnienie liniowe. Największą pozycją jest zwykle podbudowa, a nie sama kostka: pod ruch samochodowy wybiera się od trzydziestu do czterdziestu pięciu centymetrów gruntu. Zakładamy, że część ziemi z korytowania zostaje na działce pod niwelację, bo wywóz całości podniósłby kwotę o kilka tysięcy.</p>
   ${sourceFlag}
 
   <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
