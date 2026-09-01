@@ -5,9 +5,11 @@
 # krok z basha. Kazdy skrypt sam konczy sie kodem bledu.
 name: Kontrola
 
+
 on:
   pull_request:
   workflow_dispatch:
+
 
 jobs:
   kontrola:
@@ -18,26 +20,38 @@ jobs:
         with:
           node-version: 22
 
+
       - name: Dane cennika
         run: python3 kontrola-danych.py
+
 
       - name: Budowanie
         run: node build.mjs
 
+
       - name: Dane strukturalne
         run: python3 kontrola-schematow.py
+
 
       - name: Dostepnosc
         run: python3 kontrola-dostepnosci.py
 
+
       - name: Jezyk
         run: python3 narzedzia/jezyk.py
+
 
       - name: Szerokosc na waskim ekranie
         run: python3 narzedzia/szerokosc.py
 
+
+      - name: Spojnosc cen miedzy stronami
+        run: python3 narzedzia/spojnosc-cen.py
+
       - name: Dzialanie kalkulatorow
         run: node narzedzia/kalkulatory.mjs
 
+
       - name: Audyt i progi jakosci
         run: python3 audyt.py
+
