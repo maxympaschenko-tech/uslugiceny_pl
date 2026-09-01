@@ -71,7 +71,7 @@ export function metrazPage({ mm, cities, turnkeyPerM2, levels, cityOptions, W_JS
     <div class="sticky-sheet">${estimateSheet({ title: `Mieszkanie ${mm.m} m²`, sub: '' })}</div>
   </div>
 
-  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres prac? Przejdź do <a href="${R}kalkulator/remont-mieszkania/">pełnego kalkulatora</a> z wyborem demontaży, elektryki i łazienki.</p>
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz zmienić zakres prac? Przejdź do <a href="${R}kalkulator/remont-mieszkania/">pełnego kalkulatora</a> z wyborem demontaży, elektryki i łazienki. Kolejność etapów opisuje <a href="${R}poradnik/kolejnosc-prac-remontowych/">poradnik o remoncie krok po kroku</a>, a jeśli remontujesz pomieszczeniami, zacznij od <a href="${R}poradnik/remont-pokoju-krok-po-kroku/">poradnika o remoncie pokoju</a>.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -682,7 +682,7 @@ export function remontDomuPage({ dm, cities, unitPrice, standardScope, sourceFla
   <p class="section-note">Kolejność narzuca się sama: najpierw dach, potem elewacja, na końcu wnętrza. Nieszczelne pokrycie zniszczy świeżo ocieploną ścianę, a ocieplenie po wykończeniu wnętrz oznacza kucie w gotowych ościeżach przy wymianie okien. Odwrócenie tej kolejności to najdroższy błąd, jaki można popełnić przy remoncie domu.</p>
   <p class="section-note">Jeśli budżet nie pozwala na wszystko naraz, największy zwrot daje zwykle dach i ocieplenie, bo od nich zależą rachunki za ogrzewanie przez kolejne dekady. Wnętrza można wykańczać etapami, pomieszczenie po pomieszczeniu.</p>
 
-  <p class="receipt-foot" style="margin-top:1.4rem">Policz swój zakres: <a href="${R}kalkulator/remont-mieszkania/">wnętrza</a>, <a href="${R}kalkulator/ocieplenie-elewacji/">ocieplenie</a>, <a href="${R}kalkulator/dach/">dach</a>. Kolejność prac opisują <a href="${R}poradnik/">poradniki krok po kroku</a>.</p>
+  <p class="receipt-foot" style="margin-top:1.4rem">Policz swój zakres: <a href="${R}kalkulator/remont-mieszkania/">wnętrza</a>, <a href="${R}kalkulator/ocieplenie-elewacji/">ocieplenie</a>, <a href="${R}kalkulator/dach/">dach</a>. Każda z trzech części ma własny poradnik z kolejnością etapów: <a href="${R}poradnik/wymiana-dachu-krok-po-kroku/">wymiana dachu</a>, <a href="${R}poradnik/ocieplenie-domu-krok-po-kroku/">ocieplenie elewacji</a> i <a href="${R}poradnik/kolejnosc-prac-remontowych/">remont wnętrz</a>.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
