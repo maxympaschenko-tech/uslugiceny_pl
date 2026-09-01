@@ -12,7 +12,7 @@ import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, peln
 import { HASLA, slownikPage } from './src/pages-slownik.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
-import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage, PODDASZA, poddaszeMetrazPage, BALKONY, balkonMetrazPage, POKOJE, pokojMetrazPage, DACHY, dachMetrazPage, wyliczeniaIndexPage } from './src/pages-extra.mjs';
+import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage, PODDASZA, poddaszeMetrazPage, BALKONY, balkonMetrazPage, POKOJE, pokojMetrazPage, DACHY, dachMetrazPage, PODJAZDY, podjazdMetrazPage, wyliczeniaIndexPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
 
@@ -932,7 +932,7 @@ for (const mm of METRAZE) {
 }
 
 await write('kalkulatory', kalkulatoryIndexPage());
-await write('koszty', wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DACHY, DOMY, DOMY_REMONT, WYKONCZENIA }));
+await write('koszty', wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DACHY, PODJAZDY, DOMY, DOMY_REMONT, WYKONCZENIA }));
 extraUrls.push('/kalkulatory/', '/koszty/');
 await write('porownanie', porownaniaIndex(POROWNANIA));
 extraUrls.push('/porownanie/');
@@ -1062,6 +1062,14 @@ for (const dc of DACHY) {
     dachMetrazPage({ dc, cities, unitPrice, levels, sourceFlag: draftFlag, byId, categories })
   );
   extraUrls.push(`/koszt-dachu/${dc.m}-m2/`);
+}
+
+for (const pj of PODJAZDY) {
+  await write(
+    `koszt-podjazdu/${pj.m}-m2`,
+    podjazdMetrazPage({ pj, cities, unitPrice, levels, sourceFlag: draftFlag, byId, categories })
+  );
+  extraUrls.push(`/koszt-podjazdu/${pj.m}-m2/`);
 }
 
 /* ================= poradniki ================= */
@@ -1234,6 +1242,7 @@ const indeks = [
   ...BALKONY.map((m) => ({ t: `Remont balkonu ${m.m} m²`, u: `${R}koszt-balkonu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...POKOJE.map((m) => ({ t: `Remont pokoju ${m.m} m²`, u: `${R}koszt-pokoju/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...DACHY.map((m) => ({ t: `Wymiana dachu ${m.m} m²`, u: `${R}koszt-dachu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
+  ...PODJAZDY.map((m) => ({ t: `Podjazd z kostki ${m.m} m²`, u: `${R}koszt-podjazdu/${m.m}-m2/`, k: 'metraż', o: m.opis })),
   ...cities.map((c) => ({ t: `Cennik robót: ${c.name}`, u: `${R}ceny/${c.slug}/`, k: 'miasto', o: `Pełny cennik robót remontowych ${c.loc}.` })),
   { t: 'Sprawdź ofertę wykonawcy', u: `${R}sprawdz-oferte/`, k: 'narzędzie', o: 'Porównaj kwotę z oferty z widełkami rynkowymi.' },
   { t: 'Porównaj dwa miasta', u: `${R}porownaj-miasta/`, k: 'narzędzie', o: 'Zestaw dwa miasta i zobacz różnicę w stawkach pozycja po pozycji.' },

@@ -940,7 +940,7 @@ export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag, 
 
 /* ---------- spis gotowych wyliczeń ---------- */
 
-export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DACHY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
+export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDASZA, BALKONY, DACHY, PODJAZDY, DOMY, DOMY_REMONT, WYKONCZENIA }) {
   const serie = [
     { tytul: 'Remont mieszkania', sciezka: 'koszt-remontu', lista: METRAZE, jedn: 'm²',
       opis: 'Pełny zakres pod klucz: demontaże, tynki, gładzie, wylewka, podłogi, płytki w strefach mokrych, elektryka, biały montaż i drzwi.' },
@@ -954,6 +954,8 @@ export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDAS
       opis: 'Obwody pod płytę, piekarnik i zmywarkę, punkty wodne, kanał pod okap, fartuch nad blatem i podłoga. Bez mebli i sprzętu.' },
     { tytul: 'Remont balkonu', sciezka: 'koszt-balkonu', lista: BALKONY, jedn: 'm²',
       opis: 'Skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne i obróbki z kapinosem. Bez ceny samej balustrady.' },
+    { tytul: 'Podjazd z kostki', sciezka: 'koszt-podjazdu', lista: PODJAZDY, jedn: 'm²',
+      opis: 'Niwelacja, korytowanie z wywozem, podbudowa, kostka betonowa, krawężniki i odwodnienie. Największą pozycją jest podbudowa, nie kostka.' },
     { tytul: 'Wymiana dachu', sciezka: 'koszt-dachu', lista: DACHY, jedn: 'm²',
       opis: 'Demontaż starego pokrycia, membrana z łaceniem, blachodachówka, obróbki, rynny i podbitka. Bez naprawy więźby, bo jej stan widać dopiero po zdjęciu pokrycia.' },
     { tytul: 'Wykończenie poddasza', sciezka: 'koszt-poddasza', lista: PODDASZA, jedn: 'm²',
@@ -1251,6 +1253,79 @@ export function dachMetrazPage({ dc, cities, unitPrice, levels, sourceFlag, byId
       mainEntity: [
         { '@type': 'Question', name: `Ile kosztuje wymiana dachu ${dc.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, przy pokryciu blachodachówką i pełnym zakresie z obróbkami i rynnami.` } },
         { '@type': 'Question', name: 'Czy w cenie jest naprawa więźby?', acceptedAnswer: { '@type': 'Answer', text: 'Nie. Stan więźby widać dopiero po zdjęciu starego pokrycia, dlatego wymianę uszkodzonych krokwi wycenia się osobno. Warto założyć na to zapas w budżecie, bo przy starszych dachach potrzeba jej niemal zawsze.' } },
+      ],
+    },
+    script: `bindSort(document.getElementById('board'));`,
+  });
+}
+
+/* ---------- metraże podjazdów i nawierzchni ---------- */
+
+export const PODJAZDY = [
+  { m: 30, kraw: 22, opis: 'Miejsce postojowe na jeden samochód albo krótki podjazd do garażu.', uwaga: 'Przy trzydziestu metrach koszt dojazdu sprzętu i wywozu urobku rozkłada się na małą powierzchnię, więc stawka za metr jest tu najwyższa. Ekipy często podają kwotę minimalną za zlecenie, niezależnie od metrażu.' },
+  { m: 60, kraw: 34, opis: 'Typowy podjazd z miejscem na dwa samochody i ścieżką do drzwi.', uwaga: 'To najczęściej zamawiany metraż. Warto od razu ustalić, gdzie stanie samochód, bo tam potrzebna jest grubsza podbudowa i krawężnik zamiast obrzeża. Rozdzielenie stref pozwala nie przepłacać za całą powierzchnię.' },
+  { m: 100, kraw: 48, opis: 'Podjazd z placem manewrowym albo nawierzchnia wokół całego domu.', uwaga: 'Powyżej stu metrów rośnie znaczenie odwodnienia: woda z takiej powierzchni musi mieć dokąd odpłynąć, a spadek w stronę budynku to najdroższy błąd w całej robocie.' },
+];
+
+export function podjazdMetrazPage({ pj, cities, unitPrice, levels, sourceFlag, byId, categories }) {
+  const lvl = Object.fromEntries(levels.map((l) => [l.id, l.k]));
+  const zakres = [
+    ['niwelacja_terenu', pj.m], ['wywoz_gruzu', pj.m * 0.35],
+    ['podbudowa', pj.m], ['kostka_brukowa', pj.m],
+    ['krawezniki', pj.kraw], ['odwodnienie_liniowe', Math.round(pj.m / 12)],
+  ];
+  const suma = (coef, k) =>
+    zakres.reduce((s, [id, q]) => {
+      const p = unitPrice(id, coef, k, 1);
+      return s + (p.labour + p.material) * q;
+    }, 0);
+
+  const rows = [...cities]
+    .sort((a, b) => suma(b.coef, 1) - suma(a.coef, 1))
+    .map((c) => `<tr>
+<td data-v="${c.name}"><a href="${R}ceny/${c.slug}/">${c.name}</a></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.ekonom))}">${money(Math.round(suma(c.coef, lvl.ekonom)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1))}"><b>${money(Math.round(suma(c.coef, 1)))}</b></td>
+<td class="num" data-v="${Math.round(suma(c.coef, lvl.premium))}">${money(Math.round(suma(c.coef, lvl.premium)))}</td>
+<td class="num" data-v="${Math.round(suma(c.coef, 1) / pj.m)}">${money(Math.round(suma(c.coef, 1) / pj.m))}</td>
+</tr>`).join('');
+
+  const war = cities.find((c) => c.slug === 'warszawa');
+  const tani = cities.reduce((a, b) => (a.coef < b.coef ? a : b));
+
+  return layout({
+    title: `Podjazd z kostki ${pj.m} m²: cena w ${YEAR} roku`,
+    description: `Ile kosztuje podjazd z kostki brukowej ${pj.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Korytowanie, podbudowa, kostka, krawężniki i odwodnienie.`,
+    path: `/koszt-podjazdu/${pj.m}-m2/`,
+    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a> · ${pj.m} m²`,
+    body: `
+<section><div class="wrap">
+  <p class="eyebrow">Około ${pj.kraw} mb krawężników · aktualizacja ${SITE.updated}</p>
+  <h1>Podjazd z kostki ${pj.m} m²</h1>
+  <p class="lede">Podjazd z kostki brukowej o powierzchni ${pj.m} m² kosztuje od ${money(Math.round(suma(tani.coef, 1)))} zł ${tani.loc} do ${money(Math.round(suma(war.coef, 1)))} zł w Warszawie.</p>
+  <p class="section-note">${pj.opis} Wyliczenie obejmuje niwelację terenu, korytowanie z wywozem urobku, podbudowę z kruszywa, ułożenie kostki betonowej, krawężniki oraz odwodnienie liniowe. Największą pozycją jest zwykle podbudowa, a nie sama kostka: pod ruch samochodowy wybiera się od trzydziestu do czterdziestu pięciu centymetrów gruntu.</p>
+  ${sourceFlag}
+
+  <h2 style="margin-top:2rem">Koszt w dziesięciu miastach</h2>
+  <div class="board-wrap"><table class="board" id="board">
+    <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>zł/m²</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+
+  ${rozbicieBlock({ zakres, unitPrice, byId, categories })}
+
+  <h2 style="margin-top:2rem">O czym pamiętać przy tym metrażu</h2>
+  <p class="section-note">${pj.uwaga}</p>
+
+  <p class="receipt-foot" style="margin-top:1.4rem">Chcesz policzyć inny wzór kostki albo dołożyć schody? Przejdź do <a href="${R}kalkulator/kostka-brukowa/">kalkulatora nawierzchni</a>. Kolejność prac opisuje <a href="${R}poradnik/kostka-brukowa-krok-po-kroku/">poradnik krok po kroku</a>.</p>
+</div></section>`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      inLanguage: 'pl',
+      mainEntity: [
+        { '@type': 'Question', name: `Ile kosztuje podjazd z kostki ${pj.m} m²?`, acceptedAnswer: { '@type': 'Answer', text: `Od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta, przy kostce betonowej i pełnym zakresie z podbudową pod ruch samochodowy.` } },
+        { '@type': 'Question', name: 'Dlaczego podbudowa kosztuje więcej niż kostka?', acceptedAnswer: { '@type': 'Answer', text: 'Bo pod ruch samochodowy trzeba wybrać od trzydziestu do czterdziestu pięciu centymetrów gruntu, wywieźć urobek i wypełnić wykop zagęszczanym kruszywem. To praca ziemna i transport, a nie sama warstwa materiału pod kostką.' } },
       ],
     },
     script: `bindSort(document.getElementById('board'));`,
