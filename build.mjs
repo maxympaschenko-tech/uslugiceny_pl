@@ -1019,6 +1019,7 @@ for (const pk of POKOJE) {
 // konkretna sume z odnosnikiem do pelnego rozbicia.
 const KOSZT_PORADNIKA = {
   'remont-lazienki-krok-po-kroku': { adres: 'koszt-lazienki/6-m2', opis: 'łazienki o powierzchni 6 m²' },
+  'remont-pokoju-krok-po-kroku': { adres: 'koszt-pokoju/20-m2', opis: 'pokoju o powierzchni 20 m²' },
   'remont-kuchni-krok-po-kroku': { adres: 'koszt-kuchni/10-m2', opis: 'kuchni o powierzchni 10 m²' },
   'kolejnosc-prac-remontowych': { adres: 'koszt-remontu/50-m2', opis: 'mieszkania o powierzchni 50 m²' },
   'wykonczenie-mieszkania-krok-po-kroku': { adres: 'koszt-wykonczenia/45-m2', opis: 'mieszkania od dewelopera, 45 m²' },

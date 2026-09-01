@@ -9,6 +9,34 @@ const YEAR = new Date().getFullYear();
 
 export const PORADNIKI = [
   {
+    slug: 'remont-pokoju-krok-po-kroku',
+    h1: 'Remont pokoju krok po kroku',
+    title: `Remont pokoju krok po kroku ${YEAR}: kolejność prac`,
+    desc: 'Jak wyremontować pokój: opróżnienie, demontaże, naprawa ścian, gładzie, malowanie, podłoga i listwy. Kolejność, terminy i typowe błędy.',
+    lede: 'Jedyny remont, który da się zrobić bez wyprowadzania się z mieszkania. Wymaga za to dyscypliny w kolejności, bo pomyłka oznacza malowanie drugi raz.',
+    czas: 'P10D',
+    wstep: 'Kolejność dla pojedynczego pomieszczenia w mieszkaniu zamieszkanym. Przy każdym etapie podajemy średnią stawkę dla Polski.',
+    kroki: [
+      { t: 'Opróżnienie i zabezpieczenie', w: null, txt: 'Meble wynosimy albo zsuwamy na środek i przykrywamy folią. Przejście do reszty mieszkania zasłaniamy folią z zamkiem, bo pył ze szlifowania gładzi dociera wszędzie. To etap, który najczęściej się pomija i którego brak najbardziej daje się we znaki mieszkającym obok.' },
+      { t: 'Demontaże', w: 'demontaz_podlogi', txt: 'Stara podłoga, listwy, czasem tapety. Dopiero teraz widać stan podłoża: nierówną wylewkę, ubytki przy ścianach albo legary do wymiany. Przy pokoju to zwykle jeden dzień pracy i kilka worków gruzu, więc kontener bywa niepotrzebny.' },
+      { t: 'Zrywanie tapet', w: 'zrywanie_tapet', txt: 'Tapetę moczy się i zdejmuje warstwami. Zostawienie jej pod gładzią to gwarancja pęcherzy: klej tapetowy rozpuszcza się pod wilgocią z masy szpachlowej i odspaja całość.' },
+      { t: 'Instalacje, jeśli mają się zmienić', w: 'punkt_elektryczny', txt: 'Nowe gniazda, przesunięcie włącznika, punkt pod telewizor albo lampę. Bruzdowanie robi się przed tynkami i gładziami, bo inaczej trzeba kuć w gotowej powierzchni. To moment na decyzję, której nie da się cofnąć bez powtarzania całego wykończenia.' },
+      { t: 'Naprawa i wyrównanie ścian', w: 'gladz', txt: 'Pęknięcia, dziury po kołkach, odparzony tynk. Przy krzywych ścianach potrzebny jest najpierw tynk, a dopiero potem gładź: sama gładź powtórzy każdą krzywiznę. Szlifowanie to najbardziej pylący etap w całym remoncie pokoju.' },
+      { t: 'Gruntowanie', w: 'gruntowanie', txt: 'Po odkurzeniu, przed malowaniem. Grunt wyrównuje chłonność podłoża, dzięki czemu farba kryje równomiernie i wystarczają dwie warstwy zamiast trzech.' },
+      { t: 'Malowanie sufitu i ścian', w: 'malowanie', txt: 'Najpierw sufit, potem ściany, zawsze przed montażem podłogi. Malowanie po ułożeniu paneli oznacza zabezpieczanie całej powierzchni folią i poprawki przy listwach. Przy zmianie koloru na jaśniejszy trzeba liczyć trzecią warstwę.' },
+      { t: 'Wyrównanie podłoża pod podłogę', w: 'samopoziomujaca', txt: 'Masa samopoziomująca wyrównuje kilka milimetrów na istniejącej wylewce. Jeśli różnice są większe niż centymetr albo podłoże jest spękane, potrzebna jest pełna wylewka, a wtedy remont wydłuża się o tygodnie schnięcia.' },
+      { t: 'Podłoga', w: 'panele', txt: 'Panele układa się pływająco, z dylatacją przy ścianach ukrytą pod listwą. Deski powinny poleżeć w pomieszczeniu dobę przed montażem, żeby dopasowały się do wilgotności. Alternatywą przy zachowanym parkiecie jest cyklinowanie, często tańsze od nowej podłogi.' },
+      { t: 'Listwy przypodłogowe', w: 'listwy', txt: 'Na końcu, po podłodze i malowaniu. Listwa zakrywa dylatację, więc nie może być przykręcona do podłogi, tylko do ściany. Silikonowanie górnej krawędzi przy krzywej ścianie kosztuje niewiele, a odróżnia wykończenie porządne od byle jakiego.' },
+      { t: 'Sprzątanie i wniesienie mebli', w: 'sprzatanie', txt: 'Pył ze szlifowania osiada jeszcze kilka dni, więc pierwsze sprzątanie rzadko jest ostatnim. Meble wnosi się po całkowitym wyschnięciu farby, zwykle po dwóch, trzech dniach od ostatniej warstwy.' },
+    ],
+    faq: [
+      ['Ile trwa remont pokoju?', 'Przy pełnym zakresie od siedmiu do dziesięciu dni roboczych, z czego znaczna część to schnięcie: gładzi, gruntu i farby. Samo malowanie i podłoga to dwa, trzy dni.'],
+      ['Czy da się mieszkać w mieszkaniu w trakcie?', 'Tak, i to główna zaleta remontu pomieszczeniami. Warunek to szczelne odgrodzenie przejścia folią i pogodzenie się z pyłem przy szlifowaniu. Prace mokre wydłużają się, bo trudniej intensywnie wietrzyć.'],
+      ['Malować przed podłogą czy po?', 'Przed. Malowanie po ułożeniu podłogi wymaga zabezpieczenia całej powierzchni i kończy się poprawkami przy listwach. Wyjątkiem jest ostatnia warstwa przy listwach, którą czasem robi się na końcu.'],
+      ['Co jeśli pod wykładziną jest parkiet?', 'Warto go obejrzeć przed decyzją o nowej podłodze. Parkiet z warstwą użytkową powyżej trzech milimetrów nadaje się do cyklinowania, które bywa tańsze od paneli i daje trwalszy efekt.'],
+    ],
+  },
+  {
     slug: 'remont-lazienki-krok-po-kroku',
     h1: 'Remont łazienki krok po kroku',
     title: `Remont łazienki krok po kroku ${YEAR}: kolejność prac`,
