@@ -213,19 +213,19 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 | `/<kategoria>/<usluga>/<miasto>/` | 1050 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
 | `/kalkulatory/` i `/kalkulator/*` | 19 | spis oraz 18 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, ilości materiałów |
-| `/koszty/` i `/koszt-*/` | 38 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dom, ocieplenie, wykończenie |
-| `/poradnik/*` | 15 | spis oraz 14 poradników krok po kroku, ponad 150 etapów, schemat HowTo |
-| `/porownanie/*` | 17 | spis oraz 16 zestawień rozwiązań z werdyktem |
-| `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 70 haseł, pełne zestawienie stawek, udział robocizny |
+| `/koszty/` i `/koszt-*/` | 49 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dom, ocieplenie, wykończenie |
+| `/poradnik/*` | 16 | spis oraz 15 poradników krok po kroku, ponad 160 etapów, schemat HowTo |
+| `/porownanie/*` | 21 | spis oraz 20 zestawień rozwiązań z werdyktem |
+| `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 76 haseł, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 1285 stron plus sitemap, robots.txt i strona 404.
+Razem 1299 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 100 z 105 stawek sprawdzonych punktowo, czyli takich, dla których źródło
+**Stan weryfikacji:** 103 z 105 stawek sprawdzonych punktowo, czyli takich, dla których źródło
 podaje liczbę dla tej konkretnej roboty. Pozostałe wyprowadzono z widełek dla całej grupy robót
 i są oznaczone na swoich stronach jako orientacyjne. Historia zmian jest na `/aktualizacje/`.
 
