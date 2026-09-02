@@ -283,7 +283,13 @@ await write(
   <div class="city-links">${LAZIENKI.map((m) => `<a href="${R}koszt-lazienki/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
   <p class="section-note" style="margin-top:1.2rem;margin-bottom:.4rem"><b>Remont kuchni o powierzchni:</b></p>
   <div class="city-links">${KUCHNIE.map((m) => `<a href="${R}koszt-kuchni/${m.m}-m2/">${m.m} m²</a>`).join('')}</div>
-  <p class="receipt-foot" style="margin-top:1.2rem"><a href="${R}koszty/">Zobacz wszystkie gotowe wyliczenia</a>: poddasze, wykończenie od dewelopera, ocieplenie i kompleksowy remont domu.</p>
+  <p class="section-note" style="margin-top:1.4rem;margin-bottom:.4rem"><b>Prace na zewnątrz:</b></p>
+  <div class="city-links">${[
+    ...DACHY.map((m) => ({ u: `${R}koszt-dachu/${m.m}-m2/`, t: `dach ${m.m} m²` })),
+    ...PODJAZDY.map((m) => ({ u: `${R}koszt-podjazdu/${m.m}-m2/`, t: `podjazd ${m.m} m²` })),
+    ...OGRODZENIA.map((m) => ({ u: `${R}koszt-ogrodzenia/${m.m}-mb/`, t: `ogrodzenie ${m.m} mb` })),
+  ].map((x) => `<a href="${x.u}">${x.t}</a>`).join('')}</div>
+  <p class="receipt-foot" style="margin-top:1.2rem"><a href="${R}koszty/">Zobacz wszystkie gotowe wyliczenia</a>: balkon, poddasze, wykończenie od dewelopera, ocieplenie i kompleksowy remont domu.</p>
 </div></section>
 
 <section><div class="wrap">

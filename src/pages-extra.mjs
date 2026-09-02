@@ -955,6 +955,7 @@ export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDAS
     { tytul: 'Remont balkonu', sciezka: 'koszt-balkonu', lista: BALKONY, jedn: 'm²',
       opis: 'Skucie posadzki, hydroizolacja ze spadkami, płytki mrozoodporne i obróbki z kapinosem. Bez ceny samej balustrady.' },
     { tytul: 'Ogrodzenie', sciezka: 'koszt-ogrodzenia', lista: OGRODZENIA, jedn: 'mb',
+      jednAdres: 'mb',
       opis: 'Przęsła panelowe ze słupkami, podmurówka prefabrykowana, brama przesuwna i furtka. Bez automatyki bramy, która zależy od wybranego napędu.' },
     { tytul: 'Podjazd z kostki', sciezka: 'koszt-podjazdu', lista: PODJAZDY, jedn: 'm²',
       opis: 'Niwelacja, korytowanie z wywozem, podbudowa, kostka betonowa, krawężniki i odwodnienie. Największą pozycją jest podbudowa, nie kostka.' },
@@ -984,7 +985,7 @@ export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDAS
   ${serie.map((s) => `
   <h2 style="margin-top:2rem">${s.tytul}</h2>
   <p class="section-note">${s.opis}</p>
-  <div class="city-links">${s.lista.map((x) => `<a href="${R}${s.sciezka}/${x.m}-m2/">${x.m} ${s.jedn}</a>`).join('')}</div>`).join('')}
+  <div class="city-links">${s.lista.map((x) => `<a href="${R}${s.sciezka}/${x.m}-${s.jednAdres || 'm2'}/">${x.m} ${s.jedn}</a>`).join('')}</div>`).join('')}
 
   <h2 style="margin-top:2.2rem">Twój zakres wygląda inaczej?</h2>
   <p class="section-note">Gotowe wyliczenia zakładają typowy zakres prac. Jeśli chcesz coś dodać albo odjąć, przejdź do <a href="${R}kalkulatory/">kalkulatorów</a>, gdzie każdą pozycję można zaznaczyć osobno. A jeśli masz już wycenę od ekipy, porównaj ją z rynkiem w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>.</p>
