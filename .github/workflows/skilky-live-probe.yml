@@ -27,20 +27,50 @@ jobs:
           curl -LfsS --retry 2 --retry-delay 1 --max-time 15 -H 'Cache-Control: no-cache' "${base}/build.json?probe=${nonce}"
           echo
 
+          curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/?probe=${nonce}" -o /tmp/home.html
+          curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyatory/?probe=${nonce}" -o /tmp/catalog.html
           curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyatory/dim/?probe=${nonce}" -o /tmp/dim.html
           curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyatory/remont/?probe=${nonce}" -o /tmp/remont.html
           curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyator/ups-invertor/?probe=${nonce}" -o /tmp/ups.html
 
           python3 - <<'PY'
-          import html, re, sys
+          import collections, html, re, sys
           from pathlib import Path
 
+          home = Path('/tmp/home.html').read_text(encoding='utf-8')
+          catalog = Path('/tmp/catalog.html').read_text(encoding='utf-8')
           dim = Path('/tmp/dim.html').read_text(encoding='utf-8')
           remont = Path('/tmp/remont.html').read_text(encoding='utf-8')
           ups = Path('/tmp/ups.html').read_text(encoding='utf-8')
 
           def clean(s):
               return html.unescape(re.sub(r'<[^>]+>', '', s)).strip()
+
+          # Homepage category cards vs the rendered catalog's authoritative
+          # data-category inventory.
+          category_block_match = re.search(r'<div class="category-cards">(.*?)</div></div></section>', home, re.S)
+          category_block = category_block_match.group(1) if category_block_match else ''
+          home_categories = {}
+          for name, count in re.findall(r'<b>(.*?)</b>\s*<small>\s*(\d+)\s+калькулятор', category_block, re.S):
+              home_categories[clean(name)] = int(count)
+
+          catalog_categories = collections.Counter()
+          catalog_urls = set()
+          for tag in re.findall(r'<a\b[^>]*class="[^"]*\btool-card\b[^"]*"[^>]*>', catalog, re.I):
+              href = re.search(r'href="(/kalkulyator/[a-z0-9-]+/)"', tag, re.I)
+              category = re.search(r'data-category="([^"]+)"', tag, re.I)
+              if not href or not category:
+                  continue
+              url = href.group(1)
+              if url in catalog_urls:
+                  continue
+              catalog_urls.add(url)
+              catalog_categories[html.unescape(category.group(1))] += 1
+
+          print('HOME_CATEGORY_COUNTS:', dict(home_categories))
+          print('CATALOG_CATEGORY_COUNTS:', dict(catalog_categories))
+          print('CATALOG_UNIQUE_TOTAL:', len(catalog_urls))
+          print('HOME_CATEGORY_PARITY:', home_categories == dict(catalog_categories))
 
           def upper(text, label):
               for m in re.finditer(r'<div class="seo-cluster-card">(.*?)</div></div>', text, re.S):
@@ -77,14 +107,11 @@ jobs:
               for surface, block in [('UPPER', upper(text, 'Геометрія та площі')), ('LOWER', lower(text, 'Геометрія та площі'))]:
                   found = links(block)
                   leaked = [item for item in found if item[0] in bad]
-                  print(f'{page}_{surface}_GEOMETRY_LINKS:', found)
                   print(f'{page}_{surface}_BAD:', leaked)
                   if leaked:
                       failures.append(f'{page}_{surface}:{leaked}')
 
           print('UPS_RUNTIME_MARKER:', 'id="upsPeak"' in ups)
-          h1 = re.search(r'<h1>(.*?)</h1>', ups, re.S)
-          print('UPS_H1:', clean(h1.group(1)) if h1 else 'missing')
           if 'id="upsPeak"' not in ups:
               failures.append('UPS runtime marker id="upsPeak" missing')
 
