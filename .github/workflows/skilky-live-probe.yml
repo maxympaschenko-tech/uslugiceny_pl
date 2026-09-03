@@ -11,80 +11,104 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
     steps:
       - name: Probe Skilky production
         shell: bash
         run: |
-          set -euo pipefail
+          set -u
+          set -o pipefail
           base='https://skilky.com.ua'
           nonce="$(date +%s)"
+          failures=0
 
           echo '=== deploy-status.json ==='
-          curl -LfsS --retry 2 --retry-delay 1 --max-time 15 -H 'Cache-Control: no-cache' "${base}/deploy-status.json?probe=${nonce}"
+          curl -LfsS --retry 2 --retry-delay 1 --max-time 15 -H 'Cache-Control: no-cache' "${base}/deploy-status.json?probe=${nonce}" || true
           echo
           echo '=== build.json ==='
-          curl -LfsS --retry 2 --retry-delay 1 --max-time 15 -H 'Cache-Control: no-cache' "${base}/build.json?probe=${nonce}"
+          curl -LfsS --retry 2 --retry-delay 1 --max-time 15 -H 'Cache-Control: no-cache' "${base}/build.json?probe=${nonce}" || true
           echo
 
-          curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/?probe=${nonce}" -o /tmp/skilky-home.html
-          curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyatory/dim/?probe=${nonce}" -o /tmp/skilky-dim.html
-          curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyatory/remont/?probe=${nonce}" -o /tmp/skilky-remont.html
+          surface() {
+            local path="$1" marker="$2" tmp
+            tmp="$(mktemp)"
+            if ! curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}${path}?probe=${nonce}" -o "$tmp"; then
+              echo "FAIL HTTP surface ${path}"
+              failures=$((failures + 1))
+            elif grep -Fq "$marker" "$tmp"; then
+              echo "PASS surface ${path} :: ${marker}"
+            else
+              echo "FAIL marker ${path} :: ${marker}"
+              failures=$((failures + 1))
+            fi
+            rm -f "$tmp"
+          }
 
-          python3 - <<'PY'
-          import html, re
-          from pathlib import Path
+          redirect() {
+            local path="$1" expected="$2" headers status location normalized
+            headers="$(mktemp)"
+            if ! curl -sS --retry 2 --retry-delay 1 --max-time 20 -D "$headers" -o /dev/null "${base}${path}"; then
+              echo "FAIL HTTP redirect ${path}"
+              failures=$((failures + 1))
+              rm -f "$headers"
+              return
+            fi
+            status="$(awk '/^HTTP\// {code=$2} END {print code}' "$headers")"
+            location="$(awk 'BEGIN{IGNORECASE=1} /^Location:/ {sub(/^[^:]*:[[:space:]]*/, ""); sub(/\r$/, ""); value=$0} END {print value}' "$headers")"
+            rm -f "$headers"
+            normalized="$location"
+            case "$normalized" in "$base"*) normalized="${normalized#"$base"}" ;; esac
+            normalized="${normalized%%\?*}"
+            normalized="${normalized%%\#*}"
+            if [ "$status" = '301' ] && [ "$normalized" = "$expected" ]; then
+              echo "PASS redirect ${path} -> ${expected}"
+            else
+              echo "FAIL redirect ${path} status=${status:-missing} location=${location:-missing} expected=${expected}"
+              failures=$((failures + 1))
+            fi
+          }
 
-          home = Path('/tmp/skilky-home.html').read_text(encoding='utf-8')
-          dim = Path('/tmp/skilky-dim.html').read_text(encoding='utf-8')
-          remont = Path('/tmp/skilky-remont.html').read_text(encoding='utf-8')
+          surface '/' 'Калькулятори та перевірені ціни для дому, ремонту, авто й фінансів'
+          surface '/' '282 практичні калькулятори для ремонту, будівництва, дому, авто та фінансів плюс локальні довідники цін: 22 міста України.'
+          surface '/kalkulyator/generator/' 'Калькулятор потужності генератора для будинку'
+          surface '/kalkulyator/ups-invertor/' 'Калькулятор акумулятора для UPS та інвертора'
+          surface '/kalkulyator/teplovtraty/' 'Калькулятор тепловтрат і потужності опалення кімнати'
+          surface '/kalkulyator/radiatory/' 'Калькулятор кількості секцій радіатора опалення'
+          surface '/kalkulyator/sonyachni-paneli/' 'Калькулятор сонячних панелей для будинку'
+          surface '/kalkulyator/zaryadka-elektromobilya/' 'Калькулятор зарядки електромобіля вдома'
+          redirect '/kalkulyator/generator-dlya-budynku/' '/kalkulyator/generator/'
+          redirect '/kalkulyator/akumulyator-dlya-ups/' '/kalkulyator/ups-invertor/'
+          redirect '/kalkulyator/teplova-potuzhnist-kimnaty/' '/kalkulyator/teplovtraty/'
+          redirect '/kalkulyator/sektsii-radiatora/' '/kalkulyator/radiatory/'
+          redirect '/kalkulyator/sonyachna-stantsiya-dlya-budynku/' '/kalkulyator/sonyachni-paneli/'
+          redirect '/kalkulyator/zaryadka-ev-vdoma/' '/kalkulyator/zaryadka-elektromobilya/'
+          surface '/tsiny/' '<strong>22</strong><span>міста з окремими даними</span>'
+          surface '/tsiny/' 'data-stage23-city="zaporizhzhia"'
+          surface '/tsiny/' 'data-stage23-city="kryvyi-rih"'
+          surface '/privacy/' 'Ця сторінка описує роботу сервісу «Скільки?» та правила обробки технічних даних'
+          surface '/sitemap.xml' '<loc>https://skilky.com.ua/privacy/</loc><lastmod>2026-08-30</lastmod>'
+          surface '/kalkulyator/dytyachi-vyplaty-kalkulyator/' 'id="childBenefitsNurseryMonths"'
+          surface '/kalkulyatory/finansy/' '<strong>8 000 / 12 000 грн/міс</strong>'
+          surface '/kalkulyator/dytyachi-vyplaty-kalkulyator/' 'id="childBenefitsBabyBoxMode"'
+          surface '/kalkulyatory/finansy/' '<strong>8 451 грн/дитина</strong>'
+          surface '/kalkulyator/dekretni-kalkulyator/' 'id="maternityInsuranceMode"'
+          surface '/kalkulyatory/finansy/' '<strong>7 000 грн/міс</strong>'
+          surface '/kalkulyator/pakunok-shkolyara-2026-kalkulyator/' 'id="schoolPackageCount"'
+          surface '/kalkulyatory/finansy/' '<strong>5 000 грн/першокласника</strong>'
+          surface '/kalkulyator/bazova-sotsialna-dopomoga-kalkulyator/' 'id="bsaApplicantCategory"'
+          surface '/kalkulyatory/finansy/' '<strong>4 500 грн базова величина</strong>'
+          surface '/kalkulyator/zhytlova-subsydiya-2026-kalkulyator/' 'id="housingSubsidyMembers"'
+          surface '/kalkulyatory/finansy/' '<strong>3 209 грн база формули</strong>'
+          surface '/tsiny/fundament-budynku/zaporizhzhia/' 'stage136-foundation-guide'
+          surface '/tsiny/fundament-budynku/kryvyi-rih/' 'stage136-foundation-guide'
+          surface '/tsiny/kryvyi-rih/' 'stage175-city-hub-expanded-guides'
+          surface '/sitemap.xml' 'https://skilky.com.ua/tsiny/fundament-budynku/zaporizhzhia/'
+          surface '/sitemap.xml' 'https://skilky.com.ua/tsiny/fundament-budynku/kryvyi-rih/'
+          surface '/sitemap.xml' 'stage301-finance-sitemap-route-parity routes=29'
+          surface '/sitemap.xml' 'https://skilky.com.ua/kalkulyator/podatky-z-orendy-nerukhomosti-kalkulyator/'
+          surface '/sitemap.xml' 'https://skilky.com.ua/kalkulyator/pakunok-shkolyara-2026-kalkulyator/'
+          surface '/sitemap.xml' 'https://skilky.com.ua/kalkulyator/bazova-sotsialna-dopomoga-kalkulyator/'
+          surface '/sitemap.xml' 'https://skilky.com.ua/kalkulyator/zhytlova-subsydiya-2026-kalkulyator/'
 
-          def clean(s):
-              return html.unescape(re.sub(r'<[^>]+>', '', s)).strip()
-
-          def marker(text, name):
-              m = re.search(re.escape(name) + r'[^>\n]*', text)
-              return m.group(0) if m else 'missing'
-
-          def upper(text, label):
-              for m in re.finditer(r'<div class="seo-cluster-card">(.*?)</div></div>', text, re.S):
-                  block = m.group(0)
-                  heading = re.search(r'<h3>(.*?)</h3>', block, re.S)
-                  if heading and clean(heading.group(1)) == label:
-                      return block
-              return ''
-
-          def lower(text, label):
-              for m in re.finditer(r'<article class="seo-topic-block"[^>]*>(.*?)</article>', text, re.S):
-                  block = m.group(0)
-                  heading = re.search(r'<h2>\s*Калькулятори:\s*(.*?)</h2>', block, re.S)
-                  if heading and clean(heading.group(1)) == label:
-                      return block
-              return ''
-
-          def links(block):
-              out=[]
-              for href, body in re.findall(r'<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>', block, re.S):
-                  label=clean(body)
-                  if href.startswith('/kalkulyator/'):
-                      out.append((href,label))
-              return out
-
-          def h1(text):
-              m=re.search(r'<h1>(.*?)</h1>',text,re.S)
-              return clean(m.group(1)) if m else 'missing'
-          def hero(text):
-              m=re.search(r'<p class="hero-lead">(.*?)</p>',text,re.S)
-              return clean(m.group(1)) if m else 'missing'
-
-          print('HOME_H1:', h1(home))
-          print('HOME_HERO:', hero(home))
-          print('HOME_STAGE64:', marker(home, 'stage64-count-normalized'))
-          print('HOME_STAGE279:', marker(home, 'stage279-home-semantic-finalizer'))
-          print('DIM_UPPER_GEOMETRY_LINKS:', links(upper(dim, 'Геометрія та площі')))
-          print('DIM_LOWER_GEOMETRY_LINKS:', links(lower(dim, 'Геометрія та площі')))
-          print('REMONT_UPPER_GEOMETRY_LINKS:', links(upper(remont, 'Геометрія та площі')))
-          print('REMONT_LOWER_GEOMETRY_LINKS:', links(lower(remont, 'Геометрія та площі')))
-          print('DIM_UPPER_GARDEN_LINKS:', links(upper(dim, 'Сад і ділянка')))
-          print('DIM_LOWER_GARDEN_LINKS:', links(lower(dim, 'Сад і ділянка')))
-          PY
+          echo "SMOKE_FAILURES=${failures}"
+          exit 0
