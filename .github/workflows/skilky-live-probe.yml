@@ -32,12 +32,15 @@ jobs:
           curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyatory/remont/?probe=${nonce}" -o /tmp/skilky-remont.html
 
           python3 - <<'PY'
-          import re
+          import html, re
           from pathlib import Path
 
           home = Path('/tmp/skilky-home.html').read_text(encoding='utf-8')
           dim = Path('/tmp/skilky-dim.html').read_text(encoding='utf-8')
           remont = Path('/tmp/skilky-remont.html').read_text(encoding='utf-8')
+
+          def clean(s):
+              return html.unescape(re.sub(r'<[^>]+>', '', s)).strip()
 
           def marker(text, name):
               m = re.search(re.escape(name) + r'[^>\n]*', text)
@@ -47,7 +50,7 @@ jobs:
               for m in re.finditer(r'<div class="seo-cluster-card">(.*?)</div></div>', text, re.S):
                   block = m.group(0)
                   heading = re.search(r'<h3>(.*?)</h3>', block, re.S)
-                  if heading and re.sub(r'<[^>]+>', '', heading.group(1)).strip() == label:
+                  if heading and clean(heading.group(1)) == label:
                       return block
               return ''
 
@@ -55,20 +58,33 @@ jobs:
               for m in re.finditer(r'<article class="seo-topic-block"[^>]*>(.*?)</article>', text, re.S):
                   block = m.group(0)
                   heading = re.search(r'<h2>\s*Калькулятори:\s*(.*?)</h2>', block, re.S)
-                  if heading and re.sub(r'<[^>]+>', '', heading.group(1)).strip() == label:
+                  if heading and clean(heading.group(1)) == label:
                       return block
               return ''
 
-          def hits(block, labels):
-              return [label for label in labels if label in block]
+          def links(block):
+              out=[]
+              for href, body in re.findall(r'<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>', block, re.S):
+                  label=clean(body)
+                  if href.startswith('/kalkulyator/'):
+                      out.append((href,label))
+              return out
 
-          geometry_bad = ['CADR очищувача повітря', 'UPS / інвертор', 'Бойлер', 'Акустичні панелі', 'Бюджет ванної', 'Бюджет кухні']
+          def h1(text):
+              m=re.search(r'<h1>(.*?)</h1>',text,re.S)
+              return clean(m.group(1)) if m else 'missing'
+          def hero(text):
+              m=re.search(r'<p class="hero-lead">(.*?)</p>',text,re.S)
+              return clean(m.group(1)) if m else 'missing'
+
+          print('HOME_H1:', h1(home))
+          print('HOME_HERO:', hero(home))
           print('HOME_STAGE64:', marker(home, 'stage64-count-normalized'))
           print('HOME_STAGE279:', marker(home, 'stage279-home-semantic-finalizer'))
-          print('DIM_UPPER_GEOMETRY_BAD:', hits(upper(dim, 'Геометрія та площі'), geometry_bad))
-          print('DIM_LOWER_GEOMETRY_BAD:', hits(lower(dim, 'Геометрія та площі'), geometry_bad))
-          print('DIM_UPPER_GARDEN_AQUARIUM:', 'Об’єм акваріума' in upper(dim, 'Сад і ділянка'))
-          print('DIM_LOWER_GARDEN_AQUARIUM:', 'Об’єм акваріума' in lower(dim, 'Сад і ділянка'))
-          print('REMONT_UPPER_GEOMETRY_BAD:', hits(upper(remont, 'Геометрія та площі'), geometry_bad))
-          print('REMONT_LOWER_GEOMETRY_BAD:', hits(lower(remont, 'Геометрія та площі'), geometry_bad))
+          print('DIM_UPPER_GEOMETRY_LINKS:', links(upper(dim, 'Геометрія та площі')))
+          print('DIM_LOWER_GEOMETRY_LINKS:', links(lower(dim, 'Геометрія та площі')))
+          print('REMONT_UPPER_GEOMETRY_LINKS:', links(upper(remont, 'Геометрія та площі')))
+          print('REMONT_LOWER_GEOMETRY_LINKS:', links(lower(remont, 'Геометрія та площі')))
+          print('DIM_UPPER_GARDEN_LINKS:', links(upper(dim, 'Сад і ділянка')))
+          print('DIM_LOWER_GARDEN_LINKS:', links(lower(dim, 'Сад і ділянка')))
           PY
