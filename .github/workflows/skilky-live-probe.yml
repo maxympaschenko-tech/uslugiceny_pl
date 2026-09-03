@@ -34,7 +34,7 @@ jobs:
           curl -LfsS --retry 2 --retry-delay 1 --max-time 20 -H 'Cache-Control: no-cache' "${base}/kalkulyator/ups-invertor/?probe=${nonce}" -o /tmp/ups.html
 
           python3 - <<'PY'
-          import collections, html, re, sys
+          import collections, html, json, re, sys
           from pathlib import Path
 
           home = Path('/tmp/home.html').read_text(encoding='utf-8')
@@ -46,8 +46,6 @@ jobs:
           def clean(s):
               return html.unescape(re.sub(r'<[^>]+>', '', s)).strip()
 
-          # Homepage category cards vs the rendered catalog's authoritative
-          # data-category inventory.
           category_block_match = re.search(r'<div class="category-cards">(.*?)</div></div></section>', home, re.S)
           category_block = category_block_match.group(1) if category_block_match else ''
           home_categories = {}
@@ -67,10 +65,41 @@ jobs:
               catalog_urls.add(url)
               catalog_categories[html.unescape(category.group(1))] += 1
 
+          search_items = {}
+          scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', home, re.S | re.I)
+          for script in scripts:
+              base_match = re.search(r'window\.SKILKY_CALCULATORS\s*=\s*(\[.*?\])\s*;', script, re.S)
+              if base_match:
+                  try:
+                      rows = json.loads(base_match.group(1))
+                  except Exception:
+                      rows = []
+                  for row in rows if isinstance(rows, list) else []:
+                      if isinstance(row, dict) and str(row.get('url', '')).startswith('/kalkulyator/'):
+                          search_items[str(row['url'])] = row
+              for push_match in re.finditer(r'window\.SKILKY_CALCULATORS\.push\(\.\.\.(\[.*?\])\)\s*;', script, re.S):
+                  try:
+                      rows = json.loads(push_match.group(1))
+                  except Exception:
+                      rows = []
+                  for row in rows if isinstance(rows, list) else []:
+                      if isinstance(row, dict) and str(row.get('url', '')).startswith('/kalkulyator/'):
+                          search_items[str(row['url'])] = row
+
+          search_categories = collections.Counter()
+          for row in search_items.values():
+              category = str(row.get('category', '')).strip()
+              if category:
+                  search_categories[category] += 1
+
           print('HOME_CATEGORY_COUNTS:', dict(home_categories))
           print('CATALOG_CATEGORY_COUNTS:', dict(catalog_categories))
           print('CATALOG_UNIQUE_TOTAL:', len(catalog_urls))
           print('HOME_CATEGORY_PARITY:', home_categories == dict(catalog_categories))
+          print('SEARCH_CATEGORY_COUNTS:', dict(search_categories))
+          print('SEARCH_UNIQUE_TOTAL:', len(search_items))
+          print('SEARCH_CATALOG_URL_PARITY:', set(search_items) == catalog_urls)
+          print('SEARCH_CATALOG_CATEGORY_PARITY:', dict(search_categories) == dict(catalog_categories))
 
           def upper(text, label):
               for m in re.finditer(r'<div class="seo-cluster-card">(.*?)</div></div>', text, re.S):
@@ -105,8 +134,7 @@ jobs:
           failures = []
           for page, text in [('DIM', dim), ('REMONT', remont)]:
               for surface, block in [('UPPER', upper(text, 'Геометрія та площі')), ('LOWER', lower(text, 'Геометрія та площі'))]:
-                  found = links(block)
-                  leaked = [item for item in found if item[0] in bad]
+                  leaked = [item for item in links(block) if item[0] in bad]
                   print(f'{page}_{surface}_BAD:', leaked)
                   if leaked:
                       failures.append(f'{page}_{surface}:{leaked}')
