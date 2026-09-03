@@ -44,6 +44,34 @@ const doKalkulatora = (catId) => {
 };
 
 
+
+// Gotowe wyliczenia dla dziedziny, w ktorej dana robota wystepuje. Czytelnik
+// ogladajacy stawke za metr zwykle chce wiedziec, ile wyjdzie calosc, a dotad
+// musial sam trafic do serii metrazowej.
+const WYLICZENIA = {
+  tiles:    [['koszt-lazienki/6-m2', 'remont łazienki 6 m²'], ['koszt-kuchni/10-m2', 'remont kuchni 10 m²']],
+  plumbing:  [['koszt-lazienki/6-m2', 'remont łazienki 6 m²'], ['koszt-kuchni/10-m2', 'remont kuchni 10 m²']],
+  instalacje: [['koszt-remontu/50-m2', 'remont mieszkania 50 m²'], ['koszt-remontu-domu/120-m2', 'remont domu 120 m²']],
+  walls:    [['koszt-pokoju/20-m2', 'remont pokoju 20 m²'], ['koszt-remontu/50-m2', 'remont mieszkania 50 m²']],
+  floor:    [['koszt-pokoju/20-m2', 'remont pokoju 20 m²'], ['koszt-remontu/50-m2', 'remont mieszkania 50 m²']],
+  electric: [['koszt-remontu/50-m2', 'remont mieszkania 50 m²']],
+  demont:   [['koszt-remontu/50-m2', 'remont mieszkania 50 m²']],
+  finish:   [['koszt-pokoju/20-m2', 'remont pokoju 20 m²']],
+  dach:     [['koszt-dachu/150-m2', 'wymiana dachu 150 m²']],
+  teren:    [['koszt-podjazdu/60-m2', 'podjazd 60 m²'], ['koszt-ogrodzenia/60-mb', 'ogrodzenie 60 mb']],
+  elewacja: [['koszt-ocieplenia/120-m2', 'ocieplenie domu 120 m²']],
+  balkon:   [['koszt-balkonu/6-m2', 'remont balkonu 6 m²']],
+  okna:     [['koszt-wykonczenia/45-m2', 'wykończenie mieszkania 45 m²']],
+};
+
+const doWyliczen = (catId) => {
+  const l = WYLICZENIA[catId] || [];
+  if (!l.length) return '';
+  return `<p class="section-note" style="margin-top:.8rem">Zobacz, ile ta pozycja waży w całości: ${l
+    .map(([adres, nazwa]) => `<a href="${R}${adres}/">${nazwa}</a>`)
+    .join(' albo ')}.</p>`;
+};
+
 const crumbLd = (items) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -225,6 +253,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
       ${splitTable(w, units, base.labour, base.material)}
       ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
+      ${doWyliczen(cat.id)}
       ${factorsBlock(w, podlinkuj)}
     </div>
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions)}</div>
@@ -396,6 +425,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
       ${splitTable(w, units, p.labour, p.material)}
       ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
+      ${doWyliczen(cat.id)}
       ${factorsBlock(w, podlinkuj)}
       <p class="section-note">Pełny cennik robót ${city.loc}: <a href="${R}ceny/${city.slug}/">zobacz wszystkie pozycje</a>.</p>
     </div>
