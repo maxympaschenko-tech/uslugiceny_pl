@@ -1107,6 +1107,22 @@
       "sprawdzone": "2026-08"
     },
     {
+      "id": "schody_stopnie",
+      "cat": "finish",
+      "unit": "szt",
+      "labour": 250,
+      "material": 200,
+      "name": "Obłożenie stopni schodów drewnem",
+      "factors": [
+        "Rodzaj drewna: gatunek krajowy jest tańszy niż egzotyczny.",
+        "Geometria schodów: stopnie zabiegowe wymagają docinki pod kątem, prostoliniowe idą szybciej.",
+        "Stan podłoża betonowego i konieczność jego wyrównania przed montażem.",
+        "Wykończenie boków i podstopni, liczone czasem osobno od samych stopni."
+      ],
+      "source": "portale budowlane: pojedynczy stopień z drewna krajowego 400-600 zł z materiałem, 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
       "id": "sprzatanie",
       "cat": "finish",
       "unit": "m2",
@@ -1862,6 +1878,22 @@
         "Przejścia przez stropy i ściany nośne."
       ],
       "source": "cenauslug.pl (robocizna 48-85 zł/mb) + ceny rur SPIRO izolowanych (materiał 90-130 zł/mb), 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
+      "id": "wklad_kominowy",
+      "cat": "instalacje",
+      "unit": "mb",
+      "labour": 180,
+      "material": 95,
+      "name": "Montaż wkładu kominowego",
+      "factors": [
+        "Stan istniejącego komina: krzywy albo zwężony przewód wymaga dodatkowego czasu na wprowadzenie wkładu.",
+        "Materiał wkładu: kwasoodporna stal nierdzewna kosztuje więcej niż aluminium do gazu.",
+        "Wysokość komina, bo od niej zależy liczba metrów wkładu i czas pracy na dachu.",
+        "Konieczność ocieplenia przestrzeni między wkładem a starym kominem wełną."
+      ],
+      "source": "portale kominkowe: montaż wkładu kominowego 180-350 zł/mb, średnia 275 zł/mb, 2026-09",
       "sprawdzone": "2026-09"
     },
     {
