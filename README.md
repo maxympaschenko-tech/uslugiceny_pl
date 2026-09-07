@@ -225,9 +225,11 @@ Razem 1333 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 105 z 105 stawek sprawdzonych punktowo (wrzesień 2026), czyli takich, dla
-których źródło podaje liczbę dla tej konkretnej roboty. Pole `source` z konkretną cytacją mają na
-razie 2 z nich — reszta czeka na rozszerzenie schematu. Historia zmian jest na `/aktualizacje/`.
+**Stan weryfikacji:** 108 z 108 stawek sprawdzonych punktowo (wrzesień 2026), wszystkie z polem
+`source` — konkretną cytacją z realnego researchu rynkowego. Kilka pozycji ma zaznaczone
+zastrzeżenie w źródle, gdy znaleziony zakres nie pasuje dokładnie do zakresu pozycji (np.
+`gk_sciana`, `konstrukcja_tarasu`) albo dane rynkowe są niejednoznaczne (`obrobki_blacharskie`,
+`kominek_wentylacyjny`). Historia zmian jest na `/aktualizacje/`.
 
 Źródła docelowe:
 
@@ -237,7 +239,7 @@ razie 2 z nich — reszta czeka na rozszerzenie schematu. Historia zmian jest na
 3. **GUS** — statystyka cen w budownictwie, otwarte API, licencja CC BY 4.0.
    Do kontroli dynamiki, nie wartości bezwzględnych.
 
-Docelowo każda stawka dostanie pola `source` i `checked`.
+Każda stawka ma już pola `source` i `checked` (jako `sprawdzone`).
 
 ## Kontrola jakości
 
@@ -439,9 +441,10 @@ edycji w dwóch miejscach.
 - [x] Sprawdzenie oferty: `/sprawdz-oferte/`, użytkownik wpisuje kwotę, narzędzie porównuje z medianą rynkową
 - [x] Kalkulatory malowania, płytek i płyt g-k (w ramach `gladzie-i-tynki`)
 - [x] Kalkulator ocieplenia balkonu — checkbox w istniejącym kalkulatorze balkonu, nowa pozycja `ocieplenie_balkonu`
-- [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 103/105 pozycji
-- [x] Punktowa weryfikacja ostatnich 2 pozycji (`klimatyzacja_multisplit`, `kanaly_wentylacyjne`) — 105/105 sprawdzonych
-- [ ] Pole `source` przy każdej stawce — na razie ma je tylko 2/105 (obie zweryfikowane we wrześniu 2026), reszta czeka na rozszerzenie
+- [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 108/108 pozycji
+- [x] Punktowa weryfikacja wszystkich pozycji cennika — 108/108 sprawdzonych
+- [x] Pole `source` przy każdej stawce — 108/108 pozycji, każda z cytacją realnego researchu z września 2026
+- [x] Dwie nowe pozycje po researchu rynku: `schody_stopnie` (obłożenie stopni drewnem) i `wklad_kominowy`
 - [ ] Historia stawek miesiąc po miesiącu i wykres dynamiki
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
 - [ ] Domena: sprawdzić dostępność, dobrać nazwę

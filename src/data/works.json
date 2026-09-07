@@ -609,6 +609,7 @@
         "Ruszt: pojedynczy czy podwójny, z wypełnieniem wełną czy bez.",
         "Wysokość zabudowy powyżej 3 m, gdzie płyty trzeba łączyć i wzmacniać."
       ],
+      "source": "portale budowlane: montaż płyty GK na stelażu 35-95 zł/m² robocizna, z materiałem 50-160 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1818,6 +1819,7 @@
         "Miejsce montażu jednostki zewnętrznej, bo elewacja powyżej parteru oznacza podnośnik albo alpinistę.",
         "W bloku potrzebna jest zgoda wspólnoty albo spółdzielni na montaż jednostki na elewacji."
       ],
+      "source": "portale klimatyzacyjne: sam montaż (bez urządzenia) 1000-2500 zł, dolny próg robocizny 800 zł, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1848,6 +1850,7 @@
         "Liczba punktów nawiewnych i wywiewnych wynikająca z liczby pomieszczeń.",
         "Cena nie obejmuje samej centrali, którą zwykle kupuje inwestor."
       ],
+      "source": "portale wentylacyjne: kanały + robocizna (bez centrali) ok. 8-13 tys. zł dla domu 100 m², czyli 80-130 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1863,6 +1866,7 @@
         "Zabezpieczenia elektryczne i osobny obwód w rozdzielnicy.",
         "Sama pompa nie jest wliczona, tu liczona jest instalacja i uruchomienie."
       ],
+      "source": "portale grzewcze: sama robocizna montażu (bez pompy) 5000-15000 zł dla pompy powietrznej, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1878,6 +1882,7 @@
         "Odległość od rozdzielnicy i konieczność jej rozbudowy.",
         "Falownik hybrydowy z magazynem energii to osobna, wyraźnie wyższa pozycja."
       ],
+      "source": "portale fotowoltaiczne: 3800-6500 zł/kWp zależnie od wielkości instalacji — stawka strony (3500) tuż poniżej dolnej granicy, do rozważenia niewielka korekta w górę, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1892,6 +1897,7 @@
         "Przepięcie instalacji i montaż nowych zaworów oraz filtra.",
         "Odbiór kominiarski i próba szczelności, wymagane dokumentacyjnie."
       ],
+      "source": "portale grzewcze: robocizna wymiany kotła 2000-6000 zł, stawka ryczałtowa hydraulików średnio 2500 zł, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1906,6 +1912,7 @@
         "Odległość punktu od źródła ciepła i rozdzielacza.",
         "Rodzaj grzejnika i zaworu termostatycznego."
       ],
+      "source": "brak bezpośrednich danych dla punktu CO, stawka analogiczna do punktu wodno-kanalizacyjnego (250-500 zł/pkt robocizny), 2026-09",
       "sprawdzone": "2026-08"
     },
     {
