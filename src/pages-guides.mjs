@@ -434,6 +434,32 @@ export const PORADNIKI = [
       ['Co zrobić z eternitem?', 'Eternit zawiera azbest i podlega osobnej procedurze demontażu i utylizacji przez uprawnioną firmę. Wiele gmin prowadzi programy, które pokrywają koszt zdjęcia i wywozu, więc przed zleceniem prac warto zapytać w urzędzie.'],
     ],
   },
+  {
+    slug: 'malowanie-krok-po-kroku',
+    h1: 'Malowanie ścian i sufitów krok po kroku',
+    title: `Malowanie ścian i sufitów krok po kroku ${YEAR}: kolejność prac`,
+    desc: 'Jak przebiega malowanie mieszkania: zabezpieczenie, naprawa ubytków, gruntowanie, malowanie sufitu i ścian w dwóch warstwach. Etapy i koszty.',
+    lede: 'Malowanie wygląda na etap, który da się przyspieszyć. W praktyce najwięcej czasu pochłania nie pędzel, tylko schnięcie tego, co pod farbą.',
+    czas: 'P4D',
+    wstep: 'Kolejność dotyczy malowania ścian i sufitów w mieszkaniu zamieszkanym, na istniejącym podłożu bez pełnego remontu. Przy każdym etapie podajemy średnią stawkę dla Polski.',
+    kroki: [
+      { t: 'Zabezpieczenie pomieszczenia', w: null, txt: 'Meble odsuwa się na środek i przykrywa folią, podłogę zabezpiecza folią malarską z taśmą wzdłuż listew. Gniazdka i włączniki oklejamy taśmą, a nie zdejmujemy: przy malowaniu na żywo prądzie łatwiej o zabrudzenie niż o porażenie, jeśli osłona jest szczelna.' },
+      { t: 'Zrywanie starych tapet lub łuszczącej się powłoki', w: 'zrywanie_tapet', txt: 'Tapetę moczy się i zdejmuje warstwami, łuszczącą się farbę usuwa szpachlą lub szlifierką. Malowanie po zerwaniu tylko fragmentu tapety kończy się widocznym reliefem na całej ścianie, więc etap robi się w całości albo wcale.' },
+      { t: 'Naprawa ubytków i pęknięć', w: 'gladz', txt: 'Dziury po kołkach, pęknięcia i odparzenia szpachluje się punktowo, a przy większych nierównościach kładzie pełną gładź. Malowanie nie ukrywa nierówności podłoża, przy bocznym świetle raczej je podkreśla.' },
+      { t: 'Mycie i odtłuszczenie powierzchni', w: null, txt: 'W kuchni i przy grzejnikach na starej powłoce osiada tłusty nalot, którego farba się nie chwyci. Zmywa się go roztworem odtłuszczającym i odczekuje do wyschnięcia, zanim zacznie się gruntowanie.' },
+      { t: 'Gruntowanie', w: 'gruntowanie', txt: 'Grunt wyrównuje chłonność podłoża, dzięki czemu farba kryje równomiernie i wystarczają dwie warstwy zamiast trzech. Na świeżej gładzi i po naprawach jest obowiązkowy, na starej, mocnej powłoce w dobrym stanie bywa pomijany.' },
+      { t: 'Dobór koloru i farby', w: null, txt: 'Próbnik na ścianie sprawdza się dopiero w świetle dnia i wieczorem przy sztucznym oświetleniu, bo kolor potrafi się różnić między porami dnia. Farba zmywalna ma sens w kuchni, przedpokoju i pokoju dziecięcym, w sypialni zwykle wystarcza tańsza, matowa.' },
+      { t: 'Malowanie sufitu', w: 'malowanie', txt: 'Zawsze przed ścianami, bo zachlapania sufitu na jeszcze niepomalowanej ścianie nie trzeba poprawiać. Pierwsza warstwa kładziona jest w jednym kierunku, druga w poprzek, co ujednolica krycie przy świetle padającym z boku.' },
+      { t: 'Malowanie ścian, pierwsza warstwa', w: 'malowanie', txt: 'Od narożników i krawędzi pędzlem, reszta wałkiem, zawsze mokre na mokre, żeby uniknąć widocznych zakładek. Przy zmianie koloru na jaśniejszy albo z ciemnego podłoża trzeba liczyć się z trzecią warstwą.' },
+      { t: 'Druga warstwa po wyschnięciu', w: 'malowanie', txt: 'Odstęp między warstwami to zwykle kilka godzin przy typowej wilgotności i temperaturze, krócej przy otwartych oknach latem, dłużej zimą przy słabej wentylacji. Malowanie na niedoschniętej warstwie zostawia smugi, które widać dopiero po wyschnięciu całości.' },
+      { t: 'Zdjęcie taśm i sprzątanie', w: null, txt: 'Taśmę malarską zdejmuje się pod kątem, zanim farba całkiem stwardnieje, inaczej odrywa się razem z nią. Folie z mebli i podłogi schodzą na końcu, gdy ostatnia warstwa jest sucha w dotyku, choć pełne utwardzenie trwa jeszcze kilka dni.' },
+    ],
+    faq: [
+      ['Ile warstw farby trzeba położyć?', 'Standardem są dwie warstwy po zagruntowaniu podłoża. Przy zmianie koloru na wyraźnie jaśniejszy albo malowaniu na ciemnym tle dochodzi trzecia, bo druga warstwa zwykle nie kryje w pełni kontrastowego podkładu.'],
+      ['Czy trzeba gruntować przed malowaniem?', 'Na świeżej gładzi i po naprawach tak, bo grunt wyrównuje chłonność podłoża i zmniejsza zużycie farby. Na starej, mocnej powłoce w dobrym stanie można ten etap pominąć.'],
+      ['Ile trwa malowanie mieszkania?', 'Przy typowym mieszkaniu, bez pełnej gładzi na wszystkich ścianach, liczy się od trzech do pięciu dni razem ze schnięciem między warstwami. Samo malowanie to ułamek tego czasu, resztę zajmuje czekanie, aż poprzednia warstwa stwardnieje.'],
+    ],
+  },
 ];
 
 export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x, ileKosztuje = '' }) {

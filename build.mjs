@@ -1044,6 +1044,7 @@ const KALKULATOR_PORADNIKA = {
   'instalacja-elektryczna-krok-po-kroku': ['pokoj', 'remontu pomieszczenia'],
   'modernizacja-ogrzewania-krok-po-kroku': ['klimatyzacja', 'instalacji grzewczych'],
   'montaz-klimatyzacji-krok-po-kroku': ['klimatyzacja', 'klimatyzacji'],
+  'malowanie-krok-po-kroku': ['malowanie', 'malowania'],
 };
 
 // Kwote bierzemy z juz wygenerowanej strony metrazowej, zamiast liczyc ja
