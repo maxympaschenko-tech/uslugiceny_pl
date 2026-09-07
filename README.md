@@ -439,8 +439,9 @@ edycji w dwóch miejscach.
 - [x] Sprawdzenie oferty: `/sprawdz-oferte/`, użytkownik wpisuje kwotę, narzędzie porównuje z medianą rynkową
 - [x] Kalkulatory malowania, płytek i płyt g-k (w ramach `gladzie-i-tynki`)
 - [ ] Kalkulator ocieplenia balkonu
-- [ ] Pola `source` i `checked` przy każdej stawce, oznaczanie danych przeterminowanych
-- [ ] Punktowa weryfikacja 2 pozostałych pozycji (klimatyzacja multi-split), dziś liczonych z widełek grupy
+- [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 103/105 pozycji
+- [ ] Pole `source` przy każdej stawce — skąd wzięta liczba, dziś brak w danych
+- [ ] Punktowa weryfikacja 2 pozostałych pozycji (`klimatyzacja_multisplit`, `kanaly_wentylacyjne`), dziś liczonych z widełek grupy
 - [ ] Historia stawek miesiąc po miesiącu i wykres dynamiki
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
 - [ ] Domena: sprawdzić dostępność, dobrać nazwę
