@@ -210,23 +210,23 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 |---|---|---|
 | `/` | 1 | szybka wycena, trzy ścieżki wejścia, tablica cen za m² |
 | `/uslugi/` i `/uslugi/<kategoria>/` | 14 | spis robót ze stawkami, wstęp merytoryczny |
-| `/<kategoria>/<usluga>/` | 114 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
-| `/<kategoria>/<usluga>/<miasto>/` | 1140 | stawka lokalna i odchylenie od średniej krajowej |
+| `/<kategoria>/<usluga>/` | 115 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
+| `/<kategoria>/<usluga>/<miasto>/` | 1150 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
 | `/kalkulatory/` i `/kalkulator/*` | 20 | spis oraz 19 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, działka bez sieci, ilości materiałów |
 | `/koszty/` i `/koszt-*/` | 49 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
 | `/poradnik/*` | 17 | spis oraz 16 poradników krok po kroku, ponad 170 etapów, schemat HowTo |
-| `/porownanie/*` | 23 | spis oraz 22 zestawień rozwiązań z werdyktem |
+| `/porownanie/*` | 24 | spis oraz 23 zestawień rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 80 haseł, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 1402 stron plus sitemap, robots.txt i strona 404.
+Razem 1414 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 114 z 114 stawek sprawdzonych punktowo (wrzesień 2026), wszystkie z polem
+**Stan weryfikacji:** 115 z 115 stawek sprawdzonych punktowo (wrzesień 2026), wszystkie z polem
 `source` — konkretną cytacją z realnego researchu rynkowego. Kilka pozycji ma zaznaczone
 zastrzeżenie w źródle, gdy znaleziony zakres nie pasuje dokładnie do zakresu pozycji (np.
 `gk_sciana`, `konstrukcja_tarasu`) albo dane rynkowe są niejednoznaczne (`obrobki_blacharskie`,
@@ -340,14 +340,15 @@ po weryfikacji, żeby nie wprowadzać cichego, cyklicznego źródła błędów w
 - [x] Sprawdzenie oferty: `/sprawdz-oferte/`, użytkownik wpisuje kwotę, narzędzie porównuje z medianą rynkową
 - [x] Kalkulatory malowania, płytek i płyt g-k (w ramach `gladzie-i-tynki`)
 - [x] Kalkulator ocieplenia balkonu — checkbox w istniejącym kalkulatorze balkonu, nowa pozycja `ocieplenie_balkonu`
-- [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 114/114 pozycji
-- [x] Punktowa weryfikacja wszystkich pozycji cennika — 114/114 sprawdzonych
-- [x] Pole `source` przy każdej stawce — 114/114 pozycji, każda z cytacją realnego researchu z września 2026
+- [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 115/115 pozycji
+- [x] Punktowa weryfikacja wszystkich pozycji cennika — 115/115 sprawdzonych
+- [x] Pole `source` przy każdej stawce — 115/115 pozycji, każda z cytacją realnego researchu z września 2026
 - [x] Dwie nowe pozycje po researchu rynku: `schody_stopnie` (obłożenie stopni drewnem) i `wklad_kominowy`
 - [x] Cztery kolejne nowe pozycje: `brama_garazowa`, `studnia_glebinowa`, `oczyszczalnia_przydomowa`, `alarm_punkt` — każda z realnym researchem i powiązaniem z poradnikiem
 - [x] `szambo_betonowe` i nowe porównanie „Oczyszczalnia przydomowa czy szambo” — wypełnia lukę: strona miała już oczyszczalnię, ale nie miała jej naturalnego konkurenta
 - [x] `montaz_wc_kompakt` i nowe porównanie „WC kompakt czy podwieszane ze stelażem” — ta sama luka co wyżej, tym razem dla WC
 - [x] 19. kalkulator: `dzialka-bez-sieci` — studnia głębinowa i oczyszczalnia albo szambo, łączy pozycje dodane wcześniej w jeden spójny temat
+- [x] `trawnik_siew` i porównanie „Trawnik z rolki czy z siewu” — trzecia znaleziona luka tego samego typu
 - [x] Szkielet historii cen: schemat danych, wykres, strona — czeka na realne dane (patrz sekcja „Historia cen” wyżej)
 - [ ] Weryfikacja i uruchomienie `narzedzia/gus-snapshot.py`, potem cykliczny workflow w CI
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem

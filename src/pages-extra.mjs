@@ -388,6 +388,18 @@ export const POROWNANIA = [
     przeciwB: ['Droższy montaż, do którego dochodzi jeszcze zabudowa z płyty i jej obłożenie płytkami.', 'Awaria mechanizmu spłuczki wymaga dostępu przez rewizję albo skucia zabudowy.', 'Ściana ze stelażem musi być zaplanowana z wyprzedzeniem, bo zabiera grubość, której nie da się dodać później.'],
     werdykt: 'Remont od podstaw z budżetem na zabudowę i płytki: stelaż, bo efekt wizualny i cisza pracy zwracają różnicę w cenie. Wymiana samej miski, mała łazienka albo ograniczony budżet: kompakt, zwłaszcza gdy podejście kanalizacyjne zostaje bez zmian.',
   },
+  {
+    slug: 'trawnik-z-rolki-czy-z-siewu',
+    przyklad: { opis: '100 m² trawnika', ile: 100 },
+    h1: 'Trawnik z rolki czy z siewu',
+    a: 'trawnik_siew', b: 'trawnik_rolowany',
+    lede: 'Różnica w cenie jest wyraźna, prawie dwukrotna, ale to nie jedyne, co dzieli obie metody. Rolka daje gotowy trawnik następnego dnia, siew każe czekać kilka tygodni na pierwsze koszenie.',
+    za: ['Zauważalnie tańszy, zwłaszcza na dużej powierzchni.', 'Większy wybór mieszanek: sportowa, cieniolubna, rekreacyjna, dobrana do konkretnego miejsca.', 'Korzenie rosną od razu w miejscowej glebie, co daje mocniejszy trawnik na lata.'],
+    przeciw: ['Efekt widoczny dopiero po kilku tygodniach, a pełna gęstość po sezonie.', 'Wrażliwy na ptaki i ulewy do czasu wschodów, wymaga osłony albo częstej kontroli.', 'Chwasty konkurują z młodą trawą, zanim ta zdąży się zagęścić.'],
+    zaB: ['Gotowy trawnik od razu, bez tygodni czekania na wschody.', 'Równomierna gęstość na całej powierzchni, bez przypadkowych przerzedzeń.', 'Odporniejszy na chwasty i erozję już w pierwszych tygodniach po ułożeniu.'],
+    przeciwB: ['Wyraźnie droższy, prawie dwukrotnie w przeliczeniu na metr.', 'Wymaga dostawy w dniu układania, bo zwinięta darń więdnie w ciągu doby.', 'Węższy wybór mieszanek niż przy siewie z nasion dobranych pod konkretne miejsce.'],
+    werdykt: 'Termin na już, prezentacja domu na sprzedaż albo mała powierzchnia, gdzie różnica w cenie jest niewielka: rolka. Duża działka, budżet do rozsądnego wykorzystania i czas do poczekania: siew, najlepiej zasiany wiosną albo wczesną jesienią.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {

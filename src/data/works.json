@@ -1504,6 +1504,22 @@
       "sprawdzone": "2026-08"
     },
     {
+      "id": "trawnik_siew",
+      "cat": "teren",
+      "unit": "m2",
+      "labour": 10,
+      "material": 25,
+      "name": "Zakładanie trawnika z siewu",
+      "factors": [
+        "Jakość podłoża: gleba gliniasta wymaga dowiezienia ziemi urodzajnej.",
+        "Mieszanka nasion: sportowa i cieniolubna kosztują więcej niż uniwersalna.",
+        "Pora roku: siew wiosenny i wczesnojesienny daje pewniejsze wschody niż letni.",
+        "Podlewanie przez pierwsze tygodnie, bez którego nasiona wysychają przed skiełkowaniem."
+      ],
+      "source": "portale ogrodowe: zakładanie trawnika z siewu 30-43 zł/m², robocizna 2-6 zł/m², 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
       "id": "demontaz_pokrycia",
       "cat": "dach",
       "unit": "m2",
