@@ -753,15 +753,16 @@
       "id": "hydroizolacja",
       "cat": "tiles",
       "unit": "m2",
-      "labour": 50,
-      "material": 29,
+      "labour": 90,
+      "material": 40,
       "name": "Hydroizolacja podpłytkowa",
       "factors": [
         "Zakres: sama strefa mokra czy cała podłoga z wywinięciem na ściany.",
         "Rodzaj preparatu: masa dwuskładnikowa kosztuje więcej niż jednoskładnikowa.",
         "Taśmy i mankiety w narożnikach oraz wokół przejść instalacyjnych."
       ],
-      "sprawdzone": "2026-08"
+      "source": "portale łazienkowe: robocizna hydroizolacji w łazience 80-140 zł/m², materiał ok. 30-40% sumy, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "plytki_podloga",
