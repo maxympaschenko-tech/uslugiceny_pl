@@ -554,22 +554,23 @@
       "id": "tynk_gipsowy",
       "cat": "walls",
       "unit": "m2",
-      "labour": 33,
-      "material": 17,
+      "labour": 45,
+      "material": 15,
       "name": "Tynk gipsowy maszynowy",
       "factors": [
         "Sposób nakładania: agregat na dużej powierzchni wychodzi taniej niż tynk ręczny.",
         "Liczba narożników, ościeży i skosów, gdzie maszyna nie pomaga.",
         "Konieczność zamontowania siatek i narożników na pęknięciach i stykach materiałów."
       ],
-      "sprawdzone": "2026-08"
+      "source": "portale budowlane: robocizna 40-55 zł/m², z materiałem 46-70 zł/m² (podwyżka ok. 15% w 2026), 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "gladz",
       "cat": "walls",
       "unit": "m2",
-      "labour": 42,
-      "material": 10,
+      "labour": 50,
+      "material": 12,
       "factors": [
         "Standard wykończenia: gładź pod tapetę wymaga mniej pracy niż pod farbę z połyskiem.",
         "Stan podłoża: krzywe tynki oznaczają grubszą warstwę i dodatkową robociznę.",
@@ -577,7 +578,8 @@
         "Liczba narożników i skosów: gładź na otwartej ścianie idzie szybciej niż w wąskim korytarzu."
       ],
       "name": "Gładź gipsowa, 2 warstwy",
-      "sprawdzone": "2026-08"
+      "source": "portale budowlane: robocizna gładzi 47-62 zł/m² bez materiału, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "malowanie",
@@ -592,6 +594,7 @@
         "Konieczność gruntowania i drobnych napraw powierzchni przed malowaniem."
       ],
       "name": "Malowanie, 2 warstwy",
+      "source": "portale malarskie: robocizna dwukrotnego malowania 15-25 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -621,6 +624,7 @@
         "Liczba poziomów i profili gięte, jeśli sufit ma być wielopłaszczyznowy.",
         "Wycięcia pod oprawy punktowe i przygotowanie zasilania do każdej z nich."
       ],
+      "source": "portale budowlane: sufit podwieszany z GK 100-180 zł/m² z materiałem, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -636,6 +640,7 @@
         "Podwójne płytowanie, gdy ścianka ma nieść ciężkie szafki lub telewizor.",
         "Osadzenie ościeżnicy, jeśli w ściance przewidziane są drzwi."
       ],
+      "source": "portale budowlane: ścianka działowa 80-130 zł/m² robocizna, z materiałem 120-180 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -650,6 +655,7 @@
         "Rodzaj gruntu: preparat głęboko penetrujący kosztuje więcej niż zwykła emulsja.",
         "Powierzchnia zlecenia, bo przy kilkunastu metrach liczy się głównie dojazd."
       ],
+      "source": "portale budowlane: gruntowanie 7-14 zł/m² robocizna, z materiałem 8-18 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1879,6 +1885,7 @@
         "Stan podłoża: tapeta nie zakryje nierówności, przy bocznym świetle podkreśli je jeszcze mocniej.",
         "Samą tapetę kupuje inwestor, tu liczona jest wyłącznie robocizna."
       ],
+      "source": "portale budowlane: robocizna tapetowania 30-60 zł/m², średnia ok. 45-55 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
