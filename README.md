@@ -214,7 +214,7 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 | `/<kategoria>/<usluga>/<miasto>/` | 1150 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
 | `/kalkulatory/` i `/kalkulator/*` | 20 | spis oraz 19 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, działka bez sieci, ilości materiałów |
-| `/koszty/` i `/koszt-*/` | 49 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
+| `/koszty/` i `/koszt-*/` | 47 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
 | `/poradnik/*` | 17 | spis oraz 16 poradników krok po kroku, ponad 170 etapów, schemat HowTo |
 | `/porownanie/*` | 24 | spis oraz 23 zestawień rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 80 haseł, pełne zestawienie stawek, udział robocizny |

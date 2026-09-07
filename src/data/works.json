@@ -1507,8 +1507,8 @@
       "id": "trawnik_siew",
       "cat": "teren",
       "unit": "m2",
-      "labour": 10,
-      "material": 25,
+      "labour": 5,
+      "material": 30,
       "name": "Zakładanie trawnika z siewu",
       "factors": [
         "Jakość podłoża: gleba gliniasta wymaga dowiezienia ziemi urodzajnej.",
