@@ -885,6 +885,11 @@ h2.litera {
 .sm-koniec { text-align: right; }
 .sm-opis:hover b { text-decoration: underline; }
 
+.wykres-dynamiki { margin: 1rem 0; max-width: 32rem; }
+.wykres-dynamiki svg { width: 100%; height: auto; display: block; }
+.wd-opisy { display: flex; justify-content: space-between; font-size: var(--step--2); color: var(--ink-soft); margin-top: .3rem; }
+.wd-opisy .delta { font-family: var(--f-mono); }
+
 /* ---------- zabezpieczenie przed poziomym przewijaniem ---------- */
 
 /* Tabela w rozwijanym bloku rozpychala dokument na waskim ekranie: element

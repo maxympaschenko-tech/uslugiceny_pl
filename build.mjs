@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { dirname, join, relative } from 'node:path';
 import cities from './src/data/cities.json' with { type: 'json' };
 import worksFile from './src/data/works.json' with { type: 'json' };
+import historiaCen from './src/data/historia-cen.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
 import { layout, estimateSheet, calcScript, field, select, check, money, tytul, ustawWersjeStylow, ustawWersjeSkryptu } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
@@ -1214,7 +1215,7 @@ await write('slownik', slownikPage({ byId, categories, units, unitPrice, slugify
 await write('porownaj-miasta', porownajMiastaPage({ works, categories, units, cities, unitPrice, turnkeyPerM2, levels }));
 await write('cennik', pelnyCennikPage({ works, categories, units, cities, cityOptions, unitPrice, sourceFlag: draftFlag }));
 await write('struktura-kosztow', strukturaKosztowPage({ works, categories, units, unitPrice }));
-await write('aktualizacje', aktualizacjePage({ works, meta }));
+await write('aktualizacje', aktualizacjePage({ works, meta, historiaCen }));
 await write('jak-czytac-kosztorys', jakCzytacPage({ works, units }));
 await write('umowa-z-ekipa', umowaPage());
 await write('odbior-prac', odbiorPage());

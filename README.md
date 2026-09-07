@@ -190,6 +190,7 @@ src/templates.mjs        layout, kosztorys, tabele, silnik wyceny w przeglądarc
 src/pages-service.mjs    strony usług, usług w mieście, kategorii i spisu
 src/data/cities.json     10 miast: slug, nazwa, miejscownik, województwo, TERYT, współczynnik cen
 src/data/works.json      roboty, kategorie, jednostki, standardy wykończenia, typowy zakres na m²
+src/data/historia-cen.json  miesięczne punkty wskaźnika cen GUS, do wykresu dynamiki na /aktualizacje/
 src/assets/style.css     system wizualny
 ```
 
@@ -431,6 +432,24 @@ przewyższa zysk z jednolitości. Konsekwencja jest jedna i trzeba o niej pamię
 zmiany dotyczące wszystkich kalkulatorów (jak dopisanie sekcji kontekstu) wymagają
 edycji w dwóch miejscach.
 
+## Historia cen (w budowie, niezweryfikowana)
+
+`src/data/historia-cen.json` przechowuje miesięczne punkty wskaźnika cen produkcji
+budowlano-montażowej GUS. Wykres na `/aktualizacje/` (funkcja `wykresDynamiki`
+w `src/icons.mjs`) renderuje się dopiero od trzech punktów — dwa pokazują tylko
+odcinek, nie trend, więc zgodnie z zasadą „grafika pokazuje coś ponad liczby albo
+znika” strona wyświetla w takim wypadku tekst zamiast wykresu. Plik startuje pusty.
+
+`narzedzia/gus-snapshot.py` ma dopisywać nowy punkt co miesiąc z API BDL GUS
+(https://api.stat.gov.pl/Home/BdlApi). **Skrypt jest niezweryfikowany**: napisany
+z dokumentacji, bez ani jednego wykonanego zapytania, bo sieć w sesji, w której
+powstał, blokuje połączenia z `*.stat.gov.pl` na poziomie proxy. Przed pierwszym
+użyciem trzeba ręcznie sprawdzić trzy rzeczy opisane w docstringu skryptu, przede
+wszystkim czy szukany wskaźnik w ogóle jest dostępny przez BDL, czy tylko przez
+osobne comiesięczne komunikaty na stat.gov.pl. Dopóki to niepotwierdzone, nie ma
+automatycznego workflow w CI wywołującego ten skrypt — trzeba go dodać ręcznie
+po weryfikacji, żeby nie wprowadzać cichego, cyklicznego źródła błędów w buildzie.
+
 ## Plan rozwoju
 
 - [x] Szkielet: cennik w 10 miastach, 3 kalkulatory, metodyka
@@ -445,6 +464,7 @@ edycji w dwóch miejscach.
 - [x] Punktowa weryfikacja wszystkich pozycji cennika — 108/108 sprawdzonych
 - [x] Pole `source` przy każdej stawce — 108/108 pozycji, każda z cytacją realnego researchu z września 2026
 - [x] Dwie nowe pozycje po researchu rynku: `schody_stopnie` (obłożenie stopni drewnem) i `wklad_kominowy`
-- [ ] Historia stawek miesiąc po miesiącu i wykres dynamiki
+- [x] Szkielet historii cen: schemat danych, wykres, strona — czeka na realne dane (patrz sekcja „Historia cen” wyżej)
+- [ ] Weryfikacja i uruchomienie `narzedzia/gus-snapshot.py`, potem cykliczny workflow w CI
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
 - [ ] Domena: sprawdzić dostępność, dobrać nazwę

@@ -1,6 +1,7 @@
 // Dwa narzędzia, które nie liczą kosztorysu, tylko pomagają go ocenić i znaleźć.
 import { layout, odmien, calcScript, field, select, money } from './templates.mjs';
 import { SITE } from './config.mjs';
+import { wykresDynamiki } from './icons.mjs';
 
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
@@ -783,8 +784,15 @@ export const AKTUALIZACJE = [
   },
 ];
 
-export function aktualizacjePage({ works, meta }) {
+export function aktualizacjePage({ works, meta, historiaCen }) {
   const sprawdzone = works.filter((w) => w.sprawdzone).length;
+  const punkty = historiaCen?.punkty || [];
+  const sekcjaDynamiki = punkty.length >= 3
+    ? `<h2 style="margin-top:2.2rem">Dynamika cen</h2>
+  <p class="section-note">${historiaCen.opis} Źródło: ${historiaCen.zrodlo}.</p>
+  ${wykresDynamiki(punkty)}`
+    : `<h2 style="margin-top:2.2rem">Dynamika cen</h2>
+  <p class="section-note">Zbieramy dane co miesiąc od ${punkty[0]?.okres || 'najbliższego okresu'}. Wykres dynamiki pojawi się, gdy zgromadzimy co najmniej trzy punkty — dwa punkty pokazują tylko odcinek, nie trend.</p>`;
   return layout({
     title: `Historia zmian w cenniku`,
     description: 'Co i kiedy zmieniło się w stawkach: kalibracje, weryfikacje wobec cenników wykonawców i poprawki błędów. Pełna lista zmian z uzasadnieniem.',
@@ -812,6 +820,8 @@ export function aktualizacjePage({ works, meta }) {
     <thead><tr><th data-sort="off">Obszar</th><th data-sort="off">Co się zmieniło</th></tr></thead>
     <tbody>${a.zmiany.map(([obszar, tekst]) => `<tr><td><b>${obszar}</b></td><td style="text-align:left;white-space:normal">${tekst}</td></tr>`).join('')}</tbody>
   </table></div>`).join('')}
+
+  ${sekcjaDynamiki}
 
   <h2 style="margin-top:2.2rem">Jak często aktualizujemy</h2>
   <p class="section-note">Stawki przeglądamy okresowo, a datę ostatniej kalibracji widać pod każdą pozycją cennika. Jeśli prowadzisz ekipę i widzisz, że któraś pozycja odbiega od realiów Twojego rynku, napisz: takie zgłoszenia trafiają do kolejnego przeglądu. Adres jest na stronie <a href="${R}kontakt/">Kontakt</a>.</p>

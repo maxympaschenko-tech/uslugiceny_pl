@@ -60,6 +60,38 @@ export function pasekPodzialu(labour, material) {
 
 // Słupki cen w miastach. Prosty wykres z danych, które i tak są w tabeli:
 // tabela odpowiada na pytanie ile, wykres na pytanie gdzie taniej.
+// Wykres dynamiki cen z GUS. Ponizej trzech punktow linia nie pokazuje
+// trendu, tylko dwie kropki polaczone odcinkiem, co nie mowi nic ponad same
+// liczby w tabeli obok — zgodnie z zasada "grafika pokazuje cos ponad liczby
+// albo znika" nie renderujemy jej wtedy wcale.
+export function wykresDynamiki(punkty) {
+  if (!punkty || punkty.length < 3) return '';
+  const w = 560;
+  const h = 120;
+  const pad = 24;
+  const wartosci = punkty.map((p) => p.wartosc);
+  const min = Math.min(...wartosci);
+  const max = Math.max(...wartosci);
+  const rozpietosc = max - min || 1;
+  const x = (i) => pad + (i / (punkty.length - 1)) * (w - pad * 2);
+  const y = (v) => h - pad - ((v - min) / rozpietosc) * (h - pad * 2);
+  const linia = punkty.map((p, i) => `${x(i)},${y(p.wartosc)}`).join(' ');
+  const ostatni = punkty[punkty.length - 1];
+  const przedostatni = punkty[punkty.length - 2];
+  const trend = ostatni.wartosc >= przedostatni.wartosc ? 'up' : 'down';
+
+  return `<div class="wykres-dynamiki">
+  <svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Wykres dynamiki cen, ostatni punkt ${ostatni.okres}: ${ostatni.wartosc}">
+    <polyline points="${linia}" fill="none" stroke="var(--ink-soft)" stroke-width="2"/>
+    ${punkty.map((p, i) => `<circle cx="${x(i)}" cy="${y(p.wartosc)}" r="3.5" fill="${i === punkty.length - 1 ? `var(--${trend})` : 'var(--ink-soft)'}"/>`).join('')}
+  </svg>
+  <div class="wd-opisy">
+    <span>${punkty[0].okres}</span>
+    <span class="delta ${trend}">${ostatni.okres}: ${ostatni.wartosc > 0 ? '+' : ''}${ostatni.wartosc}</span>
+  </div>
+</div>`;
+}
+
 export function slupkiMiast(dane, jednostka) {
   // Trzy punkty odniesienia zamiast dziesieciu: najtaniej, mediana, najdrozej.
   // Pelna lista miast jest nizej, w rozwijanej tabeli z podzialem na robocizne
