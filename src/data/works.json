@@ -926,6 +926,21 @@
       "sprawdzone": "2026-08"
     },
     {
+      "id": "montaz_wc_kompakt",
+      "cat": "plumbing",
+      "unit": "szt",
+      "labour": 180,
+      "material": 0,
+      "name": "Montaż WC kompakt",
+      "factors": [
+        "Mocowanie do posadzki i do ściany, bez konstrukcji stelaża.",
+        "Rodzaj spłuczki: dwudzielna oszczędza wodę, ale wymaga innego mechanizmu.",
+        "Wymiana samego kompaktu przy zachowanym podejściu kanalizacyjnym jest szybsza niż przy zmianie miejsca."
+      ],
+      "source": "portale hydrauliczne: montaż kompaktu stojącego 100-300 zł, 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
       "id": "montaz_umywalki",
       "cat": "plumbing",
       "unit": "szt",

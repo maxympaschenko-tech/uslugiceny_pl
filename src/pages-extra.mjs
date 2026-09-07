@@ -376,6 +376,18 @@ export const POROWNANIA = [
     przeciwB: ['Regularny wywóz beczkowozem, płatny za każdy kurs, rosnący z liczbą domowników.', 'Bez uzgodnienia terminu wywozu zbiornik się przepełnia, zwykle w najgorszym momencie.', 'Przy stałym zamieszkaniu koszty eksploatacji w kilka lat doganiają różnicę w cenie montażu.'],
     werdykt: 'Dom zamieszkany na stałe, z regularnym zużyciem wody: oczyszczalnia, bo koszty eksploatacji przez lata przebijają wyższy montaż. Dom letniskowy, używany sporadycznie, albo budżet napięty na starcie: szambo, ale trzeba wliczyć wywóz w koszty utrzymania.',
   },
+  {
+    slug: 'wc-kompakt-czy-podwieszane',
+    przyklad: { opis: 'jedna miska ustępowa', ile: 1 },
+    h1: 'WC kompakt czy podwieszane ze stelażem',
+    a: 'montaz_wc_kompakt', b: 'montaz_wc',
+    lede: 'Stelaż kosztuje trzy razy więcej w samym montażu, zanim jeszcze doliczysz zabudowę i płytki wokół niego. Różnica w wyglądzie jest jednak większa niż różnica w funkcji.',
+    za: ['Wyraźnie tańszy i szybszy montaż, bez zabudowy z płyty.', 'Serwis awaryjny prostszy: mechanizm spłuczki jest na wierzchu, nie trzeba otwierać ściany.', 'Nie wymaga pogrubienia ściany, więc łazienka zostaje o kilkanaście centymetrów większa.'],
+    przeciw: ['Spłuczka na wierzchu, głośniejsza przy napełnianiu niż podtynkowa.', 'Trudniej o efekt wiszącej, minimalistycznej łazienki.', 'Wysokość montażu jest stała, nie da się jej dobrać jak przy stelażu.'],
+    zaB: ['Miska wisi nad podłogą, co ułatwia sprzątanie i wygląda lżej.', 'Cichy podtynkowy zbiornik, płaski przycisk zamiast widocznej spłuczki.', 'Wysokość osadzenia dobiera się do wzrostu domowników na etapie montażu stelaża.'],
+    przeciwB: ['Droższy montaż, do którego dochodzi jeszcze zabudowa z płyty i jej obłożenie płytkami.', 'Awaria mechanizmu spłuczki wymaga dostępu przez rewizję albo skucia zabudowy.', 'Ściana ze stelażem musi być zaplanowana z wyprzedzeniem, bo zabiera grubość, której nie da się dodać później.'],
+    werdykt: 'Remont od podstaw z budżetem na zabudowę i płytki: stelaż, bo efekt wizualny i cisza pracy zwracają różnicę w cenie. Wymiana samej miski, mała łazienka albo ograniczony budżet: kompakt, zwłaszcza gdy podejście kanalizacyjne zostaje bez zmian.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {
