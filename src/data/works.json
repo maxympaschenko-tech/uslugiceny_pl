@@ -1730,7 +1730,9 @@
         "Liczba jednostek wewnętrznych podpiętych do jednego agregatu.",
         "Długość tras chłodniczych do każdego pomieszczenia.",
         "Konieczność odprowadzenia skroplin z każdej jednostki."
-      ]
+      ],
+      "source": "cenauslug.pl, robocizna multi-split 2-3 jednostki: 2074-4300 zł, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "rekuperacja",
