@@ -972,6 +972,7 @@
         "Czy w cenie jest osprzęt, czy tylko ułożenie przewodu i puszka."
       ],
       "name": "Punkt elektryczny",
+      "source": "portale elektryczne: punkt z materiałem i kuciem 140-200 zł, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -986,6 +987,7 @@
         "Głębokość i liczba przewodów w jednej bruździe.",
         "Zabezpieczenie pomieszczenia przed pyłem, którego przy bruzdowaniu jest najwięcej."
       ],
+      "source": "cenauslug.pl: bruzdowanie w cegle/pustaku 20-50 zł/mb, średnia krajowa 27 zł/mb, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1001,6 +1003,7 @@
         "Wyłączniki różnicowoprądowe i przeciwprzepięciowe w wymaganym standardzie.",
         "Pomiary i protokół odbiorowy instalacji, często liczone osobno."
       ],
+      "source": "portale elektryczne: montaż z podłączeniem w mieszkaniu 800-2000 zł całość, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1015,6 +1018,7 @@
         "Wysokość montażu i konieczność użycia rusztowania.",
         "Stan przewodu w puszce i to, czy jest osobny przewód sterujący."
       ],
+      "source": "portale elektryczne: prosta oprawa sufitowa 80-120 zł, przy kilku punktach 80-150 zł, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1030,6 +1034,7 @@
         "Moc na metr i strefy wyłączone spod ogrzewania, na przykład pod wanną.",
         "Sterownik z czujnikiem podłogowym i jego zaprogramowanie."
       ],
+      "source": "portale grzewcze: całość instalacji elektrycznej 180-280 zł/m² (mata + montaż), 2026-09",
       "sprawdzone": "2026-08"
     },
     {
