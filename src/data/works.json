@@ -851,6 +851,7 @@
         "Obudowa: gotowy panel czy zabudowa z płyty pod płytki.",
         "Rewizja dostępowa do syfonu, którą trzeba przewidzieć w zabudowie."
       ],
+      "source": "portale łazienkowe: robocizna 300-800 zł zależnie od typu wanny, mediana ok. 600 zł, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -894,6 +895,7 @@
         "Zabudowa stelaża i obłożenie jej płytkami, liczone jako osobne pozycje."
       ],
       "name": "Montaż WC ze stelażem",
+      "source": "portale hydrauliczne: WC podwieszane ze stelażem 400-680 zł, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -908,6 +910,7 @@
         "Konieczność wykonania otworu w blacie pod baterię lub korek klik-klak.",
         "Wysokość montażu i to, czy w ścianie jest już stelaż."
       ],
+      "source": "portale hydrauliczne: robocizna 150-450 zł zależnie od typu umywalki, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
