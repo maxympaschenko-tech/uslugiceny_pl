@@ -485,6 +485,7 @@
         "Grubość warstwy i to, czy pod spodem jest cegła, czy beton.",
         "Konieczność ręcznego skuwania tam, gdzie młot udarowy naruszyłby instalacje."
       ],
+      "source": "portale budowlane: skucie tynków 20-40 zł/m², średnia 35 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -499,6 +500,7 @@
         "Czy podłoże ma zostać nienaruszone pod nową okładzinę, czy idzie do skucia razem z płytkami.",
         "Praca w lokalu zamieszkanym, gdzie trzeba wygrodzić strefę i ograniczyć pylenie."
       ],
+      "source": "portale budowlane: skuwanie płytek 30-60 zł/m², średnia 37 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -513,6 +515,7 @@
         "Konieczność ekspertyzy, gdy ścianka może pełnić funkcję nośną.",
         "Przejścia instalacyjne w ściance, które trzeba przepiąć przed rozbiórką."
       ],
+      "source": "portale budowlane: rozbiórka ścianek działowych 80-150 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -527,6 +530,7 @@
         "Czy pod spodem jest legarowanie albo stara wylewka do skucia.",
         "Wysokość kondygnacji i dostępność windy przy znoszeniu materiału."
       ],
+      "source": "portale budowlane: zrywanie starej podłogi 20-50 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -543,6 +547,7 @@
         "Możliwość podstawienia kontenera pod budynkiem: brak miejsca oznacza znoszenie w workach.",
         "Segregacja: gruz czysty jest tańszy w utylizacji niż zmieszany z opakowaniami i styropianem."
       ],
+      "source": "portale budowlane: kontener 3-5 m³ 900-1400 zł, gruz zmieszany 250-420 zł/m³, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1858,6 +1863,7 @@
         "Liczba warstw, bo w starym budownictwie bywa ich kilka jedna na drugiej.",
         "Konieczność naprawy podłoża po zerwaniu, liczona osobno."
       ],
+      "source": "portale budowlane: zrywanie tapet od 16 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
