@@ -1064,6 +1064,22 @@
       "sprawdzone": "2026-08"
     },
     {
+      "id": "alarm_punkt",
+      "cat": "electric",
+      "unit": "pkt",
+      "labour": 170,
+      "material": 35,
+      "name": "Punkt systemu alarmowego",
+      "factors": [
+        "Rodzaj czujnika: ruchu, magnetyczny na oknie czy dymowy, każdy montuje się inaczej.",
+        "Prowadzenie przewodu podtynkowo wymaga bruzdowania, natynkowo jest tańsze.",
+        "Centrala i jej konfiguracja liczone osobno, podobnie jak abonament monitoringu.",
+        "Kamera monitoringu wycenia się podobnie za punkt, choć wymaga też zasilania PoE albo osobnego kabla."
+      ],
+      "source": "portale zabezpieczeniowe: montaż punktu alarmowego 154-216 zł, dodatkowa kamera w istniejącym systemie ok. 285 zł, 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
       "id": "montaz_drzwi",
       "cat": "finish",
       "unit": "szt",
@@ -1807,6 +1823,22 @@
       "sprawdzone": "2026-09"
     },
     {
+      "id": "brama_garazowa",
+      "cat": "okna",
+      "unit": "szt",
+      "labour": 1000,
+      "material": 0,
+      "name": "Montaż bramy garażowej",
+      "factors": [
+        "Typ: segmentowa montuje się inaczej niż uchylna, obie różnią się nakładem pracy.",
+        "Konieczność wyrównania otworu albo podcięcia nadproża.",
+        "Napęd elektryczny: doprowadzenie zasilania i konfiguracja pilotów liczone razem z montażem.",
+        "Sama brama kupowana jest zwykle przez inwestora, tu liczona jest robocizna."
+      ],
+      "source": "portale bramowe: robocizna montażu z napędem 900-1800 zł, w konkretnych realizacjach ok. 1600 zł, 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
       "id": "klimatyzacja_split",
       "cat": "instalacje",
       "unit": "szt",
@@ -1914,6 +1946,38 @@
       ],
       "source": "brak bezpośrednich danych dla punktu CO, stawka analogiczna do punktu wodno-kanalizacyjnego (250-500 zł/pkt robocizny), 2026-09",
       "sprawdzone": "2026-08"
+    },
+    {
+      "id": "studnia_glebinowa",
+      "cat": "instalacje",
+      "unit": "mb",
+      "labour": 220,
+      "material": 90,
+      "name": "Wiercenie studni głębinowej",
+      "factors": [
+        "Rodzaj gruntu: warstwy skaliste wydłużają wiercenie i podnoszą stawkę.",
+        "Głębokość zwierciadła wody, od której zależy, ile metrów trzeba nawiercić.",
+        "Obudowa studni: rura PCV czy stalowa, każda w innej cenie za metr.",
+        "Pompa głębinowa i stacja uzdatniania liczone osobno, kupowane zwykle przez inwestora."
+      ],
+      "source": "portale wiertnicze: 270-350 zł/mb za całość (materiał + robocizna), stawka strony w dolnej części zakresu, 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
+      "id": "oczyszczalnia_przydomowa",
+      "cat": "instalacje",
+      "unit": "szt",
+      "labour": 3500,
+      "material": 2000,
+      "name": "Montaż przydomowej oczyszczalni ścieków",
+      "factors": [
+        "Rodzaj: drenażowa jest tańsza w montażu niż biologiczna ze złożem.",
+        "Warunki gruntowe: wysoki poziom wód gruntowych wymaga dodatkowych zabezpieczeń.",
+        "Odległość od budynku i głębokość posadowienia rur kanalizacyjnych.",
+        "Samo urządzenie kupowane jest zwykle przez inwestora, tu liczony jest montaż z pracami ziemnymi."
+      ],
+      "source": "portale ekologiczne: urządzenie 7000-9500 zł, z montażem 12000-16000 zł — różnica ok. 4500-9000 zł na roboty ziemne i montaż, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "kanaly_wentylacyjne",
