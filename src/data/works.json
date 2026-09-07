@@ -1873,8 +1873,8 @@
       "id": "fotowoltaika",
       "cat": "instalacje",
       "unit": "kwp",
-      "labour": 850,
-      "material": 2650,
+      "labour": 900,
+      "material": 3000,
       "name": "Instalacja fotowoltaiczna",
       "factors": [
         "Rodzaj dachu: blachodachówka i dachówka wymagają różnych systemów mocowania.",
@@ -1882,8 +1882,8 @@
         "Odległość od rozdzielnicy i konieczność jej rozbudowy.",
         "Falownik hybrydowy z magazynem energii to osobna, wyraźnie wyższa pozycja."
       ],
-      "source": "portale fotowoltaiczne: 3800-6500 zł/kWp zależnie od wielkości instalacji — stawka strony (3500) tuż poniżej dolnej granicy, do rozważenia niewielka korekta w górę, 2026-09",
-      "sprawdzone": "2026-08"
+      "source": "portale fotowoltaiczne: 3800-6500 zł/kWp zależnie od wielkości instalacji, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "kociol_gazowy",
