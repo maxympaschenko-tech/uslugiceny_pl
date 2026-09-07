@@ -434,11 +434,13 @@ edycji w dwóch miejscach.
 - [x] Szkielet: cennik w 10 miastach, 3 kalkulatory, metodyka
 - [x] Model „stawka bazowa × współczynnik miasta × standard wykończenia”
 - [x] Strony usług i usług w mieście, 485 stron w sitemapie
-- [ ] Teksty „co wpływa na cenę” dla pozostałych 35 pozycji (gotowe: 7)
+- [x] Teksty „co wpływa na cenę” — pole `factors` uzupełnione dla wszystkich 105 pozycji
+- [x] Druk i PDF kosztorysu oraz link z parametrami (`data-print`, `URLSearchParams` w `templates.mjs`)
+- [x] Sprawdzenie oferty: `/sprawdz-oferte/`, użytkownik wpisuje kwotę, narzędzie porównuje z medianą rynkową
+- [x] Kalkulatory malowania, płytek i płyt g-k (w ramach `gladzie-i-tynki`)
+- [ ] Kalkulator ocieplenia balkonu
 - [ ] Pola `source` i `checked` przy każdej stawce, oznaczanie danych przeterminowanych
-- [ ] Druk i PDF kosztorysu oraz link z parametrami, żeby dało się wysłać ekipie
-- [ ] Sprawdzenie oferty: użytkownik wpisuje kwotę od wykonawcy, my mówimy, czy to powyżej rynku
-- [ ] Kolejne kalkulatory: malowanie, płytki, płyty g-k, ocieplenie balkonu
+- [ ] Punktowa weryfikacja 2 pozostałych pozycji (klimatyzacja multi-split), dziś liczonych z widełek grupy
 - [ ] Historia stawek miesiąc po miesiącu i wykres dynamiki
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
 - [ ] Domena: sprawdzić dostępność, dobrać nazwę
