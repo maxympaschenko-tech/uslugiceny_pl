@@ -225,9 +225,9 @@ Razem 1299 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 103 z 105 stawek sprawdzonych punktowo, czyli takich, dla których źródło
-podaje liczbę dla tej konkretnej roboty. Pozostałe wyprowadzono z widełek dla całej grupy robót
-i są oznaczone na swoich stronach jako orientacyjne. Historia zmian jest na `/aktualizacje/`.
+**Stan weryfikacji:** 105 z 105 stawek sprawdzonych punktowo (wrzesień 2026), czyli takich, dla
+których źródło podaje liczbę dla tej konkretnej roboty. Pole `source` z konkretną cytacją mają na
+razie 2 z nich — reszta czeka na rozszerzenie schematu. Historia zmian jest na `/aktualizacje/`.
 
 Źródła docelowe:
 
@@ -440,8 +440,8 @@ edycji w dwóch miejscach.
 - [x] Kalkulatory malowania, płytek i płyt g-k (w ramach `gladzie-i-tynki`)
 - [ ] Kalkulator ocieplenia balkonu
 - [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 103/105 pozycji
-- [ ] Pole `source` przy każdej stawce — skąd wzięta liczba, dziś brak w danych
-- [ ] Punktowa weryfikacja 2 pozostałych pozycji (`klimatyzacja_multisplit`, `kanaly_wentylacyjne`), dziś liczonych z widełek grupy
+- [x] Punktowa weryfikacja ostatnich 2 pozycji (`klimatyzacja_multisplit`, `kanaly_wentylacyjne`) — 105/105 sprawdzonych
+- [ ] Pole `source` przy każdej stawce — na razie ma je tylko 2/105 (obie zweryfikowane we wrześniu 2026), reszta czeka na rozszerzenie
 - [ ] Historia stawek miesiąc po miesiącu i wykres dynamiki
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
 - [ ] Domena: sprawdzić dostępność, dobrać nazwę

@@ -1811,14 +1811,16 @@
       "id": "kanaly_wentylacyjne",
       "cat": "instalacje",
       "unit": "mb",
-      "labour": 92,
-      "material": 72,
+      "labour": 70,
+      "material": 94,
       "name": "Kanały wentylacyjne",
       "factors": [
         "Przekrój kanału i materiał: elastyczny jest tańszy, sztywny trwalszy i cichszy.",
         "Konieczność izolacji akustycznej i termicznej kanałów.",
         "Przejścia przez stropy i ściany nośne."
-      ]
+      ],
+      "source": "cenauslug.pl (robocizna 48-85 zł/mb) + ceny rur SPIRO izolowanych (materiał 90-130 zł/mb), 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "zrywanie_tapet",
