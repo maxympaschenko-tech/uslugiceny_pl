@@ -400,6 +400,18 @@ export const POROWNANIA = [
     przeciwB: ['Wyraźnie droższy, prawie dwukrotnie w przeliczeniu na metr.', 'Wymaga dostawy w dniu układania, bo zwinięta darń więdnie w ciągu doby.', 'Węższy wybór mieszanek niż przy siewie z nasion dobranych pod konkretne miejsce.'],
     werdykt: 'Termin na już, prezentacja domu na sprzedaż albo mała powierzchnia, gdzie różnica w cenie jest niewielka: rolka. Duża działka, budżet do rozsądnego wykorzystania i czas do poczekania: siew, najlepiej zasiany wiosną albo wczesną jesienią.',
   },
+  {
+    slug: 'plytki-mrozoodporne-czy-deska-kompozytowa',
+    przyklad: { opis: '15 m² balkonu', ile: 15 },
+    h1: 'Płytki mrozoodporne czy deska kompozytowa na balkonie',
+    a: 'plytki_mrozoodporne', b: 'deska_kompozytowa',
+    lede: 'Sam montaż deski kompozytowej kosztuje niemal dwa razy więcej niż płytki mrozoodpornej, a to nie koniec różnicy: deska stoi na legarach, których płytka nie potrzebuje, więc pełny koszt nawierzchni rośnie jeszcze bardziej.',
+    za: ['Tańsza w montażu i nie wymaga osobnej podkonstrukcji z legarów.', 'Nie podnosi poziomu podłogi, więc próg drzwi balkonowych zostaje bez zmian.', 'Gres o niskiej nasiąkliwości i fuga epoksydowa znoszą mróz bez pękania przez dekady.'],
+    przeciw: ['Klejona na sztywno do płyty, więc błąd w spadkach albo hydroizolacji ujawnia się dopiero po latach jako przeciek.', 'Zimą i po deszczu bywa śliska, nawet przy klasie antypoślizgowej.', 'Uszkodzona płytka to skucie, z ryzykiem naruszenia hydroizolacji pod spodem.'],
+    zaB: ['Szczelina wentylacyjna pod deską odprowadza wodę, więc drobny błąd w spadkach płyty mniej szkodzi.', 'Cieplejsza w dotyku i mniej śliska niż mokry gres, nawet boso.', 'Praktycznie bezobsługowa: nie wymaga olejowania jak deska drewniana.'],
+    przeciwB: ['Wymaga podkonstrukcji z legarów, czyli osobnej pozycji w kosztorysie i kilku centymetrów wysokości.', 'Podnosi poziom nawierzchni, co przy niskim progu balkonowym bywa problemem.', 'Nagrzewa się w pełnym słońcu jak każdy ciemny materiał kompozytowy.'],
+    werdykt: 'Niski próg drzwi balkonowych albo ograniczony budżet: płytki mrozoodporne, pod warunkiem starannie wykonanej hydroizolacji i spadków pod spodem. Wysoki próg, balkon w cieniu albo priorytet dla bezobsługowej powierzchni: deska kompozytowa na legarach, licząc się z wyższym kosztem całości i utratą kilku centymetrów wysokości.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {

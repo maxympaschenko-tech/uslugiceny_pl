@@ -216,13 +216,13 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 | `/kalkulatory/` i `/kalkulator/*` | 20 | spis oraz 19 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, działka bez sieci, ilości materiałów |
 | `/koszty/` i `/koszt-*/` | 47 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
 | `/poradnik/*` | 17 | spis oraz 16 poradników krok po kroku, ponad 170 etapów, schemat HowTo |
-| `/porownanie/*` | 24 | spis oraz 23 zestawień rozwiązań z werdyktem |
+| `/porownanie/*` | 25 | spis oraz 24 zestawień rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 80 haseł, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 1414 stron plus sitemap, robots.txt i strona 404.
+Razem 1415 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
@@ -350,6 +350,7 @@ po weryfikacji, żeby nie wprowadzać cichego, cyklicznego źródła błędów w
 - [x] 19. kalkulator: `dzialka-bez-sieci` — studnia głębinowa i oczyszczalnia albo szambo, łączy pozycje dodane wcześniej w jeden spójny temat
 - [x] `trawnik_siew` i porównanie „Trawnik z rolki czy z siewu” — trzecia znaleziona luka tego samego typu
 - [x] Szkielet historii cen: schemat danych, wykres, strona — czeka na realne dane (patrz sekcja „Historia cen” wyżej)
+- [x] Nowe porównanie „Płytki mrozoodporne czy deska kompozytowa na balkonie” — obie metody opisane już w kategorii balkonów, ale nie miały bezpośredniego zestawienia; lede uczciwie zaznacza, że deska wymaga jeszcze osobno wycenionej podkonstrukcji z legarów
 - [ ] Weryfikacja i uruchomienie `narzedzia/gus-snapshot.py`, potem cykliczny workflow w CI
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
 - [ ] Domena: sprawdzić dostępność, dobrać nazwę
