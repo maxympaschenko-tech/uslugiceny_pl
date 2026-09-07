@@ -239,6 +239,7 @@ export const PORADNIKI = [
       { t: 'Alternatywa: taras wentylowany', w: 'konstrukcja_tarasu', txt: 'Zamiast płytek klejonych na sztywno można ułożyć deskę na legarach, ze szczeliną powietrzną pod spodem. Woda odpływa i odparowuje, a konstrukcja schnie, więc rozwiązanie jest trwalsze i wybacza drobne błędy w spadkach. Wymaga jednak kilku centymetrów wysokości, co przy progu drzwi balkonowych bywa rozstrzygające.' },
       { t: 'Deska: kompozyt albo drewno', w: 'deska_kompozytowa', txt: 'Kompozyt montuje się na klipsach i nie wymaga konserwacji, drewno jest tańsze na starcie, ale potrzebuje olejowania co jeden do dwóch sezonów. Przy obu rozwiązaniach zachowuje się szczeliny dylatacyjne, bo deska pracuje wraz z temperaturą.' },
       { t: 'Wykończenie ścian balkonu', w: 'tynk_silikonowy', txt: 'Farba albo tynk elewacyjny odporny na warunki zewnętrzne, nakładany po zakończeniu prac mokrych. Zwykła farba wewnętrzna nie przetrwa tu jednego sezonu.' },
+      { t: 'Ocieplenie balkonu zabudowanego', w: 'ocieplenie_balkonu', txt: 'Ma sens tylko przy balkonie zabudowanym albo oszklonym, bo na otwartym izolacja nie ma czego zatrzymać. Styropian lub wełna na ścianach bocznych i suficie, wykończone płytą pod malowanie. Etap wykonuje się po obróbkach blacharskich, żeby nie zamykać ściany przed uszczelnieniem od zewnątrz.' },
     ],
     faq: [
       ['Dlaczego balkon przecieka po remoncie?', 'Najczęściej dlatego, że wymieniono samą okładzinę bez izolacji i bez spadków. Płytki i fuga przepuszczają wodę, a chroni ją dopiero warstwa hydroizolacji pod spodem.'],

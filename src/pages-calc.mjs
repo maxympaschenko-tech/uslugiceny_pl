@@ -214,12 +214,14 @@ export const CALCS = [
       ] })}
       ${check({ name: 'obrobki', label: 'Obróbki blacharskie i kapinos', checked: true })}
       ${check({ name: 'balustrada', label: 'Montaż balustrady' })}
-      ${check({ name: 'malowanie', label: 'Malowanie ścian balkonu farbą elewacyjną' })}`,
+      ${check({ name: 'malowanie', label: 'Malowanie ścian balkonu farbą elewacyjną' })}
+      ${check({ name: 'ocieplenie', label: 'Ocieplenie ścian i sufitu (balkon zabudowany albo oszklony)' })}`,
     logic: `
       const pow = v.pow || 0;
       const kr = v.krawedz || 0;
       if (v.skucie) { add('skucie_balkonu', pow); add('wywoz_gruzu', pow * 0.06); }
       if (v.hydro) add('hydroizolacja_balkonu', pow);
+      if (v.ocieplenie) add('ocieplenie_balkonu', pow);
       if (v.nawierzchnia === 'plytki') {
         add('plytki_mrozoodporne', pow);
         add('silikonowanie', kr + Math.sqrt(pow) * 2);

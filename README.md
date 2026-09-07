@@ -209,19 +209,19 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 |---|---|---|
 | `/` | 1 | szybka wycena, trzy ścieżki wejścia, tablica cen za m² |
 | `/uslugi/` i `/uslugi/<kategoria>/` | 14 | spis robót ze stawkami, wstęp merytoryczny |
-| `/<kategoria>/<usluga>/` | 105 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
-| `/<kategoria>/<usluga>/<miasto>/` | 1050 | stawka lokalna i odchylenie od średniej krajowej |
+| `/<kategoria>/<usluga>/` | 106 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
+| `/<kategoria>/<usluga>/<miasto>/` | 1060 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
 | `/kalkulatory/` i `/kalkulator/*` | 19 | spis oraz 18 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, ilości materiałów |
 | `/koszty/` i `/koszt-*/` | 49 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
-| `/poradnik/*` | 16 | spis oraz 15 poradników krok po kroku, ponad 160 etapów, schemat HowTo |
+| `/poradnik/*` | 17 | spis oraz 16 poradników krok po kroku, ponad 170 etapów, schemat HowTo |
 | `/porownanie/*` | 21 | spis oraz 20 zestawień rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 76 haseł, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 1299 stron plus sitemap, robots.txt i strona 404.
+Razem 1311 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
@@ -438,7 +438,7 @@ edycji w dwóch miejscach.
 - [x] Druk i PDF kosztorysu oraz link z parametrami (`data-print`, `URLSearchParams` w `templates.mjs`)
 - [x] Sprawdzenie oferty: `/sprawdz-oferte/`, użytkownik wpisuje kwotę, narzędzie porównuje z medianą rynkową
 - [x] Kalkulatory malowania, płytek i płyt g-k (w ramach `gladzie-i-tynki`)
-- [ ] Kalkulator ocieplenia balkonu
+- [x] Kalkulator ocieplenia balkonu — checkbox w istniejącym kalkulatorze balkonu, nowa pozycja `ocieplenie_balkonu`
 - [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 103/105 pozycji
 - [x] Punktowa weryfikacja ostatnich 2 pozycji (`klimatyzacja_multisplit`, `kanaly_wentylacyjne`) — 105/105 sprawdzonych
 - [ ] Pole `source` przy każdej stawce — na razie ma je tylko 2/105 (obie zweryfikowane we wrześniu 2026), reszta czeka na rozszerzenie

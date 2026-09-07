@@ -1928,6 +1928,22 @@
       "sprawdzone": "2026-08"
     },
     {
+      "id": "ocieplenie_balkonu",
+      "cat": "balkon",
+      "unit": "m2",
+      "labour": 55,
+      "material": 70,
+      "name": "Ocieplenie ścian i sufitu balkonu",
+      "factors": [
+        "Tylko przy balkonie zabudowanym albo oszklonym — na otwartym ocieplenie nie ma sensu.",
+        "Rodzaj izolacji: styropian jest tańszy, wełna lepiej tłumi hałas z zewnątrz.",
+        "Grubość warstwy i to, czy sufit balkonu też wymaga ocieplenia, czy tylko ściany boczne.",
+        "Wykończenie po ociepleniu: płyta g-k pod malowanie albo panel od razu gotowy."
+      ],
+      "source": "mieszkanie-w-remoncie.pl i podobne portale: 50-150 zł/m² dla typowego balkonu 5-10 m², 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
       "id": "balustrada",
       "cat": "balkon",
       "unit": "mb",
