@@ -776,6 +776,7 @@
         "Powierzchnia pomieszczenia: łazienka 4 m² wychodzi drożej za metr niż salon 30 m²."
       ],
       "name": "Płytki na podłodze",
+      "source": "portale budowlane: robocizna 80-130 zł/m² na podłodze (płytki standardowe), 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -791,6 +792,7 @@
         "Wymagana płaskość podłoża: nierówna ściana oznacza wcześniejsze wyrównanie."
       ],
       "name": "Płytki na ścianie",
+      "source": "portale budowlane: robocizna 90-140 zł/m² na ścianie (płytki standardowe), 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -836,6 +838,7 @@
         "Konieczność kucia bruzd w ścianie nośnej pod przewody.",
         "Próba szczelności i protokół, wymagane przy odbiorze nowej instalacji."
       ],
+      "source": "portale hydrauliczne: robocizna samego podejścia 250-500 zł/pkt, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
