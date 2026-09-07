@@ -617,6 +617,38 @@ export const CALCS = [
       window.__area = p;
       window.__sub = F(p) + ' m² połaci';`,
   },
+  {
+    slug: 'dzialka-bez-sieci',
+    kontekst: [['Co najczęściej wypada z wyceny', 'Formalności: zgłoszenie studni w wodach polskich i zgłoszenie oczyszczalni w gminie, obie wymagane przed rozpoczęciem prac. Same dokumenty nic nie kosztują, ale opóźniają start o kilka tygodni, jeśli nie są złożone wcześniej.'], ['Co podnosi kwotę', 'Głębokość studni: poziom wód gruntowych różni się nawet między sąsiednimi działkami. Warunki gruntowe pod oczyszczalnię, bo wysoki poziom wód wymaga dodatkowych zabezpieczeń przed wypłynięciem instalacji.']],
+    h1: 'Instalacje na działce bez dostępu do sieci',
+    title: `Kalkulator studni, szamba i oczyszczalni ${YEAR}: koszt`,
+    desc: 'Policz koszt uniezależnienia się od wodociągu i kanalizacji: wiercenie studni głębinowej oraz przydomowa oczyszczalnia ścieków albo szambo betonowe. Ceny w zł.',
+    lede: 'Dwie niezależne decyzje w jednym kalkulatorze: skąd bierze się woda i gdzie znikają ścieki. Głębokość studni zależy od okolicy, więc zapytaj sąsiadów, zanim zamówisz wiercenie na zgadywanie.',
+    faq: [
+      ['Ile kosztuje studnia głębinowa?', 'Wiercenie liczy się za metr bieżący, więc całość zależy głównie od głębokości do warstwy wodonośnej. Studnia piętnastometrowa i pięćdziesięciometrowa różnią się kosztem kilkukrotnie, mimo tej samej technologii wiercenia. Pompa głębinowa to osobny wydatek, doliczany do wyniku kalkulatora.'],
+      ['Oczyszczalnia czy szambo, jeśli dom jest używany rzadko?', 'Przy domu letniskowym i sporadycznym zużyciu wody szambo bywa tańsze w sumie, bo niski koszt montażu przeważa nad rzadkimi kursami beczkowozu. Przy stałym zamieszkaniu role się odwracają: oczyszczalnia zwraca różnicę w montażu przez kilka lat eksploatacji. Pełne porównanie jest w osobnym zestawieniu.'],
+      ['Czy studnia i oczyszczalnia wymagają zgłoszenia?', 'Studnia głębinowa do określonej głębokości i poboru wymaga zgłoszenia wodnoprawnego, a przydomowa oczyszczalnia zgłoszenia w gminie, w obu przypadkach przed rozpoczęciem prac. Szambo formalnie nie wymaga zgłoszenia, ale musi mieć szczelność potwierdzoną atestem.'],
+    ],
+    fields: (opts) => `
+      ${select({ name: 'city', label: 'Miasto', options: opts })}
+      <p class="group-title">Woda</p>
+      ${check({ name: 'studnia', label: 'Studnia głębinowa zamiast przyłącza wodociągowego', checked: true })}
+      ${field({ name: 'glebokosc', label: 'Głębokość odwiertu', value: 30, min: 10, max: 100, step: 5, suffix: 'mb', hint: 'Zależy od poziomu wód gruntowych w okolicy, nie od potrzeb domu.' })}
+      <p class="group-title">Ścieki</p>
+      ${select({ name: 'sciek', label: 'Rozwiązanie', options: [
+        { v: 'oczyszczalnia', t: 'Przydomowa oczyszczalnia', sel: true },
+        { v: 'szambo', t: 'Szambo betonowe' },
+        { v: 'brak', t: 'Bez tego etapu' },
+      ] })}`,
+    logic: `
+      const g = v.glebokosc || 0;
+      if (v.studnia) add('studnia_glebinowa', g);
+      if (v.sciek === 'oczyszczalnia') add('oczyszczalnia_przydomowa', 1);
+      else if (v.sciek === 'szambo') add('szambo_betonowe', 1);
+      window.__area = v.studnia ? g : 1;
+      window.__sub = (v.studnia ? F(g) + ' mb studni, ' : 'bez studni, ') +
+        (v.sciek === 'oczyszczalnia' ? 'oczyszczalnia' : v.sciek === 'szambo' ? 'szambo' : 'bez odprowadzenia ścieków');`,
+  },
 ];
 
 export function calcPage({ c, cityOptions, W_JSON, CITY_MAP, sourceFlag }) {
@@ -720,6 +752,7 @@ const GRUPY = [
       ['ogrodzenie', 'Ogrodzenie', 'Przęsła na metry bieżące plus podmurówka, brama i furtka.'],
       ['balkon', 'Remont balkonu', 'Skucie, hydroizolacja ze spadkami, płytki mrozoodporne i balustrada.'],
       ['klimatyzacja', 'Klimatyzacja i wentylacja', 'Split, multi-split, rekuperacja i kanały.'],
+      ['dzialka-bez-sieci', 'Działka bez dostępu do sieci', 'Studnia głębinowa oraz oczyszczalnia albo szambo.'],
     ],
   },
 ];

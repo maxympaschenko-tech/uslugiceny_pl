@@ -213,7 +213,7 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 | `/<kategoria>/<usluga>/` | 114 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
 | `/<kategoria>/<usluga>/<miasto>/` | 1140 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
-| `/kalkulatory/` i `/kalkulator/*` | 19 | spis oraz 18 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, ilości materiałów |
+| `/kalkulatory/` i `/kalkulator/*` | 20 | spis oraz 19 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, działka bez sieci, ilości materiałów |
 | `/koszty/` i `/koszt-*/` | 49 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
 | `/poradnik/*` | 17 | spis oraz 16 poradników krok po kroku, ponad 170 etapów, schemat HowTo |
 | `/porownanie/*` | 23 | spis oraz 22 zestawień rozwiązań z werdyktem |
@@ -222,7 +222,7 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 1401 stron plus sitemap, robots.txt i strona 404.
+Razem 1402 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
@@ -347,6 +347,7 @@ po weryfikacji, żeby nie wprowadzać cichego, cyklicznego źródła błędów w
 - [x] Cztery kolejne nowe pozycje: `brama_garazowa`, `studnia_glebinowa`, `oczyszczalnia_przydomowa`, `alarm_punkt` — każda z realnym researchem i powiązaniem z poradnikiem
 - [x] `szambo_betonowe` i nowe porównanie „Oczyszczalnia przydomowa czy szambo” — wypełnia lukę: strona miała już oczyszczalnię, ale nie miała jej naturalnego konkurenta
 - [x] `montaz_wc_kompakt` i nowe porównanie „WC kompakt czy podwieszane ze stelażem” — ta sama luka co wyżej, tym razem dla WC
+- [x] 19. kalkulator: `dzialka-bez-sieci` — studnia głębinowa i oczyszczalnia albo szambo, łączy pozycje dodane wcześniej w jeden spójny temat
 - [x] Szkielet historii cen: schemat danych, wykres, strona — czeka na realne dane (patrz sekcja „Historia cen” wyżej)
 - [ ] Weryfikacja i uruchomienie `narzedzia/gus-snapshot.py`, potem cykliczny workflow w CI
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
