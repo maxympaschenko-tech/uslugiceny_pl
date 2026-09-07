@@ -827,6 +827,7 @@
         "Płaskość podłoża, która przy dużym formacie musi być bliska idealnej.",
         "Docinki i wiercenia, gdzie ryzyko pęknięcia płyty jest realnym kosztem."
       ],
+      "source": "portale budowlane: robocizna 160-285 zł/m² (format 120x60+), średnia 218 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -841,6 +842,7 @@
         "Rodzaj silikonu: sanitarny z ochroną przed pleśnią kosztuje więcej.",
         "Konieczność usunięcia starej fugi silikonowej przed nałożeniem nowej."
       ],
+      "source": "brak bezpośrednich danych dla samego silikonowania — portale wyceniają zwykle całe fugowanie (10-25 zł/m²), 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1675,6 +1677,7 @@
         "Konieczność zachowania ościeży w całości, gdy nowe okno ma ten sam wymiar.",
         "Utylizacja starej stolarki, liczona czasem osobno za sztukę."
       ],
+      "source": "portale okienne: demontaż 45-75 zł/mb obwodu — dane per mb, przeliczenie na 'szt' orientacyjne, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1690,6 +1693,7 @@
         "Wielka płyta: warstwowa ściana i stary tynk potrafią wydłużyć montaż dwukrotnie.",
         "Samo okno kupuje inwestor, tu liczona jest wyłącznie robocizna."
       ],
+      "source": "portale okienne: robocizna montażu 85-140 zł/mb obwodu ramy, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1704,6 +1708,7 @@
         "Rodzaj taśm paroszczelnych i paroprzepuszczalnych oraz szerokość ramy.",
         "Stan ościeża, bo taśma musi kleić się do równego i odpylonego podłoża."
       ],
+      "source": "portale okienne: dopłata za ciepły montaż ok. 40-50 zł/mb ponad montaż standardowy — dane orientacyjne, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1718,6 +1723,7 @@
         "Zakres: tynk, gładź, malowanie czy tylko uzupełnienie ubytków.",
         "Liczba okien, bo przy jednym liczy się głównie dojazd."
       ],
+      "source": "portale okienne: obróbka jednego okna 250-550 zł (zgodne z 50-110 zł/mb przy typowym obwodzie), 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1732,6 +1738,7 @@
         "Głębokość i wycięcia wokół ościeżnicy oraz rur grzewczych.",
         "Uszczelnienie styku z oknem, decydujące o braku skroplin."
       ],
+      "source": "portale budowlane: montaż parapetu 90-130 zł/mb, przy typowym parapecie okna zgodne ze stawką za sztukę, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1746,13 +1753,14 @@
         "Napęd: korba jest tańsza, silnik wymaga doprowadzenia zasilania.",
         "Szerokość rolety i ciężar pancerza."
       ],
+      "source": "portale budowlane: montaż rolety zewnętrznej 150-300 zł, średnia 329 zł, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
       "id": "drzwi_zewnetrzne",
       "cat": "okna",
       "unit": "szt",
-      "labour": 420,
+      "labour": 550,
       "material": 0,
       "name": "Montaż drzwi zewnętrznych",
       "factors": [
@@ -1760,7 +1768,8 @@
         "Regulacja zawiasów i progu, od której zależy szczelność.",
         "Poszerzenie albo zwężenie otworu, jeśli nowe drzwi mają inny wymiar."
       ],
-      "sprawdzone": "2026-08"
+      "source": "portale drzwiowe: sama robocizna 500-700 zł poza dużymi miastami, 665-1500 zł w miastach, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "klimatyzacja_split",
