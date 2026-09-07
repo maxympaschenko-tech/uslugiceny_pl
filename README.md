@@ -210,23 +210,23 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 |---|---|---|
 | `/` | 1 | szybka wycena, trzy ścieżki wejścia, tablica cen za m² |
 | `/uslugi/` i `/uslugi/<kategoria>/` | 14 | spis robót ze stawkami, wstęp merytoryczny |
-| `/<kategoria>/<usluga>/` | 112 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
-| `/<kategoria>/<usluga>/<miasto>/` | 1120 | stawka lokalna i odchylenie od średniej krajowej |
+| `/<kategoria>/<usluga>/` | 113 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
+| `/<kategoria>/<usluga>/<miasto>/` | 1130 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
 | `/kalkulatory/` i `/kalkulator/*` | 19 | spis oraz 18 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, ilości materiałów |
 | `/koszty/` i `/koszt-*/` | 49 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
 | `/poradnik/*` | 17 | spis oraz 16 poradników krok po kroku, ponad 170 etapów, schemat HowTo |
-| `/porownanie/*` | 21 | spis oraz 20 zestawień rozwiązań z werdyktem |
+| `/porownanie/*` | 22 | spis oraz 21 zestawień rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 80 haseł, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 1377 stron plus sitemap, robots.txt i strona 404.
+Razem 1389 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 112 z 112 stawek sprawdzonych punktowo (wrzesień 2026), wszystkie z polem
+**Stan weryfikacji:** 113 z 113 stawek sprawdzonych punktowo (wrzesień 2026), wszystkie z polem
 `source` — konkretną cytacją z realnego researchu rynkowego. Kilka pozycji ma zaznaczone
 zastrzeżenie w źródle, gdy znaleziony zakres nie pasuje dokładnie do zakresu pozycji (np.
 `gk_sciana`, `konstrukcja_tarasu`) albo dane rynkowe są niejednoznaczne (`obrobki_blacharskie`,
@@ -340,11 +340,12 @@ po weryfikacji, żeby nie wprowadzać cichego, cyklicznego źródła błędów w
 - [x] Sprawdzenie oferty: `/sprawdz-oferte/`, użytkownik wpisuje kwotę, narzędzie porównuje z medianą rynkową
 - [x] Kalkulatory malowania, płytek i płyt g-k (w ramach `gladzie-i-tynki`)
 - [x] Kalkulator ocieplenia balkonu — checkbox w istniejącym kalkulatorze balkonu, nowa pozycja `ocieplenie_balkonu`
-- [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 112/112 pozycji
-- [x] Punktowa weryfikacja wszystkich pozycji cennika — 112/112 sprawdzonych
-- [x] Pole `source` przy każdej stawce — 112/112 pozycji, każda z cytacją realnego researchu z września 2026
+- [x] Pole `checked` — już jest jako `sprawdzone` (data ostatniej weryfikacji), 113/113 pozycji
+- [x] Punktowa weryfikacja wszystkich pozycji cennika — 113/113 sprawdzonych
+- [x] Pole `source` przy każdej stawce — 113/113 pozycji, każda z cytacją realnego researchu z września 2026
 - [x] Dwie nowe pozycje po researchu rynku: `schody_stopnie` (obłożenie stopni drewnem) i `wklad_kominowy`
 - [x] Cztery kolejne nowe pozycje: `brama_garazowa`, `studnia_glebinowa`, `oczyszczalnia_przydomowa`, `alarm_punkt` — każda z realnym researchem i powiązaniem z poradnikiem
+- [x] `szambo_betonowe` i nowe porównanie „Oczyszczalnia przydomowa czy szambo” — wypełnia lukę: strona miała już oczyszczalnię, ale nie miała jej naturalnego konkurenta
 - [x] Szkielet historii cen: schemat danych, wykres, strona — czeka na realne dane (patrz sekcja „Historia cen” wyżej)
 - [ ] Weryfikacja i uruchomienie `narzedzia/gus-snapshot.py`, potem cykliczny workflow w CI
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem

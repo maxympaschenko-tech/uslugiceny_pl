@@ -364,6 +364,18 @@ export const POROWNANIA = [
     przeciwB: ['Droższe i szersze, co przy wąskiej ścieżce zabiera użyteczną szerokość.', 'Wymagają solidniejszej ławy betonowej z oporem, czyli więcej pracy ziemnej.', 'Przy chodniku bez ruchu kołowego to przepłacanie za wytrzymałość, z której nikt nie skorzysta.'],
     werdykt: 'Podjazd, wjazd do garażu i każde miejsce, gdzie stanie samochód: krawężnik, bez wyjątków. Chodnik, opaska wokół domu, ścieżka w ogrodzie i obramowanie trawnika: obrzeże. Najczęstszy błąd to jedno obramowanie na całą posesję, zwykle to tańsze, i wymiana po dwóch sezonach właśnie w miejscu wjazdu.',
   },
+  {
+    slug: 'oczyszczalnia-czy-szambo',
+    przyklad: { opis: 'jedno rozwiązanie dla domu bez kanalizacji', ile: 1 },
+    h1: 'Oczyszczalnia przydomowa czy szambo',
+    a: 'oczyszczalnia_przydomowa', b: 'szambo_betonowe',
+    lede: 'Montaż szamba wychodzi nieco taniej, ale to jedyna przewaga: każdy kurs beczkowozu do wywozu dokłada koszt, którego oczyszczalnia po prostu nie ma.',
+    za: ['Oczyszcza ścieki na miejscu, więc nie trzeba płacić za regularny wywóz.', 'Niższy koszt eksploatacji w domu zamieszkanym na stałe.', 'Woda oczyszczona może nawadniać ogród zamiast trafiać do rowu bezużytecznie.'],
+    przeciw: ['Droższy montaż, bo dochodzą prace ziemne i podłączenie zasilania do pompy.', 'Wymaga prądu do pracy pompy i przedmuchu, więc awaria prądu jest problemem.', 'Serwis i wymiana złoża biologicznego to koszt, którego szambo nie zna.'],
+    zaB: ['Tańszy i prostszy montaż, bez elektryki i bez rozruchu biologicznego.', 'Sprawdza się przy domu letniskowym albo małym zużyciu wody, gdzie oczyszczalnia się nie zwróci.', 'Żadnych elementów elektrycznych, więc nic tu się nie psuje.'],
+    przeciwB: ['Regularny wywóz beczkowozem, płatny za każdy kurs, rosnący z liczbą domowników.', 'Bez uzgodnienia terminu wywozu zbiornik się przepełnia, zwykle w najgorszym momencie.', 'Przy stałym zamieszkaniu koszty eksploatacji w kilka lat doganiają różnicę w cenie montażu.'],
+    werdykt: 'Dom zamieszkany na stałe, z regularnym zużyciem wody: oczyszczalnia, bo koszty eksploatacji przez lata przebijają wyższy montaż. Dom letniskowy, używany sporadycznie, albo budżet napięty na starcie: szambo, ale trzeba wliczyć wywóz w koszty utrzymania.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {

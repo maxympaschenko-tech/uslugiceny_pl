@@ -1980,6 +1980,22 @@
       "sprawdzone": "2026-09"
     },
     {
+      "id": "szambo_betonowe",
+      "cat": "instalacje",
+      "unit": "szt",
+      "labour": 1700,
+      "material": 2800,
+      "name": "Montaż szamba betonowego",
+      "factors": [
+        "Pojemność zbiornika: typowe 10 m³ wystarcza na dom kilkuosobowy, większe rodziny potrzebują więcej.",
+        "Liczba komór: dwukomorowe droższe, ale lepiej radzą sobie z osadem.",
+        "Dostęp do działki dla dźwigu stawiającego zbiornik w wykopie.",
+        "Wywóz nieczystości beczkowozem to koszt eksploatacyjny, nie jednorazowy montaż."
+      ],
+      "source": "portale sanitarne: montaż z wykopem 1200-2200 zł, zbiornik 10 m³ 2300-3300 zł, całość 4800-9800 zł, 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
       "id": "kanaly_wentylacyjne",
       "cat": "instalacje",
       "unit": "mb",
