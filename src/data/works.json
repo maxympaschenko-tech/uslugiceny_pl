@@ -662,8 +662,8 @@
       "id": "wylewka_cem",
       "cat": "floor",
       "unit": "m2",
-      "labour": 30,
-      "material": 6,
+      "labour": 6,
+      "material": 2,
       "perCm": true,
       "factors": [
         "Grubość warstwy: każdy dodatkowy centymetr to więcej zaprawy, a nie więcej robocizny.",
@@ -672,14 +672,15 @@
         "Konieczność wypoziomowania dużych spadków lub wykonania dylatacji przy ogrzewaniu podłogowym."
       ],
       "name": "Wylewka cementowa",
-      "sprawdzone": "2026-08"
+      "source": "portale budowlane: wylewka cementowa z materiałem 40-65 zł/m² przy typowej grubości 5 cm, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "wylewka_anhydryt",
       "cat": "floor",
       "unit": "m2",
-      "labour": 34,
-      "material": 8,
+      "labour": 11,
+      "material": 3,
       "perCm": true,
       "name": "Wylewka anhydrytowa (mixokret)",
       "factors": [
@@ -687,7 +688,8 @@
         "Grubość warstwy i wymagana klasa wytrzymałości.",
         "Konieczność dylatacji i pól roboczych przy ogrzewaniu podłogowym."
       ],
-      "sprawdzone": "2026-08"
+      "source": "portale budowlane: wylewka anhydrytowa z materiałem 55-80 zł/m² przy grubości 4-5 cm, 2026-09",
+      "sprawdzone": "2026-09"
     },
     {
       "id": "samopoziomujaca",
@@ -701,6 +703,7 @@
         "Stan podłoża i to, czy wymaga wcześniejszego szlifowania i odpylenia.",
         "Termin: szybkoschnące masy pod okładzinę kosztują więcej."
       ],
+      "source": "portale budowlane: robocizna masy samopoziomującej 25-55 zł/m², typowo 35-45 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -715,6 +718,7 @@
         "Konieczność ułożenia folii i taśm dylatacyjnych przy ścianach.",
         "Docinki wokół rur i przejść instalacyjnych."
       ],
+      "source": "portale budowlane: styropian grafitowy 10 cm 20-25 zł/m² materiał, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -729,6 +733,7 @@
         "Układ: jodła i ukos zwiększają odpad i czas montażu.",
         "Podkład: mata akustyczna pod panele liczona jest osobno."
       ],
+      "source": "portale budowlane: robocizna montażu paneli, krajowa średnia 43,83 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -744,6 +749,7 @@
         "Wykończenie na miejscu: cyklinowanie i olejowanie to osobny etap.",
         "Układ i szerokość deski, bo wąska oznacza więcej metrów bieżących pracy."
       ],
+      "source": "portale podłogowe: deska warstwowa 100-150 zł/m², lita od 250 zł/m², montaż 60-100 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -758,6 +764,7 @@
         "Liczba narożników wewnętrznych i zewnętrznych do docięcia pod kątem.",
         "Konieczność ukrycia przewodów w kanale listwy."
       ],
+      "source": "portale budowlane: montaż listew przypodłogowych 18-25 zł/mb robocizna, 2026-09",
       "sprawdzone": "2026-08"
     },
     {
@@ -1901,6 +1908,7 @@
         "Rodzaj wykończenia: lakier schnie szybciej, olej daje efekt naturalny, ale wymaga późniejszej konserwacji.",
         "Grubość warstwy użytkowej parkietu, bo decyduje, ile razy da się go jeszcze odnowić."
       ],
+      "source": "portale podłogowe: cyklinowanie kompleksowe (zdjęcie starej powłoki, wyrównanie, 2-3 warstwy lakieru) 45-90 zł/m², 2026-09",
       "sprawdzone": "2026-08"
     },
     {
