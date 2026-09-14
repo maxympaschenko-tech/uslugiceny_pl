@@ -412,6 +412,18 @@ export const POROWNANIA = [
     przeciwB: ['Wymaga podkonstrukcji z legarów, czyli osobnej pozycji w kosztorysie i kilku centymetrów wysokości.', 'Podnosi poziom nawierzchni, co przy niskim progu balkonowym bywa problemem.', 'Nagrzewa się w pełnym słońcu jak każdy ciemny materiał kompozytowy.'],
     werdykt: 'Niski próg drzwi balkonowych albo ograniczony budżet: płytki mrozoodporne, pod warunkiem starannie wykonanej hydroizolacji i spadków pod spodem. Wysoki próg, balkon w cieniu albo priorytet dla bezobsługowej powierzchni: deska kompozytowa na legarach, licząc się z wyższym kosztem całości i utratą kilku centymetrów wysokości.',
   },
+  {
+    slug: 'listwy-czy-cokol-z-plytek',
+    przyklad: { opis: '25 mb obwodu mieszkania', ile: 25 },
+    h1: 'Listwy przypodłogowe czy cokół z płytek',
+    a: 'listwy', b: 'cokol_plytkowy',
+    lede: 'Cokół z płytek kosztuje około półtora raza więcej niż listwa, głównie przez czas docinania wąskich pasków. Różnica przestaje być pytaniem o cenę tam, gdzie podłoga jest z płytek, a nie z paneli.',
+    za: ['Wyraźnie tańsza i szybsza w montażu, zwłaszcza przy prostym obwodzie bez wnęk.', 'Kanał w listwie chowa przewody, więc nie trzeba bruzdować ściany pod dodatkowe kable.', 'Łatwa wymiana: odpięcie i zatrzaśnięcie nowej listwy bez ingerencji w podłogę.'],
+    przeciw: ['Przy panelach i desce działa dobrze, ale w strefach mokrych i przy sprzątaniu na mokro szybciej się niszczy.', 'Uderzenie odkurzaczem albo krzesłem zostawia widoczne wgniecenie, którego nie da się wypolerować.', 'Kolor bywa zbliżony do podłogi, ale nigdy identyczny z płytką na ścianie.'],
+    zaB: ['Ten sam materiał co płytka na podłodze albo ścianie, więc kolor i faktura pasują dokładnie.', 'Odporny na wodę i szorowanie, dlatego sprawdza się w łazience i kuchni bez ograniczeń.', 'Nie odkleja się od ciepła grzejnika ani nie żółknie od słońca jak listwa PCV.'],
+    przeciwB: ['Droższy i wolniejszy w montażu, bo każdy narożnik to docinka pod kątem i szlifowanie krawędzi.', 'Nie ma kanału na przewody, więc kable trzeba schować w ścianie wcześniej.', 'Ma sens tylko przy podłodze z płytek: przy panelach czy desce nie dopasuje się kolorem.'],
+    werdykt: 'Panele, deska albo pokój bez kontaktu z wodą: listwa, tańsza i prostsza w razie wymiany. Łazienka, kuchnia albo podłoga z płytek, gdzie liczy się spójność i odporność na wilgoć: cokół z tej samej płytki, mimo wyższej robocizny.',
+  },
 ];
 
 export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinkuj = (x) => x }) {

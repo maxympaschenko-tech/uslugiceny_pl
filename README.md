@@ -210,23 +210,23 @@ Standard wykończenia mnoży materiały w całości, a robociznę w jednej trzec
 |---|---|---|
 | `/` | 1 | szybka wycena, trzy ścieżki wejścia, tablica cen za m² |
 | `/uslugi/` i `/uslugi/<kategoria>/` | 14 | spis robót ze stawkami, wstęp merytoryczny |
-| `/<kategoria>/<usluga>/` | 115 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
-| `/<kategoria>/<usluga>/<miasto>/` | 1150 | stawka lokalna i odchylenie od średniej krajowej |
+| `/<kategoria>/<usluga>/` | 117 | przedział cen, podział robocizna i materiał, wykres miast, kalkulator, pytania, powiązane treści |
+| `/<kategoria>/<usluga>/<miasto>/` | 1170 | stawka lokalna i odchylenie od średniej krajowej |
 | `/ceny/<miasto>/` | 10 | pełny cennik w mieście plus opis lokalnego rynku |
 | `/kalkulatory/` i `/kalkulator/*` | 20 | spis oraz 19 kalkulatorów: mieszkanie, wykończenie, poddasze, pokój, łazienka, kuchnia, balkon, wylewka, malowanie, płytki, gładzie, okna, elewacja, dach, kostka, ogrodzenie, klimatyzacja, działka bez sieci, ilości materiałów |
 | `/koszty/` i `/koszt-*/` | 47 | spis oraz gotowe wyliczenia dla metraży: pokój, mieszkanie, łazienka, kuchnia, balkon, poddasze, dach, podjazd, ogrodzenie, dom, ocieplenie, wykończenie |
 | `/poradnik/*` | 17 | spis oraz 16 poradników krok po kroku, ponad 170 etapów, schemat HowTo |
-| `/porownanie/*` | 25 | spis oraz 24 zestawień rozwiązań z werdyktem |
+| `/porownanie/*` | 26 | spis oraz 25 zestawień rozwiązań z werdyktem |
 | `/slownik/`, `/cennik/`, `/struktura-kosztow/` | 3 | 80 haseł, pełne zestawienie stawek, udział robocizny |
 | `/sprawdz-oferte/`, `/porownaj-miasta/`, `/szukaj/`, `/kiedy-remontowac/` | 4 | narzędzia |
 | `/wybor-ekipy/`, `/jak-czytac-kosztorys/`, `/umowa-z-ekipa/`, `/odbior-prac/` | 4 | poradniki okołoremontowe: od wyboru wykonawcy do odbioru prac |
 | `/jak-liczymy/`, `/aktualizacje/`, `/o-nas/`, `/kontakt/`, `/polityka-prywatnosci/` | 5 | metodyka, historia zmian, strony zaufania |
 
-Razem 1415 stron plus sitemap, robots.txt i strona 404.
+Razem 1438 stron plus sitemap, robots.txt i strona 404.
 
 ## Dane
 
-**Stan weryfikacji:** 115 z 115 stawek sprawdzonych punktowo (wrzesień 2026), wszystkie z polem
+**Stan weryfikacji:** 117 z 117 stawek sprawdzonych punktowo (wrzesień 2026), wszystkie z polem
 `source` — konkretną cytacją z realnego researchu rynkowego. Kilka pozycji ma zaznaczone
 zastrzeżenie w źródle, gdy znaleziony zakres nie pasuje dokładnie do zakresu pozycji (np.
 `gk_sciana`, `konstrukcja_tarasu`) albo dane rynkowe są niejednoznaczne (`obrobki_blacharskie`,
@@ -351,6 +351,8 @@ po weryfikacji, żeby nie wprowadzać cichego, cyklicznego źródła błędów w
 - [x] `trawnik_siew` i porównanie „Trawnik z rolki czy z siewu” — trzecia znaleziona luka tego samego typu
 - [x] Szkielet historii cen: schemat danych, wykres, strona — czeka na realne dane (patrz sekcja „Historia cen” wyżej)
 - [x] Nowe porównanie „Płytki mrozoodporne czy deska kompozytowa na balkonie” — obie metody opisane już w kategorii balkonów, ale nie miały bezpośredniego zestawienia; lede uczciwie zaznacza, że deska wymaga jeszcze osobno wycenionej podkonstrukcji z legarów
+- [x] Dwie nowe pozycje po researchu rynku: `cokol_plytkowy` (kategoria `floor`, dobre, spójne dane źródłowe) i `domofon_wideodomofon` (kategoria `electric`, szerszy rozrzut cen przez zmienność okablowania) — trzecią zbadaną pozycję, demontaż wanny/kabiny, odrzucono: źródła rozjeżdżały się nawet dziesięciokrotnie (90 zł za samo odłączenie vs 800 zł za pełny demontaż żeliwnej wanny) bez jasności co do zakresu
+- [x] Nowe porównanie „Listwy przypodłogowe czy cokół z płytek” — naturalna alternatywa wykończenia styku podłoga-ściana, dotąd bez zestawienia
 - [ ] Weryfikacja i uruchomienie `narzedzia/gus-snapshot.py`, potem cykliczny workflow w CI
 - [ ] Weryfikacja polszczyzny przez native speakera przed startem
 - [ ] Domena: sprawdzić dostępność, dobrać nazwę

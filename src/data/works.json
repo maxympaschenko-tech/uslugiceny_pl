@@ -2245,6 +2245,36 @@
       ],
       "source": "portale tarasowe: modrzew syberyjski 120-250 zł/m² materiał, 2026-09",
       "sprawdzone": "2026-08"
+    },
+    {
+      "id": "cokol_plytkowy",
+      "cat": "floor",
+      "unit": "mb",
+      "labour": 48,
+      "material": 12,
+      "name": "Montaż cokołu z płytek",
+      "factors": [
+        "Kąt cięcia: cokół prosty jest szybszy niż docinany pod czterdzieści pięć stopni w narożnikach.",
+        "Wysokość cokołu i konieczność szlifowania krawędzi płytki po docięciu.",
+        "Rodzaj płytki: gres wielkoformatowy trudniej docina się na wąskie paski niż płytka standardowa."
+      ],
+      "source": "portale budowlane: robocizna cokołu z płytek 43-62 zł/mb, klej i fuga ok. 6-12 zł/mb (płytka zwykle z resztek posadzki), 2026-09",
+      "sprawdzone": "2026-09"
+    },
+    {
+      "id": "domofon_wideodomofon",
+      "cat": "electric",
+      "unit": "szt",
+      "labour": 500,
+      "material": 50,
+      "name": "Montaż wideodomofonu",
+      "factors": [
+        "Nowa trasa kabla od bramy albo drzwi wejściowych, wyraźnie droższa niż wymiana na istniejącym przewodzie.",
+        "Liczba unifonów: dodatkowy monitor w innym pomieszczeniu to osobny koszt.",
+        "Integracja z istniejącą instalacją domofonową budynku wielorodzinnego albo z aplikacją w telefonie."
+      ],
+      "source": "portale zabezpieczeniowe: robocizna montażu wideodomofonu 350-750 zł przy nowym okablowaniu, średnia ok. 580 zł, urządzenie kupuje zwykle inwestor, 2026-09",
+      "sprawdzone": "2026-09"
     }
   ],
   "standardScope": {
