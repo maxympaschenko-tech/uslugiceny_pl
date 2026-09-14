@@ -725,6 +725,42 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
 
 export const AKTUALIZACJE = [
   {
+    data: '2026-09',
+    tytul: 'Kolejne dwie pozycje i poprawki po przeglądzie kodu',
+    opis: 'Dalszy research rynkowy oraz dwie poprawki znalezione podczas przeglądu wcześniej wprowadzonych zmian.',
+    zmiany: [
+      ['Cokół z płytek i wideodomofon', 'Dwie nowe pozycje z dobrze udokumentowanymi cenami rynkowymi. Trzecia zbadana kandydatura, demontaż wanny i kabiny prysznicowej, została odrzucona: źródła różniły się nawet dziesięciokrotnie (90 zł za samo odłączenie wobec 800 zł za pełny demontaż żeliwnej wanny) bez jasności co do zakresu prac.'],
+      ['Porównanie listew z cokołem', 'Nowe zestawienie dwóch sposobów wykończenia styku podłogi ze ścianą, dotąd bez bezpośredniego porównania cen.'],
+      ['Błąd wewnętrzny w trawnik_siew', 'Stawka robocizny (10 zł/m²) nie zgadzała się z własnym cytowanym źródłem tej samej pozycji („robocizna 2-6 zł/m²”). Poprawiono na 5 zł, z odpowiadającą korektą materiału, tak żeby suma została w widełkach z tego samego source.'],
+      ['Błąd w tabeli README', 'Suma wierszy tabeli liczby stron nie zgadzała się z rzeczywistą liczbą stron w dist/: jeden wiersz miał błędnie policzoną liczbę podstron kosztów (49 zamiast 47). Zlokalizowane i poprawione przez policzenie każdego wiersza osobno.'],
+    ],
+  },
+  {
+    data: '2026-09',
+    tytul: 'Dziewięć nowych pozycji i kalkulator działki bez dostępu do sieci',
+    opis: 'Uzupełnienie realnych luk znalezionych podczas przeglądu: prace, które faktycznie występują w remontach i budowach, a dotąd nie miały swojej pozycji w cenniku.',
+    zmiany: [
+      ['Schody i kominek', 'Obłożenie stopni schodów drewnem oraz montaż wkładu kominowego — obie pozycje z realnym researchem rynku i powiązaniem z poradnikiem.'],
+      ['Ogrodzenie i instalacje na działce', 'Brama garażowa, studnia głębinowa, przydomowa oczyszczalnia ścieków, punkt systemu alarmowego.'],
+      ['Szambo i WC kompakt', 'Szambo betonowe z nowym porównaniem do oczyszczalni przydomowej, WC kompakt z nowym porównaniem do WC podwieszanego ze stelażem.'],
+      ['Trawnik z siewu', 'Nowa pozycja z porównaniem do trawnika z rolki.'],
+      ['19. kalkulator', '„Instalacje na działce bez dostępu do sieci” łączy studnię głębinową z oczyszczalnią albo szambem w jednym miejscu. Dodano też checkbox ocieplenia balkonu w istniejącym kalkulatorze balkonu.'],
+    ],
+  },
+  {
+    data: '2026-09',
+    tytul: 'Pole source przy każdej stawce',
+    opis: 'Systematyczne przejście przez cały cennik, kategoria po kategorii, z dopisaniem konkretnej cytacji rynkowej do każdej stawki. Po drodze kilka pozycji wypadło poza widełki znalezione w źródłach i zostało skorygowanych.',
+    zmiany: [
+      ['Hydroizolacja podpłytkowa', '50/29 → 90/40 zł/m². Stara stawka (79 zł/m² łącznie) leżała wyraźnie poniżej rynkowych 80-140 zł/m² samej robocizny.'],
+      ['Tynk gipsowy i gładź', 'Tynk 33/17 → 45/15 zł/m², gładź 42/10 → 50/12 zł/m². Sama robocizna była poniżej dolnej granicy rynku w obu przypadkach.'],
+      ['Wylewki', 'wylewka_cem 30/6 → 6/2 zł/cm, wylewka_anhydryt 34/8 → 11/3 zł/cm. Pierwsza wersja korekty porównywała stawkę za centymetr wprost z ceną rynkową za cały metr — po doliczeniu mnożnika grubości (5 cm) okazało się, że stare stawki były trzykrotnie zawyżone, nie zaniżone.'],
+      ['Kanały wentylacyjne', '92/72 → 70/94 zł/mb. Suma bazowa się zgadzała, ale podział między robociznę i materiał był przekoszony, co zniekształcało różnicę cen między miastami.'],
+      ['Drzwi zewnętrzne i podmurówka', 'Drzwi zewnętrzne 420 → 550 zł, podmurówka 135/115 → 90/70 zł/mb. Pierwsza była zaniżona, druga zawyżona.'],
+      ['Fotowoltaika', '850/2650 → 900/3000 zł/kWp, do dolnej granicy cytowanego zakresu 3800-6500 zł/kWp.'],
+    ],
+  },
+  {
     data: '2026-08',
     tytul: 'Korekta stawek glazurniczych',
     opis: 'Przegląd udziału robocizny w kategoriach pokazał, że przy płytkach praca stanowiła tylko 39 procent kwoty, co nie zgadza się z charakterem tej roboty. Sprawdzenie w sześciu cennikach potwierdziło zaniżenie.',
