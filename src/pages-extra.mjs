@@ -37,7 +37,7 @@ export function metrazPage({ mm, cities, turnkeyPerM2, levels, cityOptions, W_JS
     title: `Ile kosztuje remont mieszkania ${mm.m} m² w ${YEAR} roku`,
     description: `Koszt remontu mieszkania ${mm.m} m² pod klucz: od ${money(Math.round(turnkeyPerM2(tanie.coef, lvl.ekonom) * mm.m))} do ${money(Math.round(turnkeyPerM2(war.coef, lvl.premium) * mm.m))} zł zależnie od miasta i standardu. Pełne wyliczenie pozycja po pozycji.`,
     path: `/koszt-remontu/${mm.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/remont-mieszkania/">Kalkulatory</a> · Remont ${mm.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Remont mieszkania ${mm.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">${mm.typ} · aktualizacja ${SITE.updated}</p>
@@ -382,7 +382,7 @@ export function porownaniePage({ p, byId, units, unitPrice, sourceFlag, podlinku
     title: tytul(`${p.h1}?`, ` Porównanie kosztów ${YEAR}`, ` ${YEAR}`),
     description: `${p.h1}: różnica w cenie za jednostkę, wady i zalety obu rozwiązań oraz wskazówka, kiedy które się opłaca.`,
     path: `/porownanie/${p.slug}/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}porownanie/">Porównania</a> · ${p.h1}`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Porównania', path: '/porownanie/' }, { name: p.h1 }],
     body: `
 <section><div class="wrap">
   <h1>${p.h1}?</h1>
@@ -452,7 +452,7 @@ export function porownaniaIndex(list) {
     title: `Porównania rozwiązań remontowych ${YEAR}`,
     description: 'Co wybrać przy remoncie: wylewka cementowa czy anhydrytowa, panele czy deska, styropian czy wełna. Różnice w cenie i w praktyce.',
     path: '/porownanie/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Porównania`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Porównania' }],
     body: `
 <section><div class="wrap">
   <h1>Porównania</h1>
@@ -509,7 +509,7 @@ export function ocieplenieMetrazPage({ dm, cities, unitPrice, cityOptions, W_JSO
     title: `Ile kosztuje ocieplenie domu ${dm.m} m² w ${YEAR} roku`,
     description: `Koszt ocieplenia domu ${dm.m} m²: około ${money(Math.round(dlaMiasta(1)))} zł przy ${sciany} m² ścian. Styropian, warstwa zbrojona, tynk, rusztowanie. Ceny w 10 miastach.`,
     path: `/koszt-ocieplenia/${dm.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie</a> · Dom ${dm.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Ocieplenie domu ${dm.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Termomodernizacja · aktualizacja ${SITE.updated}</p>
@@ -587,7 +587,7 @@ export function wykonczenieMetrazPage({ wm, cities, unitPrice, levels, sourceFla
     title: `Wykończenie mieszkania ${wm.m} m²: cena w ${YEAR}`,
     description: `Ile kosztuje wykończenie mieszkania ${wm.m} m² w stanie deweloperskim: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Robocizna z materiałami, ceny w 10 miastach.`,
     path: `/koszt-wykonczenia/${wm.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie</a> · ${wm.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Wykończenie mieszkania ${wm.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Stan deweloperski · aktualizacja ${SITE.updated}</p>
@@ -662,7 +662,7 @@ export function remontDomuPage({ dm, cities, unitPrice, standardScope, sourceFla
     title: `Ile kosztuje remont domu ${dm.m} m² w ${YEAR} roku`,
     description: `Kompleksowy remont domu ${dm.m} m²: wnętrza, ocieplenie elewacji i wymiana dachu. Od ${money(Math.round(razem(tani.coef)))} do ${money(Math.round(razem(war.coef)))} zł zależnie od miasta.`,
     path: `/koszt-remontu-domu/${dm.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · Remont domu ${dm.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Remont domu ${dm.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Kompleksowy remont · aktualizacja ${SITE.updated}</p>
@@ -743,7 +743,7 @@ export function lazienkaMetrazPage({ lz, cities, unitPrice, levels, sourceFlag, 
     title: `Remont łazienki ${lz.m} m²: cena w ${YEAR} roku`,
     description: `Ile kosztuje remont łazienki ${lz.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta. Płytki, hydroizolacja, biały montaż i elektryka.`,
     path: `/koszt-lazienki/${lz.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/lazienka/">Łazienka</a> · ${lz.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Remont łazienki ${lz.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Około ${lz.wym} · aktualizacja ${SITE.updated}</p>
@@ -825,7 +825,7 @@ export function kuchniaMetrazPage({ kh, cities, unitPrice, levels, sourceFlag, b
     title: `Remont kuchni ${kh.m} m²: cena w ${YEAR} roku`,
     description: `Ile kosztuje remont kuchni ${kh.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł zależnie od miasta. Instalacje, fartuch, gładzie i podłoga, bez mebli.`,
     path: `/koszt-kuchni/${kh.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/kuchnia/">Kuchnia</a> · ${kh.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Remont kuchni ${kh.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Blat około ${kh.blat} mb · aktualizacja ${SITE.updated}</p>
@@ -903,7 +903,7 @@ export function poddaszeMetrazPage({ pd, cities, unitPrice, levels, sourceFlag, 
     title: `Wykończenie poddasza ${pd.m} m²: cena w ${YEAR}`,
     description: `Ile kosztuje adaptacja poddasza ${pd.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Ocieplenie, zabudowa skosów, ścianki, instalacje i podłoga.`,
     path: `/koszt-poddasza/${pd.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/poddasze/">Poddasze</a> · ${pd.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Wykończenie poddasza ${pd.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Około ${skosy} m² skosów · aktualizacja ${SITE.updated}</p>
@@ -974,7 +974,7 @@ export function wyliczeniaIndexPage({ METRAZE, POKOJE, LAZIENKI, KUCHNIE, PODDAS
     title: `Gotowe wyliczenia kosztów remontu ${YEAR}`,
     description: `${ile} policzonych zakresów dla typowych metraży: mieszkanie, łazienka, kuchnia, poddasze, dom i ocieplenie. Każdy w trzech standardach i dziesięciu miastach.`,
     path: '/koszty/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Gotowe wyliczenia`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">${ile} policzonych zakresów</p>
@@ -1033,7 +1033,7 @@ export function balkonMetrazPage({ bl, cities, unitPrice, levels, sourceFlag, by
     title: `Remont balkonu ${bl.m} m²: cena w ${YEAR} roku`,
     description: `Ile kosztuje remont balkonu ${bl.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Skucie, hydroizolacja, płytki mrozoodporne i obróbki.`,
     path: `/koszt-balkonu/${bl.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/balkon/">Balkon</a> · ${bl.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Remont balkonu ${bl.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Krawędź około ${bl.kr} mb · aktualizacja ${SITE.updated}</p>
@@ -1154,7 +1154,7 @@ export function pokojMetrazPage({ pk, cities, unitPrice, levels, sourceFlag, byI
     title: `Remont pokoju ${pk.m} m²: cena w ${YEAR} roku`,
     description: `Ile kosztuje remont pokoju ${pk.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Gładzie, malowanie, podłoga, listwy i drzwi.`,
     path: `/koszt-pokoju/${pk.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/pokoj/">Pokój</a> · ${pk.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Remont pokoju ${pk.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Około ${pk.wym} · ${Math.round(sciany)} m² ścian</p>
@@ -1227,7 +1227,7 @@ export function dachMetrazPage({ dc, cities, unitPrice, levels, sourceFlag, byId
     title: `Wymiana dachu ${dc.m} m²: cena w ${YEAR} roku`,
     description: `Ile kosztuje wymiana pokrycia dachu ${dc.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Demontaż, membrana, blachodachówka, obróbki i rynny.`,
     path: `/koszt-dachu/${dc.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/dach/">Dach</a> · ${dc.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Wymiana dachu ${dc.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Około ${dc.obr} mb obróbek, ${dc.ryn} mb rynien · aktualizacja ${SITE.updated}</p>
@@ -1300,7 +1300,7 @@ export function podjazdMetrazPage({ pj, cities, unitPrice, levels, sourceFlag, b
     title: `Podjazd z kostki ${pj.m} m²: cena w ${YEAR} roku`,
     description: `Ile kosztuje podjazd z kostki brukowej ${pj.m} m²: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł. Korytowanie, podbudowa, kostka, krawężniki i odwodnienie.`,
     path: `/koszt-podjazdu/${pj.m}-m2/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/kostka-brukowa/">Kostka brukowa</a> · ${pj.m} m²`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Podjazd z kostki ${pj.m} m²` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Około ${pj.kraw} mb krawężników · aktualizacja ${SITE.updated}</p>
@@ -1372,7 +1372,7 @@ export function ogrodzenieMetrazPage({ og, cities, unitPrice, levels, sourceFlag
     title: `Ogrodzenie ${og.m} mb: cena w ${YEAR} roku`,
     description: `Ile kosztuje ogrodzenie panelowe ${og.m} mb z podmurówką, bramą i furtką: od ${money(Math.round(suma(tani.coef, 1)))} do ${money(Math.round(suma(war.coef, 1)))} zł.`,
     path: `/koszt-ogrodzenia/${og.m}-mb/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/ogrodzenie/">Ogrodzenie</a> · ${og.m} mb`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Gotowe wyliczenia', path: '/koszty/' }, { name: `Ogrodzenie ${og.m} mb` }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Z bramą i ${og.furtka === 1 ? 'furtką' : 'dwiema furtkami'} · aktualizacja ${SITE.updated}</p>

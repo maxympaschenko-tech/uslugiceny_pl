@@ -454,7 +454,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
     title: p.title,
     description: p.desc,
     path: `/poradnik/${p.slug}/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}poradnik/">Poradniki</a> · ${p.h1}`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Poradniki', path: '/poradnik/' }, { name: p.h1 }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Poradnik · aktualizacja ${SITE.updated}</p>
@@ -515,7 +515,7 @@ export function poradnikiIndex(list) {
     title: `Poradniki remontowe ${YEAR}`,
     description: 'Kolejność prac przy remoncie mieszkania i łazienki: co po czym, ile trwa każdy etap i ile kosztuje.',
     path: '/poradnik/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Poradniki`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Poradniki' }],
     body: `
 <section><div class="wrap">
   <h1>Poradniki</h1>

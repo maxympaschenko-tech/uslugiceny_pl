@@ -242,7 +242,7 @@ export const CALCS = [
     h1: 'Wykończenie poddasza',
     title: `Kalkulator wykończenia poddasza ${YEAR}: koszt adaptacji`,
     desc: 'Policz koszt adaptacji poddasza: ocieplenie wełną, paroizolacja, zabudowa skosów płytą, ścianki kolankowe, gładzie, podłoga i instalacje. Ceny w zł.',
-    lede: 'Poddasze wykańcza się raz, a błąd w paroizolacji ujawnia się dopiero po dwóch sezonach, kiedy wełna jest już zamknięta pod płytą. Kolejność prac opisuje <a href="${R}poradnik/wykonczenie-poddasza-krok-po-kroku/">osobny poradnik</a>.',
+    lede: `Poddasze wykańcza się raz, a błąd w paroizolacji ujawnia się dopiero po dwóch sezonach, kiedy wełna jest już zamknięta pod płytą. Kolejność prac opisuje <a href="${R}poradnik/wykonczenie-poddasza-krok-po-kroku/">osobny poradnik</a>.`,
     faq: [
       ['Ile kosztuje wykończenie poddasza?', 'Ocieplenie, zabudowa skosów, ścianki, instalacja elektryczna i podłoga to około tysiąca złotych za metr powierzchni podłogi. Rynkowe widełki bywają wyższe, od tysiąca do tysiąca czterystu, bo obejmują też okna dachowe i łazienkę na poddaszu, które w tym kalkulatorze są osobnymi pozycjami do zaznaczenia.'],
       ['Jaka grubość ocieplenia poddasza?', 'Dziś przyjmuje się od 25 do 30 centymetrów wełny w dwóch warstwach układanych krzyżowo: pierwsza między krokwiami, druga w poprzek pod nimi. Druga warstwa likwiduje mostki termiczne na drewnie, dlatego pomijanie jej jest częstym i kosztownym uproszczeniem.'],
@@ -287,7 +287,7 @@ export const CALCS = [
     h1: 'Remont kuchni',
     title: `Kalkulator remontu kuchni ${YEAR}: ile kosztuje`,
     desc: 'Policz koszt remontu kuchni: płytki nad blatem, punkty wodne pod zlew i zmywarkę, obwody pod płytę i piekarnik, gładzie i podłoga. Ceny w zł.',
-    lede: 'Kuchnia jest po łazience najdroższym pomieszczeniem w przeliczeniu na metr, i to nie przez okładziny, tylko przez instalacje. Płyta, piekarnik i zmywarka to trzy osobne obwody. Kolejność prac opisuje <a href="${R}poradnik/remont-kuchni-krok-po-kroku/">osobny poradnik</a>.',
+    lede: `Kuchnia jest po łazience najdroższym pomieszczeniem w przeliczeniu na metr, i to nie przez okładziny, tylko przez instalacje. Płyta, piekarnik i zmywarka to trzy osobne obwody. Kolejność prac opisuje <a href="${R}poradnik/remont-kuchni-krok-po-kroku/">osobny poradnik</a>.`,
     faq: [
       ['Ile kosztuje remont kuchni?', 'Bez mebli i sprzętu liczy się zwykle od kilku do kilkunastu tysięcy złotych, zależnie od zakresu instalacji i wielkości pomieszczenia. Największą pozycją są punkty elektryczne i wodno-kanalizacyjne, a nie płytki nad blatem.'],
       ['Kiedy zamawiać meble kuchenne?', 'Pomiar do mebli robi się po tynkach i wylewce, ale rozmieszczenie gniazd i punktów wodnych trzeba znać wcześniej, na etapie instalacji. Dlatego projekt kuchni powstaje przed kuciem bruzd, a nie po wykończeniu ścian.'],
@@ -339,7 +339,7 @@ export const CALCS = [
     h1: 'Wykończenie mieszkania od dewelopera',
     title: `Kalkulator wykończenia mieszkania od dewelopera ${YEAR}`,
     desc: 'Policz koszt wykończenia mieszkania w stanie deweloperskim: gładzie, malowanie, podłogi, łazienka, biały montaż i drzwi. Ceny w zł za m².',
-    lede: 'Stan deweloperski to nie remont. Nie ma demontaży ani wywozu gruzu, za to gładzie idą na całą powierzchnię, a łazienka powstaje od zera. Liczymy robociznę i materiały budowlane, bez ceny drzwi, armatury i opraw, które kupujesz sam. Kolejność prac opisuje <a href="${R}poradnik/wykonczenie-mieszkania-krok-po-kroku/">osobny poradnik</a>.',
+    lede: `Stan deweloperski to nie remont. Nie ma demontaży ani wywozu gruzu, za to gładzie idą na całą powierzchnię, a łazienka powstaje od zera. Liczymy robociznę i materiały budowlane, bez ceny drzwi, armatury i opraw, które kupujesz sam. Kolejność prac opisuje <a href="${R}poradnik/wykonczenie-mieszkania-krok-po-kroku/">osobny poradnik</a>.`,
     faq: [
       ['Ile kosztuje wykończenie mieszkania od dewelopera?', 'Robocizna z materiałami budowlanymi to zwykle od 650 do 900 złotych za metr, zależnie od miasta i standardu. Rynkowe hasło „wykończenie pod klucz za 1500 do 2500 zł za metr” obejmuje dodatkowo wyposażenie: drzwi, armaturę, oświetlenie, czasem meble. To właśnie ta różnica dziwi najbardziej przy pierwszej wycenie.'],
       ['Czego nie ma w tym wyliczeniu?', 'Nie ma ceny drzwi, armatury, baterii, opraw oświetleniowych ani mebli, bo te pozycje kupuje inwestor i ich koszt zależy wyłącznie od wybranego modelu. Policzony jest za to ich montaż. Same drzwi wewnętrzne to zwykle od 800 do 1500 złotych za sztukę, a wyposażenie łazienki potrafi dorównać kosztowi jej wykończenia.'],
@@ -623,7 +623,11 @@ export function calcPage({ c, cityOptions, W_JSON, CITY_MAP, sourceFlag }) {
     title: c.title,
     description: c.desc,
     path: `/kalkulator/${c.slug}/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulator/remont-mieszkania/">Kalkulatory</a> · ${c.h1}`,
+    breadcrumb: [
+      { name: 'Cennik', path: '/' },
+      { name: 'Kalkulatory', path: '/kalkulatory/' },
+      { name: c.h1 },
+    ],
     body: `
 <section><div class="wrap">
   <h1>${c.h1}</h1>
@@ -728,7 +732,7 @@ export function kalkulatoryIndexPage() {
     title: `Kalkulatory kosztów remontu ${YEAR}`,
     description: `${ile} kalkulatorów kosztorysu: mieszkanie, łazienka, kuchnia, poddasze, elewacja, dach, kostka, ogrodzenie, okna i klimatyzacja. Kosztorys pozycja po pozycji.`,
     path: '/kalkulatory/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulatory`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Kalkulatory' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">${ile} kalkulatorów</p>
@@ -754,7 +758,11 @@ function materialyPage({ c, sourceFlag }) {
     title: c.title,
     description: c.desc,
     path: `/kalkulator/${c.slug}/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}kalkulatory/">Kalkulatory</a> · ${c.h1}`,
+    breadcrumb: [
+      { name: 'Cennik', path: '/' },
+      { name: 'Kalkulatory', path: '/kalkulatory/' },
+      { name: c.h1 },
+    ],
     body: `
 <section><div class="wrap">
   <h1>${c.h1}</h1>

@@ -6,8 +6,8 @@ oraz kalkulatorami, które zwracają kosztorys pozycja po pozycji, a nie jedną 
 Cały projekt jest po polsku: treść, adresy URL, dane, komentarze w kodzie i ta dokumentacja.
 
 **Stos:** czysty Node.js, zero zależności. Generator `build.mjs` składa `dist/` w około sekundę.
-Bez `npm install`, bez frameworka, który trzeba będzie aktualizować. Wdrożenie na GitHub Pages
-przez Actions.
+Bez `npm install`, bez frameworka, który trzeba będzie aktualizować. Wdrożenie na własny
+hosting przez FTP i GitHub Actions.
 
 ## Uruchomienie
 
@@ -24,6 +24,13 @@ Zmienne środowiskowe:
 | `BASE_PATH` | prefiks ścieżek, gdy strona stoi w podkatalogu | `/kosztorys-pl/` |
 
 Domyślnie `SITE_URL` to `https://uslugiceny.pl`, więc lokalnie nic nie trzeba ustawiać.
+
+`SITE_URL` może kończyć się ukośnikiem albo zawierać podkatalog. Jawny `BASE_PATH`
+ma pierwszeństwo przed podkatalogiem domeny; prefiks trafia do adresów kanonicznych,
+mapy witryny, danych strukturalnych i odnośników. Wyszukiwarka oraz strona błędu
+mają `noindex`, a sitemap zawiera wyłącznie strony przeznaczone do indeksowania.
+Nie ustawiamy sztucznej daty `lastmod`: miesiąc kalibracji stawek nie jest datą
+ostatniej zmiany każdej strony.
 
 ## Zasada: liczby wymagają zdania
 
@@ -175,8 +182,8 @@ Użytkownika FTP zakłada się w panelu (Хостинг → Користувач
 z katalogiem dostępu `/home/uageek/uslugiceny.pl/www/`. Osobne konto na jeden projekt,
 a nie główne `uageek_ftp`: gdyby hasło wyciekło z repozytorium, ucierpi tylko ta jedna strona.
 
-Drugi workflow, `build-check.yml`, sprawdza przy pull requeście, czy projekt się buduje
-i czy w wygenerowanych stronach nie pojawiła się cyrylica.
+Drugi workflow, `kontrola.yml`, uruchamia się ręcznie i sprawdza budowanie, dane,
+język, dostępność, kalkulatory oraz SEO wygenerowanych stron.
 
 Do katalogu głównego trafia też `.htaccess`: wymusza HTTPS, przekierowuje `www` na wersję bez,
 włącza kompresję i ustawia stronę 404.
@@ -241,7 +248,7 @@ Docelowo każda stawka dostanie pola `source` i `checked`.
 
 ## Kontrola jakości
 
-Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeście:
+Kontrole uruchamiane lokalnie oraz ręcznie przez workflow `Kontrola` w GitHub Actions:
 
 | Skrypt | Czego pilnuje |
 |---|---|
@@ -253,6 +260,15 @@ Trzy niezależne skrypty, uruchamiane lokalnie i w CI przy każdym pull requeśc
 | `narzedzia/szerokosc.py` | typowe przyczyny poziomego przewijania na telefonie: sztywne szerokości, tabele bez opakowania, brak `min-width: 0` |
 | `narzedzia/spojnosc-cen.py` | czy ta sama pozycja pokazuje tę samą kwotę na stronie pozycji, w pełnym cenniku i na stronie kategorii |
 | `narzedzia/kalkulatory.mjs` | uruchamia silnik na trzech zakresach i sprawdza, czy kwoty są sensowne, czy współczynnik miejski działa tylko na robociznę i czy standardy układają się rosnąco |
+| `narzedzia/adresy.mjs` | sprawdza domenę, prefiks podkatalogu, kodowanie adresów i odrzucanie niepoprawnej konfiguracji |
+| `narzedzia/seo.py` | porównuje canonical, sitemap i dane strukturalne z wygenerowanymi stronami; sprawdza kotwice, unikalność identyfikatorów, `noindex`, hierarchię nawigacji, indeks wyszukiwania i pliki do wysyłki |
+| `narzedzia/linkowanie.mjs` | sprawdza odmiany pojęć, granice słów i istniejący HTML, aby kolejne hasło słownika nie uszkodziło utworzonego odnośnika |
+| `narzedzia/odpowiedzi.py` | porównuje odpowiedzi o materiale z tabelami cen i JSON-LD na stronach usług oraz sprawdza skróty do sekcji |
+
+Po zmianach uruchom `node build.mjs`, a następnie kontrole z powyższej tabeli.
+Test kalkulatorów obejmuje też niepoprawne parametry udostępnianych linków
+i zgodność domyślnych wartości formularzy z ich ograniczeniami. Ceny modelowe
+są opisane jako orientacyjne; nie publikujemy ich w schematach jako ofert firm.
 
 ## Zasada: liczby wymagają zdania
 

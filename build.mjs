@@ -4,12 +4,13 @@ import { dirname, join, relative } from 'node:path';
 import cities from './src/data/cities.json' with { type: 'json' };
 import worksFile from './src/data/works.json' with { type: 'json' };
 import { SITE } from './src/config.mjs';
-import { layout, estimateSheet, calcScript, field, select, check, money, tytul, ustawWersjeStylow, ustawWersjeSkryptu } from './src/templates.mjs';
+import { layout, estimateSheet, calcScript, field, select, check, money, tytul, odmien, ustawWersjeStylow, ustawWersjeSkryptu } from './src/templates.mjs';
 import { servicePage, serviceCityPage, categoryPage, servicesIndex, slugify } from './src/pages-service.mjs';
 import { CALCS, calcPage, kalkulatoryIndexPage } from './src/pages-calc.mjs';
 import { ikona } from './src/icons.mjs';
 import { sprawdzOfertePage, szukajPage, sezonowoscPage, porownajMiastaPage, pelnyCennikPage, strukturaKosztowPage, aktualizacjePage, jakCzytacPage, umowaPage, odbiorPage, wyborEkipyPage } from './src/pages-tools.mjs';
 import { HASLA, slownikPage } from './src/pages-slownik.mjs';
+import { createGlossaryLinker } from './src/linkowanie.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
 import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage, PODDASZA, poddaszeMetrazPage, BALKONY, balkonMetrazPage, POKOJE, pokojMetrazPage, DACHY, dachMetrazPage, PODJAZDY, podjazdMetrazPage, OGRODZENIA, ogrodzenieMetrazPage, wyliczeniaIndexPage } from './src/pages-extra.mjs';
@@ -111,35 +112,7 @@ const HASLA_DO_LINKOWANIA = HASLA.flatMap(([nazwa, id, , , formy = []]) =>
   [nazwa, ...formy].map((f) => [f, id])
 ).sort((a, b) => b[0].length - a[0].length);
 
-const podlinkujHasla = (html, uzyte = new Set()) => {
-  // dzielimy na fragmenty tekstu i znaczniki, zeby nie ruszac atrybutow
-  const czesci = html.split(/(<[^>]+>)/);
-  let wOdnosniku = 0;
-  return czesci
-    .map((cz) => {
-      if (cz.startsWith('<')) {
-        if (/^<a[\s>]/i.test(cz)) wOdnosniku++;
-        else if (/^<\/a>/i.test(cz)) wOdnosniku = Math.max(0, wOdnosniku - 1);
-        return cz;
-      }
-      if (wOdnosniku > 0) return cz;
-      let tekst = cz;
-      for (const [nazwa, id] of HASLA_DO_LINKOWANIA) {
-        if (uzyte.has(id)) continue;
-        const wzor = new RegExp(`(^|[^\\p{L}])(${nazwa.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&')})(?![\\p{L}])`, 'iu');
-        const m = tekst.match(wzor);
-        if (!m) continue;
-        uzyte.add(id);
-        tekst =
-          tekst.slice(0, m.index) +
-          m[1] +
-          `<a href="${R}slownik/#${id}" class="haslo-link">${m[2]}</a>` +
-          tekst.slice(m.index + m[0].length);
-      }
-      return tekst;
-    })
-    .join('');
-};
+const podlinkujHasla = createGlossaryLinker(HASLA_DO_LINKOWANIA, R);
 
 /* ---------- ten sam silnik po stronie serwera ---------- */
 
@@ -191,16 +164,24 @@ await write(
     path: '/',
     body: `
 <section class="hero"><div class="wrap hero-grid">
-  <div>
-    <p class="eyebrow">Aktualizacja ${meta.updated} · ceny w PLN z VAT</p>
-    <h1>Policz remont, zanim zadzwonisz po ekipę</h1>
+  <div class="hero-copy">
+    <p class="eyebrow">Twój remont. Twój budżet.</p>
+    <h1><span>Policz remont,</span> zanim zadzwonisz po ekipę</h1>
     <p class="lede">Cennik robót w dziesięciu największych miastach i kalkulatory, które dają kosztorys pozycja po pozycji, a nie jedną kwotę z sufitu.</p>
-    <p class="hero-note">Remont pod klucz w wariancie standardowym kosztuje od ${money(Math.round(minM2.v))} zł za m² (${minM2.c.name}) do ${money(Math.round(maxM2.v))} zł za m² (${maxM2.c.name}). Różnica siedzi niemal w całości w robociźnie: worek kleju kosztuje w całym kraju podobnie, godzina fachowca już nie.</p>
-    ${draftFlag}
+    <div class="hero-actions">
+      <a class="hero-cta" href="#quick">Zaplanuj budżet <span aria-hidden="true">→</span></a>
+      <a class="hero-secondary" href="#ceny-miast">Porównaj ceny w miastach <span aria-hidden="true">↓</span></a>
+    </div>
+    <dl class="hero-facts">
+      <div><dt>${works.length}</dt><dd>robót w cenniku</dd></div>
+      <div><dt>${cities.length}</dt><dd>największych miast</dd></div>
+      <div><dt>${LICZBA_KALKULATOROW}</dt><dd>kalkulatorów</dd></div>
+    </dl>
   </div>
-  <div>
-    <div class="panel">
-      <h2>Szybka wycena</h2>
+  <div class="hero-calculator">
+    <div class="panel quick-panel">
+      <div class="quick-heading"><span class="quick-kicker">Kalkulator remontu</span><span class="quick-status">Na żywo</span></div>
+      <h2>Ile wyniesie Twój remont?</h2>
       <p class="panel-note">Podaj metraż, a kalkulator złoży kosztorys z typowego zakresu robót.</p>
       <form id="quick">
         ${field({ name: 'area', label: 'Powierzchnia mieszkania', value: 50, min: 10, max: 300, suffix: 'm²' })}
@@ -209,9 +190,12 @@ await write(
           ${select({ name: 'level', label: 'Standard', options: levels.map((l) => ({ v: l.id, t: l.name, sel: l.id === 'standard' })) })}
         </div>
       </form>
-      <div class="total"><span class="t-label">Remont pod klucz</span><span class="t-val" data-quick>0 <small>PLN</small></span></div>
-      <p class="range-note" data-quick-note></p>
-      <p class="receipt-foot"><a href="${R}kalkulator/remont-mieszkania/">Rozwiń do pełnego kosztorysu z podziałem na roboty</a></p>
+      <div class="quick-result">
+        <div class="total"><span class="t-label">Szacowany koszt · pod klucz</span><span class="t-val" data-quick role="status" aria-live="polite" aria-atomic="true">0 <small>PLN</small></span></div>
+        <p class="range-note" data-quick-note></p>
+      </div>
+      <a class="quick-details" href="${R}kalkulator/remont-mieszkania/">Zobacz pełny kosztorys <span aria-hidden="true">→</span></a>
+      <p class="quick-updated">Aktualizacja ${meta.updated} · ceny w PLN z VAT</p>
     </div>
   </div>
 </div></section>
@@ -226,7 +210,7 @@ await write(
     <div class="card sciezka">
       <span class="card-ikona">${ikona('walls')}</span>
       <h3><a href="${R}kalkulator/remont-mieszkania/">Policz swój remont</a></h3>
-      <p>Dziesięć kalkulatorów: mieszkanie, łazienka, wylewka, malowanie, płytki, elewacja, dach, kostka, ogrodzenie. Kosztorys można wydrukować albo wysłać linkiem.</p>
+      <p>${LICZBA_KALKULATOROW} kalkulatorów: mieszkanie, łazienka, wylewka, malowanie, płytki, elewacja, dach, kostka, ogrodzenie. Kosztorys można wydrukować albo wysłać linkiem.</p>
     </div>
     <div class="card sciezka">
       <span class="card-ikona">${ikona('demont')}</span>
@@ -236,28 +220,34 @@ await write(
   </div>
 </div></section>
 
-<section><div class="wrap">
+<section class="city-section" id="ceny-miast"><div class="wrap">
+  <p class="eyebrow">Ten sam remont, różne miasta</p>
   <h2>Remont pod klucz, zł za m²</h2>
+  <p class="hero-note">Remont pod klucz w wariancie standardowym kosztuje od ${money(Math.round(minM2.v))} zł za m² (${minM2.c.name}) do ${money(Math.round(maxM2.v))} zł za m² (${maxM2.c.name}). Różnica siedzi niemal w całości w robociźnie: worek kleju kosztuje w całym kraju podobnie, godzina fachowca już nie.</p>
   <p class="section-note">Wyliczenie dla typowego mieszkania: demontaże, tynki, gładzie, malowanie, wylewka, panele, płytki w strefach mokrych, instalacja elektryczna, drzwi i sprzątanie. Kliknij nagłówek kolumny, żeby posortować.</p>
   <div class="board-wrap"><table class="board" id="board">
     <thead><tr><th data-sort="off">Miasto</th><th>Ekonomiczny</th><th>Standardowy</th><th>Premium</th><th>Mieszkanie 50 m²</th></tr></thead>
     <tbody>${boardRows}</tbody>
   </table></div>
+  ${draftFlag}
 </div></section>
 
-<section><div class="wrap">
-  <h2>Kalkulatory</h2>
+<section class="home-calcs"><div class="wrap">
+  <p class="eyebrow">Od pokoju po cały dom</p>
+  <h2>Kalkulatory remontu</h2>
   <p class="section-note">Każdy liczy pozycja po pozycji i przelicza wynik na wybrane miasto. Kosztorys można wydrukować albo wysłać linkiem.</p>
   <div class="cards">
-    <div class="card"><h3><a href="${R}kalkulator/remont-mieszkania/">Remont mieszkania</a></h3><p>Pełny zakres pod klucz według metrażu, z wyborem standardu i miasta.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/wykonczenie-pod-klucz/">Wykończenie od dewelopera</a></h3><p>Bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/lazienka/">Łazienka</a></h3><p>Płytki, hydroizolacja, biały montaż i punkty wodne sztuka po sztuce.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/kuchnia/">Kuchnia</a></h3><p>Instalacje pod płytę, piekarnik i zmywarkę, fartuch nad blatem i podłoga.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/ocieplenie-elewacji/">Ocieplenie elewacji</a></h3><p>Obwód i wysokość budynku minus okna, styropian albo wełna mineralna.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/dach/">Pokrycie dachu</a></h3><p>Sześć rodzajów pokrycia, membrana, obróbki, rynny i ocieplenie poddasza.</p></div>
-    <div class="card"><h3><a href="${R}kalkulator/materialy/">Ile materiału kupić</a></h3><p>Przelicznik z metrów na worki, wiadra i paczki, razem z zapasem na odpad i docinki.</p></div>
+    ${[
+      ['remont-mieszkania', 'walls', 'Remont mieszkania', 'Pełny zakres pod klucz według metrażu, z wyborem standardu i miasta.'],
+      ['wykonczenie-pod-klucz', 'finish', 'Wykończenie od dewelopera', 'Bez demontaży, za to z gładziami na całej powierzchni i łazienką od zera.'],
+      ['lazienka', 'plumbing', 'Łazienka', 'Płytki, hydroizolacja, biały montaż i punkty wodne sztuka po sztuce.'],
+      ['kuchnia', 'electric', 'Kuchnia', 'Instalacje pod płytę, piekarnik i zmywarkę, fartuch nad blatem i podłoga.'],
+      ['ocieplenie-elewacji', 'elewacja', 'Ocieplenie elewacji', 'Obwód i wysokość budynku minus okna, styropian albo wełna mineralna.'],
+      ['dach', 'dach', 'Pokrycie dachu', 'Sześć rodzajów pokrycia, membrana, obróbki, rynny i ocieplenie poddasza.'],
+      ['materialy', 'tiles', 'Ile materiału kupić', 'Przelicznik z metrów na worki, wiadra i paczki, razem z zapasem na odpad i docinki.'],
+    ].map(([slug, icon, name, note], i) => `<article class="card${i === 0 ? ' calc-featured' : ''}"><span class="card-ikona">${ikona(icon)}</span><span class="calc-arrow" aria-hidden="true">→</span><h3><a href="${R}kalkulator/${slug}/">${name}</a></h3><p>${note}</p></article>`).join('')}
   </div>
-  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie ${LICZBA_KALKULATOROW} kalkulatory</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
+  <p class="receipt-foot" style="margin-top:1rem"><a href="${R}kalkulatory/">Zobacz wszystkie ${LICZBA_KALKULATOROW} ${odmien(LICZBA_KALKULATOROW, 'kalkulator', 'kalkulatory', 'kalkulatorów')}</a>, w tym poddasze, kostkę, ogrodzenie, okna i klimatyzację.</p>
 </div></section>
 
 <section><div class="wrap">
@@ -307,8 +297,8 @@ await write(
   <h2>Droga od pomysłu do odbioru</h2>
   <p class="section-note">Sześć etapów, na których o kosztach decyduje coś innego niż stawka za metr. Każdy ma osobny poradnik.</p>
   <ol class="sciezka">
-    <li><span class="sc-nr">01</span><div><h3><a href="${R}poradnik/">Ustal zakres i kolejność</a></h3><p>Etap zrobiony nie w porę trzeba powtórzyć. Szesnaście poradników krok po kroku, od mieszkania po dach.</p></div></li>
-    <li><span class="sc-nr">02</span><div><h3><a href="${R}porownanie/">Wybierz rozwiązania</a></h3><p>Piętnaście porównań rozstrzygniętych liczbami: wylewka cementowa czy anhydrytowa, panele czy deska, pompa ciepła czy kocioł.</p></div></li>
+    <li><span class="sc-nr">01</span><div><h3><a href="${R}poradnik/">Ustal zakres i kolejność</a></h3><p>Etap zrobiony nie w porę trzeba powtórzyć. Poradniki krok po kroku, od mieszkania po dach.</p></div></li>
+    <li><span class="sc-nr">02</span><div><h3><a href="${R}porownanie/">Wybierz rozwiązania</a></h3><p>Porównania rozstrzygnięte liczbami: wylewka cementowa czy anhydrytowa, panele czy deska, pompa ciepła czy kocioł.</p></div></li>
     <li><span class="sc-nr">03</span><div><h3><a href="${R}kiedy-remontowac/">Wybierz termin</a></h3><p>Ta sama robota kosztuje inaczej w maju i w listopadzie. Kalendarz obłożenia ekip miesiąc po miesiącu.</p></div></li>
     <li><span class="sc-nr">04</span><div><h3><a href="${R}wybor-ekipy/">Znajdź wykonawcę</a></h3><p>Co świadczy o rzetelności, jakie sygnały powinny niepokoić i o co zapytać przy pierwszej rozmowie.</p></div></li>
     <li><span class="sc-nr">05</span><div><h3><a href="${R}jak-czytac-kosztorys/">Porównaj oferty</a></h3><p>Dwie oferty na ten sam remont potrafią różnić się dwukrotnie i obie być uczciwe. Sześć rzeczy, które o tym decydują.</p></div></li>
@@ -321,23 +311,25 @@ await write(
       {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
+        '@id': `${SITE.url('/')}#website`,
         name: 'uslugiceny.pl',
-        url: SITE.base + R,
+        url: SITE.url('/'),
         inLanguage: 'pl',
         about: 'Ceny robót remontowych w Polsce',
-        // pole wyszukiwania bezpośrednio w wynikach Google
+        // Opis wyszukiwarki serwisu; nie obietnica wyglądu wyników Google.
         potentialAction: {
           '@type': 'SearchAction',
-          target: { '@type': 'EntryPoint', urlTemplate: `${SITE.base}${R}szukaj/?q={search_term_string}` },
+          target: { '@type': 'EntryPoint', urlTemplate: `${SITE.url('/szukaj/')}?q={search_term_string}` },
           'query-input': 'required name=search_term_string',
         },
       },
       {
         '@context': 'https://schema.org',
         '@type': 'Organization',
+        '@id': `${SITE.url('/')}#organization`,
         name: 'uslugiceny.pl',
-        url: SITE.base + R,
-        logo: `${SITE.base}${R}icon-512.png`,
+        url: SITE.url('/'),
+        logo: SITE.url('/icon-512.png'),
         description: 'Baza cen robót remontowych i budowlanych w Polsce z kalkulatorami kosztorysu.',
         email: 'kontakt@uslugiceny.pl',
         areaServed: { '@type': 'Country', name: 'Polska' },
@@ -360,6 +352,7 @@ const SCOPE = ${JSON.stringify(standardScope.items)};
   const f = document.getElementById('quick');
   const out = document.querySelector('[data-quick]');
   const note = document.querySelector('[data-quick-note]');
+  const fullEstimate = document.querySelector('.quick-details');
   bindForm(f, () => {
     const v = readForm(f);
     const coef = CITIES[v.city][0], k = W.levels.find(l => l.id === v.level).k;
@@ -369,6 +362,7 @@ const SCOPE = ${JSON.stringify(standardScope.items)};
     note.textContent = v.area
       ? F(R(est.total / v.area)) + ' zł za m². Robocizna ' + F(R(est.labour)) + ', materiały ' + F(R(est.material)) + '.'
       : '';
+    fullEstimate.href = '${R}kalkulator/remont-mieszkania/?' + new URLSearchParams({ area: f.elements.area.value, city: v.city, level: v.level });
   });
   bindSort(document.getElementById('board'));
 })();`,
@@ -439,7 +433,7 @@ for (const city of cities) {
       title: tytul(`Cennik robót remontowych ${city.loc}`, ` ${YEAR}`, `: stawki za m²`),
       description: `Ile kosztują roboty remontowe ${city.loc}: tynki, gładzie, wylewka, płytki, elektryka, hydraulika. Robocizna i materiał osobno, ceny w zł.`,
       path: `/ceny/${city.slug}/`,
-      breadcrumb: `<a href="${R}">Cennik</a> · ${city.name}`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: city.name }],
       body: `
 <section><div class="wrap">
   <p class="eyebrow">Województwo ${city.voivodeship} · współczynnik cen ${city.coef.toFixed(2)}</p>
@@ -500,7 +494,7 @@ await write(
     title: 'Kalkulator remontu mieszkania: kosztorys według metrażu',
     description: 'Policz koszt remontu mieszkania pod klucz: metraż, standard wykończenia, demontaże, elektryka. Kosztorys z podziałem na roboty, ceny w zł.',
     path: '/kalkulator/remont-mieszkania/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulator remontu mieszkania`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Kalkulatory', path: '/kalkulatory/' }, { name: 'Kalkulator remontu mieszkania' }],
     body: `
 <section><div class="wrap">
   <h1>Remont mieszkania pod klucz</h1>
@@ -576,7 +570,7 @@ await write(
     title: 'Kalkulator remontu łazienki: ile kosztują płytki i biały montaż',
     description: 'Ile kosztuje remont łazienki: płytki, hydroizolacja, montaż wanny, kabiny, WC i umywalki. Kosztorys pozycja po pozycji, ceny w zł.',
     path: '/kalkulator/lazienka/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulator remontu łazienki`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Kalkulatory', path: '/kalkulatory/' }, { name: 'Kalkulator remontu łazienki' }],
     body: `
 <section><div class="wrap">
   <h1>Remont łazienki</h1>
@@ -671,7 +665,7 @@ await write(
     title: 'Kalkulator wylewki: cena za m² i ilość materiału',
     description: 'Policz wylewkę podłogową: objętość zaprawy, liczba worków, cena robocizny i materiału za m² w polskich miastach. Cementowa, anhydrytowa, samopoziomująca.',
     path: '/kalkulator/wylewka/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Kalkulator wylewki`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Kalkulatory', path: '/kalkulatory/' }, { name: 'Kalkulator wylewki' }],
     body: `
 <section><div class="wrap">
   <h1>Wylewka podłogowa</h1>
@@ -766,7 +760,7 @@ await write(
     title: 'Jak liczymy ceny remontu',
     description: 'Metodyka: stawki bazowe dla Polski, współczynniki miast, standardy wykończenia, co wchodzi w kosztorys i czego w nim nie ma.',
     path: '/jak-liczymy/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Jak liczymy`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Jak liczymy' }],
     body: `
 <section><div class="wrap">
   <h1>Jak liczymy</h1>
@@ -1198,7 +1192,7 @@ for (const s of staticPages) {
       title: s.title,
       description: s.desc,
       path: `/${s.slug}/`,
-      breadcrumb: `<a href="${R}">Cennik</a> · ${s.h1}`,
+      breadcrumb: [{ name: 'Cennik', path: '/' }, { name: s.h1 }],
       body: `<section><div class="wrap"><h1>${s.h1}</h1>${s.body}</div></section>`,
     })
   );
@@ -1236,13 +1230,9 @@ const indeks = [
   ...categories.map((c) => ({ t: c.name, u: `${R}uslugi/${c.slug}/`, k: 'kategoria', o: c.lead })),
   ...CALCS.map((c) => ({ t: `Kalkulator: ${c.h1}`, u: `${R}kalkulator/${c.slug}/`, k: 'kalkulator', o: c.desc })),
   { t: 'Gotowe wyliczenia dla metraży', u: `${R}koszty/`, k: 'spis', o: 'Policzone zakresy dla typowych metraży w jednym miejscu.' },
-  { t: 'Wszystkie kalkulatory', u: `${R}kalkulatory/`, k: 'spis', o: 'Piętnaście kalkulatorów kosztorysu w jednym miejscu.' },
+  { t: 'Wszystkie kalkulatory', u: `${R}kalkulatory/`, k: 'spis', o: `${LICZBA_KALKULATOROW} kalkulatorów kosztorysu w jednym miejscu.` },
   { t: 'Kalkulator remontu mieszkania', u: `${R}kalkulator/remont-mieszkania/`, k: 'kalkulator', o: 'Kosztorys mieszkania pod klucz według metrażu.' },
   { t: 'Kalkulator remontu łazienki', u: `${R}kalkulator/lazienka/`, k: 'kalkulator', o: 'Płytki, hydroizolacja i biały montaż sztuka po sztuce.' },
-  { t: 'Ile materiału kupić', u: `${R}kalkulator/materialy/`, k: 'kalkulator', o: 'Przelicznik z metrów na worki, wiadra i paczki, z zapasem.' },
-  { t: 'Kalkulator remontu pokoju', u: `${R}kalkulator/pokoj/`, k: 'kalkulator', o: 'Gładzie, malowanie, podłoga i listwy dla jednego pomieszczenia.' },
-  { t: 'Kalkulator remontu kuchni', u: `${R}kalkulator/kuchnia/`, k: 'kalkulator', o: 'Instalacje pod sprzęt, fartuch nad blatem, gładzie i podłoga.' },
-  { t: 'Kalkulator wykończenia poddasza', u: `${R}kalkulator/poddasze/`, k: 'kalkulator', o: 'Ocieplenie, zabudowa skosów, ścianki kolankowe i podłoga.' },
   { t: 'Kalkulator wylewki', u: `${R}kalkulator/wylewka/`, k: 'kalkulator', o: 'Objętość zaprawy, liczba worków i cena za m².' },
   ...PORADNIKI.map((p) => ({ t: p.h1, u: `${R}poradnik/${p.slug}/`, k: 'poradnik', o: p.desc })),
   ...POROWNANIA.map((p) => ({ t: `${p.h1}?`, u: `${R}porownanie/${p.slug}/`, k: 'porównanie', o: p.lede })),
@@ -1287,28 +1277,19 @@ const urls = [
   ...staticPages.map((s) => `/${s.slug}/`),
   ...extraUrls,
 ];
-// Data zmiany musi odpowiadac prawdzie, inaczej wyszukiwarka przestaje jej ufac.
-// Tresc stron zalezy od stawek, wiec datujemy je ostatnia kalibracja cennika,
-// a nie dniem, w ktorym akurat uruchomiono budowanie.
-const dataKalibracji = `${meta.checked || meta.updated}-01`;
-// Czestotliwosc zmian zalezy od rodzaju strony: cenniki i kalkulatory zmieniaja
-// sie z kazda kalibracja stawek, poradniki i slownik znacznie rzadziej.
-const czestotliwosc = (u) => {
-  if (u === '/' || u.startsWith('/ceny/') || u.startsWith('/cennik')) return 'weekly';
-  if (u.startsWith('/kalkulator/') || u.startsWith('/koszt-')) return 'weekly';
-  if (u.startsWith('/poradnik/') || u.startsWith('/slownik') || u.startsWith('/porownanie/')) return 'monthly';
-  return 'monthly';
-};
+// Wyszukiwarka nie jest stroną docelową do indeksowania. Nie podajemy lastmod:
+// znamy miesiąc kalibracji danych, ale nie datę zmiany każdej strony.
+const indexableUrls = [...new Set(urls)].filter((u) => u !== '/szukaj/');
 await writeFile(
   join(OUT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-    .map((u) => `  <url><loc>${SITE.base}${u}</loc><lastmod>${dataKalibracji}</lastmod><changefreq>${czestotliwosc(u)}</changefreq></url>`)
+${indexableUrls
+    .map((u) => `  <url><loc>${SITE.url(u).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</loc></url>`)
     .join('\n')}
 </urlset>`
 );
-await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.base}/sitemap.xml\n`);
+await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.url('/sitemap.xml')}\n`);
 await writeFile(join(OUT, '.nojekyll'), '');
 await cp('src/assets', join(OUT, 'assets'), { recursive: true });
 
@@ -1350,7 +1331,7 @@ for (const f of await wszystkiePliki(OUT)) {
 
 // Pliki kopiowane do korzenia (ikony, .htaccess, sitemap) zawsze traktujemy
 // jako zmienione: sa male, a ich pominiecie bylo by trudne do wykrycia.
-const zawszeWysylaj = [...doKorzenia, 'sitemap.xml', 'robots.txt', 'search-index.json', 'assets/style.css'];
+const zawszeWysylaj = [...doKorzenia, '404.html', 'sitemap.xml', 'robots.txt', 'search-index.json', 'assets/style.css', 'assets/kalkulator.js'];
 await writeFile('zmienione.txt', [...zmienione, ...zawszeWysylaj].join('\n') + '\n');
 
 console.log(

@@ -31,7 +31,7 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
     title: `Sprawdź ofertę wykonawcy: czy cena nie jest zawyżona`,
     description: 'Wpisz kwotę z oferty ekipy remontowej i zobacz, czy mieści się w widełkach rynkowych dla Twojego miasta. Porównanie z medianą stawek.',
     path: '/sprawdz-oferte/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Sprawdź ofertę`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Sprawdź ofertę' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Narzędzie</p>
@@ -49,7 +49,7 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
           options: opcje.map((o) => ({ ...o, sel: o.v === 'plytki_sciana' })),
         })}
         <div class="fields-2">
-          ${field({ name: 'ilosc', label: 'Ilość', value: 20, min: 0.1, step: .5 })}
+          ${field({ name: 'ilosc', label: 'Ilość', value: 20, min: 0.1, step: .1 })}
           ${select({ name: 'city', label: 'Miasto', options: cityOptions })}
         </div>
         ${field({ name: 'kwota', label: 'Kwota z oferty, całość', value: 3200, min: 0, step: 10, suffix: 'zł', hint: 'Wpisz sumę z wyceny za tę pozycję, razem z materiałem, jeśli kupuje go wykonawca.' })}
@@ -224,7 +224,7 @@ export function szukajPage({ works, categories, units, unitPrice, slugify } = {}
     title: 'Szukaj w cenniku',
     description: 'Wyszukiwarka robót remontowych, kalkulatorów i poradników w serwisie uslugiceny.pl.',
     path: '/szukaj/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Szukaj`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Szukaj' }],
     body: `
 <section><div class="wrap">
   <h1>Szukaj</h1>
@@ -232,12 +232,13 @@ export function szukajPage({ works, categories, units, unitPrice, slugify } = {}
   <div class="panel" style="margin-top:1.2rem">
     <label class="field">
       <span class="f-label">Czego szukasz</span>
-      <span class="f-input"><input type="search" id="q" name="q" placeholder="np. wylewka, płytki, dach, łazienka" autocomplete="off" autofocus></span>
+      <span class="f-input"><input type="search" id="q" name="q" placeholder="np. wylewka, płytki, dach, łazienka" autocomplete="off" aria-controls="wyniki" aria-describedby="ile" autofocus></span>
     </label>
   </div>
   <h2 style="margin-top:1.8rem">Wyniki</h2>
-  <p class="section-note" id="ile"></p>
-  <div id="wyniki" class="cards"></div>
+  <p class="section-note" id="ile" role="status" aria-live="polite" aria-atomic="true"></p>
+  <button type="button" class="search-retry" id="ponow-szukanie" hidden>Spróbuj ponownie</button>
+  <div id="wyniki" class="cards" aria-busy="true"></div>
 
   ${works && categories && slugify ? (() => {
     // Pusta strona wyszukiwarki nie powinna byc pusta: podpowiadamy kategorie
@@ -279,15 +280,14 @@ const norm = (s) => s.toLowerCase()
   .replace(/ą/g,'a').replace(/ć/g,'c').replace(/ę/g,'e').replace(/ł/g,'l')
   .replace(/ń/g,'n').replace(/ó/g,'o').replace(/ś/g,'s').replace(/[źż]/g,'z');
 let INDEKS = [];
+let stanIndeksu = 'wczytywanie';
 const wej = document.getElementById('q');
 const wyn = document.getElementById('wyniki');
 const ile = document.getElementById('ile');
-
-fetch('${R}search-index.json').then(r => r.json()).then(d => {
-  INDEKS = d.map(x => ({ ...x, szukaj: norm(x.t + ' ' + (x.k || '')) }));
-  const p = new URLSearchParams(location.search).get('q');
-  if (p) { wej.value = p; szukaj(); }
-});
+const ponow = document.getElementById('ponow-szukanie');
+// Odtwarzamy zapytanie tylko raz. Wczytanie indeksu nie może nadpisać tego,
+// co użytkownik zdąży wpisać lub usunąć podczas wolniejszego połączenia.
+wej.value = new URLSearchParams(location.search).get('q') || '';
 
 // Slowa, ktore ludzie dopisuja do zapytania, a ktore nie wystepuja w nazwach
 // pozycji. Bez ich pominiecia "ile kosztuje remont" nie znajduje niczego.
@@ -303,28 +303,85 @@ const podp = document.getElementById('podpowiedzi');
 
 function szukaj(){
   const q = norm(wej.value.trim());
-  if (podp) podp.hidden = q.length >= 2;
-  if (q.length < 2) { wyn.innerHTML = ''; ile.textContent = ''; return; }
+  wyn.replaceChildren();
+  if (podp) podp.hidden = false;
+  ponow.hidden = stanIndeksu !== 'blad';
+  wyn.setAttribute('aria-busy', String(stanIndeksu === 'wczytywanie'));
+  if (stanIndeksu === 'wczytywanie') {
+    ile.textContent = 'Wczytywanie cennika. Wyniki pojawią się automatycznie.';
+    return;
+  }
+  if (stanIndeksu === 'blad') {
+    ile.textContent = 'Nie udało się wczytać wyszukiwarki. Spróbuj ponownie albo wybierz kategorię poniżej.';
+    return;
+  }
+  if (q.length < 2) {
+    ile.textContent = q ? 'Wpisz co najmniej dwa znaki.' : '';
+    return;
+  }
   const slowa = q.split(/\\s+/).filter(s => s && !POMIJANE.has(s));
-  if (!slowa.length) { wyn.innerHTML = ''; ile.textContent = 'Wpisz nazwę roboty, na przykład „płytki” albo „wylewka”.'; return; }
-  const trafienia = INDEKS
-    .filter(x => slowa.every(s => x.szukaj.includes(rdzen(s))))
-    .slice(0, 40);
+  if (!slowa.length) { ile.textContent = 'Wpisz nazwę roboty, na przykład „płytki” albo „wylewka”.'; return; }
+  const dopasowania = INDEKS.filter(x => slowa.every(s => x.szukaj.includes(rdzen(s))));
+  const trafienia = dopasowania.slice(0, 40);
   // Polska liczba mnoga: 1 pozycja, 2-4 pozycje, 5+ pozycji, ale 12-14 pozycji.
   const odmiana = (n) => {
     if (n === 1) return 'pozycję';
     const ost = n % 10, dwie = n % 100;
     return ost >= 2 && ost <= 4 && !(dwie >= 12 && dwie <= 14) ? 'pozycje' : 'pozycji';
   };
-  ile.textContent = trafienia.length
-    ? 'Znaleziono ' + trafienia.length + (trafienia.length === 40 ? ' i więcej' : '') + ' ' + odmiana(trafienia.length) + '.'
+  ile.textContent = dopasowania.length
+    ? 'Znaleziono ' + dopasowania.length + ' ' + odmiana(dopasowania.length) + '.' + (dopasowania.length > 40 ? ' Pokazujemy pierwsze 40.' : '')
     : 'Nic nie znaleziono. Spróbuj krótszego słowa, na przykład „płytki” zamiast „układanie płytek w łazience”.';
-  wyn.innerHTML = trafienia.map(x =>
-    '<div class="card"><h3><a href="' + x.u + '">' + x.t + '</a></h3><p>' + (x.o || '') + '</p></div>'
-  ).join('');
-  history.replaceState(null, '', location.pathname + (q ? '?q=' + encodeURIComponent(wej.value.trim()) : ''));
+  if (podp) podp.hidden = trafienia.length > 0;
+  const fragment = document.createDocumentFragment();
+  for (const x of trafienia) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const title = document.createElement('h3');
+    const link = document.createElement('a');
+    link.href = x.u;
+    link.textContent = x.t;
+    title.appendChild(link);
+    const description = document.createElement('p');
+    description.textContent = x.o || '';
+    card.append(title, description);
+    fragment.appendChild(card);
+  }
+  wyn.appendChild(fragment);
 }
-wej.addEventListener('input', szukaj);`,
+function zapiszZapytanie(){
+  const url = new URL(location.href);
+  const q = wej.value.trim();
+  if (q) url.searchParams.set('q', q);
+  else url.searchParams.delete('q');
+  history.replaceState(null, '', url.pathname + url.search + url.hash);
+}
+async function wczytajIndeks(){
+  if (stanIndeksu === 'wczytywanie' && ponow.disabled) return;
+  stanIndeksu = 'wczytywanie';
+  ponow.disabled = true;
+  szukaj();
+  try {
+    const response = await fetch('${R}search-index.json');
+    if (!response.ok) throw new Error('Niepoprawna odpowiedź serwera');
+    const data = await response.json();
+    if (!Array.isArray(data) || !data.length || data.some(x =>
+      !x || typeof x.t !== 'string' || typeof x.u !== 'string' ||
+      (x.k !== undefined && typeof x.k !== 'string') ||
+      (x.o !== undefined && typeof x.o !== 'string')
+    )) throw new Error('Niepoprawny indeks wyszukiwania');
+    INDEKS = data.map(x => ({ ...x, szukaj: norm(x.t + ' ' + (x.k || '')) }));
+    stanIndeksu = 'gotowy';
+  } catch (error) {
+    stanIndeksu = 'blad';
+  } finally {
+    ponow.disabled = false;
+    szukaj();
+  }
+}
+wej.addEventListener('input', () => { zapiszZapytanie(); szukaj(); });
+ponow.addEventListener('click', wczytajIndeks);
+wczytajIndeks();`,
   });
 }
 
@@ -353,7 +410,7 @@ export function sezonowoscPage() {
     title: `Kiedy remont jest tańszy: sezonowość cen ${YEAR}`,
     description: 'W którym miesiącu zamówić remont, elewację albo dach, żeby zapłacić mniej. Kalendarz obłożenia ekip i różnice stawek w ciągu roku.',
     path: '/kiedy-remontowac/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Kiedy remontować`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Kiedy remontować' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Poradnik</p>
@@ -405,7 +462,7 @@ export function porownajMiastaPage({ works, categories, units, cities, unitPrice
     title: `Porównanie cen remontu w dwóch miastach ${YEAR}`,
     description: 'Zestaw dwa miasta obok siebie i zobacz, o ile różnią się stawki robót remontowych, pozycja po pozycji.',
     path: '/porownaj-miasta/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Porównaj miasta`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Porównaj miasta' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Narzędzie</p>
@@ -558,7 +615,7 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
     title: `Pełny cennik robót remontowych ${YEAR}`,
     description: `Wszystkie ${works.length} pozycji cennika na jednej stronie, z podziałem na robociznę i materiał. Do wydruku i do porównania z ofertą wykonawcy.`,
     path: '/cennik/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Pełne zestawienie`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Pełne zestawienie' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">${works.length} pozycji · aktualizacja ${SITE.updated}</p>
@@ -672,7 +729,7 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
     title: `Za co się płaci w remoncie: robocizna czy materiał`,
     description: 'Udział robocizny i materiału w każdej pozycji cennika. Pokazuje, gdzie negocjacja stawki ma sens, a gdzie taniej wychodzi zakup materiału na własną rękę.',
     path: '/struktura-kosztow/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Struktura kosztów`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Struktura kosztów' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Analiza cennika</p>
@@ -789,7 +846,7 @@ export function aktualizacjePage({ works, meta }) {
     title: `Historia zmian w cenniku`,
     description: 'Co i kiedy zmieniło się w stawkach: kalibracje, weryfikacje wobec cenników wykonawców i poprawki błędów. Pełna lista zmian z uzasadnieniem.',
     path: '/aktualizacje/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Historia zmian`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Historia zmian' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Dziennik zmian</p>
@@ -854,7 +911,7 @@ export function jakCzytacPage({ works, units }) {
     title: 'Jak czytać kosztorys od ekipy remontowej',
     description: 'Co musi być w kosztorysie, żeby dało się go sprawdzić i porównać z inną ofertą: jednostki, ilości, materiał, pozycje warunkowe i harmonogram.',
     path: '/jak-czytac-kosztorys/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Jak czytać kosztorys`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Jak czytać kosztorys' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Poradnik</p>
@@ -911,7 +968,7 @@ export function umowaPage() {
     title: 'Umowa z ekipą remontową: co powinna zawierać',
     description: 'Na co zwrócić uwagę w umowie z wykonawcą: zakres, ryczałt czy kosztorys, harmonogram, zaliczki, kary, odbiór i gwarancja. Praktyczna lista punktów.',
     path: '/umowa-z-ekipa/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Umowa z ekipą`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Umowa z ekipą' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Poradnik</p>
@@ -982,7 +1039,7 @@ export function odbiorPage() {
     title: 'Odbiór prac remontowych: lista kontrolna',
     description: 'Co sprawdzić przy odbiorze remontu: ściany, podłogi, łazienka, instalacje i stolarka. Lista kontrolna i zasady spisywania protokołu usterek.',
     path: '/odbior-prac/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Odbiór prac`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Odbiór prac' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Lista kontrolna</p>
@@ -1034,7 +1091,7 @@ export function wyborEkipyPage() {
     title: 'Jak wybrać ekipę remontową',
     description: 'Na co zwrócić uwagę przy wyborze wykonawcy: co świadczy o rzetelności, jakie sygnały powinny niepokoić i o co zapytać przed podpisaniem umowy.',
     path: '/wybor-ekipy/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Wybór ekipy`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Wybór ekipy' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">Poradnik</p>

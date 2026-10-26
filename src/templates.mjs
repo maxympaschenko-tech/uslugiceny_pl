@@ -13,7 +13,7 @@ export const tytul = (rdzen, ...ogony) => {
   return out;
 };
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /* ---------- szkielet strony ---------- */
 
@@ -48,8 +48,34 @@ const obrazDlaSciezki = (path) => {
 };
 
 export function layout({ title, description, path, body, jsonLd = null, script = '', breadcrumb = null }) {
-  const url = SITE.base + path;
+  const url = SITE.url(path);
   const R = SITE.root;
+  const indexable = path !== '/404.html' && path !== '/szukaj/';
+  const crumbs = breadcrumb?.map((item) => ({ ...item, path: item.path || path }));
+  const inServices = path.startsWith('/uslugi/') || crumbs?.some((item) => item.path.startsWith('/uslugi/'));
+  const pageClass = path === '/' ? 'home' : path.startsWith('/kalkulator/') ? 'page-inner page-calculator' : 'page-inner';
+  const navState = (target, active = target !== '/' && path.startsWith(target)) =>
+    path === target ? ' aria-current="page"' : active ? ' class="is-active"' : '';
+  const schemas = jsonLd ? (Array.isArray(jsonLd) ? [...jsonLd] : [jsonLd]) : [];
+  if (path !== '/404.html') schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    inLanguage: 'pl-PL',
+    isPartOf: { '@id': `${SITE.url('/')}#website` },
+    ...(crumbs?.length ? { breadcrumb: { '@id': `${url}#breadcrumb` } } : {}),
+  });
+  if (crumbs?.length) schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': `${url}#breadcrumb`,
+    itemListElement: crumbs.map((item, i) => ({
+      '@type': 'ListItem', position: i + 1, name: item.name, item: SITE.url(item.path),
+    })),
+  });
   return `<!doctype html>
 <html lang="pl">
 <head>
@@ -57,15 +83,16 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<meta name="theme-color" content="#0C1420">
-<link rel="canonical" href="${url}">
+<meta name="robots" content="${indexable ? 'index, follow, max-image-preview:large' : 'noindex, follow'}">
+<meta name="theme-color" content="#17242B">
+${path === '/404.html' ? '' : `<link rel="canonical" href="${esc(url)}">`}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
-<meta property="og:url" content="${url}">
+<meta property="og:url" content="${esc(url)}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:site_name" content="uslugiceny.pl">
-<meta property="og:image" content="${SITE.base}${R}${obrazDlaSciezki(path)}">
+<meta property="og:image" content="${esc(SITE.url('/' + obrazDlaSciezki(path)))}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="uslugiceny.pl - ceny robót remontowych w Polsce">
@@ -80,7 +107,7 @@ export function layout({ title, description, path, body, jsonLd = null, script =
 <link rel="apple-touch-icon" href="${R}apple-touch-icon.png">
 <link rel="manifest" href="${R}site.webmanifest">
 <link rel="stylesheet" href="${R}assets/style.css?v=${CSS_V}">
-${jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n') : ''}
+${schemas.map((s) => `<script type="application/ld+json">${JSON.stringify(s).replace(/</g, '\\u003c')}</script>`).join('\n')}
 <!-- Zgoda: stan domyslny musi byc ustawiony przed kontenerem GTM -->
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -114,7 +141,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-K6J2NCM9');</script>
 <!-- End Google Tag Manager -->
 </head>
-<body>
+<body class="${pageClass}">
+<a class="skip-link" href="#main">Przejdź do treści</a>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6J2NCM9"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -124,19 +152,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a class="brand" href="${R}">${ZNAK(30)}<span class="brand-tekst">uslugiceny<span>.pl</span></span></a>
     <details class="menu">
       <summary aria-label="Menu"><span class="menu-kreski"></span><span class="menu-napis">Menu</span></summary>
-      <nav class="nav">
-        <a href="${R}"${path === '/' ? ' aria-current="page"' : ''}>Cennik</a>
-        <a href="${R}uslugi/"${path.startsWith('/uslugi') ? ' aria-current="page"' : ''}>Usługi</a>
-        <a href="${R}kalkulatory/"${path.startsWith('/kalkulator') ? ' aria-current="page"' : ''}>Kalkulatory</a>
-        <a href="${R}poradnik/"${path.startsWith('/poradnik') ? ' aria-current="page"' : ''}>Poradniki</a>
-        <a href="${R}sprawdz-oferte/"${path.startsWith('/sprawdz-oferte') ? ' aria-current="page"' : ''}>Sprawdź ofertę</a>
-        <a href="${R}szukaj/"${path.startsWith('/szukaj') ? ' aria-current="page"' : ''}>Szukaj</a>
+      <nav class="nav" aria-label="Nawigacja główna">
+        <a href="${R}"${navState('/')}>Cennik</a>
+        <a href="${R}uslugi/"${navState('/uslugi/', inServices)}>Usługi</a>
+        <a href="${R}kalkulatory/"${navState('/kalkulatory/', path.startsWith('/kalkulator/'))}>Kalkulatory</a>
+        <a href="${R}poradnik/"${navState('/poradnik/')}>Poradniki</a>
+        <a href="${R}sprawdz-oferte/"${navState('/sprawdz-oferte/')}>Sprawdź ofertę</a>
+        <a href="${R}szukaj/"${navState('/szukaj/')}>Szukaj</a>
       </nav>
     </details>
   </div>
 </header>
-${breadcrumb ? `<div class="wrap"><nav class="crumbs">${breadcrumb}</nav></div>` : ''}
-<main>
+${crumbs?.length ? `<div class="wrap"><nav class="crumbs" aria-label="Ścieżka nawigacji"><ol>${crumbs.map((item, i) => `<li>${i === crumbs.length - 1 ? `<span aria-current="page">${esc(item.name)}</span>` : `<a href="${esc(new URL(SITE.url(item.path)).pathname)}">${esc(item.name)}</a>`}</li>`).join('')}</ol></nav></div>` : ''}
+<main id="main" tabindex="-1">
 ${body}
 </main>
 <footer class="site-foot">
@@ -318,12 +346,34 @@ function bindSort(table){
   });
 }
 
+// Link do wyceny jest danymi od użytkownika. Wartości muszą odpowiadać
+// tym samym ograniczeniom co pola, zanim trafią do silnika kosztorysu.
+function validNumber(el, raw){
+  if (raw === '') return true;
+  if (!/^-?(?:[0-9]+|[0-9]*[.][0-9]+)(?:e[+-]?[0-9]+)?$/i.test(raw)) return false;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 0 || n > Number.MAX_SAFE_INTEGER) return false;
+  if (el.min !== '' && n < Number(el.min)) return false;
+  if (el.max !== '' && n > Number(el.max)) return false;
+  if (el.step === 'any') return true;
+  const step = Number(el.step || 1);
+  const base = Number(el.min !== '' ? el.min : el.defaultValue || 0);
+  const steps = (n - base) / step;
+  return Math.abs(steps - Math.round(steps)) < 1e-7;
+}
+
+function validField(el){
+  if (el.type === 'number') return !el.validity.badInput && validNumber(el, el.value);
+  if (el.tagName === 'SELECT') return [...el.options].some(o => o.value === el.value && !o.disabled);
+  return true;
+}
+
 function readForm(form){
   const v = {};
   form.querySelectorAll('[name]').forEach(el => {
     if (el.type === 'checkbox') v[el.name] = el.checked;
     else if (el.type === 'radio') { if (el.checked) v[el.name] = el.value; }
-    else v[el.name] = el.type === 'number' ? parseFloat(el.value || 0) : el.value;
+    else v[el.name] = el.type === 'number' ? (validField(el) ? Number(el.value || 0) : 0) : el.value;
   });
   return v;
 }
@@ -341,19 +391,66 @@ function syncUrl(form){
 function restoreForm(form){
   const p = new URLSearchParams(location.search);
   if (![...p.keys()].length) return;
-  form.querySelectorAll('[name]').forEach(el => {
+  const fields = [...form.querySelectorAll('[name]')];
+  fields.forEach(el => {
     if (!p.has(el.name)) return;
-    if (el.type === 'checkbox') el.checked = p.get(el.name) === '1';
-    else if (el.type === 'radio') el.checked = (el.value === p.get(el.name));
-    else el.value = p.get(el.name);
+    const value = p.get(el.name);
+    if (el.type === 'checkbox') {
+      if (value === '0' || value === '1') el.checked = value === '1';
+    } else if (el.type === 'radio') {
+      if (fields.some(other => other.type === 'radio' && other.name === el.name && other.value === value)) {
+        el.checked = el.value === value;
+      }
+    } else if (el.tagName === 'SELECT') {
+      if ([...el.options].some(o => o.value === value && !o.disabled)) el.value = value;
+    } else if (el.type !== 'number' || validNumber(el, value)) el.value = value;
   });
 }
 function bindForm(form, run){
-  const runAndSync = () => { run(); syncUrl(form); };
-  form.addEventListener('input', runAndSync);
-  form.addEventListener('change', runAndSync);
+  const fields = [...form.querySelectorAll('[name]')];
+  const status = document.createElement('p');
+  status.className = 'f-hint';
+  status.setAttribute('role', 'status');
+  status.hidden = true;
+  form.appendChild(status);
   restoreForm(form);
-  run();
+  const lastValid = new Map(fields.map(el => [el, el.value]));
+  const validate = () => {
+    const invalid = fields.filter(el => !validField(el));
+    fields.forEach(el => {
+      if (invalid.includes(el)) el.setAttribute('aria-invalid', 'true');
+      else el.removeAttribute('aria-invalid');
+    });
+    status.hidden = invalid.length === 0;
+    status.textContent = invalid.length
+      ? 'Popraw zaznaczone pola. Wyświetlany wynik pochodzi z ostatnich poprawnych danych.'
+      : '';
+    return invalid.length === 0;
+  };
+  const runAndSync = () => {
+    if (!validate()) return;
+    run();
+    fields.forEach(el => lastValid.set(el, el.value));
+    syncUrl(form);
+  };
+  const finishEdit = event => {
+    const el = event.target;
+    if (fields.includes(el) && !validField(el)) {
+      el.value = lastValid.get(el);
+      runAndSync();
+      if (status.hidden) {
+        status.hidden = false;
+        status.textContent = 'Przywrócono ostatnią poprawną wartość pola.';
+      }
+    } else runAndSync();
+  };
+  form.addEventListener('input', runAndSync);
+  form.addEventListener('change', finishEdit);
+  form.addEventListener('focusout', event => {
+    if (fields.includes(event.target) && !validField(event.target)) finishEdit(event);
+  });
+  form.addEventListener('submit', event => { event.preventDefault(); finishEdit(event); });
+  if (validate()) run();
 }
 function bindSheetActions(sheet){
   const btnPrint = sheet.querySelector('[data-print]');
@@ -384,7 +481,7 @@ export function estimateSheet({ title, sub = '', id = 'sheet' }) {
   <ul class="rows" data-rows></ul>
   <div class="total">
     <span class="t-label">Razem</span>
-    <span class="t-val" data-total>0 <small>PLN</small></span>
+    <span class="t-val" data-total role="status" aria-live="polite" aria-atomic="true">0 <small>PLN</small></span>
   </div>
   <div class="split" data-split></div>
   <div class="sheet-actions">
@@ -419,5 +516,5 @@ export const check = ({ name, label, checked = false, qty = null }) => `
 <label class="check">
   <input type="checkbox" name="${name}"${checked ? ' checked' : ''}>
   <span>${label}</span>
-  ${qty ? `<input class="qty-in" type="number" name="${name}_qty" value="${qty}" min="0" max="20" step="1" aria-label="ilość">` : ''}
+  ${qty ? `<input class="qty-in" type="number" name="${name}_qty" value="${qty}" min="0" step="1" aria-label="${esc('Ilość: ' + label)}">` : ''}
 </label>`;

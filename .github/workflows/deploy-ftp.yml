@@ -71,7 +71,7 @@ jobs:
         run: |
           set -e
           ILE=$(wc -l < zmienione.txt)
-          USTAWIENIA="set ftp:ssl-allow true; set ssl:verify-certificate no; set ftp:passive-mode true; set net:max-retries 5; set net:reconnect-interval-base 5; set net:timeout 30; set cmd:fail-exit true;"
+          USTAWIENIA="set ftp:ssl-allow true; set ssl:verify-certificate yes; set ftp:passive-mode true; set net:max-retries 5; set net:reconnect-interval-base 5; set net:timeout 30; set cmd:fail-exit true;"
 
           if [ "$ILE" -gt 400 ]; then
             echo "Zmian: $ILE, uzywam pelnego mirrora"
@@ -96,6 +96,27 @@ jobs:
 
       - name: Sprawdzenie strony
         run: |
-          code=$(curl -s -o /dev/null -w '%{http_code}' https://uslugiceny.pl/)
-          echo "Strona glowna: $code"
-          test "$code" = "200"
+          set -euo pipefail
+          sprawdzenie=$(mktemp -d)
+          for plik in index.html assets/style.css assets/kalkulator.js; do
+            adres="$plik"
+            [ "$plik" = "index.html" ] && adres=""
+            curl --fail --silent --show-error --retry 3 --retry-delay 3 \
+              --connect-timeout 15 --max-time 60 -H 'Cache-Control: no-cache' \
+              "https://uslugiceny.pl/$adres?deploy=${GITHUB_SHA}" \
+              --output "$sprawdzenie/$(basename "$plik")"
+          done
+          python3 - "$sprawdzenie/index.html" <<'PY'
+          from pathlib import Path
+          import re
+          import sys
+          lokalna = Path('dist/index.html').read_text(encoding='utf-8')
+          zdalna = Path(sys.argv[1]).read_text(encoding='utf-8')
+          css = re.search(r'/assets/style\.css\?v=[a-f0-9]+', lokalna)
+          assert css and css.group() in zdalna, 'Strona nie wskazuje nowej wersji arkusza stylów'
+          assert '<body class="home">' in zdalna, 'Nieprawidłowa strona główna'
+          print('Strona główna wskazuje wdrożoną wersję stylów.')
+          PY
+          cmp dist/assets/style.css "$sprawdzenie/style.css"
+          cmp dist/assets/kalkulator.js "$sprawdzenie/kalkulator.js"
+          echo "HTML, CSS i silnik kalkulatorów zweryfikowane dla $GITHUB_SHA"

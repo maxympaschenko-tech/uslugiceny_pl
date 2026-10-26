@@ -98,7 +98,7 @@ export function slownikPage({ byId, categories, units, unitPrice, slugify }) {
     title: `Słownik pojęć remontowych i budowlanych ${YEAR}`,
     description: 'Co to jest gładź, ETICS, ciepły montaż, stan deweloperski i mixokret. Krótkie wyjaśnienia pojęć, które pojawiają się w kosztorysach i ofertach ekip.',
     path: '/slownik/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Słownik`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Słownik' }],
     body: `
 <section><div class="wrap">
   <p class="eyebrow">${HASLA.length} haseł</p>
@@ -144,7 +144,7 @@ ${poz
         '@type': 'DefinedTerm',
         name: t,
         description: opis,
-        url: `${SITE.base}${R}slownik/#${id}`,
+        url: SITE.url(`/slownik/#${id}`),
       })),
     },
   });

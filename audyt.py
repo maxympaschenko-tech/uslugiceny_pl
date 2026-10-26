@@ -82,7 +82,8 @@ ciezkie = [(u, round(os.path.getsize(f)/1024)) for f, u in
            if os.path.getsize(f) > 120 * 1024]
 print('--- strony ciezsze niz 120 kB:', len(ciezkie))
 for u, kb in sorted(ciezkie, key=lambda x: -x[1])[:5]: print('   ', kb, 'kB', u)
-css_kb = round(os.path.getsize('dist/assets/style.css')/1024)
+css_bytes = os.path.getsize('dist/assets/style.css')
+css_kb = round(css_bytes/1024)
 print('--- arkusz stylow kB:', css_kb, '(budzet 45)')
 
 # strony bez zadnego linku przychodzacego
@@ -110,6 +111,7 @@ PROGI = [
     ('martwe odnosniki wewnetrzne', len(martwe), 0),
     ('liczby w tresci niezgodne ze stanem', len(_rozbieznosci), 0),
     ('strony ciezsze niz 120 kB', len(ciezkie), 0),
+    ('arkusz stylow w bajtach', css_bytes, 45 * 1024),
     ('strony bez linkow przychodzacych', len(sieroty), 1),
 ]
 

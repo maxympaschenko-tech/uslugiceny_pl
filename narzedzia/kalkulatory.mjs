@@ -17,7 +17,8 @@ if (!existsSync(OUT)) {
 }
 
 const silnik = readFileSync(join(OUT, 'assets', 'kalkulator.js'), 'utf8');
-const api = new Function(`${silnik}\nreturn { estimate, F, R };`)();
+const locationProby = { search: '' };
+const api = new Function('location', `${silnik}\nreturn { estimate, F, R, validNumber, readForm, restoreForm };`)(locationProby);
 
 const bledy = [];
 const sprawdz = (warunek, opis) => {
@@ -86,6 +87,60 @@ sprawdz(premium.labour > srednia.labour,
 sprawdz(premium.material / srednia.material > premium.labour / srednia.labour,
   'standard wpływa na robociznę mocniej niż na materiał, odwrotnie niż zakłada metoda');
 
+// Zapisany link nie może podmienić miasta na nieistniejące ani przemycić
+// ujemnej ilości. Mały adapter pól pozwala sprawdzić publiczne zachowanie
+// restoreForm/readForm bez uruchamiania przeglądarki.
+const pole = (name, value, extra = {}) => ({
+  name, value, defaultValue: value, type: 'number', tagName: 'INPUT',
+  min: '0', max: '', step: 'any', validity: { badInput: false }, ...extra,
+});
+const area = pole('area', '50', { min: '10', max: '300', step: '1' });
+const len = pole('len', '3.2', { min: '1.5', max: '10', step: '0.1' });
+const zero = pole('extra', '1');
+const city = pole('city', 'warszawa', {
+  type: 'select-one', tagName: 'SELECT',
+  options: [{ value: 'warszawa' }, { value: 'bialystok' }, { value: 'disabled', disabled: true }],
+});
+const demont = pole('demont', 'on', { type: 'checkbox', checked: true });
+const radioA = pole('wariant', 'a', { type: 'radio', checked: true });
+const radioB = pole('wariant', 'b', { type: 'radio', checked: false });
+const fields = [area, len, zero, city, demont, radioA, radioB];
+const form = { querySelectorAll: () => fields };
+for (const raw of ['-50', '301', '50.5', '1e309', 'NaN', '20abc', '0x20']) {
+  locationProby.search = '?area=' + encodeURIComponent(raw) + '&city=unknown&demont=unknown&wariant=unknown';
+  api.restoreForm(form);
+  sprawdz(area.value === '50' && city.value === 'warszawa' && demont.checked && radioA.checked,
+    `niepoprawny parametr ${raw} nadpisał domyślne wartości formularza`);
+}
+locationProby.search = '?area=80&len=3.7&extra=0&city=bialystok&demont=0&wariant=b';
+api.restoreForm(form);
+const restored = api.readForm(form);
+sprawdz(restored.area === 80 && restored.len === 3.7 && restored.extra === 0,
+  'poprawny link z liczbą dziesiętną lub zerem nie został odtworzony');
+sprawdz(restored.city === 'bialystok' && restored.demont === false && restored.wariant === 'b',
+  'poprawny link nie odtwarza wyboru miasta, checkboxa lub radia');
+locationProby.search = '?area=&city=disabled';
+api.restoreForm(form);
+sprawdz(area.value === '' && api.readForm(form).area === 0 && city.value === 'bialystok',
+  'puste pole powinno pozostać puste, a wyłączona opcja nie może zostać wybrana');
+zero.value = 'NaN';
+sprawdz(api.readForm(form).extra === 0, 'niepoprawna liczba przedostała się do obliczeń');
+sprawdz(api.validNumber(len, '3.75') === false && api.validNumber(len, '3.7') === true,
+  'walidacja nie respektuje kroku dziesiętnego pola');
+
+let sprawdzonePola = 0;
+const formularze = ['dist/index.html', 'dist/sprawdz-oferte/index.html',
+  ...strony.map(slug => join(OUT, 'kalkulator', slug, 'index.html'))];
+for (const file of formularze) {
+  const html = readFileSync(file, 'utf8');
+  for (const match of html.matchAll(/<input\b[^>]*type="number"[^>]*>/g)) {
+    const attrs = Object.fromEntries([...match[0].matchAll(/([\w-]+)="([^"]*)"/g)].map(m => [m[1], m[2]]));
+    const input = pole(attrs.name, attrs.value || '', { ...attrs, step: attrs.step || '1' });
+    sprawdz(api.validNumber(input, input.value), `${file}: domyślne pole ${input.name} nie spełnia własnych ograniczeń`);
+    sprawdzonePola++;
+  }
+}
+
 if (bledy.length) {
   console.error('KALKULATORY: znaleziono błędy');
   for (const b of bledy) console.error('  -', b);
@@ -93,5 +148,5 @@ if (bledy.length) {
 }
 console.log(
   `Kalkulatory liczą poprawnie: ${strony.length} stron, ${PRZYPADKI.length} przypadków, ` +
-  'współczynnik miejski i standardy zachowują się zgodnie z metodą.'
+  `współczynnik miejski i standardy zachowują się zgodnie z metodą. Linki i ${sprawdzonePola} pól formularzy zweryfikowane.`
 );

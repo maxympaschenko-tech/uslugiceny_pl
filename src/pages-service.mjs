@@ -72,26 +72,22 @@ const doWyliczen = (catId) => {
     .join(' albo ')}.</p>`;
 };
 
-const crumbLd = (items) => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: items.map((it, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    name: it.name,
-    item: SITE.base + it.path,
-  })),
-});
-
-
 /* ---------- wspólne bloki ---------- */
 
 const priceCard = (w, units, avg, min, max) => `
-<div class="price-card" style="--pc-poz:${Math.max(4, Math.min(96, Math.round(((avg - min) / (max - min || 1)) * 100)))}%">
+<div class="price-card service-section" id="cena" tabindex="-1" style="--pc-poz:${Math.max(4, Math.min(96, Math.round(((avg - min) / (max - min || 1)) * 100)))}%">
   <div class="pc-item"><span class="pc-label">Od</span><span class="pc-v">${money(Math.round(min))} zł</span></div>
   <div class="pc-item pc-main"><span class="pc-label">Średnio</span><span class="pc-v">${money(Math.round(avg))} zł</span><span class="pc-unit">za ${unitPl(units, w)}</span></div>
   <div class="pc-item"><span class="pc-label">Do</span><span class="pc-v">${money(Math.round(max))} zł</span></div>
 </div>`;
+
+const serviceNav = (withCities = false) => `
+<nav class="service-nav" aria-label="Na tej stronie">
+  <a href="#cena">Cena</a>
+  <a href="#policz-koszt">Policz koszt</a>
+  ${withCities ? '<a href="#ceny-w-miastach">Ceny w miastach</a>' : ''}
+  <a href="#pytania">Pytania</a>
+</nav>`;
 
 const splitTable = (w, units, lab, mat) => `
 <div class="board-wrap"><table class="board">
@@ -104,7 +100,7 @@ const splitTable = (w, units, lab, mat) => `
 ${pasekPodzialu(lab, mat)}`;
 
 const calcBox = (w, units, cities, cityOptions, preset = null) => `
-<div class="panel">
+<div class="panel service-calculator service-section" id="policz-koszt" tabindex="-1">
   <h2>Policz swój zakres</h2>
   <p class="panel-note">Podaj ilość, a zobaczysz koszt robocizny i materiału osobno.</p>
   <form id="calc">
@@ -112,7 +108,7 @@ const calcBox = (w, units, cities, cityOptions, preset = null) => `
     ${w.perCm ? field({ name: 'cm', label: 'Grubość warstwy', value: 5, min: 1, max: 20, step: 0.5, suffix: 'cm' }) : ''}
     ${preset ? '' : select({ name: 'city', label: 'Miasto', options: cityOptions })}
   </form>
-  <div class="total"><span class="t-label">Szacunkowy koszt</span><span class="t-val" data-out>0 <small>PLN</small></span></div>
+  <div class="total"><span class="t-label">Szacunkowy koszt</span><span class="t-val" data-out role="status" aria-live="polite" aria-atomic="true">0 <small>PLN</small></span></div>
   <p class="range-note" data-out-note></p>
 </div>`;
 
@@ -133,7 +129,7 @@ Ostatnia kalibracja: ${meta.checked || meta.updated}. <a href="${R}jak-liczymy/"
 // Pytania budowane z danych pozycji: kwota, zakres ceny i pierwszy czynnik
 // cenotworczy. Dzieki temu odpowiedzi sa zawsze zgodne z cennikiem, a nie
 // przepisane recznie i rozjezdzajace sie po kolejnej kalibracji.
-const pytania = ({ w, units, kwota, jednostka, gdzie, min, max }) => {
+const pytania = ({ w, kwota, material, jednostka, gdzie, min, max }) => {
   const lista = [
     [
       // nazwy robot trzymamy w mianowniku, wiec pytanie nie moze wymagac odmiany czasownika
@@ -153,7 +149,8 @@ const pytania = ({ w, units, kwota, jednostka, gdzie, min, max }) => {
               : 'Materiał kupuje inwestor, więc jego koszt dochodzi do tej kwoty osobno.'
           } Przy porównywaniu ofert sprawdź, czy druga strona nie wliczyła materiału do stawki: to najczęstsza przyczyna pozornie ogromnych różnic między wycenami.`;
         }
-        const udzialMat = Math.round((w.material * (w.perCm ? 5 : 1)) / kwota * 100);
+        // Ten sam składnik co w tabeli: uwzględnia miasto i grubość warstwy.
+        const udzialMat = Math.round(material / kwota * 100);
         const opisUdzialu =
           udzialMat >= 60
             ? `Materiał to większość tej kwoty, około ${udzialMat}%, więc o cenie decyduje przede wszystkim wybrana półka produktu.`
@@ -171,7 +168,7 @@ const pytania = ({ w, units, kwota, jednostka, gdzie, min, max }) => {
 };
 
 const pytaniaBlock = (lista) => `
-<h2 style="margin-top:2rem">Częste pytania</h2>
+<h2 class="service-section" id="pytania" tabindex="-1" style="margin-top:2rem">Częste pytania</h2>
 ${lista.map(([q, a]) => `<h3 style="margin:1.1rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}`;
 
 const faqLd = (lista) => ({
@@ -229,7 +226,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
 
   // nazwy robót trzymamy w mianowniku, więc zdania budujemy tak, żeby nie wymagały odmiany
   const matWord = w.materialLabel || 'materiałem';
-  const faq = pytania({ w, units, kwota: avg, jednostka: u, gdzie: '', min, max });
+  const faq = pytania({ w, kwota: avg, material: base.material, jednostka: u, gdzie: '', min, max });
   const lead = w.material
     ? `${w.name}: średnio ${money(Math.round(avg))} zł za ${u} razem z ${matWord === 'materiałem' ? 'materiałem' : 'kosztem kontenera'}. Sama robocizna to ${money(Math.round(base.labour))} zł, do tego ${w.materialLabel || 'materiał'} za ${money(Math.round(base.material))} zł.`
     : `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}. To wyłącznie robocizna, ${w.name.toLowerCase().includes('wywóz') ? 'kontener i utylizację liczy się osobno' : 'materiał lub urządzenie kupuje inwestor'}.`;
@@ -238,13 +235,26 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     title: tytul(`${w.name} - cena ${YEAR}`, `: stawka za ${u}`),
     description: `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}, w przedziale od ${money(Math.round(min))} do ${money(Math.round(max))} zł. Robocizna i materiał osobno, stawki w 10 miastach.`,
     path,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/${cat.slug}/">${cat.name}</a> · ${w.name}`,
+    breadcrumb: [
+      { name: 'Cennik', path: '/' },
+      { name: 'Usługi', path: '/uslugi/' },
+      { name: cat.name, path: `/uslugi/${cat.slug}/` },
+      { name: w.name },
+    ],
     body: `
 <section><div class="wrap">
-  <p class="eyebrow">${cat.name} · aktualizacja ${SITE.updated}</p>
-  <h1>${w.name}: cena wykonania</h1>
-  <p class="lede">${lead}</p>
-  ${priceCard(w, units, avg, min, max)}
+  <div class="service-heading">
+    <div>
+      <p class="eyebrow">${cat.name} · aktualizacja ${SITE.updated}</p>
+      <h1>${w.name}: cena wykonania</h1>
+      <p class="lede">${lead}</p>
+    </div>
+    <div class="service-summary">
+      <p class="service-price-label">Orientacyjna stawka za ${u}</p>
+      ${priceCard(w, units, avg, min, max)}
+    </div>
+  </div>
+  ${serviceNav(true)}
   <p class="section-note">Przedział wynika z różnicy między miastami i z rozrzutu stawek w obrębie jednego miasta. Najtaniej wychodzi ${cheapest.loc}, najdrożej ${dearest.loc}.</p>
 
   <div class="calc-grid" style="margin-top:1.6rem">
@@ -259,7 +269,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions)}</div>
   </div>
 
-  <h2 style="margin-top:2rem">Ceny w miastach</h2>
+  <h2 class="service-section" id="ceny-w-miastach" tabindex="-1" style="margin-top:2rem">Ceny w miastach</h2>
   ${(() => {
     // Wniosek liczony z danych: sam wykres pokazuje slupki, ale nie mowi,
     // czy roznica miedzy miastami jest w tej robocie duza, czy pomijalna.
@@ -330,19 +340,9 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
         name: w.name,
         serviceType: cat.name,
         areaServed: { '@type': 'Country', name: 'Polska' },
-        offers: {
-          '@type': 'AggregateOffer',
-          priceCurrency: 'PLN',
-          lowPrice: Math.round(min),
-          highPrice: Math.round(max),
-          offerCount: cities.length,
-        },
+        url: SITE.url(path),
+        description: `Orientacyjna cena: od ${money(Math.round(min))} do ${money(Math.round(max))} zł za ${u}. Stawki modelowane na podstawie cenników; nie są ofertą wykonawcy.`,
       },
-      crumbLd([
-        { name: 'Cennik', path: '/' },
-        { name: cat.name, path: `/uslugi/${cat.slug}/` },
-        { name: w.name, path },
-      ]),
     ],
     script: `const W = ${JSON.stringify({ id: w.id, labour: w.labour, material: w.material, perCm: !!w.perCm, unit: u })};
 const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c.coef, c.name]])))};
@@ -376,22 +376,38 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
   const diff = Math.round((t / nat - 1) * 100);
   const spread = w.spread ?? 0.18;
   const u = unitPl(units, w);
+  const path = `/${cat.slug}/${slugify(w.name)}/${city.slug}/`;
   const others = cities.filter((c) => c.slug !== city.slug).slice(0, 9);
   const faq = pytania({
-    w, units, kwota: t, jednostka: u, gdzie: city.loc,
+    w, kwota: t, material: p.material, jednostka: u, gdzie: city.loc,
     min: t * (1 - spread), max: t * (1 + spread),
   });
 
   return layout({
     title: tytul(`${w.name} ${city.loc}`, ` - cennik ${YEAR}`, ''),
     description: `${w.name} ${city.loc}: średnio ${money(Math.round(t))} zł za ${u}, w przedziale od ${money(Math.round(t * (1 - spread)))} do ${money(Math.round(t * (1 + spread)))} zł.`,
-    path: `/${cat.slug}/${slugify(w.name)}/${city.slug}/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/${cat.slug}/">${cat.name}</a> · <a href="${R}${cat.slug}/${slugify(w.name)}/">${w.name}</a> · ${city.name}`,
+    path,
+    breadcrumb: [
+      { name: 'Cennik', path: '/' },
+      { name: 'Usługi', path: '/uslugi/' },
+      { name: cat.name, path: `/uslugi/${cat.slug}/` },
+      { name: w.name, path: `/${cat.slug}/${slugify(w.name)}/` },
+      { name: city.name },
+    ],
     body: `
 <section><div class="wrap">
-  <p class="eyebrow">${city.name} · województwo ${city.voivodeship}</p>
-  <h1>${w.name} ${city.loc}</h1>
-  <p class="lede">Stawka ${city.loc} to około ${money(Math.round(t))} zł za ${u}, czyli ${diff === 0 ? 'tyle, ile średnio w kraju' : diff > 0 ? `o ${diff}% powyżej średniej krajowej` : `o ${Math.abs(diff)}% poniżej średniej krajowej`}.</p>
+  <div class="service-heading">
+    <div>
+      <p class="eyebrow">${city.name} · województwo ${city.voivodeship}</p>
+      <h1>${w.name} ${city.loc}</h1>
+      <p class="lede">Stawka ${city.loc} to około ${money(Math.round(t))} zł za ${u}, czyli ${diff === 0 ? 'tyle, ile średnio w kraju' : diff > 0 ? `o ${diff}% powyżej średniej krajowej` : `o ${Math.abs(diff)}% poniżej średniej krajowej`}.</p>
+    </div>
+    <div class="service-summary">
+      <p class="service-price-label">Orientacyjna stawka za ${u}</p>
+      ${priceCard(w, units, t, t * (1 - spread), t * (1 + spread))}
+    </div>
+  </div>
+  ${serviceNav()}
   ${(() => {
     // Skad ta roznica: wspolczynnik miejski dziala na robocizne w pelni,
     // a na material tylko czesciowo, wiec odchylenie zalezy od tego,
@@ -417,8 +433,6 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
         : `Najtaniej wychodzi ${najtansze.loc}: ${money(kwotaNaj)} zł.`;
     return `<p class="section-note">${powod} ${porownanie}</p>`;
   })()}
-  ${priceCard(w, units, t, t * (1 - spread), t * (1 + spread))}
-
   <div class="calc-grid" style="margin-top:1.6rem">
     <div>
       <h2>Robocizna i materiał ${city.loc}</h2>
@@ -468,19 +482,9 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
         name: `${w.name} ${city.loc}`,
         serviceType: cat.name,
         areaServed: { '@type': 'City', name: city.name },
-        offers: {
-          '@type': 'AggregateOffer',
-          priceCurrency: 'PLN',
-          lowPrice: Math.round(t * (1 - spread)),
-          highPrice: Math.round(t * (1 + spread)),
-        },
+        url: SITE.url(path),
+        description: `Orientacyjna cena ${city.loc}: od ${money(Math.round(t * (1 - spread)))} do ${money(Math.round(t * (1 + spread)))} zł za ${u}. Stawki modelowane na podstawie cenników; nie są ofertą wykonawcy.`,
       },
-      crumbLd([
-        { name: 'Cennik', path: '/' },
-        { name: cat.name, path: `/uslugi/${cat.slug}/` },
-        { name: w.name, path: `/${cat.slug}/${slugify(w.name)}/` },
-        { name: city.name, path: `/${cat.slug}/${slugify(w.name)}/${city.slug}/` },
-      ]),
     ],
     script: `const W = ${JSON.stringify({ labour: w.labour, material: w.material, perCm: !!w.perCm })};
 const COEF = ${city.coef};
@@ -522,7 +526,11 @@ export function categoryPage({ cat, works, units, unitPrice, podlinkuj = (x) => 
       return (baza + ogon).length <= 160 ? baza + ogon : baza;
     })(),
     path: `/uslugi/${cat.slug}/`,
-    breadcrumb: `<a href="${R}">Cennik</a> · <a href="${R}uslugi/">Usługi</a> · ${cat.name}`,
+    breadcrumb: [
+      { name: 'Cennik', path: '/' },
+      { name: 'Usługi', path: '/uslugi/' },
+      { name: cat.name },
+    ],
     body: `
 <section><div class="wrap">
   <h1>${ikona(cat.id)} ${cat.name}</h1>
@@ -582,7 +590,7 @@ export function servicesIndex({ categories, works, units, unitPrice }) {
     title: `Cennik robót remontowych ${YEAR}: wszystkie usługi`,
     description: 'Pełna lista robót remontowych ze średnimi stawkami: demontaże, tynki, wylewki, płytki, hydraulika, elektryka i wykończenia.',
     path: '/uslugi/',
-    breadcrumb: `<a href="${R}">Cennik</a> · Usługi`,
+    breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Usługi' }],
     body: `
 <section><div class="wrap">
   <h1>Wszystkie roboty</h1>

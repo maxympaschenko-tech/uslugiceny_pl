@@ -23,6 +23,18 @@ jobs:
       - name: Budowanie
         run: node build.mjs
 
+      - name: Adresy i prefiksy witryny
+        run: node narzedzia/adresy.mjs
+
+      - name: Linkowanie pojęć bez uszkadzania HTML
+        run: node narzedzia/linkowanie.mjs
+
+      - name: Indeksowanie, mapa witryny i metadane
+        run: python3 narzedzia/seo.py
+
+      - name: Odpowiedzi zgodne z cenami i nawigacja usług
+        run: python3 narzedzia/odpowiedzi.py
+
       - name: Dane strukturalne
         run: python3 kontrola-schematow.py
 
