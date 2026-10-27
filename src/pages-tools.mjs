@@ -554,9 +554,8 @@ const POD_KLUCZ = ${JSON.stringify(
         ? 'Brak danych do porównania kosztu remontu w tych miastach.'
         : roznicaRobocizny === 0
         ? 'Oba miasta mają ten sam współczynnik stawek, więc kwoty wychodzą identyczne.'
-        : (roznicaRobocizny > 0
-            ? nb + ' jest droższe od ' + CITIES[v.a][3] + ' o ' + roznicaRobocizny
-            : nb + ' jest tańsze od ' + CITIES[v.a][3] + ' o ' + Math.abs(roznicaRobocizny)) +
+        : 'Stawki ' + gdzieB + ' są ' + (roznicaRobocizny > 0 ? 'wyższe' : 'niższe') +
+          ' niż ' + gdzieA + ' o ' + Math.abs(roznicaRobocizny) +
           '% w robociźnie. W praktyce: remont mieszkania 50 m² kosztuje ' +
           F(remontA) + ' zł ' + gdzieA + ' i ' + F(remontB) + ' zł ' + gdzieB +
           ', czyli różnica ' + F(Math.abs(remontB - remontA)) + ' zł przy tym samym zakresie.';
