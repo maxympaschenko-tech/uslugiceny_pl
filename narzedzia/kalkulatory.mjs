@@ -18,7 +18,7 @@ if (!existsSync(OUT)) {
 
 const silnik = readFileSync(join(OUT, 'assets', 'kalkulator.js'), 'utf8');
 const locationProby = { search: '' };
-const api = new Function('location', `${silnik}\nreturn { estimate, F, R, validNumber, readForm, restoreForm };`)(locationProby);
+const api = new Function('location', `${silnik}\nreturn { estimate, drawEstimate, F, R, validNumber, readForm, restoreForm };`)(locationProby);
 
 const bledy = [];
 const sprawdz = (warunek, opis) => {
@@ -86,6 +86,29 @@ sprawdz(premium.labour > srednia.labour,
   'standard nie wpływa na robociznę');
 sprawdz(premium.material / srednia.material > premium.labour / srednia.labour,
   'standard wpływa na robociznę mocniej niż na materiał, odwrotnie niż zakłada metoda');
+
+// Jednostka stawki wynika z mianownika: liczba okien i metry ogrodzenia
+// nie mogą być podpisane jako metry kwadratowe. Dawni wywołujący nadal
+// przekazują perM2, więc sprawdzamy również ten wariant.
+const elementyKosztorysu = Object.fromEntries(
+  ['[data-rows]', '[data-total]', '[data-split]'].map(selector => [selector, { innerHTML: '' }])
+);
+const widokKosztorysu = { querySelector: selector => elementyKosztorysu[selector] };
+const probaJednostki = { lines: [], labour: 700, material: 300, total: 1000 };
+for (const [options, oczekiwane] of [
+  [{ perM2: 20 }, 'Za m² <b>50</b>'],
+  [{ perUnit: 5, unit: 'okno' }, 'Za okno <b>200</b>'],
+  [{ perUnit: 40, unit: 'mb' }, 'Za mb <b>25</b>'],
+]) {
+  api.drawEstimate(widokKosztorysu, W, probaJednostki, options);
+  sprawdz(elementyKosztorysu['[data-split]'].innerHTML.includes(oczekiwane),
+    `stawka jednostkowa ma niewłaściwą jednostkę lub kwotę: ${oczekiwane}`);
+}
+for (const quantity of [0, -1, Infinity, NaN]) {
+  api.drawEstimate(widokKosztorysu, W, probaJednostki, { perUnit: quantity, unit: 'mb' });
+  sprawdz(!elementyKosztorysu['[data-split]'].innerHTML.includes('Za mb'),
+    'stawka jednostkowa pojawia się bez poprawnego, dodatniego mianownika');
+}
 
 // Zapisany link nie może podmienić miasta na nieistniejące ani przemycić
 // ujemnej ilości. Mały adapter pól pozwala sprawdzić publiczne zachowanie

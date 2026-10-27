@@ -342,20 +342,6 @@ h3 { font-family: var(--f-display); font-weight: 700; letter-spacing: -0.02em; }
 .split b { color: var(--ink); font-weight: 400; }
 .receipt-foot { font-size: var(--step--2); color: var(--ink-soft); margin: .8rem 0 0; line-height: 1.5; }
 
-/* przełącznik wariantu */
-.profiles {
-  display: flex; margin: 0 0 1.1rem;
-  border: 1px solid var(--line); border-radius: var(--r-s); overflow: hidden;
-}
-.profiles button {
-  flex: 1; appearance: none; border: 0; background: var(--surface); cursor: pointer;
-  font: inherit; font-size: var(--step--1); padding: .5rem .3rem; color: var(--ink-soft);
-  border-right: 1px solid var(--line);
-}
-.profiles button:last-child { border-right: 0; }
-.profiles button:hover { background: var(--line-2); color: var(--ink); }
-.profiles button[aria-pressed="true"] { background: var(--ink); color: #fff; }
-
 /* ---------- skala ceny: element rozpoznawczy ---------- */
 
 .price-card {
@@ -612,28 +598,35 @@ main .city-links a:hover { border-color: var(--ink); }
 
 /* ---------- wydruk ---------- */
 
+.print-context { display: none; }
 @media print {
-  /* Na papierze liczy się kosztorys, nie nawigacja. Reszta znika,
-     a pozycje dostają czarny tekst na bieli, żeby nie zjeść tonera. */
-  .site-head, .site-foot, .crumbs, .nav, .service-nav, .skip-link, .sheet-actions,
-  .panel, .board-wrap, .cards, .draft-flag, .source-flag,
-  .price-card, ul.factors { display: none !important; }
-
+  @page { margin: 14mm; }
+  .site-head, .site-foot, .crumbs, .nav, .service-nav, .skip-link, .sheet-actions { display: none !important; }
   body { background: #fff; color: #000; font-size: 11pt; }
-  .calc-grid { display: block; }
+  a { color: inherit; text-decoration: none; }
+  .calc-grid { display: block; margin-top: 0 !important; }
   .sticky-sheet { position: static; }
   .wrap { width: 100%; }
   section { padding: 0; }
-
-  .receipt {
-    border: 1px solid #999; box-shadow: none; animation: none;
-    padding: 1.2rem; break-inside: avoid;
-  }
+  h1 { font-size: 16pt; margin-bottom: .4rem; }
+  h2, h3 { break-after: avoid; }
+  .print-estimate main > section > .wrap > :not(h1):not(.calc-grid),
+  .print-estimate .calc-grid > .panel, .print-pricelist .panel { display: none !important; }
+  .receipt { border: 1px solid #999; box-shadow: none; animation: none; padding: .8rem; break-inside: auto; }
+  .receipt-head { break-after: avoid; }
+  .rows li { padding: .35rem 0; font-size: 10pt; }
+  .rows li, .total, table.board tr { break-inside: avoid; }
+  .cat-head { break-after: avoid; }
   .receipt::after { content: "uslugiceny.pl · wyliczenie orientacyjne, nie jest ofertą handlową"; display: block; margin-top: 1rem; font-size: 8pt; color: #555; }
   .total { background: #fff !important; color: #000 !important; border-top: 2px solid #000; }
   .total .t-val, .total .t-label, .total .t-val small { color: #000 !important; }
-  h1 { font-size: 16pt; margin-bottom: .4rem; }
-  .lede, .section-note, h2, h3 { display: none; }
+  .board-wrap { overflow: visible; border: 0; box-shadow: none; }
+  table.board { font-size: 9pt; table-layout: fixed; }
+  table.board th, table.board td { white-space: normal; padding: .4rem; }
+  table.board th:first-child { width: 43%; }
+  table.board thead th { position: static; }
+  table.board thead { display: table-header-group; }
+  .print-context { display: block; font-size: 10pt; }
 }
 
 /* ---------- baner zgody ---------- */

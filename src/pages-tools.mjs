@@ -238,7 +238,8 @@ export function szukajPage({ works, categories, units, unitPrice, slugify } = {}
   <h2 style="margin-top:1.8rem">Wyniki</h2>
   <p class="section-note" id="ile" role="status" aria-live="polite" aria-atomic="true"></p>
   <button type="button" class="search-retry" id="ponow-szukanie" hidden>Spróbuj ponownie</button>
-  <div id="wyniki" class="cards" aria-busy="true"></div>
+  <noscript><p class="source-flag">Wyszukiwarka wymaga JavaScript. Możesz przejrzeć <a href="${R}uslugi/">katalog robót</a> albo wybrać kategorię poniżej.</p></noscript>
+  <div id="wyniki" class="cards" aria-busy="false"></div>
 
   ${works && categories && slugify ? (() => {
     // Pusta strona wyszukiwarki nie powinna byc pusta: podpowiadamy kategorie
@@ -477,7 +478,7 @@ export function porownajMiastaPage({ works, categories, units, cities, unitPrice
         ${select({ name: 'b', label: 'Drugie miasto', options: opcje.map((o) => ({ ...o, sel: o.v === 'lodz' })) })}
       </div>
     </form>
-    <div class="total"><span class="t-label">Różnica dla remontu 50 m²</span><span class="t-val" data-roznica>—</span></div>
+    <div class="total"><span class="t-label">Różnica dla remontu 50 m²</span><span class="t-val" data-roznica role="status" aria-live="polite" aria-atomic="true">—</span></div>
     <p class="range-note" data-podsumowanie></p>
   </div>
 
@@ -534,23 +535,28 @@ const POD_KLUCZ = ${JSON.stringify(
       html += '</tbody></table></div>';
     }
     tab.innerHTML = html;
-    const roznica = Math.round((cb / ca - 1) * 100);
-    document.querySelector('[data-roznica]').textContent = (roznica > 0 ? '+' : '') + roznica + '%';
-    document.querySelector('[data-roznica]').className = 't-val ' + (roznica > 0 ? 'werdykt-wysoko' : roznica < 0 ? 'werdykt-ok' : '');
+    const roznicaRobocizny = Math.round((cb / ca - 1) * 100);
     // Sam procent nic nie mowi: przeliczamy go na remont mieszkania 50 m2
     // i na jedna typowa pozycje, zeby roznica miala skale.
     const zaM2a = POD_KLUCZ[v.a] ? POD_KLUCZ[v.a].standard : 0;
     const zaM2b = POD_KLUCZ[v.b] ? POD_KLUCZ[v.b].standard : 0;
     const remontA = Math.round(zaM2a * 50);
     const remontB = Math.round(zaM2b * 50);
+    const maDane = remontA > 0 && remontB > 0;
+    const roznica = maDane ? Math.round((remontB / remontA - 1) * 100) : null;
+    document.querySelector('[data-roznica]').textContent = roznica === null
+      ? '—' : (roznica > 0 ? '+' : '') + roznica + '%';
+    document.querySelector('[data-roznica]').className = 't-val ' + (roznica > 0 ? 'werdykt-wysoko' : roznica < 0 ? 'werdykt-ok' : '');
     const gdzieA = CITIES[v.a][2], gdzieB = CITIES[v.b][2];
 
     document.querySelector('[data-podsumowanie]').textContent =
-      roznica === 0
+      !maDane
+        ? 'Brak danych do porównania kosztu remontu w tych miastach.'
+        : roznicaRobocizny === 0
         ? 'Oba miasta mają ten sam współczynnik stawek, więc kwoty wychodzą identyczne.'
-        : (roznica > 0
-            ? nb + ' jest droższe od ' + CITIES[v.a][3] + ' o ' + roznica
-            : nb + ' jest tańsze od ' + CITIES[v.a][3] + ' o ' + Math.abs(roznica)) +
+        : (roznicaRobocizny > 0
+            ? nb + ' jest droższe od ' + CITIES[v.a][3] + ' o ' + roznicaRobocizny
+            : nb + ' jest tańsze od ' + CITIES[v.a][3] + ' o ' + Math.abs(roznicaRobocizny)) +
           '% w robociźnie. W praktyce: remont mieszkania 50 m² kosztuje ' +
           F(remontA) + ' zł ' + gdzieA + ' i ' + F(remontB) + ' zł ' + gdzieB +
           ', czyli różnica ' + F(Math.abs(remontB - remontA)) + ' zł przy tym samym zakresie.';
@@ -620,6 +626,7 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
 <section><div class="wrap">
   <p class="eyebrow">${works.length} pozycji · aktualizacja ${SITE.updated}</p>
   <h1>Pełny cennik na jednej stronie</h1>
+  <p class="print-context" data-print-city>Średnia dla Polski · ceny w zł z VAT · aktualizacja ${SITE.updated}. Stawki orientacyjne.</p>
   <p class="lede">Całe zestawienie bez klikania: wszystkie roboty, robocizna i materiał osobno. Wygodne do wydruku i do zestawienia z ofertą od ekipy.</p>
   ${sourceFlag}
 
@@ -637,9 +644,11 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
 (function(){
   const f = document.getElementById('calc');
   const info = document.querySelector('[data-info]');
+  const printCity = document.querySelector('[data-print-city]');
   bindForm(f, () => {
     const v = readForm(f);
     const [coef, nazwa] = v.city ? CITIES[v.city] : [1, null];
+    printCity.textContent = (nazwa ? 'Miasto: ' + nazwa : 'Średnia dla Polski') + ' · ceny w zł z VAT · aktualizacja ${SITE.updated}. Stawki orientacyjne.';
     document.querySelectorAll('table.board tbody tr').forEach(tr => {
       const kl = tr.cells[2], km = tr.cells[3], kr = tr.cells[4];
       const l = parseFloat(kl.dataset.l), m = parseFloat(km.dataset.m), cm = parseFloat(km.dataset.cm || 1);

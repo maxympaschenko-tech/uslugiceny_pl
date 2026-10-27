@@ -7,8 +7,8 @@
 # zamiast przechodzic po FTP cale drzewo 1250 stron: samo obejscie katalogow
 # przez lftp trwalo kilkanascie minut, nawet gdy nie bylo czego wysylac.
 #
-# Gdy zmian jest duzo (np. po zmianie arkusza stylow, ktory wystepuje w kazdej
-# stronie), oplaca sie zwykly mirror i wtedy workflow przelacza sie na niego.
+# Takze duze zmiany wysylamy wprost z manifestu: mput -d -P 4 tworzy katalogi
+# i wysyla do czterech plikow naraz, bez rekurencyjnego porownywania zdalnego drzewa.
 #
 # Sekrety: Settings > Secrets and variables > Actions
 #   FTP_SERVER    uageek.ftp.tools
@@ -64,41 +64,17 @@ jobs:
 
       - name: Wyslij na hosting
         env:
-          HOST: ${{ secrets.FTP_SERVER }}
-          USER: ${{ secrets.FTP_USER }}
-          PASS: ${{ secrets.FTP_PASSWORD }}
-          DIR: ${{ secrets.FTP_DIR }}
-        run: |
-          set -e
-          ILE=$(wc -l < zmienione.txt)
-          USTAWIENIA="set ftp:ssl-allow true; set ssl:verify-certificate yes; set ftp:passive-mode true; set net:max-retries 5; set net:reconnect-interval-base 5; set net:timeout 30; set cmd:fail-exit true;"
-
-          if [ "$ILE" -gt 400 ]; then
-            echo "Zmian: $ILE, uzywam pelnego mirrora"
-            lftp -c "$USTAWIENIA set mirror:parallel-transfer-count 4; open -u '$USER','$PASS' '$HOST'; mirror -R --only-newer --no-perms --verbose=1 dist/ '$DIR'; bye"
-          else
-            echo "Zmian: $ILE, wysylam pojedyncze pliki"
-            {
-              echo "$USTAWIENIA"
-              echo "open -u '$USER','$PASS' '$HOST';"
-              echo "cd '$DIR';"
-              while read -r f; do
-                [ -z "$f" ] && continue
-                [ -f "dist/$f" ] || continue
-                d=$(dirname "$f")
-                if [ "$d" != "." ]; then echo "mkdir -p -f '$d';"; fi
-                echo "put -O '$d' 'dist/$f';"
-              done < zmienione.txt
-              echo "bye"
-            } > /tmp/polecenia.lftp
-            lftp -f /tmp/polecenia.lftp
-          fi
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: ${{ secrets.FTP_DIR }}
+        run: python3 narzedzia/wyslij-ftp.py
 
       - name: Sprawdzenie strony
         run: |
           set -euo pipefail
           sprawdzenie=$(mktemp -d)
-          for plik in index.html assets/style.css assets/kalkulator.js; do
+          for plik in index.html assets/style.css assets/kalkulator.js sitemap.xml; do
             adres="$plik"
             [ "$plik" = "index.html" ] && adres=""
             curl --fail --silent --show-error --retry 3 --retry-delay 3 \
@@ -119,4 +95,5 @@ jobs:
           PY
           cmp dist/assets/style.css "$sprawdzenie/style.css"
           cmp dist/assets/kalkulator.js "$sprawdzenie/kalkulator.js"
-          echo "HTML, CSS i silnik kalkulatorów zweryfikowane dla $GITHUB_SHA"
+          cmp dist/sitemap.xml "$sprawdzenie/sitemap.xml"
+          echo "HTML, CSS, silnik kalkulatorów i mapa witryny zweryfikowane dla $GITHUB_SHA"

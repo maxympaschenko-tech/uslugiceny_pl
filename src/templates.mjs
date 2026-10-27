@@ -54,6 +54,8 @@ export function layout({ title, description, path, body, jsonLd = null, script =
   const crumbs = breadcrumb?.map((item) => ({ ...item, path: item.path || path }));
   const inServices = path.startsWith('/uslugi/') || crumbs?.some((item) => item.path.startsWith('/uslugi/'));
   const pageClass = path === '/' ? 'home' : path.startsWith('/kalkulator/') ? 'page-inner page-calculator' : 'page-inner';
+  const printClass = path === '/cennik/' ? ' print-pricelist'
+    : path.startsWith('/kalkulator/') || path.startsWith('/koszt-remontu/') ? ' print-estimate' : '';
   const navState = (target, active = target !== '/' && path.startsWith(target)) =>
     path === target ? ' aria-current="page"' : active ? ' class="is-active"' : '';
   const schemas = jsonLd ? (Array.isArray(jsonLd) ? [...jsonLd] : [jsonLd]) : [];
@@ -141,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-K6J2NCM9');</script>
 <!-- End Google Tag Manager -->
 </head>
-<body class="${pageClass}">
+<body class="${pageClass}${printClass}">
 <a class="skip-link" href="#main">Przejdź do treści</a>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6J2NCM9"
@@ -301,6 +303,8 @@ function estimate(W, lines, coef, levelK){
 
 function drawEstimate(root, W, est, opts){
   opts = opts || {};
+  const quantity = Number(opts.perUnit ?? opts.perM2 ?? 0);
+  const unit = opts.unit || 'm²';
   let html = '';
   for (const cat of W.categories){
     const rows = est.lines.filter(l => l.cat === cat.id);
@@ -319,7 +323,8 @@ function drawEstimate(root, W, est, opts){
   const split = root.querySelector('[data-split]');
   if (split) split.innerHTML =
     '<span>Robocizna <b>' + F(R(est.labour)) + '</b></span><span>Materiały <b>' + F(R(est.material)) + '</b></span>' +
-    (opts.perM2 ? '<span>Za m² <b>' + F(R(est.total / opts.perM2)) + '</b></span>' : '');
+    (Number.isFinite(quantity) && quantity > 0
+      ? '<span>Za ' + unit + ' <b>' + F(R(est.total / quantity)) + '</b></span>' : '');
 }
 
 function bindSort(table){
@@ -488,7 +493,7 @@ export function estimateSheet({ title, sub = '', id = 'sheet' }) {
     <button type="button" data-print>Drukuj lub zapisz PDF</button>
     <button type="button" data-copy>Kopiuj link do wyceny</button>
   </div>
-  <p class="receipt-foot">Materiały ze średniej półki. Ekipa może podzielić robociznę i materiał inaczej. Link zawiera wpisane parametry, więc możesz wysłać to wyliczenie wykonawcy.</p>
+  <p class="receipt-foot">Zakres i wariant materiałów wynikają z parametrów kalkulatora. Ekipa może podzielić robociznę i materiał inaczej. Link zawiera wpisane parametry, więc możesz wysłać to wyliczenie wykonawcy.</p>
 </div>`;
 }
 

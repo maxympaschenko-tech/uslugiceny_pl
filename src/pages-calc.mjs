@@ -387,6 +387,7 @@ export const CALCS = [
   },
   {
     slug: 'wymiana-okien',
+    priceUnit: 'okno',
     kontekst: [['Co najczęściej wypada z wyceny', 'Obróbka ościeży po montażu i parapety. Sam montaż to jedna pozycja, ale okno zostawia po sobie surowe ościeże, które trzeba otynkować, wygładzić i pomalować, a to osobna robota, często innej ekipy.'], ['Co podnosi kwotę', 'Piętro i sposób wniesienia stolarki. Wielka płyta z warstwową ścianą, gdzie montaż trwa dwa razy dłużej. Rolety zewnętrzne, zwłaszcza podtynkowe, które wymagają skrzynki przewidzianej przed tynkowaniem.']],
     h1: 'Wymiana okien',
     title: `Kalkulator wymiany okien ${YEAR}: ile kosztuje montaż`,
@@ -539,6 +540,7 @@ export const CALCS = [
   },
   {
     slug: 'ogrodzenie',
+    priceUnit: 'mb',
     kontekst: [['Co najczęściej wypada z wyceny', 'Fundamenty i przewody. Słupki idą poniżej strefy przemarzania, a przy bramie stopy są większe, bo przenoszą obciążenie ruchome. Zasilanie napędu i domofon trzeba ułożyć przed betonowaniem, inaczej dochodzi rozkuwanie.'], ['Co podnosi kwotę', 'Podmurówka, która potrafi kosztować tyle co same przęsła. Teren pochyły, wymagający schodkowania. Automatyka bramy z fotokomórkami i listwą bezpieczeństwa, liczona osobno od samej bramy.']],
     h1: 'Ogrodzenie posesji',
     title: `Kalkulator ogrodzenia ${YEAR}: cena za metr bieżący`,
@@ -669,9 +671,9 @@ const CITIES = ${CITY_MAP};
     const add = (id, qty) => L.push({ id, qty: Math.round(qty * 100) / 100, cm: 5 });
     ${c.logic}
     const est = estimate(W, L, coef, level.k);
-    drawEstimate(sheet, W, est, { perM2: window.__area });
+    drawEstimate(sheet, W, est, { perUnit: window.__area, unit: ${JSON.stringify(c.priceUnit || 'm²')} });
     sheet.querySelector('[data-sheet-title]').textContent = cityName;
-    sheet.querySelector('[data-sheet-sub]').textContent = window.__sub;
+    sheet.querySelector('[data-sheet-sub]').textContent = window.__sub + ' · standard: ' + level.name.toLowerCase();
   });
   bindSheetActions(sheet);
 })();`,
@@ -778,6 +780,10 @@ function materialyPage({ c, sourceFlag }) {
       <div class="receipt">
         <div class="receipt-head">Lista zakupów<strong data-suma>—</strong><span data-sub>ilości z zapasem, w pełnych opakowaniach</span></div>
         <ul class="rows" data-rows></ul>
+        <div class="sheet-actions">
+          <button type="button" data-print>Drukuj lub zapisz PDF</button>
+          <button type="button" data-copy>Kopiuj link do listy</button>
+        </div>
         <p class="receipt-foot">Zużycie zależy od chłonności podłoża i techniki pracy. Podane wartości są typowe dla średnich warunków, a wiążące jest zawsze to, co producent podaje na opakowaniu.</p>
       </div>
     </div>
@@ -806,6 +812,7 @@ function materialyPage({ c, sourceFlag }) {
   const f = document.getElementById('calc');
   const rows = document.querySelector('[data-rows]');
   const suma = document.querySelector('[data-suma]');
+  const sheet = document.querySelector('.receipt');
   const wiersz = (nazwa, ile, jedn, uwaga) =>
     '<li><span class="label"><span>' + nazwa + '</span>' + (uwaga ? '<span class="qty">' + uwaga + '</span>' : '') +
     '</span><span class="val">' + F(ile) + ' ' + jedn + '</span></li>';
@@ -835,6 +842,7 @@ function materialyPage({ c, sourceFlag }) {
       '<li><span class="label"><span>Podaj powierzchnie po lewej</span></span><span class="val">—</span></li>';
     suma.textContent = poz.length ? poz.length + ' pozycji' : '—';
   });
+  bindSheetActions(sheet);
 })();`,
   });
 }

@@ -174,7 +174,7 @@ Settings → Secrets and variables → Actions → Secrets:
 | Sekret | Wartość |
 |---|---|
 | `FTP_SERVER` | `uageek.ftp.tools` |
-| `FTP_USERNAME` | osobny użytkownik FTP, np. `uageek_uslugiceny` |
+| `FTP_USER` | osobny użytkownik FTP, np. `uageek_uslugiceny` |
 | `FTP_PASSWORD` | hasło tego użytkownika |
 | `FTP_DIR` | `./` |
 
@@ -264,11 +264,18 @@ Kontrole uruchamiane lokalnie oraz ręcznie przez workflow `Kontrola` w GitHub A
 | `narzedzia/seo.py` | porównuje canonical, sitemap i dane strukturalne z wygenerowanymi stronami; sprawdza kotwice, unikalność identyfikatorów, `noindex`, hierarchię nawigacji, indeks wyszukiwania i pliki do wysyłki |
 | `narzedzia/linkowanie.mjs` | sprawdza odmiany pojęć, granice słów i istniejący HTML, aby kolejne hasło słownika nie uszkodziło utworzonego odnośnika |
 | `narzedzia/odpowiedzi.py` | porównuje odpowiedzi o materiale z tabelami cen i JSON-LD na stronach usług oraz sprawdza skróty do sekcji |
+| `narzedzia/porownanie.mjs` | sprawdza wszystkie pary miast: główny procent dotyczy pełnego kosztu remontu, a różnica robocizny jest opisana osobno |
+| `narzedzia/wysylka-test.py` | sprawdza manifest, ścieżki, podział wysyłki na partie, obsługę błędów i przekazanie hasła do lftp przez środowisko |
 
 Po zmianach uruchom `node build.mjs`, a następnie kontrole z powyższej tabeli.
 Test kalkulatorów obejmuje też niepoprawne parametry udostępnianych linków
 i zgodność domyślnych wartości formularzy z ich ograniczeniami. Ceny modelowe
 są opisane jako orientacyjne; nie publikujemy ich w schematach jako ofert firm.
+
+Wydruk kalkulatora zawiera kosztorys z wybranym miastem i standardem; listę
+materiałów można też wydrukować lub udostępnić linkiem. `Drukuj cennik` zapisuje
+pełne zestawienie z wybranym miastem i datą kalibracji. Ceny jednostkowe są
+opisane właściwą jednostką: m², metr ogrodzenia albo okno.
 
 ## Zasada: liczby wymagają zdania
 
@@ -392,6 +399,8 @@ opakowaniem nie znajdzie funkcji silnika.
 
 ## Wdrożenie
 
+Historyczne pomiary dla małej aktualizacji:
+
 | Etap | Czas |
 |---|---|
 | budowa 1251 stron | 2 s |
@@ -410,14 +419,25 @@ Dojście do tych liczb zajęło kilka podejść i warto pamiętać, co dało efe
 3. Build wypisuje listę zmienionych stron do `zmienione.txt`, a workflow wysyła
    wyłącznie je. Efekt: **42 sekundy**.
 
-Przy więcej niż 400 zmienionych plikach workflow wraca do `mirror`, bo wtedy
-porównanie całości jest szybsze niż setki osobnych poleceń `put`.
+Obecnie `narzedzia/wyslij-ftp.py` wysyła manifest przez `mput -d -P 4`, również
+przy dużych zmianach. Tworzy potrzebne katalogi i przesyła najwyżej cztery pliki
+naraz bez rekurencyjnego porównywania zdalnego drzewa. Partie mają po 100 plików.
+Brak pliku lub błąd transferu kończy krok błędem. Hasło przekazywane jest przez
+`LFTP_PASSWORD`; nie trafia do argumentów procesu ani pliku poleceń. Weryfikacja
+certyfikatu TLS pozostaje włączona. Po wysyłce workflow sprawdza wersję HTML oraz
+zgodność bajtową CSS, JavaScript i mapy witryny z plikami bieżącej wersji.
+
+Testy lokalne obejmowały FTPS z weryfikacją CA i nazwy hosta na serwerze testowym
+TLS 1.2 oraz zwykły FTP na loopbacku. Testowy stos TLS 1.3 sporadycznie obcinał
+duże pliki zarówno dla helpera, jak i oryginalnego polecenia lftp; nie zmieniamy
+z tego powodu protokołów produkcyjnych. Dlatego weryfikacja plików po rzeczywistym
+wdrożeniu pozostaje częścią workflow.
 
 ## Budowanie przyrostowe
 
 `build.mjs` nie kasuje katalogu `dist` i nadpisuje tylko pliki o zmienionej treści.
-Ma to jeden konkretny cel: `lftp` wysyła na serwer pliki nowsze niż zdalne, więc
-przepisanie wszystkich stron przy każdej poprawce oznaczało wysyłkę całego serwisu.
+Porównanie treści wyznacza manifest do wysłania, więc niezmienione strony nie
+trafiają ponownie na serwer przy każdej poprawce.
 
 Konsekwencje, o których warto wiedzieć:
 

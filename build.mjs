@@ -650,7 +650,7 @@ const CITIES = ${CITY_MAP};
     const est = estimate(W, L, coef, level.k);
     drawEstimate(sheet, W, est, { perM2: floor });
     sheet.querySelector('[data-sheet-title]').textContent = cityName + ', ' + F(Math.round(floor * 10) / 10) + ' m²';
-    sheet.querySelector('[data-sheet-sub]').textContent = F(Math.round(wall)) + ' m² płytek na ścianach';
+    sheet.querySelector('[data-sheet-sub]').textContent = F(Math.round(wall)) + ' m² płytek na ścianach · standard ' + level.name.toLowerCase();
   });
   bindSheetActions(sheet);
 })();`,

@@ -53,5 +53,11 @@ jobs:
       - name: Dzialanie kalkulatorow
         run: node narzedzia/kalkulatory.mjs
 
+      - name: Porownanie calkowitych kosztow miedzy miastami
+        run: node narzedzia/porownanie.mjs
+
+      - name: Plan wysylki FTP i przekazywanie uwierzytelnienia
+        run: python3 narzedzia/wysylka-test.py
+
       - name: Audyt i progi jakosci
         run: python3 audyt.py
