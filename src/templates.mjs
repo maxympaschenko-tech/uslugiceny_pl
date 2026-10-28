@@ -385,13 +385,15 @@ function readForm(form){
 // Parametry formularza ladują w adresie strony, dzięki czemu wyliczenie da się
 // wysłać wykonawcy albo zapisać w zakładkach i wrócić do niego później.
 function syncUrl(form){
-  const p = new URLSearchParams();
+  // Na stronie może być kilka niezależnych kalkulatorów. Zmiana jednego
+  // nie może kasować parametrów drugiego ani kotwicy bieżącego wyniku.
+  const p = new URLSearchParams(location.search);
   form.querySelectorAll('[name]').forEach(el => {
     if (el.type === 'checkbox') p.set(el.name, el.checked ? '1' : '0');
     else if (el.type === 'radio') { if (el.checked) p.set(el.name, el.value); }
     else p.set(el.name, el.value);
   });
-  history.replaceState(null, '', location.pathname + '?' + p.toString());
+  history.replaceState(null, '', location.pathname + '?' + p.toString() + location.hash);
 }
 function restoreForm(form){
   const p = new URLSearchParams(location.search);

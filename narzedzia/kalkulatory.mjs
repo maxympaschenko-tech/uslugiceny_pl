@@ -17,8 +17,12 @@ if (!existsSync(OUT)) {
 }
 
 const silnik = readFileSync(join(OUT, 'assets', 'kalkulator.js'), 'utf8');
-const locationProby = { search: '' };
-const api = new Function('location', `${silnik}\nreturn { estimate, drawEstimate, F, R, validNumber, readForm, restoreForm };`)(locationProby);
+const locationProby = { search: '', pathname: '/sprawdz-oferte/', hash: '#calosc' };
+const historyProby = { replaceState: (_state, _title, address) => {
+  const url = new URL(address, 'https://uslugiceny.pl');
+  Object.assign(locationProby, { search: url.search, pathname: url.pathname, hash: url.hash });
+} };
+const api = new Function('location', 'history', `${silnik}\nreturn { estimate, drawEstimate, F, R, validNumber, readForm, restoreForm, syncUrl };`)(locationProby, historyProby);
 
 const bledy = [];
 const sprawdz = (warunek, opis) => {
@@ -150,6 +154,33 @@ zero.value = 'NaN';
 sprawdz(api.readForm(form).extra === 0, 'niepoprawna liczba przedostała się do obliczeń');
 sprawdz(api.validNumber(len, '3.75') === false && api.validNumber(len, '3.7') === true,
   'walidacja nie respektuje kroku dziesiętnego pola');
+
+// Dwie wyceny na jednej stronie muszą przetrwać naprzemienne zmiany
+// i ponowne otwarcie linku. Kotwica kieruje odbiorcę do tego samego wyniku.
+const pierwszaOferta = [pole('kwota', '4800'), pole('ilosc', '30')];
+const calaOferta = [pole('suma', '95000'), pole('metraz', '70')];
+locationProby.search = '?utm_source=zakladka&suma=80000&metraz=60';
+api.syncUrl({ querySelectorAll: () => pierwszaOferta });
+let zapisane = new URLSearchParams(locationProby.search);
+sprawdz(zapisane.get('suma') === '80000' && zapisane.get('metraz') === '60',
+  'zmiana pojedynczej pozycji usunęła zapisane parametry całej oferty');
+api.syncUrl({ querySelectorAll: () => calaOferta });
+zapisane = new URLSearchParams(locationProby.search);
+sprawdz(zapisane.get('kwota') === '4800' && zapisane.get('ilosc') === '30' && zapisane.get('suma') === '95000',
+  'zmiana całej wyceny usunęła parametry pojedynczej pozycji');
+sprawdz(zapisane.get('utm_source') === 'zakladka' && locationProby.hash === '#calosc',
+  'zapis wyceny zgubił kotwicę lub pozostałe parametry adresu');
+pierwszaOferta.forEach(el => { el.value = '0'; });
+calaOferta.forEach(el => { el.value = '0'; });
+api.restoreForm({ querySelectorAll: () => pierwszaOferta });
+api.restoreForm({ querySelectorAll: () => calaOferta });
+sprawdz(pierwszaOferta[0].value === '4800' && calaOferta[0].value === '95000' && calaOferta[1].value === '70',
+  'ponowne otwarcie wspólnego linku nie odtworzyło obu ofert');
+demont.checked = false;
+api.syncUrl({ querySelectorAll: () => [demont] });
+zapisane = new URLSearchParams(locationProby.search);
+sprawdz(zapisane.get('demont') === '0' && zapisane.get('kwota') === '4800',
+  'wyłączenie checkboxa nie zostało zapisane lub usunęło inną wycenę');
 
 let sprawdzonePola = 0;
 const formularze = ['dist/index.html', 'dist/sprawdz-oferte/index.html',

@@ -14,7 +14,11 @@ hosting przez FTP i GitHub Actions.
 ```bash
 node build.mjs        # budowa do dist/
 npm run dev           # budowa + lokalny serwer na http://localhost:4321
+npm run serve         # serwer dla wcześniej zbudowanego dist/
 ```
+
+Lokalny serwer działa na Node.js 20 lub nowszym. Podaje skrypty, indeks wyszukiwarki
+i pozostałe zasoby z właściwymi typami MIME, tak jak hosting produkcyjny.
 
 Zmienne środowiskowe:
 
@@ -260,6 +264,7 @@ Kontrole uruchamiane lokalnie oraz ręcznie przez workflow `Kontrola` w GitHub A
 | `narzedzia/szerokosc.py` | typowe przyczyny poziomego przewijania na telefonie: sztywne szerokości, tabele bez opakowania, brak `min-width: 0` |
 | `narzedzia/spojnosc-cen.py` | czy ta sama pozycja pokazuje tę samą kwotę na stronie pozycji, w pełnym cenniku i na stronie kategorii |
 | `narzedzia/kalkulatory.mjs` | uruchamia silnik na trzech zakresach i sprawdza, czy kwoty są sensowne, czy współczynnik miejski działa tylko na robociznę i czy standardy układają się rosnąco |
+| `node --test narzedzia/serwer-test.mjs` | sprawdza lokalny serwer: MIME skryptów, JSON, obrazów i fontów, indeksy katalogów, błędy HTTP i ścieżki poza katalogiem strony |
 | `narzedzia/adresy.mjs` | sprawdza domenę, prefiks podkatalogu, kodowanie adresów i odrzucanie niepoprawnej konfiguracji |
 | `narzedzia/seo.py` | porównuje canonical, sitemap i dane strukturalne z wygenerowanymi stronami; sprawdza kotwice, unikalność identyfikatorów, `noindex`, hierarchię nawigacji, indeks wyszukiwania i pliki do wysyłki |
 | `narzedzia/linkowanie.mjs` | sprawdza odmiany pojęć, granice słów i istniejący HTML, aby kolejne hasło słownika nie uszkodziło utworzonego odnośnika |
@@ -268,8 +273,9 @@ Kontrole uruchamiane lokalnie oraz ręcznie przez workflow `Kontrola` w GitHub A
 | `narzedzia/wysylka-test.py` | sprawdza manifest, ścieżki, podział wysyłki na partie, obsługę błędów i przekazanie hasła do lftp przez środowisko |
 
 Po zmianach uruchom `node build.mjs`, a następnie kontrole z powyższej tabeli.
-Test kalkulatorów obejmuje też niepoprawne parametry udostępnianych linków
-i zgodność domyślnych wartości formularzy z ich ograniczeniami. Ceny modelowe
+Test kalkulatorów obejmuje też niepoprawne parametry udostępnianych linków,
+zachowanie obu ocen oferty i kotwicy w jednym adresie oraz zgodność domyślnych
+wartości formularzy z ich ograniczeniami. Ceny modelowe
 są opisane jako orientacyjne; nie publikujemy ich w schematach jako ofert firm.
 
 Wydruk kalkulatora zawiera kosztorys z wybranym miastem i standardem; listę

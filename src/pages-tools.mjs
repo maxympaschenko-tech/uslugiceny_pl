@@ -75,6 +75,7 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
         <div class="total"><span class="t-label">Różnica wobec mediany</span><span class="t-val" data-roznica>—</span></div>
         <p class="receipt-foot" data-rada></p>
         <p class="receipt-foot" data-gdziedalej></p>
+        <div class="sheet-actions"><button type="button" data-copy>Kopiuj link do oceny</button></div>
       </div>
     </div>
   </div>
@@ -96,6 +97,7 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
     <div class="total"><span class="t-label">Ocena całej wyceny</span><span class="t-val" data-werdykt2>—</span></div>
     <ul class="rows" data-rows2></ul>
     <p class="receipt-foot" data-rada2></p>
+    <div class="sheet-actions"><button type="button" data-copy>Kopiuj link do całej wyceny</button></div>
   </div>
 
   <h2 style="margin-top:2.5rem">Jak czytać wynik</h2>
@@ -182,6 +184,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
       'Mediana dla tej roboty ' + (v.zakres === 'robocizna' ? '(sama robocizna)' : '(z materiałem)') +
       ': ' + F(R(jedn)) + ' zł za ' + w.unit + '.';
   });
+  bindSheetActions(box);
 })();
 
 (function(){
@@ -213,6 +216,7 @@ const CITIES = ${JSON.stringify(Object.fromEntries(cities.map((c) => [c.slug, [c
         ? 'Kwota powyżej widełek. To bywa uzasadnione zakresem szerszym niż standardowy albo terminem na już, ale warto poprosić o rozpisanie na pozycje.'
         : 'Kwota mieści się w widełkach dla tego metrażu i miasta. Przy porównywaniu ofert liczy się teraz zakres, a nie sama suma.';
   });
+  bindSheetActions(f.parentElement);
 })();`,
   });
 }

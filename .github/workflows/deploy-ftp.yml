@@ -74,13 +74,14 @@ jobs:
         run: |
           set -euo pipefail
           sprawdzenie=$(mktemp -d)
-          for plik in index.html assets/style.css assets/kalkulator.js sitemap.xml; do
+          for plik in index.html assets/style.css assets/kalkulator.js sitemap.xml sprawdz-oferte/index.html; do
             adres="$plik"
             [ "$plik" = "index.html" ] && adres=""
+            mkdir -p "$(dirname "$sprawdzenie/$plik")"
             curl --fail --silent --show-error --retry 3 --retry-delay 3 \
               --connect-timeout 15 --max-time 60 -H 'Cache-Control: no-cache' \
               "https://uslugiceny.pl/$adres?deploy=${GITHUB_SHA}" \
-              --output "$sprawdzenie/$(basename "$plik")"
+              --output "$sprawdzenie/$plik"
           done
           python3 - "$sprawdzenie/index.html" <<'PY'
           from pathlib import Path
@@ -93,7 +94,8 @@ jobs:
           assert '<body class="home">' in zdalna, 'Nieprawidłowa strona główna'
           print('Strona główna wskazuje wdrożoną wersję stylów.')
           PY
-          cmp dist/assets/style.css "$sprawdzenie/style.css"
-          cmp dist/assets/kalkulator.js "$sprawdzenie/kalkulator.js"
+          cmp dist/assets/style.css "$sprawdzenie/assets/style.css"
+          cmp dist/assets/kalkulator.js "$sprawdzenie/assets/kalkulator.js"
           cmp dist/sitemap.xml "$sprawdzenie/sitemap.xml"
-          echo "HTML, CSS, silnik kalkulatorów i mapa witryny zweryfikowane dla $GITHUB_SHA"
+          cmp dist/sprawdz-oferte/index.html "$sprawdzenie/sprawdz-oferte/index.html"
+          echo "HTML, CSS, silnik kalkulatorów, ocena ofert i mapa witryny zweryfikowane dla $GITHUB_SHA"
