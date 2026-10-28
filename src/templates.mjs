@@ -236,6 +236,23 @@ ${body}
 </div>
 <script>
 (function(){
+  var menu = document.querySelector('details.menu');
+  var toggle = menu.querySelector('summary');
+  menu.addEventListener('keydown', function(event){
+    if (event.key === 'Escape' && menu.open) {
+      event.preventDefault();
+      menu.open = false;
+      toggle.focus();
+    }
+  });
+  menu.addEventListener('focusout', function(event){
+    if (event.relatedTarget && !menu.contains(event.relatedTarget)) menu.open = false;
+  });
+  document.addEventListener('click', function(event){
+    if (menu.open && !menu.contains(event.target)) menu.open = false;
+  });
+})();
+(function(){
   var box = document.getElementById('zgoda');
   var KLUCZ = 'zgoda-cookies';
   function zapisz(analytics){
@@ -327,6 +344,30 @@ function drawEstimate(root, W, est, opts){
       ? '<span>Za ' + unit + ' <b>' + F(R(est.total / quantity)) + '</b></span>' : '');
 }
 
+// Widoczna cena może zawierać przecinek, nierozdzielającą spację lub zł.
+// parseFloat('1 200') zwraca 1, przez co droższa pozycja trafiała przed 900 zł.
+function sortNumber(value){
+  const text = String(value).trim().replace(/\\s/g, '').replace(/−/g, '-').replace(',', '.');
+  const match = text.match(/^([+-]?(?:[0-9]+(?:[.][0-9]+)?|[.][0-9]+)(?:e[+-]?[0-9]+)?)(?:zł|PLN|%)?$/i);
+  if (!match) return null;
+  const number = Number(match[1]);
+  return Number.isFinite(number) ? number : null;
+}
+
+function sortTable(table, column, direction){
+  const body = table.tBodies[0];
+  [...body.rows].sort((a, b) => {
+    const av = a.cells[column].dataset.v ?? a.cells[column].textContent;
+    const bv = b.cells[column].dataset.v ?? b.cells[column].textContent;
+    const an = sortNumber(av), bn = sortNumber(bv);
+    if (an !== null && bn !== null) return (an - bn) * direction;
+    // Wpisy bez ceny, np. materiał własny, pozostają pod kwotami.
+    if (an !== null) return -1;
+    if (bn !== null) return 1;
+    return String(av).localeCompare(String(bv), 'pl') * direction;
+  }).forEach(row => body.appendChild(row));
+}
+
 function bindSort(table){
   if (!table) return;
   const heads = table.querySelectorAll('thead th');
@@ -337,14 +378,7 @@ function bindSort(table){
       const dir = th.getAttribute('aria-sort') === 'ascending' ? -1 : 1;
       heads.forEach(h => h.removeAttribute('aria-sort'));
       th.setAttribute('aria-sort', dir === 1 ? 'ascending' : 'descending');
-      const body = table.tBodies[0];
-      [...body.rows].sort((a, b) => {
-        const av = a.cells[i].dataset.v ?? a.cells[i].textContent;
-        const bv = b.cells[i].dataset.v ?? b.cells[i].textContent;
-        const an = parseFloat(av), bn = parseFloat(bv);
-        if (!isNaN(an) && !isNaN(bn)) return (an - bn) * dir;
-        return String(av).localeCompare(String(bv), 'pl') * dir;
-      }).forEach(r => body.appendChild(r));
+      sortTable(table, i, dir);
     };
     th.addEventListener('click', run);
     th.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); run(); } });

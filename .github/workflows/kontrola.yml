@@ -56,6 +56,9 @@ jobs:
       - name: Lokalny serwer i typy zasobow
         run: node --test narzedzia/serwer-test.mjs
 
+      - name: Sortowanie polskich cen w tabelach
+        run: node narzedzia/tabele.mjs
+
       - name: Porownanie calkowitych kosztow miedzy miastami
         run: node narzedzia/porownanie.mjs
 

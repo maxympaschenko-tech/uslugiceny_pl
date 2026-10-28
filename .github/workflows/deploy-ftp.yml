@@ -74,7 +74,7 @@ jobs:
         run: |
           set -euo pipefail
           sprawdzenie=$(mktemp -d)
-          for plik in index.html assets/style.css assets/kalkulator.js sitemap.xml sprawdz-oferte/index.html; do
+          for plik in index.html assets/style.css assets/kalkulator.js sitemap.xml sprawdz-oferte/index.html cennik/index.html; do
             adres="$plik"
             [ "$plik" = "index.html" ] && adres=""
             mkdir -p "$(dirname "$sprawdzenie/$plik")"
@@ -98,4 +98,5 @@ jobs:
           cmp dist/assets/kalkulator.js "$sprawdzenie/assets/kalkulator.js"
           cmp dist/sitemap.xml "$sprawdzenie/sitemap.xml"
           cmp dist/sprawdz-oferte/index.html "$sprawdzenie/sprawdz-oferte/index.html"
-          echo "HTML, CSS, silnik kalkulatorów, ocena ofert i mapa witryny zweryfikowane dla $GITHUB_SHA"
+          cmp dist/cennik/index.html "$sprawdzenie/cennik/index.html"
+          echo "HTML, CSS, silnik kalkulatorów, cennik, ocena ofert i mapa witryny zweryfikowane dla $GITHUB_SHA"

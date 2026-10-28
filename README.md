@@ -265,6 +265,7 @@ Kontrole uruchamiane lokalnie oraz ręcznie przez workflow `Kontrola` w GitHub A
 | `narzedzia/spojnosc-cen.py` | czy ta sama pozycja pokazuje tę samą kwotę na stronie pozycji, w pełnym cenniku i na stronie kategorii |
 | `narzedzia/kalkulatory.mjs` | uruchamia silnik na trzech zakresach i sprawdza, czy kwoty są sensowne, czy współczynnik miejski działa tylko na robociznę i czy standardy układają się rosnąco |
 | `node --test narzedzia/serwer-test.mjs` | sprawdza lokalny serwer: MIME skryptów, JSON, obrazów i fontów, indeksy katalogów, błędy HTTP i ścieżki poza katalogiem strony |
+| `narzedzia/tabele.mjs` | sprawdza sortowanie polskich cen z przecinkiem i separatorem tysięcy, metadane, klawiaturę oraz utrzymanie kierunku po przeliczeniu stawek |
 | `narzedzia/adresy.mjs` | sprawdza domenę, prefiks podkatalogu, kodowanie adresów i odrzucanie niepoprawnej konfiguracji |
 | `narzedzia/seo.py` | porównuje canonical, sitemap i dane strukturalne z wygenerowanymi stronami; sprawdza kotwice, unikalność identyfikatorów, `noindex`, hierarchię nawigacji, indeks wyszukiwania i pliki do wysyłki |
 | `narzedzia/linkowanie.mjs` | sprawdza odmiany pojęć, granice słów i istniejący HTML, aby kolejne hasło słownika nie uszkodziło utworzonego odnośnika |
