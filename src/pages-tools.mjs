@@ -448,6 +448,11 @@ export function sezonowoscPage() {
   <p class="section-note">Sezon nie wpływa na czas schnięcia. Wylewka cementowa potrzebuje mniej więcej tygodnia na każdy centymetr grubości niezależnie od tego, czy jest luty, czy lipiec. Podobnie systemy elewacyjne: poniżej pięciu stopni po prostu nie wiążą, a powyżej dwudziestu pięciu tynk schnie tak szybko, że zostawia ślady łączeń. To granice technologii, a nie kwestia dobrej woli wykonawcy.</p>
 
   <p class="receipt-foot" style="margin-top:1.4rem">Masz już wycenę? Sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Planujesz zakres? Zajrzyj do <a href="${R}poradnik/">poradników o kolejności prac</a>.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">W którym miesiącu remont jest najtańszy?</h3>
+  <p class="section-note">Prace wewnętrzne najtaniej wychodzą od listopada do lutego, kiedy ekipy mają puste kalendarze. Prace zewnętrzne na przełomie września i października, gdy sezon się kończy, a stawki bywają o dziesięć do piętnastu procent niższe niż w maju.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Czy zimą można ocieplać dom?</h3>
+  <p class="section-note">Systemy elewacyjne wymagają temperatury powyżej pięciu stopni. Istnieją materiały zimowe pozwalające pracować niżej, ale kosztują więcej i mają węższe okno bezpieczeństwa, więc przy planowanej termomodernizacji lepiej poczekać do wiosny.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -492,6 +497,9 @@ export function porownajMiastaPage({ works, categories, units, cities, unitPrice
   </div>
 
   <div id="tabela" style="margin-top:1.6rem"></div>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Dlaczego ceny remontu różnią się między miastami?</h3>
+  <p class="section-note">Różnica siedzi niemal w całości w robociźnie: dostępności ekip, poziomie płac i kosztach prowadzenia działalności. Materiały budowlane kosztują w całym kraju podobnie, bo pochodzą z tych samych sieci dystrybucji.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -722,6 +730,11 @@ export function strukturaKosztowPage({ works, categories, units, unitPrice }) {
   </ul>
 
   <p class="receipt-foot" style="margin-top:1.4rem">Masz konkretną wycenę? Sprawdź ją w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Całe zestawienie stawek jest w <a href="${R}cennik/">pełnym cenniku</a>.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Czy opłaca się kupować materiał samemu?</h3>
+  <p class="section-note">Przy pozycjach, w których materiał i tak kupuje inwestor, nie ma wyboru. W pozostałych zakup na własną rękę bywa tańszy, ale przenosi na inwestora odpowiedzialność za ilości, dowóz i braki w trakcie prac.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Gdzie negocjacja ceny remontu ma największy sens?</h3>
+  <p class="section-note">Tam, gdzie kwota to niemal wyłącznie robocizna, czyli przy demontażach, montażach i pracach przygotowawczych. Przy okładzinach o cenie decyduje głównie wybrana półka materiału.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -831,6 +844,9 @@ export function aktualizacjePage({ works, meta }) {
 
   <h2 style="margin-top:2.2rem">Jak często aktualizujemy</h2>
   <p class="section-note">Stawki przeglądamy okresowo, a datę ostatniej kalibracji widać pod każdą pozycją cennika. Jeśli prowadzisz ekipę i widzisz, że któraś pozycja odbiega od realiów Twojego rynku, napisz: takie zgłoszenia trafiają do kolejnego przeglądu. Adres jest na stronie <a href="${R}kontakt/">Kontakt</a>.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Jak często aktualizowane są stawki?</h3>
+  <p class="section-note">Cennik przeglądamy okresowo, a datę ostatniej kalibracji widać pod każdą pozycją. Historia zmian wraz z uzasadnieniem jest publikowana na osobnej stronie.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -895,6 +911,13 @@ export function jakCzytacPage({ works, units }) {
   <h2 style="margin-top:2.2rem">Co zrobić z gotową wyceną</h2>
   <p class="section-note">Przelicz kwotę na jednostkę i porównaj z medianą rynkową w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Odchylenie kilkunastu procent w górę mieści się w normalnym rozrzucie: dobra ekipa z zapełnionym kalendarzem ma prawo kosztować więcej. Większa różnica to sygnał do rozmowy, a nie do zerwania kontaktu.</p>
   <p class="section-note">Gdy kosztorys jest już uzgodniony, kolejne kroki opisują poradniki o <a href="${R}umowa-z-ekipa/">umowie z ekipą</a> i o <a href="${R}odbior-prac/">odbiorze prac</a>.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Dlaczego dwie oferty na ten sam remont tak się różnią?</h3>
+  <p class="section-note">Najczęściej dlatego, że obejmują różny zakres. Jedna wlicza materiał, druga nie, jedna liczy demontaż i wywóz gruzu, druga zakłada gotowe podłoże. Porównywać można dopiero po zestawieniu pozycja po pozycji.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Co to jest kosztorys ślepy?</h3>
+  <p class="section-note">Zestawienie zakresu i ilości robót bez cen, rozsyłane wykonawcom do wyceny. Dzięki temu każda oferta ma ten sam zakres i da się je porównać wiersz po wierszu, zamiast zestawiać same sumy końcowe.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Co powinna zawierać każda pozycja kosztorysu?</h3>
+  <p class="section-note">Nazwę roboty, jednostkę, ilość, stawkę jednostkową i informację, czy materiał jest po stronie wykonawcy. Bez tego pozycji nie da się sprawdzić ani porównać.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -944,6 +967,13 @@ export function umowaPage() {
 
   <h2 style="margin-top:2.2rem">Zanim podpiszesz</h2>
   <p class="section-note">Po podpisaniu przyda się jeszcze <a href="${R}odbior-prac/">lista kontrolna do odbioru</a>, najlepiej uzgodniona z wykonawcą już na starcie. Sprawdź też, czy kwota mieści się w rynkowych widełkach: przelicz ją na jednostkę w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>. Upewnij się, że kosztorys da się w ogóle porównać z innymi, według listy w poradniku <a href="${R}jak-czytac-kosztorys/">jak czytać kosztorys</a>. I zajrzyj do <a href="${R}poradnik/">kolejności prac</a>, żeby harmonogram w umowie miał sens technologiczny, a nie tylko kalendarzowy.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Ryczałt czy rozliczenie kosztorysowe?</h3>
+  <p class="section-note">Ryczałt to jedna kwota za cały zakres, bezpieczniejsza dla inwestora, ale wykonawca dolicza do niej zapas na niespodzianki. Rozliczenie kosztorysowe płaci się za faktycznie wykonane ilości, co bywa uczciwsze przy zmiennym zakresie, ale wymaga kontrolowania obmiaru.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Jaka zaliczka dla ekipy remontowej jest normalna?</h3>
+  <p class="section-note">Zaliczka na materiał potrzebny na start jest standardem. Zapłata z góry za całość nie. Bezpieczny układ to płatności po zakończonych etapach, z ostatnią transzą po odbiorze i usunięciu usterek.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Czy wykonawca musi dać gwarancję?</h3>
+  <p class="section-note">Rękojmia za wady wynika z przepisów i obejmuje roboty budowlane niezależnie od zapisów umowy. Gwarancja jest dobrowolną deklaracją wykonawcy, dlatego warto zapisać w umowie jej długość i zakres.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -1018,6 +1048,13 @@ export function odbiorPage() {
   <p class="section-note">Skuteczności hydroizolacji, jakości wykonania instalacji pod tynkiem i tego, czy wylewka była dostatecznie sucha przed ułożeniem podłogi. Te rzeczy ujawniają się po miesiącach i dlatego obejmuje je rękojmia. To także powód, dla którego warto oglądać etapy w trakcie, a nie ufać, że wyjdzie na jaw przy odbiorze.</p>
 
   <p class="receipt-foot" style="margin-top:1.4rem">Zanim podpiszesz protokół, sprawdź, czy zakres zgadza się z <a href="${R}jak-czytac-kosztorys/">kosztorysem</a>, a warunki odbioru z <a href="${R}umowa-z-ekipa/">umową</a>.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Jak sprawdzić równość ścian przy odbiorze?</h3>
+  <p class="section-note">Łatą dwumetrową przykładaną w kilku miejscach oraz światłem latarki prowadzonym wzdłuż ściany. Boczne światło ujawnia fale i ślady po szpachlowaniu, których nie widać w oświetleniu górnym.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Czy można zatrzymać część zapłaty do usunięcia usterek?</h3>
+  <p class="section-note">Tak, i jest to standard rynkowy. Wysokość zatrzymanej kwoty ustala się w umowie, zwykle jako kilka procent wartości prac, wypłacanych po usunięciu usterek z protokołu.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Kiedy odbierać poszczególne etapy remontu?</h3>
+  <p class="section-note">Zanim zakryje je następny etap: instalacje przed tynkowaniem, hydroizolację przed płytkami, wylewkę przed układaniem podłogi. Etap zakryty przestaje być sprawdzalny, a jego poprawa oznacza rozbiórkę późniejszych warstw.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
@@ -1083,6 +1120,13 @@ export function wyborEkipyPage() {
 
   <h2 style="margin-top:2.2rem">Kolejne kroki</h2>
   <p class="section-note">Gdy masz już wyceny, porównaj je z rynkiem w <a href="${R}sprawdz-oferte/">narzędziu do oceny oferty</a>, ustal warunki według poradnika o <a href="${R}umowa-z-ekipa/">umowie</a>, a przed ostatnią płatnością przejdź <a href="${R}odbior-prac/">listę kontrolną odbioru</a>.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Ile ofert zebrać przed wyborem ekipy?</h3>
+  <p class="section-note">Trzy wystarczą, pod warunkiem że dotyczą tego samego zakresu. Dziesięć ofert o różnym zakresie daje mniej informacji niż trzy porównywalne, dlatego warto rozesłać wykonawcom identyczne zestawienie pozycji bez cen.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Czy najtańsza oferta jest zła?</h3>
+  <p class="section-note">Nie zawsze, ale cena wyraźnie poniżej rynku najczęściej oznacza węższy zakres, a nie większą hojność. Warto sprawdzić, czy zawiera przygotowanie podłoża, wywóz gruzu i materiał, zanim uzna się ją za okazję.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Czy wykonawca powinien obejrzeć miejsce przed wyceną?</h3>
+  <p class="section-note">Tak. Rzetelna wycena wymaga zobaczenia stanu ścian, podłoża i warunków dostępu. Kwota podana przez telefon na podstawie samego metrażu to szacunek, który zwykle koryguje się w górę w trakcie prac.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
