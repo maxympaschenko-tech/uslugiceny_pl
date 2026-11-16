@@ -849,8 +849,18 @@ export const AKTUALIZACJE = [
   },
 ];
 
-export function aktualizacjePage({ works, meta }) {
+export function aktualizacjePage({ works, meta, categories, slugify }) {
   const sprawdzone = works.filter((w) => w.sprawdzone).length;
+  const bezWeryfikacji = works.filter((w) => !w.sprawdzone);
+  const kategorie = Object.fromEntries(categories.map((c) => [c.id, c]));
+  const brakWeryfikacjiHtml = bezWeryfikacji.length
+    ? '<h2 style="margin-top:2.2rem">Pozycje wymagające osobnej weryfikacji</h2>' +
+      '<p class="section-note">Poniższe stawki są orientacyjne: nie udało się potwierdzić osobnej ceny dla danej pracy w źródłowym cenniku. Do czasu kolejnej kontroli warto porównać je z wyceną wykonawcy.</p>' +
+      '<ul class="factors">' + bezWeryfikacji.map((w) =>
+        '<li><a href="' + R + kategorie[w.cat].slug + '/' + slugify(w.name) + '/">' +
+        w.name + '</a> — stawka wyprowadzona z przedziału dla grupy robót.</li>'
+      ).join('') + '</ul>'
+    : '';
   return layout({
     title: `Historia zmian w cenniku`,
     description: 'Co i kiedy zmieniło się w stawkach: kalibracje, weryfikacje wobec cenników wykonawców i poprawki błędów. Pełna lista zmian z uzasadnieniem.',
@@ -869,6 +879,8 @@ export function aktualizacjePage({ works, meta }) {
     <div class="card"><h3>Z przedziału grupy</h3><p class="big">${works.length - sprawdzone}</p><p>${odmien(works.length - sprawdzone, 'pozycja wyprowadzona', 'pozycje wyprowadzone', 'pozycji wyprowadzonych')} z widełek dla całej grupy robót, oznaczonych na swoich stronach jako orientacyjne.</p></div>
     <div class="card"><h3>Źródła</h3><p class="big">${(meta.sources || []).length}</p><p>opracowań i cenników, na których opiera się cennik. Lista z datami jest na stronie <a href="${R}jak-liczymy/">Jak liczymy</a>.</p></div>
   </div>
+
+  ${brakWeryfikacjiHtml}
 
   ${AKTUALIZACJE.map((a) => `
   <h2 style="margin-top:2.2rem">${a.tytul}</h2>
