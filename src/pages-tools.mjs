@@ -583,22 +583,22 @@ const POD_KLUCZ = ${JSON.stringify(
 
 /* ---------- pelny cennik na jednej stronie ---------- */
 
-export function pelnyCennikPage({ works, categories, units, cities, cityOptions, unitPrice, sourceFlag }) {
+export function pelnyCennikPage({ works, categories, units, cities, cityOptions, unitPrice, sourceFlag, slugify }) {
   const wiersze = categories
     .map((c) => {
       const poz = works.filter((w) => w.cat === c.id);
-      return `<h2 style="margin-top:1.8rem">${c.name}</h2>
+      return `<div data-cennik-group><h2 style="margin-top:1.8rem">${c.name}</h2>
 <div class="board-wrap"><table class="board">
 <thead><tr><th data-sort="off">Robota</th><th>Jedn.</th><th>Robocizna</th><th>Materiał</th><th>Razem</th></tr></thead>
 <tbody>${poz
         .map((w) => {
           const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
-          return `<tr><td>${w.name}</td><td class="num">${units[w.unit].name}</td>
+          return `<tr><td><a href="${R}${c.slug}/${slugify(w.name)}/">${w.name}</a></td><td class="num">${units[w.unit].name}</td>
 <td class="num" data-l="${w.labour}">${money(Math.round(p.labour))}</td>
 <td class="num" data-m="${w.material}" data-cm="${w.perCm ? 5 : 1}">${w.material ? money(Math.round(p.material)) : 'własny'}</td>
 <td class="num"><b>${money(Math.round(p.labour + p.material))}</b></td></tr>`;
         })
-        .join('')}</tbody></table></div>`;
+        .join('')}</tbody></table></div></div>`;
     })
     .join('');
 
@@ -616,6 +616,11 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
   ${sourceFlag}
 
   <div class="panel" style="margin-top:1.4rem">
+    <label class="field">
+      <span class="f-label">Znajdź robotę w cenniku</span>
+      <span class="f-input"><input type="search" id="szukaj-w-cenniku" placeholder="np. malowanie, płytki, dach" autocomplete="off"></span>
+    </label>
+    <p class="range-note" data-filter-count aria-live="polite">${works.length} pozycji w cenniku.</p>
     <form id="calc">
       ${select({ name: 'city', label: 'Przelicz na miasto', options: [{ v: '', t: 'Średnia dla Polski', sel: true }, ...cityOptions] })}
     </form>
@@ -630,6 +635,38 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
   const f = document.getElementById('calc');
   const info = document.querySelector('[data-info]');
   const printCity = document.querySelector('[data-print-city]');
+  const search = document.getElementById('szukaj-w-cenniku');
+  const resultCount = document.querySelector('[data-filter-count]');
+  const normalize = (value) => String(value).toLocaleLowerCase('pl-PL')
+    .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/ł/g, 'l');
+  const groups = Array.from(document.querySelectorAll('[data-cennik-group]'), group => ({
+    group,
+    rows: Array.from(group.querySelectorAll('tbody tr'), row => ({
+      row,
+      name: normalize(row.cells[0].textContent)
+    }))
+  }));
+  function filterPrices(){
+    const query = normalize(search.value.trim());
+    let total = 0;
+    for (const item of groups) {
+      let visible = 0;
+      for (const entry of item.rows) {
+        const found = entry.name.includes(query);
+        entry.row.hidden = !found;
+        if (found) visible++;
+      }
+      item.group.hidden = visible === 0;
+      total += visible;
+    }
+    const unit = total === 1 ? 'pozycja' : total % 10 >= 2 && total % 10 <= 4 &&
+      !(total % 100 >= 12 && total % 100 <= 14) ? 'pozycje' : 'pozycji';
+    resultCount.textContent = total
+      ? 'Znaleziono: ' + total + ' ' + unit + '.'
+      : 'Brak wyników. Spróbuj innej nazwy roboty.';
+  }
+  search.addEventListener('input', filterPrices);
+  filterPrices();
   bindForm(f, () => {
     const v = readForm(f);
     const [coef, nazwa] = v.city ? CITIES[v.city] : [1, null];
