@@ -107,6 +107,11 @@ export function sprawdzOfertePage({ works, categories, units, cities, cityOption
   <p class="section-note">Cena typowa dla rynku. Na tym etapie warto rozmawiać nie o kwocie, tylko o terminie, zakresie i tym, kto kupuje materiał.</p>
   <h3 style="margin:1.2rem 0 .3rem">Powyżej widełek</h3>
   <p class="section-note">Zapytaj wprost, co podnosi cenę. Uzasadnieniem bywa trudny dostęp, praca w lokalu zamieszkanym, wąskie okno terminowe albo wyższy standard wykończenia. Jeśli wykonawca nie potrafi tego nazwać, to sygnał do zebrania kolejnych ofert.</p>
+  <h2 style="margin-top:2.5rem">Najczęstsze pytania o wycenę remontu</h2>
+  <h3 style="margin:1.2rem 0 .3rem">Skąd wiadomo, czy oferta remontowa jest zawyżona?</h3>
+  <p class="section-note">Kwotę z oferty trzeba przeliczyć na jednostkę roboty i porównać z medianą stawek dla danego miasta. Odchylenie do kilkunastu procent w górę mieści się w normalnym rozrzucie rynkowym, większe warto omówić z wykonawcą.</p>
+  <h3 style="margin:1.2rem 0 .3rem">Czy najtańsza oferta jest najlepsza?</h3>
+  <p class="section-note">Zwykle nie. Cena wyraźnie poniżej widełek najczęściej oznacza węższy zakres prac, a nie większą hojność wykonawcy. Warto porównać oferty pozycja po pozycji, a nie tylko sumy końcowe.</p>
 </div></section>`,
     jsonLd: {
       '@context': 'https://schema.org',
