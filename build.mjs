@@ -1207,7 +1207,7 @@ await write('slownik', slownikPage({ byId, categories, units, unitPrice, slugify
 await write('porownaj-miasta', porownajMiastaPage({ works, categories, units, cities, unitPrice, turnkeyPerM2, levels }));
 await write('cennik', pelnyCennikPage({ works, categories, units, cities, cityOptions, unitPrice, sourceFlag: draftFlag, slugify }));
 await write('struktura-kosztow', strukturaKosztowPage({ works, categories, units, unitPrice }));
-await write('aktualizacje', aktualizacjePage({ works, meta }));
+await write('aktualizacje', aktualizacjePage({ works, meta, categories, slugify }));
 await write('jak-czytac-kosztorys', jakCzytacPage({ works, units }));
 await write('umowa-z-ekipa', umowaPage());
 await write('odbior-prac', odbiorPage());
