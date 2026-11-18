@@ -105,6 +105,10 @@ const NARZEDZIA_PORADNIKA = {
       "Kalkulator dachu"
     ]
   ],
+  "ukladanie-paneli-podlogowych-krok-po-kroku": [
+    ["kalkulator/pokoj/", "Kalkulator remontu pokoju"],
+    ["kalkulator/materialy/", "Kalkulator materiałów"]
+  ],
   "malowanie-scian-krok-po-kroku": [
     [
       "kalkulator/malowanie/",
@@ -623,9 +627,110 @@ export const PORADNIKI = [
     ]
   ]
 },
+  {
+  "slug": "ukladanie-paneli-podlogowych-krok-po-kroku",
+  "h1": "Układanie paneli podłogowych krok po kroku",
+  "title": `Układanie paneli podłogowych ${YEAR}: instrukcja i ceny`,
+  "desc": "Jak układać panele podłogowe: kontrola wilgotności wylewki, dobór podkładu, aklimatyzacja, dylatacje, montaż na klik i koszt za m².",
+  "lede": "Panele łatwo połączyć na klik, ale trudno naprawić podłogę, która skrzypi lub wypiętrza się po kilku miesiącach. O wyniku decydują pomiary podłoża, podkład i szczeliny przy ścianach.",
+  "czas": "P2D",
+  "wstep": "Instrukcja dotyczy przede wszystkim laminowanych paneli pływających z zamkiem klik, w suchym pomieszczeniu. Panele winylowe, drewniane i systemy klejone mogą mieć inne wymagania. Parametry wilgotności, równości, dylatacji i ogrzewania podłogowego zawsze sprawdź w dokumentacji producenta konkretnego produktu.",
+  "kosztWorkId": "panele",
+  "kroki": [
+    {
+      "t": "Sprawdź typ paneli i warunki montażu",
+      "w": null,
+      "txt": "Zanim kupisz materiał, sprawdź klasę użytkowania, rodzaj zamka, możliwość montażu na ogrzewaniu podłogowym oraz dopuszczalne warunki wilgotności. Panel laminowany nie zachowuje się identycznie jak winylowy czy drewniany, a system na klik nie jest automatycznie odporny na wodę. Instrukcja danego producenta rozstrzyga, jakiego podkładu i jakich szczelin wymaga podłoga; ogólne rady z internetu nie zastępują karty produktu."
+    },
+    {
+      "t": "Zmierz powierzchnię i policz zapas na docinki",
+      "w": null,
+      "txt": "Zmierz długość i szerokość pomieszczenia, zaznacz wnęki, progi i rury. Do powierzchni podłogi dolicz zapas na docinki uzależniony od układu: prosty pokój zużyje go mniej niż wnętrze z wieloma skosami. Kup paczki z tej samej partii, jeśli producent przewiduje oznaczenie partii lub odcienia. Zachowaj jedną paczkę na ewentualne naprawy, a ilość materiału porównaj w kalkulatorze zakupów."
+    },
+    {
+      "t": "Usuń starą posadzkę, jeśli nie jest właściwym podłożem",
+      "w": "demontaz_podlogi",
+      "txt": "Starą wykładzinę dywanową, luźne płyty i niestabilne warstwy trzeba usunąć. W niektórych systemach dopuszcza się układanie na istniejących płytkach lub stabilnym drewnie, ale tylko po sprawdzeniu równości, wysokości podłogi i wymagań producenta. Nie przykrywaj podłogi z objawami zawilgocenia: nowa warstwa utrudni odparowanie wilgoci, a problem pozostanie niewidoczny do czasu powstania szkód."
+    },
+    {
+      "t": "Sprawdź wilgotność, nośność i równość podłoża",
+      "w": null,
+      "txt": "Podłoże musi być suche, czyste, stabilne i wystarczająco równe. Sama ocena na oko nie zastąpi pomiaru wilgotności nowej wylewki, zwłaszcza przy ogrzewaniu podłogowym. Wymagane wartości i sposób badania zależą od produktu i rodzaju jastrychu; przy wątpliwościach zleć pomiar odpowiednią metodą. Długą łatą sprawdź zagłębienia i garby, a w progach także różnicę wysokości względem sąsiednich pomieszczeń."
+    },
+    {
+      "t": "Wyrównaj ubytki i pozwól naprawom wyschnąć",
+      "w": "samopoziomujaca",
+      "txt": "Niewielkie nierówności napraw miejscowo, a przy większych różnicach rozważ masę samopoziomującą dobraną do podłoża. Nie próbuj ukrywać nierównej wylewki bardzo grubym, miękkim podkładem: zamek paneli będzie się uginał pod obciążeniem i może pękać. Przed kolejnym etapem odczekaj czas schnięcia wymagany przez producenta masy i ponownie sprawdź wilgotność, jeżeli tego wymaga system podłogowy."
+    },
+    {
+      "t": "Przygotuj panele zgodnie z instrukcją producenta",
+      "w": null,
+      "txt": "Sprawdź opakowania, stan krawędzi i zgodność wzoru jeszcze przed montażem. Jeśli producent wymaga aklimatyzacji, przechowuj zamknięte paczki w pomieszczeniu przez wskazany czas, na płaskiej powierzchni i w zalecanej temperaturze. Nie opieraj ich pionowo o wilgotną ścianę. Ustal również, czy można montować podłogę przy działającym ogrzewaniu podłogowym i kiedy wolno stopniowo przywrócić temperaturę."
+    },
+    {
+      "t": "Ułóż warstwę przeciwwilgociową i właściwy podkład",
+      "w": null,
+      "txt": "Na podłożach mineralnych część systemów wymaga folii paroizolacyjnej, z właściwymi zakładami i szczelnymi połączeniami. Podkład musi być kompatybilny z panelem i ewentualnym ogrzewaniem podłogowym. Zintegrowany podkład na spodzie paneli nie oznacza, że można bez sprawdzenia dołożyć kolejną miękką warstwę. Zbyt gruby lub nieodpowiedni podkład powoduje pracę zamków i skraca żywotność posadzki."
+    },
+    {
+      "t": "Rozplanuj pierwszy i ostatni rząd oraz dylatacje",
+      "w": null,
+      "txt": "Sprawdź szerokość pomieszczenia w kilku miejscach i zaplanuj układ tak, aby ostatni rząd nie wyszedł skrajnie wąski. Kierunek desek dobierz do proporcji wnętrza i światła, ale najpierw uwzględnij zalecenia producenta. Przy ścianach, słupach, rurach i progach pozostaw wolną szczelinę dylatacyjną o szerokości wymaganej w instrukcji. Podłoga pływająca musi mieć możliwość naturalnej pracy, dlatego nie można jej sztywno przytwierdzać do ściany czy podłoża."
+    },
+    {
+      "t": "Łącz kolejne rzędy bez uszkadzania zamków",
+      "w": "panele",
+      "txt": "Rozpocznij od pierwszego prostego rzędu, stosując kliny dystansowe. Krótsze połączenia sąsiednich desek przesuń względem siebie zgodnie z minimalnym przesunięciem podanym przez producenta; nie dopuszczaj do przypadkowych krótkich odcinków przy ścianach. Systemy klik różnią się sposobem wsuwania i opuszczania deski, dlatego używaj dobijaka tylko wtedy, gdy instrukcja na to pozwala. Uszkodzone zamki odłóż, zamiast ukrywać je w środku podłogi."
+    },
+    {
+      "t": "Dopasuj przejścia, rury i ościeżnice",
+      "w": "panele",
+      "txt": "Przy rurach wycinaj otwory z uwzględnieniem wymaganej dylatacji, którą później zakryje rozeta. Ościeżnice trzeba dopasować do wysokości gotowej posadzki, bez ściskania jej od góry. Sprawdź wymagania dotyczące listew przejściowych i podziału większych powierzchni: możliwość ułożenia kilku pomieszczeń bez profili zależy od konkretnego systemu i wymiarów podłogi, a nie od samego wyglądu paneli."
+    },
+    {
+      "t": "Zamontuj listwy, sprawdź podłogę i zachowaj dokumentację",
+      "w": "listwy",
+      "txt": "Listwę przypodłogową mocuj do ściany zgodnie z systemem montażowym, tak aby zakryła szczelinę, lecz nie blokowała ruchu paneli. Sprawdź, czy zamki nie odstają, czy podłoga nie ugina się nadmiernie i czy profile przejściowe nie dociskają paneli. Zachowaj instrukcję, numer partii, rachunki oraz informacje o przeprowadzonych pomiarach podłoża; przy późniejszej reklamacji mogą być równie ważne jak zdjęcia gotowego wnętrza."
+    }
+  ],
+  "faq": [
+    [
+      "Ile kosztuje układanie paneli podłogowych za m²?",
+      "Stawkę za montaż paneli z rozbiciem na robociznę i materiał znajdziesz w aktualnym cenniku uslugiceny.pl. Do całego budżetu dolicz ewentualny demontaż starej posadzki, wyrównanie podłoża, listwy i profile. W kalkulatorze można sprawdzić różnice między miastami."
+    ],
+    [
+      "Czy można ułożyć panele na starych płytkach?",
+      "Część producentów dopuszcza taki montaż, jeżeli płytki są stabilne, suche, równe, a cała konstrukcja mieści się w dopuszczalnej wysokości. Sprawdź też wymagania dotyczące podkładu i warstwy przeciwwilgociowej. Jeśli płytki odspajają się lub podłoga ma duże różnice poziomu, najpierw trzeba naprawić podłoże."
+    ],
+    [
+      "Jak szeroka powinna być dylatacja przy ścianie?",
+      "Szerokość szczeliny zależy od systemu paneli, wielkości podłogi i warunków montażu. Zastosuj wartość z instrukcji konkretnego produktu i zachowaj dylatacje również przy rurach, słupach oraz ościeżnicach. Nie blokuj ich listwą lub silikonem, jeśli producent tego zabrania."
+    ],
+    [
+      "Czy panele muszą leżeć w pokoju przed montażem?",
+      "Jeżeli producent wymaga aklimatyzacji, pozostaw paczki w warunkach i przez czas opisane w instrukcji. Wymagania różnią się między produktami; przechowywanie paneli w zimnym lub wilgotnym garażu do chwili montażu może powodować problemy."
+    ],
+    [
+      "Czy panele można układać na ogrzewaniu podłogowym?",
+      "Tak, ale tylko jeśli konkretne panele i podkład są do tego dopuszczone. Sprawdź maksymalną temperaturę powierzchni, opór cieplny całego układu, przygotowanie wygrzanej wylewki i zalecenia dotyczące uruchomienia ogrzewania po montażu."
+    ]
+  ]
+},
 ];
 
 export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x, ileKosztuje = '' }) {
+
+  const cenaZaRobote = p.kosztWorkId && byId[p.kosztWorkId];
+  const stawka = cenaZaRobote ? unitPrice(cenaZaRobote.id, 1, 1, cenaZaRobote.perCm ? 5 : 1) : null;
+  const kosztZCennika = stawka && !ileKosztuje
+    ? '<h2 style="margin-top:2.2rem">Ile kosztuje ta praca</h2>' +
+      '<p class="section-note">Orientacyjna stawka krajowa za ' + units[cenaZaRobote.unit].name +
+      ': <strong>' + money(Math.round(stawka.labour + stawka.material)) + ' zł</strong> (' +
+      money(Math.round(stawka.labour)) + ' zł robocizny i ' +
+      money(Math.round(stawka.material)) + ' zł materiału). To cena za samą pozycję, bez dodatkowych prac przygotowawczych. Porównaj warianty dla miast na <a href="' +
+      R + catSlug(cenaZaRobote.cat) + '/' + slugify(cenaZaRobote.name) + '/">stronie usługi</a>.</p>'
+    : '';
+
   const narzedzia = NARZEDZIA_PORADNIKA[p.slug] || [['kalkulator/remont-mieszkania/', 'Kalkulator remontu mieszkania']];
   const linkiNastepne = narzedzia.map(([path, name]) => '<a href="' + R + path + '">' + name + '</a>').join(' lub ');
   const kroki = p.kroki.map((k) => {
@@ -666,6 +771,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   </ol>
 
   ${ileKosztuje}
+  ${kosztZCennika}
 
   <h2 style="margin-top:2.5rem">Częste pytania</h2>
   ${p.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}
