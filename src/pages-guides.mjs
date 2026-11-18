@@ -603,7 +603,7 @@ export const PORADNIKI = [
   "faq": [
     [
       "Ile kosztuje malowanie ścian za m²?",
-      "W bazowym cenniku uslugiceny.pl orientacyjna stawka za dwie warstwy malowania to 29 zł/m²: 22 zł robocizny i 7 zł materiałów. Gruntowanie (18 zł/m²) i pełna gładź (52 zł/m²) stanowią osobne pozycje, jeśli są potrzebne. Stawka końcowa zależy od miasta i faktycznego zakresu."
+      "Malowanie rozlicza się za m² malowanej powierzchni, a nie za m² podłogi. Stawka podstawowa obejmuje dwie warstwy farby; gruntowanie i pełna gładź to osobne pozycje, jeśli są potrzebne. Aktualne ceny i różnice między miastami sprawdzisz w kalkulatorze malowania oraz w cenniku usług."
     ],
     [
       "Czy gruntowanie przed malowaniem jest zawsze konieczne?",
