@@ -1293,7 +1293,10 @@ ${indexableUrls
     .join('\n')}
 </urlset>`
 );
-await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.url('/sitemap.xml')}\n`);
+const previewMode = process.env.SITE_PREVIEW === '1';
+await writeFile(join(OUT, 'robots.txt'), previewMode
+  ? 'User-agent: *\\nDisallow: /\\n'
+  : `User-agent: *\nAllow: /\nSitemap: ${SITE.url('/sitemap.xml')}\n`);
 await writeFile(join(OUT, '.nojekyll'), '');
 await cp('src/assets', join(OUT, 'assets'), { recursive: true });
 
