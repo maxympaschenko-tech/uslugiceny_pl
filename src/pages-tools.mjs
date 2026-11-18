@@ -694,7 +694,8 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
   const csvButton = document.querySelector('[data-export-csv]');
   csvButton.addEventListener('click', () => {
     const selectedCity = f.elements.city.value;
-    const rows = [['Kategoria', 'Usługa', 'Jednostka', 'Robocizna (zł)', 'Materiał (zł)', 'Razem (zł)', 'Adres usługi']];
+    const cityLabel = selectedCity && CITIES[selectedCity] ? CITIES[selectedCity][1] : 'Średnia dla Polski';
+    const rows = [['Miasto', 'Kalibracja cennika', 'Kategoria', 'Usługa', 'Jednostka', 'Robocizna (zł)', 'Materiał (zł)', 'Razem (zł)', 'Adres usługi']];
     const cleanAmount = (value) => String(value).replace(/\\s+/g, '').trim();
     for (const item of groups) {
       if (item.group.hidden) continue;
@@ -704,6 +705,8 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
         const cells = entry.row.cells;
         const link = cells[0].querySelector('a');
         rows.push([
+          cityLabel,
+          '${SITE.updated}',
           category,
           link.textContent.trim(),
           cells[1].textContent.trim(),
