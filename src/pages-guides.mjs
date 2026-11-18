@@ -7,6 +7,122 @@ import { SITE } from './config.mjs';
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
 
+// Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
+const NARZEDZIA_PORADNIKA = {
+  "remont-pokoju-krok-po-kroku": [
+    [
+      "kalkulator/pokoj/",
+      "Kalkulator remontu pokoju"
+    ],
+    [
+      "kalkulator/malowanie/",
+      "Kalkulator malowania"
+    ]
+  ],
+  "remont-lazienki-krok-po-kroku": [
+    [
+      "kalkulator/lazienka/",
+      "Kalkulator łazienki"
+    ],
+    [
+      "kalkulator/plytki/",
+      "Kalkulator płytek"
+    ]
+  ],
+  "wymiana-okien-krok-po-kroku": [
+    [
+      "kalkulator/wymiana-okien/",
+      "Kalkulator wymiany okien"
+    ]
+  ],
+  "wykonczenie-poddasza-krok-po-kroku": [
+    [
+      "kalkulator/poddasze/",
+      "Kalkulator poddasza"
+    ]
+  ],
+  "remont-kuchni-krok-po-kroku": [
+    [
+      "kalkulator/kuchnia/",
+      "Kalkulator remontu kuchni"
+    ]
+  ],
+  "wykonczenie-mieszkania-krok-po-kroku": [
+    [
+      "kalkulator/wykonczenie-pod-klucz/",
+      "Kalkulator wykończenia mieszkania"
+    ]
+  ],
+  "remont-balkonu-krok-po-kroku": [
+    [
+      "kalkulator/balkon/",
+      "Kalkulator remontu balkonu"
+    ]
+  ],
+  "ogrodzenie-krok-po-kroku": [
+    [
+      "kalkulator/ogrodzenie/",
+      "Kalkulator ogrodzenia"
+    ]
+  ],
+  "kostka-brukowa-krok-po-kroku": [
+    [
+      "kalkulator/kostka-brukowa/",
+      "Kalkulator kostki brukowej"
+    ]
+  ],
+  "instalacja-elektryczna-krok-po-kroku": [
+    [
+      "uslugi/elektryka/",
+      "Cennik robót elektrycznych"
+    ],
+    [
+      "kalkulator/remont-mieszkania/",
+      "Kalkulator remontu mieszkania"
+    ]
+  ],
+  "modernizacja-ogrzewania-krok-po-kroku": [
+    [
+      "uslugi/instalacje-i-klimatyzacja/",
+      "Cennik instalacji grzewczych"
+    ]
+  ],
+  "montaz-klimatyzacji-krok-po-kroku": [
+    [
+      "kalkulator/klimatyzacja/",
+      "Kalkulator klimatyzacji"
+    ]
+  ],
+  "ocieplenie-domu-krok-po-kroku": [
+    [
+      "kalkulator/ocieplenie-elewacji/",
+      "Kalkulator ocieplenia"
+    ]
+  ],
+  "wymiana-dachu-krok-po-kroku": [
+    [
+      "kalkulator/dach/",
+      "Kalkulator dachu"
+    ]
+  ],
+  "malowanie-scian-krok-po-kroku": [
+    [
+      "kalkulator/malowanie/",
+      "Kalkulator malowania"
+    ],
+    [
+      "kalkulator/gladzie-i-tynki/",
+      "Kalkulator gładzi"
+    ]
+  ],
+  "kolejnosc-prac-remontowych": [
+    [
+      "kalkulator/remont-mieszkania/",
+      "Kalkulator remontu mieszkania"
+    ]
+  ]
+};
+
 export const PORADNIKI = [
   {
     slug: 'remont-pokoju-krok-po-kroku',
@@ -437,6 +553,8 @@ export const PORADNIKI = [
 ];
 
 export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x, ileKosztuje = '' }) {
+  const narzedzia = NARZEDZIA_PORADNIKA[p.slug] || [['kalkulator/remont-mieszkania/', 'Kalkulator remontu mieszkania']];
+  const linkiNastepne = narzedzia.map(([path, name]) => '<a href="' + R + path + '">' + name + '</a>').join(' lub ');
   const kroki = p.kroki.map((k) => {
     if (!k.w) return { ...k, cena: null };
     const w = byId[k.w];
@@ -469,7 +587,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
       <div class="krok-tresc">
         <h2>${k.t}</h2>
         <p>${podlinkuj(k.txt)}</p>
-        ${k.cena ? `<p class="krok-cena"><a href="${k.link}">${k.nazwa}</a> <b>${money(k.cena)} zł</b> za ${k.jedn}</p>` : '<p class="krok-cena">Etap bez robocizny: koszt zależy od tego, co kupisz.</p>'}
+        ${k.cena ? `<p class="krok-cena"><a href="${k.link}">${k.nazwa}</a> <b>${money(k.cena)} zł</b> za ${k.jedn}</p>` : '<p class="krok-cena">Etap bez osobnej pozycji w cenniku; koszt zależy od zakresu.</p>'}
       </div>
     </li>`).join('')}
   </ol>
@@ -479,7 +597,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   <h2 style="margin-top:2.5rem">Częste pytania</h2>
   ${p.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}
 
-  <p class="receipt-foot" style="margin-top:1.6rem">Policz swój zakres: <a href="${R}kalkulator/lazienka/">kalkulator łazienki</a>, <a href="${R}kalkulator/remont-mieszkania/">kalkulator remontu mieszkania</a>.</p>
+  <p class="receipt-foot" style="margin-top:1.6rem">Przydatne narzędzia i cenniki: ${linkiNastepne}.</p>
 </div></section>`,
     jsonLd: [
       {
