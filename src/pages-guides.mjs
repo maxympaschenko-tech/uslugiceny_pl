@@ -550,6 +550,79 @@ export const PORADNIKI = [
       ['Co zrobić z eternitem?', 'Eternit zawiera azbest i podlega osobnej procedurze demontażu i utylizacji przez uprawnioną firmę. Wiele gmin prowadzi programy, które pokrywają koszt zdjęcia i wywozu, więc przed zleceniem prac warto zapytać w urzędzie.'],
     ],
   },
+  {
+  "slug": "malowanie-scian-krok-po-kroku",
+  "h1": "Malowanie ścian krok po kroku",
+  "title": `Malowanie ścian krok po kroku ${YEAR}: przygotowanie i koszt`,
+  "desc": "Jak malować ściany i sufit bez smug: przygotowanie podłoża, gruntowanie, dwie warstwy farby, kolejność prac oraz koszt za m².",
+  "lede": "Równa powłoka zaczyna się długo przed pierwszym ruchem wałka. Najdroższy błąd to malowanie po ścianie, która się pyli, łuszczy albo ma niewyschnięte poprawki.",
+  "czas": "P3D",
+  "wstep": "Schemat dla typowego pokoju bez aktywnego zawilgocenia. Stawki przy etapach odnoszą się do metra kwadratowego obrabianej powierzchni, nie do metra podłogi. Nie każdy etap musi być potrzebny: na stabilnej starej farbie zwykle nie trzeba wykonywać pełnej gładzi ani gruntować całego pomieszczenia.",
+  "kroki": [
+    {
+      "t": "Zmierz powierzchnię, a nie sam metraż pokoju",
+      "w": null,
+      "txt": "Powierzchnia malowania to suma ścian i sufitu: obwód pokoju pomnóż przez jego wysokość, dodaj powierzchnię sufitu i odejmij duże otwory. Pokój o podłodze 20 m² ma znacznie więcej niż 20 m² powierzchni do pomalowania. Ustal też, czy wycena obejmuje dwie warstwy i odcinanie kolorów, czy wyłącznie samo nakładanie farby."
+    },
+    {
+      "t": "Zabezpiecz podłogę i wyposażenie",
+      "w": null,
+      "txt": "Wynieś ruchome meble, pozostałe odsuń od ścian, przykryj podłogę i oklej listwy, ościeżnice oraz krawędzie przy suficie. Zadbaj o oświetlenie boczne, bo pokazuje nierówności niewidoczne przy świetle z góry. Przy pracy w okolicy osprzętu elektrycznego nie maluj przez gniazda i przełączniki; bezpieczne odłączenie obwodu zleć osobie z odpowiednimi kwalifikacjami."
+    },
+    {
+      "t": "Sprawdź przyczepność starej farby i usuń luźne warstwy",
+      "w": "zrywanie_tapet",
+      "txt": "Zetrzyj pył, usuń odspajające się powłoki i pozostałości kleju. Jeśli ściana pokryta jest tapetą, usuń ją zgodnie z rodzajem okładziny i oceń stan tynku pod spodem. Nie przykrywaj nową farbą miejsc z łuszczącą się powłoką: nowa warstwa nie przyklei starej do podłoża. Zabrudzenia tłuszczem usuń przed kolejnymi etapami."
+    },
+    {
+      "t": "Napraw pęknięcia i nierówności",
+      "w": "gladz",
+      "txt": "Punktowe ubytki wypełnij masą przeznaczoną do konkretnego podłoża. Po całkowitym wyschnięciu zeszlifuj poprawki, usuń pył i obejrzyj ścianę w świetle padającym z boku. Pełna gładź na całej powierzchni jest osobną, znacznie większą pracą — stosuj ją tylko tam, gdzie lokalne poprawki nie wystarczą. Przy zawilgoceniu lub wykwitach najpierw usuń przyczynę, a nie maskuj jej farbą."
+    },
+    {
+      "t": "Zagruntuj chłonne miejsca odpowiednim produktem",
+      "w": "gruntowanie",
+      "txt": "Nowa gładź, bardzo chłonny tynk i podłoże pylące wymagają preparatu dobranego do stanu powierzchni i farby. Na stabilnej powłoce grunt nie jest automatycznie potrzebny. Nie zalewaj ścian: nadmiar gruntu może stworzyć błyszczącą warstwę o słabej przyczepności. Poczekaj do pełnego wyschnięcia zgodnie z kartą techniczną użytego produktu."
+    },
+    {
+      "t": "Najpierw pomaluj sufit",
+      "w": "malowanie",
+      "txt": "Zacznij od narożników i okolic opraw, później maluj wałkiem duże powierzchnie. Pracuj równymi pasami z zachowaniem mokrej krawędzi, aby nie powstały widoczne łączenia. Nie wracaj wałkiem do fragmentu, który już przesycha. Sufit przed ścianami oznacza też, że ewentualne drobne zachlapania zasłonisz w kolejnym etapie."
+    },
+    {
+      "t": "Pomaluj ściany dwukrotnie z przerwą na schnięcie",
+      "w": "malowanie",
+      "txt": "Użyj wałka odpowiedniego do struktury ściany i rodzaju farby. Najpierw odetnij narożniki i miejsca przy listwach, potem wykonuj pasy na dużej powierzchni bez długich przerw. Drugą warstwę nakładaj dopiero po czasie wymaganym przez producenta; zależy on od produktu, temperatury i wilgotności. Zbyt szybkie ponowne malowanie może naruszyć pierwszą powłokę."
+    },
+    {
+      "t": "Odbierz powierzchnię i usuń zabezpieczenia",
+      "w": null,
+      "txt": "Sprawdź ściany i sufit w dziennym świetle: wypatruj smug, prześwitów oraz śladów wałka. Taśmę zdejmij w momencie zalecanym przez jej producenta, aby nie zerwać krawędzi nowej farby. Nie testuj odporności na szorowanie od razu po wyschnięciu dotykowym — pełne utwardzenie powłoki trwa dłużej. Zapisz kod koloru i nazwę produktu na przyszłe poprawki."
+    }
+  ],
+  "faq": [
+    [
+      "Ile kosztuje malowanie ścian za m²?",
+      "W bazowym cenniku uslugiceny.pl orientacyjna stawka za dwie warstwy malowania to 29 zł/m²: 22 zł robocizny i 7 zł materiałów. Gruntowanie (18 zł/m²) i pełna gładź (52 zł/m²) stanowią osobne pozycje, jeśli są potrzebne. Stawka końcowa zależy od miasta i faktycznego zakresu."
+    ],
+    [
+      "Czy gruntowanie przed malowaniem jest zawsze konieczne?",
+      "Nie. Jest wskazane na nowej gładzi, pylącym lub nadmiernie chłonnym podłożu, ale na stabilnej, wcześniej malowanej powierzchni może być zbędne. Postępuj zgodnie z kartą techniczną wybranych produktów."
+    ],
+    [
+      "Dlaczego po malowaniu widać smugi?",
+      "Przyczyną bywa nierówna chłonność podłoża, poprawianie podsychającej farby, zbyt długie przerwy między sąsiednimi pasami lub źle dobrany wałek. Przed trzecią warstwą warto ocenić przyczynę."
+    ],
+    [
+      "Czy malować najpierw ściany czy sufit?",
+      "Najpierw sufit. Ewentualne zachlapania na ścianach zamalujesz podczas kolejnych etapów. Przy różnych kolorach zadbaj o pełne wyschnięcie powierzchni przed oklejaniem krawędzi."
+    ],
+    [
+      "Ile trwa malowanie pokoju?",
+      "Samo malowanie trwa krócej niż przygotowanie podłoża. Naprawy, gruntowanie i wymagane przerwy między warstwami mogą wydłużyć pracę do kilku dni; dokładny czas wynika z kart technicznych materiałów i warunków w pomieszczeniu."
+    ]
+  ]
+},
 ];
 
 export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x, ileKosztuje = '' }) {
