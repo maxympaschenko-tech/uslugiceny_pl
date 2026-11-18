@@ -1,68 +1,58 @@
-# Migracja uslugiceny.pl z Ukraine.com.ua na Hostinger
+# uslugiceny.pl — bezpośrednia migracja na Hostinger
+
+Ustalone wdrożenie produkcyjne: **od razu na domenie `uslugiceny.pl`**, bez domeny tymczasowej i bez blokowania indeksowania.
 
 ## Architektura
 
-Serwis nie wymaga WordPressa ani stale działającego Node.js. `npm run build` (Node.js 22) tworzy statyczny katalog `dist/`: strony HTML, kalkulatory JS, CSS, grafiki, `sitemap.xml`, `robots.txt` i `.htaccess`.
+- Istniejące repozytorium: `maxympaschenko-tech/uslugiceny_pl`, gałąź `main`.
+- `npm run build` generuje kompletną statyczną stronę do `dist/` z kalkulatorami, obrazami, favicon, `sitemap.xml`, `robots.txt` i plikami HTML.
+- WordPress, baza danych i proces Node.js działający stale nie są wymagane.
+- Docelowo: **GitHub `main` → Hostinger Web App → build → statyczny `dist`**, bez GitHub Actions/FTP.
 
-Docelowy przepływ: **commit do GitHub `main` → automatyczny build Hostinger → publikacja `dist/`**. Nie trzeba używać GitHub Actions ani FTP po migracji.
+## Rozwinięcie bezpośrednio pod właściwą domeną
 
-## 1. Przygotowanie wersji testowej (bez zmiany DNS)
+1. Zaloguj się do Hostinger hPanel → **Websites → Create site → Web App**.
+2. Na ekranie wyboru domeny wpisz **`uslugiceny.pl`** (nie wybieraj **Use temporary domain**).
+3. Wybierz **Import your Git repository**. Nie wybieraj **Public repository URL**: ten wariant może utworzyć kopię w nowym repozytorium, przez co zmiany na właściwym `main` nie będą wdrażane.
+4. Zaloguj się przez GitHub, autoryzuj Hostinger i wybierz `maxympaschenko-tech/uslugiceny_pl`, gałąź `main`.
+5. W ustawieniach Build and output ustaw:
 
-1. Hostinger hPanel → **Websites** → **Create site** → **Web App**. Użyj istniejącego planu Business/Cloud, który wspiera Node.js Web Apps.
-2. Wybierz **Use temporary domain**, żeby produkcyjne `https://uslugiceny.pl` nadal było obsługiwane przez Ukraine.com.ua.
-3. Wybierz **Import your Git repository** (a NIE `Public repository URL`, ponieważ ta druga opcja może skopiować projekt do nowego repozytorium).
-4. Połącz GitHub i udziel aplikacji Hostinger uprawnień do istniejącego `maxympaschenko-tech/uslugiceny_pl`.
-5. Ustaw:
-   - Repository: `maxympaschenko-tech/uslugiceny_pl`
-   - Branch: `main`
-   - Framework: `Other`
-   - Node.js: `22.x`
-   - Root directory: `./`
-   - Package manager: `npm`
-   - Build command: `npm run build`
-   - Output directory: `dist`
-   - Entry file: **pozostaw puste**, bo to statyczny serwis
-6. W Environment Variables dodaj:
-   - `SITE_URL=https://uslugiceny.pl`
-   - `BASE_PATH=/`
-   - `SITE_PREVIEW=1` (WAŻNE tylko podczas testów)
-7. Kliknij **Deploy** i zaczekaj na status ukończenia w Hostinger. Otwórz URL tymczasowy.
+| Pole | Wartość |
+|---|---|
+| Framework | `Other` |
+| Node.js version | `22.x` |
+| Root directory | `./` |
+| Package manager | `npm` |
+| Build command | `npm run build` |
+| Output directory | `dist` |
+| Entry file | zostaw puste |
+| `SITE_URL` | `https://uslugiceny.pl` |
+| `BASE_PATH` | `/` |
 
-### Dlaczego SITE_PREVIEW=1?
+**Nie ustawiaj `SITE_PREVIEW`**: gdy brak tej zmiennej, strony docelowe generują `index, follow, max-image-preview:large`, a `robots.txt` ma `Allow: /` i prowadzi do `sitemap.xml`.
 
-Podczas budowania z tą zmienną wszystkie strony dostają meta `noindex`, a `robots.txt` ma `Disallow: /`. Dzięki temu wersja testowa nie konkuruje z produkcyjnymi stronami w wyszukiwarkach.
+6. Wykonaj **Deploy** i sprawdź zielony status na stronie **Deployments** w Hostinger.
+7. Hostinger poda, jak skierować domenę na nowy hosting. Jeśli domena nadal używa DNS Ukraine.com.ua / rejestratora, ustaw wskazane przez Hostinger rekordy **A/AAAA** i `www`. **Nie zgaduj IP ani nazwy hosta**.
+8. Zanim zmienisz serwery nazw NS, wykonaj kopię strefy DNS i zachowaj konfigurację poczty (MX, SPF, DKIM, DMARC, TXT). Jeśli to możliwe, zmień tylko rekordy WWW, bez NS.
+9. Gdy DNS wskazuje Hostinger, sprawdź wydany certyfikat SSL oraz ładowanie `https://uslugiceny.pl/`.
 
-**UWAGA: przed uruchomieniem domeny produkcyjnej trzeba usunąć `SITE_PREVIEW` (lub nadać jej wartość inną niż `1`) i wykonać ponowny build.** Jeśli pozostanie `1`, witryna produkcyjna będzie zablokowana dla indeksowania.
+## Kontrola po wdrożeniu
 
-## 2. Kontrola wersji testowej
+- `https://uslugiceny.pl/` — główna strona, poprawne CSS i JS.
+- `/cennik/` — wszystkie 105 pozycji, filtr, wybór miasta, druk i CSV.
+- `/kalkulator/remont-mieszkania/` i `/sprawdz-oferte/` — interaktywne przeliczenia.
+- `/poradnik/` i `/poradnik/ukladanie-paneli-podlogowych-krok-po-kroku/` — kompletne treści.
+- `/ceny/warszawa/` i przykładowe strony usług z `/` na końcu.
+- `/robots.txt` — `Allow: /`; `/sitemap.xml` — prawidłowe adresy HTTPS.
+- Na indeksowanych stronach: `<meta name="robots" content="index, follow, max-image-preview:large">` i poprawne kanoniczne URL.
+- `www` → wersja bez `www`, HTTP → HTTPS, brak pętli przekierowań.
+- Sprawdź, czy formularze, kalkulatory, druk, SEO i przekierowania działają.
 
-- Strony: `/`, `/cennik/`, `/uslugi/`, `/poradnik/`, `/ceny/warszawa/`, `/kalkulator/remont-mieszkania/`, `/sprawdz-oferte/` i przykładowe `/poradnik/*/`.
-- Test interakcji: wybór miasta, kalkulator, wyszukiwarka pełnego cennika, pobranie CSV, wydruk, menu i mobile.
-- Zasoby: `/assets/style.css`, `/assets/kalkulator.js`, wszystkie obrazy OG i favicon.
-- SEO: kanoniczne URL nadal wskazują `https://uslugiceny.pl`, stare ścieżki istnieją, `/sitemap.xml` ma listę istniejących URL, `/404.html` jest obecna.
-- Preview musi zwracać `noindex` w HTML oraz `Disallow: /` w `robots.txt`.
-- Sprawdź serwowanie adresów z końcowym `/` jako `index.html` i przekierowania HTTP → HTTPS.
+## Kiedy wyłączyć stary FTP
 
-## 3. Przełączenie domeny
+**Nie wyłączaj `.github/workflows/deploy-ftp.yml` przed potwierdzonym uruchomieniem Hostinger**: jest to dotychczasowa ścieżka dostarczania zmian na Ukraine.com.ua. Po poprawnym produkcyjnym wdrożeniu, sprawdzeniu DNS, SSL oraz testowym nowym commicie auto-deploy w Hostinger usuń ten przestarzały workflow. Wcześniej zrób kopię starego hostingu; nie usuwaj od razu plików z Ukraine.com.ua.
 
-1. W hPanel użyj opcji **Connect domain**, podaj `uslugiceny.pl` i odczytaj zalecany rekord A lub serwery nazw. **Nie zgaduj IP.**
-2. W obecnej strefie DNS zrób kopię wszystkich rekordów. Szczególnie zachowaj pocztowe **MX, SPF, DKIM, DMARC i TXT**.
-3. Preferowane: zmień odpowiednie rekordy WWW (A/AAAA i ewentualny CNAME `www`) w istniejącej strefie DNS, zamiast zmieniać NS całej domeny. Tak nie naruszysz przypadkowo poczty.
-4. Upewnij się, że `SITE_PREVIEW` już nie ma w ustawieniach produkcyjnego buildu; wykonaj ponowny build i zweryfikuj `robots.txt` zawierający `Allow: /`, oraz meta `index, follow` na stronach docelowych.
-5. Dopiero gdy Hostinger pokazuje udane wdrożenie i domena obsługuje poprawny HTML, przełącz ruch DNS. Skontroluj HTTPS/SSL, `www` i brak przekierowań w pętli.
-6. Porównaj liczbę stron `sitemap.xml`, statusy wybranych starych adresów oraz formularze/kalkulatory na nowym serwerze.
+## Hostinger — dokumentacja
 
-## 4. Wyłączenie starego FTP
-
-**Nie usuwaj** `.github/workflows/deploy-ftp.yml` podczas przygotowania i testowania Hostinger. Ten workflow wciąż dostarcza obecne wydanie do Ukraine.com.ua.
-
-Dopiero po potwierdzonym uruchomieniu produkcji na Hostinger:
-- usuń stary workflow `.github/workflows/deploy-ftp.yml` lub wyłącz go w GitHub Actions;
-- sprawdź, że kolejny commit w `main` powoduje udany automatyczny deployment w Hostinger bez FTP;
-- zachowaj stary hosting przez krótki okres bezpieczeństwa i wykonaj backup przed usunięciem.
-
-## Źródła Hostinger
-
-- [Node.js Web App z GitHub](https://www.hostinger.com/support/how-to-deploy-a-nodejs-website-in-hostinger/)
-- [Migracja Node.js na Hostinger](https://www.hostinger.com/support/how-to-migrate-a-node-js-application-to-hostinger/)
-- [Połączenie domeny](https://www.hostinger.com/support/how-to-connect-a-custom-domain-to-a-node-js-application/)
+- https://www.hostinger.com/support/how-to-deploy-a-nodejs-website-in-hostinger/
+- https://www.hostinger.com/support/1863967-how-to-point-a-domain-to-hostinger/
