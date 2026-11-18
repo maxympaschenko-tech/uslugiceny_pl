@@ -9,6 +9,8 @@ const YEAR = new Date().getFullYear();
 
 // Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
 const NARZEDZIA_PORADNIKA = {
+  "hydroizolacja-lazienki-pod-plytki-krok-po-kroku": [["kalkulator/lazienka/","Kalkulator remontu łazienki"],["kalkulator/plytki/","Kalkulator płytek"]],
+  "gladz-gipsowa-sciany-krok-po-kroku": [["kalkulator/gladzie-i-tynki/","Kalkulator gładzi i tynków"],["kalkulator/malowanie/","Kalkulator malowania"]],
   "remont-pokoju-krok-po-kroku": [
     [
       "kalkulator/pokoj/",
@@ -716,6 +718,190 @@ export const PORADNIKI = [
     ]
   ]
 },
+  {
+  "slug": "hydroizolacja-lazienki-pod-plytki-krok-po-kroku",
+  "h1": "Hydroizolacja łazienki pod płytki krok po kroku",
+  "title": `Hydroizolacja łazienki pod płytki ${YEAR}: etapy i koszt`,
+  "desc": "Hydroizolacja łazienki przed układaniem płytek: strefy mokre, przygotowanie podłoża, taśmy i mankiety, dwie warstwy oraz koszt za m².",
+  "lede": "Płytka i fuga nie zastąpią uszczelnienia. O trwałości prysznica decyduje niewidoczna warstwa pod okładziną, szczególnie przy odpływie, narożnikach i przejściach rur.",
+  "czas": "P3D",
+  "wstep": "Instrukcja dla typowej łazienki z okładziną ceramiczną, w tym strefy natrysku. Dobierz kompletny system hydroizolacji do podłoża i stopnia narażenia na wodę. Liczba warstw, zużycie, grubość i czas schnięcia są określone w karcie technicznej konkretnego produktu; nie wolno łączyć przypadkowych preparatów bez potwierdzenia kompatybilności.",
+  "kosztWorkId": "hydroizolacja",
+  "kroki": [
+    {
+      "t": "Wyznacz strefy mokre i zakres uszczelnienia",
+      "w": null,
+      "txt": "Narysuj na planie podłogę, ściany natrysku, okolice wanny i miejsca narażone na rozbryzgi. Zaznacz połączenia ściana–podłoga, narożniki, przejścia rur oraz odpływ. Nie oceniaj zakresu wyłącznie po wielkości płytek: woda może przedostawać się przez spoiny i szczeliny. Dla prysznica bez brodzika szczególnie ważne jest ciągłe uszczelnienie całej strefy odpływu i poprawnie wykonany spadek podłoża."
+    },
+    {
+      "t": "Sprawdź nośność i wilgotność podłoża",
+      "w": null,
+      "txt": "Usuń resztki farby, luźne fragmenty tynku, mleczko cementowe i pył. Sprawdź stabilność ściany oraz posadzki. Wilgotne lub uszkodzone podłoże napraw przed izolowaniem; powłoka przeciwwodna nie służy do maskowania aktywnego przecieku. Nowa wylewka i tynk muszą osiągnąć parametry wymagane przez producenta wybranego systemu. Szczególnej uwagi wymagają płyty budowlane i miejsca łączenia różnych materiałów."
+    },
+    {
+      "t": "Wyprofiluj spadek do odpływu w natrysku",
+      "w": null,
+      "txt": "W prysznicu bez brodzika spadek należy wykonać w stabilnej warstwie podłoża, przed układaniem płytek. Dobierz odpływ do konstrukcji posadzki i sprawdź jego wysokość oraz sposób łączenia z izolacją. Woda nie powinna stać w narożnikach ani tworzyć kałuż obok kratki. Sama fuga ani klej do płytek nie poprawią błędnej geometrii podłogi."
+    },
+    {
+      "t": "Dobierz grunt i przygotuj połączenia",
+      "w": "gruntowanie",
+      "txt": "Nie każde podłoże wymaga takiego samego gruntu. Chłonny tynk, płyta i beton mogą potrzebować różnych preparatów lub innej technologii przygotowania. Przeczytaj kartę techniczną wybranej masy uszczelniającej, a następnie zagruntuj tylko w sposób przewidziany w systemie. Zaplanuj rozmieszczenie taśm narożnych i mankietów, zanim otworzysz pojemnik z hydroizolacją."
+    },
+    {
+      "t": "Wklej taśmy w narożach i na połączeniach",
+      "w": null,
+      "txt": "W świeżej pierwszej warstwie materiału osadź dedykowane taśmy w narożach wewnętrznych oraz na styku ściany z podłogą. Stosuj gotowe narożniki systemowe albo wykonuj zakłady zgodnie z instrukcją. Taśm nie należy naciągać na sztywno ani pozostawiać pęcherzy powietrza. Uszczelnienie ma zachować ciągłość również tam, gdzie dwa materiały pracują inaczej pod obciążeniem."
+    },
+    {
+      "t": "Uszczelnij przejścia rur i odpływ",
+      "w": "odplyw_liniowy",
+      "txt": "Mankiety wokół rur i kołnierz odpływu dobierz do konkretnego systemu hydroizolacji. Połączenie odpływu z izolacją jest jednym z najczęstszych miejsc późniejszego przecieku; nie zastępuj fabrycznego kołnierza samym silikonem. W przypadku odpływu liniowego lub punktowego postępuj również według instrukcji producenta odpływu, szczególnie w kwestii kołnierza uszczelniającego i połączeń mechanicznych."
+    },
+    {
+      "t": "Nałóż pierwszą ciągłą warstwę hydroizolacji",
+      "w": "hydroizolacja",
+      "txt": "Rozprowadź materiał wałkiem, pędzlem lub pacą zgodnie z dopuszczoną metodą, bez prześwitów oraz suchych miejsc. Nie rozcieńczaj preparatu według uznania i nie zakładaj, że bardzo cienka warstwa zapewni ochronę. Kontroluj zużycie z powierzchni i wymaganej grubości zgodnie z kartą produktu. Po wklejeniu akcesoriów dopilnuj, by izolacja obejmowała ich krawędzie oraz zakłady."
+    },
+    {
+      "t": "Wykonaj kolejną warstwę i zachowaj przerwy technologiczne",
+      "w": null,
+      "txt": "Kolejną warstwę nakładaj po wymaganym czasie wysychania poprzedniej, nie na mokrą powłokę. Producenci często zalecają zmianę kierunku nakładania, co pomaga uniknąć prześwitów. Liczba warstw oraz minimalna grubość suchej izolacji zależą od konkretnego systemu i warunków użytkowania. Temperatura i wilgotność w pomieszczeniu mogą wydłużyć schnięcie, dlatego nie skracaj przerw, aby przyspieszyć układanie płytek."
+    },
+    {
+      "t": "Skontroluj ciągłość izolacji przed klejeniem płytek",
+      "w": null,
+      "txt": "Obejrzyj naroża, mankiety, odpływ, połączenia ścian z posadzką i miejsca przejścia elementów montażowych. Niedociągnięcia napraw zgodnie z technologią producenta. Nie zostawiaj pęknięć ani miejsc z odsłoniętym podłożem. Klejenie płytek rozpocznij dopiero po uzyskaniu przez izolację wymaganej gotowości; test zalewowy, jeżeli przewiduje go projekt lub system, wykonuje się według właściwej procedury."
+    },
+    {
+      "t": "Układaj płytki kompatybilnym klejem i zakończ spoiny",
+      "w": "plytki_podloga",
+      "txt": "Użyj kleju i fugi przeznaczonych do wybranego rodzaju izolacji oraz formatu płytek. Zachowaj dylatacje i szczeliny na styku płaszczyzn; połączenia elastyczne wykonaj odpowiednim materiałem uszczelniającym. Silikon w narożu jest elementem wykończenia i konserwacji, nie zamiennikiem hydroizolacji pod okładziną. Przed uruchomieniem natrysku odczekaj czas wiązania wymagany przez klej i masy spoinujące."
+    }
+  ],
+  "faq": [
+    [
+      "Czy płytki i fuga wystarczą jako hydroizolacja łazienki?",
+      "Nie. Okładzina ceramiczna ogranicza kontakt wody z podłożem, ale spoiny i połączenia nie są same w sobie ciągłą izolacją przeciwwodną. W strefach mokrych należy przewidzieć właściwy system uszczelnienia pod płytkami."
+    ],
+    [
+      "Czy hydroizolację robi się na całej podłodze?",
+      "Zakres zależy od układu łazienki i projektu, ale podłoga oraz strefa natrysku wymagają szczególnej uwagi. Uszczelnienie trzeba połączyć szczelnie z narożnikami, odpływem i przejściami rur. Nie wystarczy izolacja tylko widocznych miejsc przy kabinie."
+    ],
+    [
+      "Ile warstw folii w płynie trzeba nałożyć?",
+      "Liczba warstw zależy od produktu i wymaganej grubości suchej izolacji. Wiele systemów przewiduje co najmniej dwie warstwy, ale decydujące są zalecenia karty technicznej wybranego materiału, a nie ogólna liczba ruchów wałka."
+    ],
+    [
+      "Ile kosztuje hydroizolacja łazienki za m²?",
+      "Orientacyjna stawka za m² znajduje się w cenniku usług uslugiceny.pl i jest rozbita na robociznę oraz materiał. Dodatkowo mogą wystąpić prace przy odpływie, profilowaniu spadków i naprawie podłoża. Wycena całego prysznica nie jest równa cenie samej powłoki."
+    ],
+    [
+      "Czy silikon w narożniku zastąpi taśmę uszczelniającą?",
+      "Nie. Silikon jest materiałem do elastycznego wypełniania spoin wykończeniowych, a nie zamiennikiem systemowej taśmy zatopionej w hydroizolacji. Najbardziej krytyczne połączenia należy wykonać jeszcze przed przyklejeniem płytek."
+    ]
+  ],
+  "zrodla": [
+    [
+      "Sopro — systemy uszczelnień, taśmy i narożniki",
+      "https://soprouszczelnienia.pl/"
+    ],
+    [
+      "Renowacja łazienki z Sopro — wykonanie warstwy uszczelnienia",
+      "https://budujemydom.pl/irbj/porady/41995-renowacja-lazienki-z-sopro-prace-przed-montazem-okladziny"
+    ]
+  ]
+},
+  {
+  "slug": "gladz-gipsowa-sciany-krok-po-kroku",
+  "h1": "Gładź gipsowa na ścianach krok po kroku",
+  "title": `Gładź gipsowa na ścianach ${YEAR}: jak wykonać i ile kosztuje`,
+  "desc": "Jak wykonać gładź gipsową na ścianach: przygotowanie podłoża, dobór gruntu, nakładanie kolejnych warstw, szlifowanie, typowe błędy i cennik za m².",
+  "lede": "Gładź ma wyrównać drobne nierówności, a nie zastąpić naprawę tynku. Praca zakończy się gładką ścianą tylko wtedy, gdy podłoże jest stabilne i każda warstwa zdąży wyschnąć.",
+  "czas": "P3D",
+  "wstep": "Poradnik dotyczy typowych suchych pomieszczeń mieszkalnych. Gładzie gipsowe, polimerowe i gotowe masy mają różne wymagania dotyczące podłoża, czasu schnięcia i dopuszczalnej grubości. Korzystaj z karty technicznej konkretnego produktu, zwłaszcza przy płytach g-k i ścianach już malowanych.",
+  "kosztWorkId": "gladz",
+  "kroki": [
+    {
+      "t": "Oceń stan ścian przed rozpoczęciem pracy",
+      "w": null,
+      "txt": "Obejrzyj ścianę przy bocznym oświetleniu. Zaznacz głębokie ubytki, rysy, odparzone fragmenty tynku oraz miejsca, w których stara farba się łuszczy. Sama gładź nie jest materiałem do naprawy poważnych uszkodzeń ani grubego wyrównywania krzywych ścian. W przypadku zawilgocenia najpierw ustal i usuń źródło wody. Jeśli powierzchnia jest równa i zdrowa, pełne szpachlowanie może być zbędne."
+    },
+    {
+      "t": "Zabezpiecz pomieszczenie i przygotuj narzędzia",
+      "w": null,
+      "txt": "Osłoń podłogę, framugi i osprzęt, zapewnij oświetlenie oraz wentylację odpowiednią do stosowanych materiałów. Przygotuj czyste wiadra, mieszadło, pace i szpachle ze stali nierdzewnej, łatę kontrolną oraz narzędzia do późniejszego szlifowania. Nie wprowadzaj resztek starego związującego materiału do nowej mieszanki — skraca to czas pracy i powoduje grudki widoczne na powierzchni."
+    },
+    {
+      "t": "Usuń luźne powłoki, pył i tłuste zabrudzenia",
+      "w": null,
+      "txt": "Zeskrob odspajającą się farbę i resztki tapet, napraw uszkodzenia tynku, a powierzchnię dokładnie odkurz. Zatłuszczone miejsca wymagają odpowiedniego oczyszczenia. Zrób próbę przyczepności na starej powłoce, jeśli producent dopuszcza jej pozostawienie. Gładź na ścianie pylącej może odspoić się płatami, nawet jeśli po nałożeniu wyglądała na mocną."
+    },
+    {
+      "t": "Dobierz grunt do chłonności podłoża",
+      "w": "gruntowanie",
+      "txt": "Świeży tynk, beton, stara farba i płyty g-k nie wymagają identycznego przygotowania. Chłonne podłoże mineralne często trzeba zagruntować środkiem dopasowanym do gładzi, natomiast niektóre czyste płyty g-k według instrukcji danego produktu nie wymagają osobnego gruntowania. Nie nakładaj preparatu przypadkowo ani zbyt obficie. Kontynuuj po uzyskaniu czasu schnięcia wskazanego przez producenta."
+    },
+    {
+      "t": "Zaszpachluj większe rysy i ubytki właściwą masą",
+      "w": null,
+      "txt": "Otwory po kołkach, bruzdy oraz pęknięcia najpierw napraw odpowiednim produktem, a tam gdzie jest to konieczne zastosuj przewidziane systemowo zbrojenie. Głębokich ubytków nie zapełniaj cienkowarstwową gładzią w jednej grubej warstwie. Przy styku różnych materiałów uwzględnij możliwość ich niezależnej pracy. Dopiero po zakończeniu napraw i wyschnięciu mas można przejść do wygładzania całości."
+    },
+    {
+      "t": "Przygotuj masę zgodnie z kartą techniczną",
+      "w": null,
+      "txt": "Suchą mieszankę wsypuj do odmierzonej ilości czystej wody i mieszaj w kolejności określonej przez producenta. Gotową masę z wiadra, jeżeli tego wymaga, jedynie rozmieszaj. Nie dolewaj wody do materiału, który zaczął już wiązać. Przygotowuj taką porcję, jaką realnie zdążysz rozprowadzić w czasie użycia podanym na opakowaniu, zamiast zakładać jeden uniwersalny czas dla wszystkich produktów."
+    },
+    {
+      "t": "Rozprowadź pierwszą warstwę gładzi",
+      "w": "gladz",
+      "txt": "Naciągaj materiał równą pacą w pasach, utrzymując kontrolowany kąt narzędzia i przewidzianą grubość warstwy. Pracuj od narożników i trudnych miejsc do większych płaszczyzn, systematycznie zbierając nadmiar masy. Nie próbuj jednym przejściem ukrywać wszystkich nierówności: to zwiększa zużycie, opóźnia schnięcie i ryzyko pęknięć. W narożnikach stosuj odpowiednie narzędzia, aby nie zaokrąglać przypadkowo krawędzi."
+    },
+    {
+      "t": "Nałóż kolejną warstwę po wymaganym wyschnięciu",
+      "w": null,
+      "txt": "Nie zakładaj, że poprzednia warstwa wyschła tylko dlatego, że jej powierzchnia jest jasna. Wymagany odstęp zależy od rodzaju masy, grubości, podłoża, temperatury i wilgotności. Producenci gładzi często zalecają kolejną warstwę dopiero po wyschnięciu poprzedniej. Druga warstwa powinna wyrównać ślady prowadzenia pacy i drobne nierówności, a nie przykrywać ukryty problem z przyczepnością."
+    },
+    {
+      "t": "Szlifuj wyschniętą powierzchnię z kontrolą pyłu",
+      "w": null,
+      "txt": "Szlifuj dopiero suchą gładź, narzędziem oraz gradacją zalecaną przez producenta. Użyj oświetlenia bocznego, aby zobaczyć rysy i zacieki, a do ograniczenia pyłu stosuj szlifierkę z odkurzaczem oraz właściwe środki ochrony dróg oddechowych i oczu. Nie szlifuj agresywnie w jednym miejscu — można odsłonić podłoże. Niewielkie ubytki uzupełnij punktowo i ponownie sprawdź po wyschnięciu."
+    },
+    {
+      "t": "Odpyl ściany i przygotuj je do malowania",
+      "w": "malowanie",
+      "txt": "Całkowicie usuń pył po szlifowaniu, sprawdź przyczepność i chłonność powierzchni. Gruntowanie przed farbą dobierz do układu gładź–farba i karty technicznej zastosowanych wyrobów; nie każda powłoka wymaga identycznej procedury. Malowanie rozpoczynaj po pełnym wyschnięciu oraz przygotowaniu podłoża. Jeżeli na ścianie występują widoczne rysy w bocznym świetle, poprawki zrób przed pierwszą warstwą farby."
+    }
+  ],
+  "faq": [
+    [
+      "Ile kosztuje wykonanie gładzi gipsowej za m²?",
+      "Orientacyjną cenę gładzi z podziałem na robociznę i materiały podajemy w cenniku uslugiceny.pl. Stawka dotyczy konkretnej pozycji cennikowej; naprawa tynku, gruntowanie lub malowanie mogą być wyceniane osobno. Ceny zależą też od miasta i stanu podłoża."
+    ],
+    [
+      "Czy trzeba gruntować ściany przed gładzią?",
+      "To zależy od materiału i podłoża. Chłonne podłoża mineralne często wymagają odpowiedniego gruntu, ale niektóre systemy dopuszczają nakładanie gładzi bez gruntowania na określonych stabilnych powierzchniach. Ostateczna odpowiedź wynika z karty technicznej produktu."
+    ],
+    [
+      "Czy gładź gipsowa nadaje się do bardzo krzywych ścian?",
+      "Nie jest przeznaczona do zastępowania grubego tynku. Przy dużych nierównościach trzeba najpierw wykonać naprawę lub wyrównanie odpowiednią zaprawą, a dopiero potem gładź wykończeniową w dopuszczalnej grubości."
+    ],
+    [
+      "Kiedy można szlifować gładź?",
+      "Po wyschnięciu warstwy, zgodnie z instrukcją wybranego produktu. Czas zależy od grubości, temperatury, wilgotności i chłonności podłoża. Szlifowanie jeszcze wilgotnej masy zwykle pogarsza wykończenie i utrudnia kontrolę równości."
+    ],
+    [
+      "Czy po gładzi można od razu malować?",
+      "Przed malowaniem gładź musi całkowicie wyschnąć, zostać odpylona i odpowiednio przygotowana do konkretnej farby. Często stosuje się preparat gruntujący lub farbę podkładową według technologii producenta. Malowanie na wilgotnej powierzchni może powodować późniejsze problemy z powłoką."
+    ]
+  ],
+  "zrodla": [
+    [
+      "Knauf MP Finish — produkt i zastosowanie",
+      "https://knauf.com/pl-PL/p/produkt/knauf-mp-finish-21072_0120"
+    ]
+  ]
+},
 ];
 
 export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x, ileKosztuje = '' }) {
@@ -772,6 +958,10 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
 
   ${ileKosztuje}
   ${kosztZCennika}
+
+  ${p.zrodla?.length ? `<h2 style="margin-top:2.5rem">Podstawy technologiczne i dokumentacja</h2>
+  <p class="section-note">Opis jest poradnikiem ogólnym. Przy wykonaniu prac obowiązują instrukcje i karty techniczne zastosowanego systemu.</p>
+  <ul class="factors">${p.zrodla.map(([n, url]) => `<li><a href="${url}" rel="noopener noreferrer">${n}</a></li>`).join('')}</ul>` : ''}
 
   <h2 style="margin-top:2.5rem">Częste pytania</h2>
   ${p.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}
