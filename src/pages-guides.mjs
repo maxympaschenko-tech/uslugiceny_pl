@@ -919,6 +919,23 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
 
   const narzedzia = NARZEDZIA_PORADNIKA[p.slug] || [['kalkulator/remont-mieszkania/', 'Kalkulator remontu mieszkania']];
   const linkiNastepne = narzedzia.map(([path, name]) => '<a href="' + R + path + '">' + name + '</a>').join(' lub ');
+  // Podpowiedzi z tej samej tematyki wynikają ze wspólnych pozycji cennika.
+  // Minimum dwa wspólne etapy ogranicza przypadkowe linki (np. samo gruntowanie).
+  const aktualnePrace = new Set(p.kroki.map((k) => k.w).filter(Boolean));
+  const zwiazane = PORADNIKI.filter((kandydat) => kandydat.slug !== p.slug)
+    .map((kandydat) => {
+      const powiazanePrace = new Set(kandydat.kroki.map((k) => k.w).filter(Boolean));
+      const wspolne = [...aktualnePrace].filter((id) => powiazanePrace.has(id)).length;
+      return { kandydat, wspolne };
+    })
+    .filter((x) => x.wspolne >= 2)
+    .sort((a, b) => b.wspolne - a.wspolne || a.kandydat.slug.localeCompare(b.kandydat.slug, 'pl'))
+    .slice(0, 3);
+  const innePoradniki = zwiazane.length
+    ? '<h2 style="margin-top:2.5rem">Powiązane poradniki</h2><ul class="factors">' +
+      zwiazane.map(({ kandydat }) => '<li><a href="' + R + 'poradnik/' + kandydat.slug + '/">' +
+        kandydat.h1 + '</a></li>').join('') + '</ul>'
+    : '';
   const kroki = p.kroki.map((k) => {
     if (!k.w) return { ...k, cena: null };
     const w = byId[k.w];
@@ -966,6 +983,8 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   <h2 style="margin-top:2.5rem">Częste pytania</h2>
   ${p.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}
 
+  ${innePoradniki}
+
   <p class="receipt-foot" style="margin-top:1.6rem">Przydatne narzędzia i cenniki: ${linkiNastepne}.</p>
 </div></section>`,
     jsonLd: [
@@ -1000,13 +1019,13 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
 export function poradnikiIndex(list) {
   return layout({
     title: `Poradniki remontowe ${YEAR}`,
-    description: 'Kolejność prac przy remoncie mieszkania i łazienki: co po czym, ile trwa każdy etap i ile kosztuje.',
+    description: `Poradniki remontowe krok po kroku: ${list.length} instrukcji o łazience, ścianach, podłogach, dachu, elewacji i instalacjach z cenami i kalkulatorami.`,
     path: '/poradnik/',
     breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Poradniki' }],
     body: `
 <section><div class="wrap">
-  <h1>Poradniki</h1>
-  <p class="lede">Kolejność prac decyduje o kosztach bardziej niż wybór ekipy. Etap zrobiony nie w porę trzeba powtórzyć.</p>
+  <h1>Poradniki remontowe krok po kroku</h1>
+  <p class="lede">${list.length} szczegółowych poradników po polsku: ściany, łazienka, podłogi, dach, elewacje i instalacje. Każdy prowadzi przez kolejność prac, typowe błędy i powiązane stawki z cennika oraz kalkulatory.</p>
   <h2 style="margin-top:1.8rem">Dostępne poradniki</h2>
   <div class="cards">
     ${list.map((p) => `<div class="card"><h3><a href="${R}poradnik/${p.slug}/">${p.h1}</a></h3><p>${p.lede}</p></div>`).join('')}
