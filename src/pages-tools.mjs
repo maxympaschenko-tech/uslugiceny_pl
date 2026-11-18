@@ -625,7 +625,7 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
       ${select({ name: 'city', label: 'Przelicz na miasto', options: [{ v: '', t: 'Średnia dla Polski', sel: true }, ...cityOptions] })}
     </form>
     <p class="range-note" data-info>Pokazane stawki to mediana krajowa. Wybierz miasto, żeby przeliczyć całą tabelę.</p>
-    <div class="sheet-actions"><button type="button" data-print>Drukuj cennik</button></div>
+    <div class="sheet-actions"><button type="button" data-print>Drukuj cennik</button><button type="button" data-export-csv>Pobierz CSV do Excela</button></div>
   </div>
 
   ${wiersze}
@@ -687,6 +687,45 @@ export function pelnyCennikPage({ works, categories, units, cities, cityOptions,
     info.textContent = nazwa
       ? 'Stawki przeliczone na miasto ' + nazwa + '. Materiały zmieniają się słabiej niż robocizna.'
       : 'Pokazane stawki to mediana krajowa. Wybierz miasto, żeby przeliczyć całą tabelę.';
+  });
+
+  // Eksportuje aktualnie widoczne wiersze i kwoty po przeliczeniu na wybrane miasto.
+  // Separator ";" i BOM poprawia odczyt polskich znaków w Excelu.
+  const csvButton = document.querySelector('[data-export-csv]');
+  csvButton.addEventListener('click', () => {
+    const selectedCity = f.elements.city.value;
+    const rows = [['Kategoria', 'Usługa', 'Jednostka', 'Robocizna (zł)', 'Materiał (zł)', 'Razem (zł)', 'Adres usługi']];
+    const cleanAmount = (value) => String(value).replace(/\\s+/g, '').trim();
+    for (const item of groups) {
+      if (item.group.hidden) continue;
+      const category = item.group.querySelector('h2').textContent.trim();
+      for (const entry of item.rows) {
+        if (entry.row.hidden) continue;
+        const cells = entry.row.cells;
+        const link = cells[0].querySelector('a');
+        rows.push([
+          category,
+          link.textContent.trim(),
+          cells[1].textContent.trim(),
+          cleanAmount(cells[2].textContent),
+          cleanAmount(cells[3].textContent),
+          cleanAmount(cells[4].textContent),
+          link.href
+        ]);
+      }
+    }
+    if (rows.length === 1) return;
+    const csvValue = (value) => '"' + String(value).replace(/"/g, '""') + '"';
+    const output = rows.map((row) => row.map(csvValue).join(';')).join('\\r\\n');
+    const file = new Blob(['\\uFEFF', output], { type: 'text/csv;charset=utf-8' });
+    const downloadUrl = URL.createObjectURL(file);
+    const anchor = document.createElement('a');
+    anchor.href = downloadUrl;
+    anchor.download = 'uslugiceny-cennik-' + (selectedCity || 'polska') + '.csv';
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
   });
   bindSheetActions(document.querySelector('.panel'));
   document.querySelectorAll('table.board').forEach(bindSort);
