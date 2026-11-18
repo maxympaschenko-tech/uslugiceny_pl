@@ -50,7 +50,8 @@ const obrazDlaSciezki = (path) => {
 export function layout({ title, description, path, body, jsonLd = null, script = '', breadcrumb = null }) {
   const url = SITE.url(path);
   const R = SITE.root;
-  const indexable = path !== '/404.html' && path !== '/szukaj/';
+  // Wersja testowa w Hostinger: zadna strona nie moze trafic do indeksu.
+  const indexable = process.env.SITE_PREVIEW !== '1' && path !== '/404.html' && path !== '/szukaj/';
   const crumbs = breadcrumb?.map((item) => ({ ...item, path: item.path || path }));
   const inServices = path.startsWith('/uslugi/') || crumbs?.some((item) => item.path.startsWith('/uslugi/'));
   const pageClass = path === '/' ? 'home' : path.startsWith('/kalkulator/') ? 'page-inner page-calculator' : 'page-inner';
