@@ -1036,7 +1036,7 @@ const KALKULATOR_PORADNIKA = {
   'kostka-brukowa-krok-po-kroku': ['kostka-brukowa', 'nawierzchni z kostki'],
   'wymiana-okien-krok-po-kroku': ['wymiana-okien', 'wymiany okien'],
   'instalacja-elektryczna-krok-po-kroku': ['pokoj', 'remontu pomieszczenia'],
-  'modernizacja-ogrzewania-krok-po-kroku': ['klimatyzacja', 'instalacji grzewczych'],
+  'malowanie-scian-krok-po-kroku': ['malowanie', 'malowania ścian'],
   'montaz-klimatyzacji-krok-po-kroku': ['klimatyzacja', 'klimatyzacji'],
 };
 
@@ -1094,6 +1094,10 @@ for (const p of PORADNIKI) {
   if (kalkInfo) {
     ileKosztuje = `<h2 style="margin-top:2.2rem">Ile to kosztuje</h2>
 <p class="section-note">Zakres tych prac zmienia się na tyle mocno wraz z wielkością i warunkami, że pojedyncza kwota niewiele by powiedziała. Policz swój przypadek w <a href="${R}kalkulator/${kalkInfo[0]}/">kalkulatorze ${kalkInfo[1]}</a>: podajesz wymiary i zakres, a kosztorys rozpisuje się pozycja po pozycji, z podziałem na robociznę i materiał.</p>`;
+  }
+  if (p.slug === 'modernizacja-ogrzewania-krok-po-kroku') {
+    ileKosztuje = '<h2 style="margin-top:2.2rem">Ile to kosztuje</h2>' +
+      '<p class="section-note">Koszt modernizacji ogrzewania zależy od liczby punktów, typu źródła ciepła, instalacji i warunków budynku. Sprawdź oddzielne stawki prac w <a href="' + R + 'uslugi/instalacje-i-klimatyzacja/">cenniku instalacji</a>. Nie zastępujemy wyceny ogrzewania kalkulatorem klimatyzacji.</p>';
   }
   if (kosztInfo) {
     const kwota = await kwotaZeStrony(kosztInfo.adres);
