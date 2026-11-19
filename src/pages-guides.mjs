@@ -942,6 +942,23 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
       R + catSlug(cenaZaRobote.cat) + '/' + slugify(cenaZaRobote.name) + '/">stronie usługi</a>.</p>'
     : '';
 
+  // Wykres korzysta z tej samej stawki co cennik i nie wymaga aktualizowania ręcznie.
+  const sumaWykresu = stawka ? stawka.labour + stawka.material : 0;
+  const procentPracy = sumaWykresu > 0 ? Math.max(0, Math.min(100, stawka.labour / sumaWykresu * 100)) : 0;
+  const kosztWykres = sumaWykresu > 0 && cenaZaRobote
+    ? `<figure class="guide-cost-visual">
+      <figcaption>Robocizna i materiały — struktura ceny orientacyjnej za ${units[cenaZaRobote.unit].name}${cenaZaRobote.perCm ? ' przy warstwie 5 cm' : ''}</figcaption>
+      <div class="guide-cost-bar" role="img" aria-label="Robocizna ${money(Math.round(stawka.labour))} zł, materiały ${money(Math.round(stawka.material))} zł">
+        <span class="guide-cost-fill" style="width:${procentPracy.toFixed(1)}%"></span>
+      </div>
+      <div class="guide-cost-legend">
+        <span><i class="guide-cost-marker labour"></i>Robocizna <strong>${money(Math.round(stawka.labour))} zł</strong></span>
+        <span><i class="guide-cost-marker material"></i>Materiały <strong>${money(Math.round(stawka.material))} zł</strong>${!stawka.material ? ' — poza wyceną' : ''}</span>
+      </div>
+      <p class="guide-cost-disclaimer">Ceny orientacyjne. Zakres i ilości materiałów uzgodnij z wykonawcą.</p>
+    </figure>`
+    : '';
+
   const narzedzia = NARZEDZIA_PORADNIKA[p.slug] || [['kalkulator/remont-mieszkania/', 'Kalkulator remontu mieszkania']];
   const linkiNastepne = narzedzia.map(([path, name]) => '<a href="' + R + path + '">' + name + '</a>').join(' lub ');
   // Podpowiedzi z tej samej tematyki wynikają ze wspólnych pozycji cennika.
@@ -1004,6 +1021,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   <p class="section-note">Film dotyczy konkretnego systemu producenta. Przed montażem sprawdź instrukcję swojego modelu.</p>` : ''}
   ${ileKosztuje}
   ${kosztZCennika}
+  ${kosztWykres}
 
   ${p.zrodla?.length ? `<h2 style="margin-top:2.5rem">Podstawy technologiczne i dokumentacja</h2>
   <p class="section-note">Opis jest poradnikiem ogólnym. Przy wykonaniu prac obowiązują instrukcje i karty techniczne zastosowanego systemu.</p>

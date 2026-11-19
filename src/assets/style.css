@@ -1041,3 +1041,17 @@ details > .board-wrap, details .board-wrap { width: 100%; }
 .guide-card-media img{width:100%;height:auto;aspect-ratio:16/9;display:block;object-fit:contain}
 .guide-card-media:focus-visible{outline:3px solid var(--signal-d);outline-offset:3px}
 @media(max-width:600px){.guide-visual{margin:1.1rem 0 1.5rem;border-radius:12px}.guide-visual figcaption{padding:.65rem;font-size:.82rem}}
+
+/* Wykres udziału robocizny i materiałów — liczony z aktualnej bazy cen. */
+.guide-cost-visual{max-width:790px;margin:1.1rem 0 2.2rem;border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.25rem;background:#fff}
+.guide-cost-visual figcaption{color:var(--ink);font-size:1rem;font-weight:750;margin-bottom:.85rem;line-height:1.4}
+.guide-cost-bar{height:18px;border-radius:999px;overflow:hidden;background:#DFE9E4}
+.guide-cost-fill{display:block;height:100%;background:#217F80;border-radius:999px 0 0 999px}
+.guide-cost-legend{display:flex;flex-wrap:wrap;gap:.85rem 2rem;justify-content:space-between;color:var(--ink-soft);font-size:.94rem;margin:.85rem 0 .5rem}
+.guide-cost-legend span{display:inline-flex;gap:.42rem;align-items:center;flex-wrap:wrap}
+.guide-cost-legend strong{color:var(--ink)}
+.guide-cost-marker{width:11px;height:11px;border-radius:50%;display:inline-block}
+.guide-cost-marker.labour{background:#217F80}
+.guide-cost-marker.material{background:#DFE9E4;border:1px solid #C4D5CD}
+.guide-cost-disclaimer{color:var(--ink-soft);font-size:.8rem;line-height:1.5;margin:.7rem 0 0}
+@media(max-width:600px){.guide-cost-visual{padding:.85rem}}
