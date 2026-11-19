@@ -8,6 +8,22 @@ import EXTRA_PORADNIKI from './data/guides-more.json' with { type: 'json' };
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
 const MEDIA_PORADNIKI = {
+  "remont-pokoju-krok-po-kroku": { alt: "Remont pokoju — autorski schemat", caption: "Plan pomieszczenia i właściwa kolejność prac." },
+  "remont-lazienki-krok-po-kroku": { alt: "Remont łazienki — autorski schemat", caption: "Plan łazienki i strefy wymagające uszczelnienia." },
+  "kolejnosc-prac-remontowych": { alt: "Kolejność prac — autorski schemat", caption: "Od przygotowania pomieszczeń do odbioru robót." },
+  "wymiana-okien-krok-po-kroku": { alt: "Wymiana okien — autorski schemat", caption: "Ościeże, rama, izolacja i uszczelnienie połączenia." },
+  "wykonczenie-poddasza-krok-po-kroku": { alt: "Wykończenie poddasza — autorski schemat", caption: "Przekrój połaci, izolacji i okładziny g-k." },
+  "remont-kuchni-krok-po-kroku": { alt: "Remont kuchni — autorski schemat", caption: "Strefy zasilania, wody i zabudowy." },
+  "wykonczenie-mieszkania-krok-po-kroku": { alt: "Wykończenie mieszkania — autorski schemat", caption: "Od stanu deweloperskiego do wnętrza gotowego do zamieszkania." },
+  "remont-balkonu-krok-po-kroku": { alt: "Remont balkonu — autorski schemat", caption: "Spadek, hydroizolacja i odprowadzenie wody." },
+  "ogrodzenie-krok-po-kroku": { alt: "Budowa ogrodzenia — autorski schemat", caption: "Słupki, fundamenty, przęsła i poziom terenu." },
+  "kostka-brukowa-krok-po-kroku": { alt: "Układanie kostki brukowej — autorski schemat", caption: "Przekrój nawierzchni i warstw podbudowy." },
+  "instalacja-elektryczna-krok-po-kroku": { alt: "Instalacja elektryczna — autorski schemat", caption: "Przykładowy schemat rozdzielenia obwodów." },
+  "modernizacja-ogrzewania-krok-po-kroku": { alt: "Modernizacja ogrzewania — autorski schemat", caption: "Źródło ciepła, rury, regulacja i odbiór." },
+  "montaz-klimatyzacji-krok-po-kroku": { alt: "Montaż klimatyzacji — autorski schemat", caption: "Jednostka wewnętrzna i zewnętrzna oraz przewody." },
+  "ocieplenie-domu-krok-po-kroku": { alt: "Ocieplenie domu — autorski schemat", caption: "Układ warstw ocieplenia elewacji." },
+  "wymiana-dachu-krok-po-kroku": { alt: "Wymiana dachu — autorski schemat", caption: "Konstrukcja, membrana, łaty i pokrycie." },
+  "ukladanie-paneli-podlogowych-krok-po-kroku": { alt: "Układanie paneli — autorski schemat", caption: "Podłoże, folia, podkład i panele pływające." },
   "hydroizolacja-lazienki-pod-plytki-krok-po-kroku": { alt: "Hydroizolacja łazienki — schemat wykonania", caption: "Membrana, taśmy i szczelny odpływ." },
   "gladz-gipsowa-sciany-krok-po-kroku": { alt: "Gładź gipsowa — schemat wykonania", caption: "Przygotowanie, wygładzanie i odpylanie." },
   "montaz-drzwi-wewnetrznych-krok-po-kroku": { alt: "Montaż drzwi wewnętrznych — schemat wykonania", caption: "Ościeżnica, kliny i regulacja skrzydła." },
