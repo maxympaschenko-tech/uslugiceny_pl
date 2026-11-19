@@ -7,6 +7,24 @@ import EXTRA_PORADNIKI from './data/guides-more.json' with { type: 'json' };
 
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
+const MEDIA_PORADNIKI = {
+  "hydroizolacja-lazienki-pod-plytki-krok-po-kroku": { alt: "Hydroizolacja łazienki — schemat wykonania", caption: "Membrana, taśmy i szczelny odpływ." },
+  "gladz-gipsowa-sciany-krok-po-kroku": { alt: "Gładź gipsowa — schemat wykonania", caption: "Przygotowanie, wygładzanie i odpylanie." },
+  "montaz-drzwi-wewnetrznych-krok-po-kroku": { alt: "Montaż drzwi wewnętrznych — schemat wykonania", caption: "Ościeżnica, kliny i regulacja skrzydła." },
+  "ukladanie-plytek-podlogowych-krok-po-kroku": { alt: "Układanie płytek — schemat wykonania", caption: "Podłoże, klej, okładzina i dylatacje." },
+  "cyklinowanie-parkietu-i-lakierowanie-krok-po-kroku": { alt: "Cyklinowanie parkietu — schemat wykonania", caption: "Szlifowanie drewna i nowa powłoka." },
+  "sufit-podwieszany-z-plyt-gk-krok-po-kroku": { alt: "Sufit podwieszany g-k — schemat wykonania", caption: "Strop, wieszaki, ruszt i płyty." },
+  "wylewka-cementowa-krok-po-kroku": { alt: "Wylewka cementowa — schemat wykonania", caption: "Warstwy podłogi — wariant 5 cm." },
+  "malowanie-scian-krok-po-kroku": { alt: "Malowanie ścian — schemat wykonania", caption: "Przygotowanie podłoża i dwie warstwy." }
+};
+const grafikaPoradnika = (p, mini = false) => {
+  const m = MEDIA_PORADNIKI[p.slug];
+  if (!m) return '';
+  const src = `${R}assets/media/${p.slug}.svg`;
+  return mini
+    ? `<a href="${R}poradnik/${p.slug}/" class="guide-card-media" aria-label="Otwórz poradnik: ${p.h1}"><img src="${src}" alt="${m.alt}" width="1200" height="675" loading="lazy" decoding="async"></a>`
+    : `<figure class="guide-visual"><img src="${src}" alt="${m.alt}" width="1200" height="675" loading="eager" decoding="async" fetchpriority="high"><figcaption>${m.caption} Schemat poglądowy; szczegóły w dokumentacji systemu.</figcaption></figure>`;
+};
 
 // Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
 const NARZEDZIA_PORADNIKA = {
@@ -967,6 +985,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   <h1>${p.h1}</h1>
   <p class="lede">${p.lede}</p>
   <p class="section-note">${p.wstep}</p>
+  ${grafikaPoradnika(p)}
 
   <ol class="kroki">
     ${kroki.map((k, i) => `
@@ -1038,7 +1057,7 @@ export function poradnikiIndex(list) {
   <p class="lede">${list.length} szczegółowych poradników po polsku: ściany, łazienka, podłogi, dach, elewacje i instalacje. Każdy prowadzi przez kolejność prac, typowe błędy i powiązane stawki z cennika oraz kalkulatory.</p>
   <h2 style="margin-top:1.8rem">Dostępne poradniki</h2>
   <div class="cards">
-    ${list.map((p) => `<div class="card"><h3><a href="${R}poradnik/${p.slug}/">${p.h1}</a></h3><p>${p.lede}</p></div>`).join('')}
+    ${list.map((p) => `<div class="card guide-card">${grafikaPoradnika(p, true)}<h3><a href="${R}poradnik/${p.slug}/">${p.h1}</a></h3><p>${p.lede}</p></div>`).join('')}
   </div>
 </div></section>`,
   });

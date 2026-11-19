@@ -1031,3 +1031,13 @@ h2.litera {
 .board-wrap { max-width: 100%; min-width: 0; }
 details > .board-wrap, details .board-wrap { width: 100%; }
 .wrap > *, .calc-grid > * { min-width: 0; }
+
+/* Media w poradnikach — lekkie, osobne, wektorowe schematy */
+.guide-visual{max-width:1040px;margin:1.5rem 0 2.15rem;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#f4f7f4}
+.guide-visual img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}
+.guide-visual figcaption{padding:.7rem 1.05rem;background:#fff;font-size:.87rem;color:var(--ink-soft);line-height:1.5}
+.guide-card{display:flex;flex-direction:column;min-width:0}
+.guide-card-media{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:.75rem;background:#f2f6f2}
+.guide-card-media img{width:100%;height:auto;aspect-ratio:16/9;display:block;object-fit:contain}
+.guide-card-media:focus-visible{outline:3px solid var(--signal-d);outline-offset:3px}
+@media(max-width:600px){.guide-visual{margin:1.1rem 0 1.5rem;border-radius:12px}.guide-visual figcaption{padding:.65rem;font-size:.82rem}}
