@@ -6,8 +6,18 @@ oraz kalkulatorami, które zwracają kosztorys pozycja po pozycji, a nie jedną 
 Cały projekt jest po polsku: treść, adresy URL, dane, komentarze w kodzie i ta dokumentacja.
 
 **Stos:** czysty Node.js, zero zależności. Generator `build.mjs` składa `dist/` w około sekundę.
-Bez `npm install`, bez frameworka, który trzeba będzie aktualizować. Wdrożenie na własny
-hosting przez FTP i GitHub Actions.
+Bez zależności npm i bez frameworka, który trzeba stale aktualizować. Produkcja jest
+wdrażana automatycznie przez **Hostinger** z gałęzi GitHub `main` (komenda `npm run build`, katalog `dist`).
+Stary workflow FTP do Ukraine.com.ua został usunięty po migracji.
+
+## Aktualny sposób publikacji i napoju treści
+
+- Hosting: **Hostinger Web App**, połączony z repozytorium `maxympaschenko-tech/uslugiceny_pl`, branch `main`.
+- Każdy push do `main` powoduje build statycznego katalogu `dist` przez `npm run build`. Nie używamy już GitHub Actions FTP.
+- Nowe poradniki można dodawać jako obiekty JSON w `src/data/guides-more.json` (pola `slug`, `h1`, `title`, `desc`, `lede`, `wstep`, `kroki`, `faq`, opcjonalnie `kosztWorkId`, `zrodla`, `wideo` i `opracowano`).
+- Każda cena musi odnosić się do identyfikatora z `src/data/works.json`. Daty opracowania poradnika nie należy mylić z `works.meta.updated` (datą kalibracji cen).
+- Kontrola przed publikacją: `npm run check:guides` sprawdza unikatowość URL, kompletność treści, powiązania cen i źródła.
+- Migracja i domena: [HOSTINGER_DEPLOY.md](HOSTINGER_DEPLOY.md). Dawne akapity dokumentujące FTP na dole tego pliku są **archiwalne**.
 
 ## Uruchomienie
 
