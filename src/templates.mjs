@@ -1,4 +1,5 @@
 import { SITE } from './config.mjs';
+import { photoForGuide } from './photo-guides.mjs';
 
 export const money = (n) =>
   new Intl.NumberFormat('pl-PL', { maximumFractionDigits: n < 100 ? 2 : 0 }).format(n);
@@ -41,15 +42,24 @@ export const ustawWersjeSkryptu = (v) => { JS_V = v; };
 // Obraz udostepnien dobierany do dzialu: bez tego kalkulator lazienki
 // udostepnia sie z haslem o cenach w dziesieciu miastach.
 const obrazDlaSciezki = (path) => {
-  if (path.startsWith('/kalkulator')) return 'og-kalkulatory.png';
-  if (path.startsWith('/poradnik') || path.startsWith('/porownanie')) return 'og-poradniki.png';
-  if (path.startsWith('/ceny/')) return 'og-miasta.png';
-  return 'og-image.png';
+  // Dostępne zdjęcie WebP ma pierwszeństwo w udostępnianiu konkretnego
+  // poradnika. Bez pliku używamy sprawdzonego obrazu PNG, nie SVG.
+  const match = path.match(/^\/poradnik\/([a-z0-9-]+)\/$/);
+  if (match) {
+    const photo = photoForGuide(match[1]);
+    if (photo) return { path: '/' + photo, width: 1600, height: 900, type: 'image/webp' };
+  }
+  let fallback = 'og-image.png';
+  if (path.startsWith('/kalkulator')) fallback = 'og-kalkulatory.png';
+  else if (path.startsWith('/poradnik') || path.startsWith('/porownanie')) fallback = 'og-poradniki.png';
+  else if (path.startsWith('/ceny/')) fallback = 'og-miasta.png';
+  return { path: '/' + fallback, width: 1200, height: 630, type: 'image/png' };
 };
 
 export function layout({ title, description, path, body, jsonLd = null, script = '', breadcrumb = null }) {
   const url = SITE.url(path);
   const R = SITE.root;
+  const social = obrazDlaSciezki(path);
   // Wersja testowa w Hostinger: zadna strona nie moze trafic do indeksu.
   const indexable = process.env.SITE_PREVIEW !== '1' && path !== '/404.html' && path !== '/szukaj/';
   const crumbs = breadcrumb?.map((item) => ({ ...item, path: item.path || path }));
@@ -95,10 +105,11 @@ ${path === '/404.html' ? '' : `<link rel="canonical" href="${esc(url)}">`}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:site_name" content="uslugiceny.pl">
-<meta property="og:image" content="${esc(SITE.url('/' + obrazDlaSciezki(path)))}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="uslugiceny.pl - ceny robót remontowych w Polsce">
+<meta property="og:image" content="${esc(SITE.url(social.path))}">
+<meta property="og:image:type" content="${social.type}">
+<meta property="og:image:width" content="${social.width}">
+<meta property="og:image:height" content="${social.height}">
+<meta property="og:image:alt" content="${esc(social.type === 'image/webp' ? title + ' — ilustracja redakcyjna' : 'uslugiceny.pl — ceny robót remontowych w Polsce')}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">

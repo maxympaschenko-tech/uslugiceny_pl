@@ -1352,11 +1352,9 @@ for (const f of await wszystkiePliki(OUT)) {
 // jako zmienione: sa male, a ich pominiecie bylo by trudne do wykrycia.
 // Wersja wydania widoczna bez logowania: pozwala odróżnić błąd budowania
 // od starej wersji Hostinger/CDN. Odcisk dotyczy kodu i danych, nie czasu.
-const fingerprintFiles = [
-  'build.mjs', 'src/pages-service.mjs', 'src/pages-guides.mjs',
-  'src/data/works.json', 'src/home-media.mjs',
-  'src/photo-guides.mjs', 'src/assets/style.css',
-];
+// Każda zmiana kodu, cen, ilustracji lub treści daje nowy identyfikator
+// wdrożenia. Obejmuje także pliki WebP po ich dodaniu.
+const fingerprintFiles = ['build.mjs', 'package.json', ...(await wszystkiePliki('src'))].sort();
 const sourceHash = createHash('sha256');
 for (const file of fingerprintFiles) {
   sourceHash.update(file + String.fromCharCode(10));
