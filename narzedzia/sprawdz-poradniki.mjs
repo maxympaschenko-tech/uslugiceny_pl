@@ -51,9 +51,29 @@ for (const p of PORADNIKI) {
   }
 
 }
+
+const kategorieHashes = new Set();
+let nKategorii = 0;
+for (const cat of works.categories) {
+  const path = 'src/assets/category/' + cat.id + '.svg';
+  try {
+    const content = readFileSync(path, 'utf8');
+    if (!content.includes('<svg ') || !content.includes('</svg>') || !content.includes('<title ')) {
+      errors.push(cat.slug + ': brak czytelnego schematu kategorii');
+    }
+    if (content.length > 60_000) errors.push(cat.slug + ': zbyt duży schemat kategorii');
+    const hash = createHash('sha256').update(content).digest('hex');
+    if (kategorieHashes.has(hash)) errors.push(cat.slug + ': powtórzony schemat kategorii');
+    kategorieHashes.add(hash);
+    nKategorii++;
+  } catch {
+    errors.push(cat.slug + ': brak ilustracji kategorii ' + path);
+  }
+}
+
 if (errors.length) {
   errors.forEach(x => console.error('BŁĄD: ' + x));
   process.exitCode = 1;
 } else {
-  console.log('Poradniki OK: ' + seen.size + ' artykułów, ' + nImages + ' unikatowych ilustracji, ' + nSteps + ' etapów, ' + nFAQ + ' FAQ.');
+  console.log('Poradniki OK: ' + seen.size + ' artykułów, ' + nImages + ' ilustracji artykułów, ' + nKategorii + ' schematów kategorii, ' + nSteps + ' etapów, ' + nFAQ + ' FAQ.');
 }
