@@ -1359,7 +1359,7 @@ const fingerprintFiles = [
 ];
 const sourceHash = createHash('sha256');
 for (const file of fingerprintFiles) {
-  sourceHash.update(file + '\\n');
+  sourceHash.update(file + String.fromCharCode(10));
   sourceHash.update(await readFile(file));
 }
 const releaseInfo = {
@@ -1372,7 +1372,7 @@ const releaseInfo = {
   category_count: categories.length,
   guide_photos: PORADNIKI.filter((p) => guideImage(p.slug).endsWith('.webp')).length,
 };
-await writeFile(join(OUT, 'stan-wdrozenia.json'), JSON.stringify(releaseInfo, null, 2) + '\\n');
+await writeFile(join(OUT, 'stan-wdrozenia.json'), JSON.stringify(releaseInfo, null, 2) + String.fromCharCode(10));
 
 const zawszeWysylaj = [...doKorzenia, '404.html', 'sitemap.xml', 'robots.txt', 'search-index.json', 'assets/style.css', 'assets/kalkulator.js', 'stan-wdrozenia.json'];
 await writeFile('zmienione.txt', [...zmienione, ...zawszeWysylaj].join('\n') + '\n');
