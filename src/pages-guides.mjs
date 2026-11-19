@@ -10,6 +10,7 @@ const YEAR = new Date().getFullYear();
 
 // Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
 const NARZEDZIA_PORADNIKA = {
+  "ukladanie-plytek-podlogowych-krok-po-kroku": [["kalkulator/plytki/","Kalkulator płytek"],["kalkulator/lazienka/","Kalkulator łazienki"]],
   "montaz-drzwi-wewnetrznych-krok-po-kroku": [["uslugi/stolarka-i-wykonczenia/","Cennik montażu stolarki"],["kalkulator/wykonczenie-pod-klucz/","Kalkulator wykończenia mieszkania"]],
   "cyklinowanie-parkietu-i-lakierowanie-krok-po-kroku": [["uslugi/podlogi/","Cennik robót podłogowych"],["kalkulator/pokoj/","Kalkulator remontu pokoju"]],
   "hydroizolacja-lazienki-pod-plytki-krok-po-kroku": [["kalkulator/lazienka/","Kalkulator remontu łazienki"],["kalkulator/plytki/","Kalkulator płytek"]],
