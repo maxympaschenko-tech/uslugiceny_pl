@@ -1,0 +1,184 @@
+[
+  {
+    "slug": "montaz-drzwi-wewnetrznych-krok-po-kroku",
+    "h1": "Montaż drzwi wewnętrznych krok po kroku",
+    "title": "Montaż drzwi wewnętrznych: pomiar, ościeżnica i koszt",
+    "desc": "Montaż drzwi wewnętrznych od pomiaru otworu przez pionowanie ościeżnicy do regulacji zawiasów. Sprawdź koszt montażu i typowe błędy.",
+    "lede": "O tym, czy nowe drzwi będą działały płynnie, decyduje nie tylko skrzydło. Błąd w wymiarach otworu lub mocowaniu ościeżnicy potrafi ujawnić się dopiero po zakończeniu remontu.",
+    "czas": "P1D",
+    "opracowano": "2026-11",
+    "kosztWorkId": "montaz_drzwi",
+    "kroki": [
+      {
+        "t": "Wybierz typ skrzydła i ościeżnicy",
+        "w": null,
+        "txt": "Ustal, czy drzwi mają być przylgowe, bezprzylgowe czy ukryte. Ościeżnica stała i regulowana wymagają innego miejsca przy otworze, a drzwi ukryte planuje się na wcześniejszym etapie wykończenia. Zanim kupisz zestaw, sprawdź kierunek otwierania, miejsce na klamkę i kolizję z szafą, grzejnikiem lub innymi drzwiami. Kierunek otwierania powinien być wygodny w codziennym ruchu, a nie wynikać z przypadkowej dostępności modelu."
+      },
+      {
+        "t": "Zmierz otwór, grubość ściany i poziom podłogi",
+        "w": null,
+        "txt": "Zmierz szerokość w trzech miejscach i wysokość po obu bokach. Zanotuj grubość muru, odchylenie od pionu oraz miejsce na opaski. Pomiar odnosi się do gotowej posadzki lub uwzględnia jej planowaną grubość. Nie zakładaj, że skrzydło oznaczone jako 80 wymaga otworu o szerokości 80 cm: wymiar montażowy wyznacza konkretny model ościeżnicy i tabela producenta. Przy ścianach krzywych lub nietypowych warto zlecić pomiar monterowi."
+      },
+      {
+        "t": "Przygotuj stabilne ościeża i przejście między posadzkami",
+        "w": null,
+        "txt": "Usuń kruszący się tynk, kurz i pozostałości zaprawy. Otwór musi mieć wystarczającą nośność, a wszelkie naprawy powinny zakończyć się przed montażem. Zaplanuj, w którym miejscu połączą się różne podłogi: listwa lub profil przejściowy powinny znaleźć się we właściwej pozycji względem skrzydła. Jeśli w pobliżu ościeża przebiegają przewody lub ogrzewanie podłogowe, nie wierć bez ich wcześniejszego zlokalizowania."
+      },
+      {
+        "t": "Sprawdź kompletność i złóż ramę według instrukcji",
+        "w": null,
+        "txt": "Rozpakuj elementy i porównaj je z zamówieniem. Sprawdź kolor, zawiasy, uszczelki, przekrój opasek, łączniki i obecność wymaganych elementów montażowych. Ościeżnicę składaj na równej, zabezpieczonej powierzchni. Narożniki i połączenia muszą przylegać bez nadmiernego naprężenia. Nie zastępuj fabrycznych łączników przypadkowymi wkrętami i nie skracaj elementów przed sprawdzeniem tabeli wymiarów."
+      },
+      {
+        "t": "Ustaw ramę w otworze i sprawdź geometrię",
+        "w": "montaz_drzwi",
+        "txt": "Wstaw ościeżnicę na klinach i dystansach dopuszczonych przez producenta. Sprawdź pion obu boków, poziom nadproża, rozstaw w kilku wysokościach i przekątne. Ramę ustawiaj przed jej trwałym zamocowaniem; pianka nie skoryguje skręconej konstrukcji, a niewłaściwie podparta może się odkształcić podczas utwardzania. Pamiętaj, że ościeżnica powinna pozostawać zgodna z geometrią skrzydła, niekoniecznie z krzywą krawędzią tynku."
+      },
+      {
+        "t": "Zamocuj ościeżnicę właściwą metodą",
+        "w": null,
+        "txt": "Sposób mocowania zależy od ściany, typu ramy i wagi skrzydła. Część systemów wymaga mechanicznego kotwienia, a inne dopuszczają określony sposób zastosowania piany montażowej przy użyciu rozpórek. Stosuj wyłącznie technologię przewidzianą w instrukcji danego produktu. Za wczesne wyjęcie rozpórek, nadmierna ilość piany lub nieodpowiednie kotwy mogą spowodować deformację ościeżnicy i problemy z zamkiem."
+      },
+      {
+        "t": "Zawieś skrzydło i wyreguluj szczeliny",
+        "w": null,
+        "txt": "Po wymaganym czasie wiązania mocowania zawieś skrzydło. Sprawdź, czy w całym zakresie ruchu nie ociera o ościeżnicę i posadzkę oraz czy odstępy są równomierne. Zawiasy reguluj tylko w dopuszczonym zakresie. Jeśli skrzydło samoczynnie się zamyka albo otwiera, przed regulacją skontroluj pion i stabilność konstrukcji. Podcinanie drzwi bez sprawdzenia przyczyny ocierania może uszkodzić ich wykończenie i gwarancję."
+      },
+      {
+        "t": "Zamontuj okucia, uszczelki i opaski",
+        "w": null,
+        "txt": "Załóż klamkę, szyld, osprzęt zamka, uszczelki i opaski zgodnie z instrukcją. Klamka powinna działać lekko, a język zamka trafiać w zaczep bez podnoszenia skrzydła. W łazience uwzględnij wymagany dopływ powietrza zgodnie z projektem wentylacji. Listwy maskujące zakładaj dopiero po kontroli pracy całego zestawu. Upewnij się, że podczas wykańczania nie zostały zaklejone elementy ruchome."
+      },
+      {
+        "t": "Odbierz montaż i rozlicz dodatkowe prace",
+        "w": null,
+        "txt": "Kilkakrotnie otwórz i zamknij drzwi. Obejrzyj okleinę, szczeliny, połączenia opasek i stan ścian. W protokole uwzględnij ewentualne zarysowania, problemy z zamkiem oraz sposób ich poprawy. Wycenę montażu porównaj z zakresem: demontaż starej futryny, wywóz, naprawy ościeży, transport i próg bywają liczone osobno. Zachowaj kartę gwarancyjną i instrukcję zestawu."
+      }
+    ],
+    "faq": [
+      [
+        "Ile kosztuje montaż drzwi wewnętrznych?",
+        "Cena zależy od rodzaju ościeżnicy, stanu otworu i zakresu wykończenia. W naszym cenniku znajdziesz orientacyjną stawkę montażu, natomiast skrzydło, ościeżnica, rozbiórka starej futryny czy obróbka muru mogą być rozliczane oddzielnie."
+      ],
+      [
+        "Czy drzwi montuje się przed czy po podłodze?",
+        "Przy typowej ościeżnicy regulowanej wygodniej znać już poziom gotowej podłogi. Ościeżnice ukryte bywają montowane wcześniej, na etapie tynkowania lub wykonywania zabudowy. Zawsze decyduje system producenta."
+      ],
+      [
+        "Jaki otwór trzeba zostawić pod drzwi 80?",
+        "Nie ma jednego wymiaru dla wszystkich modeli. Oznaczenie skrzydła nie odpowiada wprost szerokości otworu budowlanego. Właściwy wymiar sprawdź w tabeli wybranej ościeżnicy."
+      ],
+      [
+        "Czy do montażu wystarczy sama pianka?",
+        "Tylko jeżeli taki sposób dopuszcza instrukcja danego zestawu. Inne systemy wymagają mocowania mechanicznego. Nie należy zastępować przewidzianych kotew samą pianą bez uzgodnienia z producentem."
+      ],
+      [
+        "Dlaczego nowe drzwi ocierają o podłogę?",
+        "Powodem może być nieprawidłowy poziom posadzki, przekrzywienie ościeżnicy, brak odpowiedniej szczeliny albo błąd regulacji zawiasów. Najpierw sprawdź geometrię, zanim zdecydujesz się na skracanie skrzydła."
+      ]
+    ],
+    "zrodla": [
+      [
+        "PORTA — montaż drzwi w domu: najważniejsze zasady",
+        "https://www.porta.com.pl/otworzsiena/drzwi/montaz-drzwi-w-domu-najwazniejsze-zasady"
+      ],
+      [
+        "PORTA — rodzaje ościeżnic",
+        "https://www.porta.com.pl/produkty/oscieznice"
+      ]
+    ],
+    "wideo": {
+      "id": "w71vlNxFg2Y",
+      "title": "PORTA — montaż drzwi na ościeżnicy regulowanej"
+    }
+  },
+  {
+    "slug": "cyklinowanie-parkietu-i-lakierowanie-krok-po-kroku",
+    "h1": "Cyklinowanie parkietu i lakierowanie krok po kroku",
+    "title": "Cyklinowanie parkietu: renowacja, lakierowanie i cena za m²",
+    "desc": "Renowacja drewnianego parkietu: ocena rodzaju desek, naprawa klepek, szlifowanie, lakierowanie i koszt cyklinowania za m².",
+    "lede": "Cyklinowanie jest skuteczne dla odpowiedniego parkietu z litego drewna, ale może zniszczyć niektóre podłogi warstwowe. Rozpoznanie konstrukcji i stanu materiału ma większe znaczenie niż wybór cykliniarki.",
+    "czas": "P4D",
+    "opracowano": "2026-11",
+    "kosztWorkId": "cyklinowanie",
+    "kroki": [
+      {
+        "t": "Rozpoznaj rodzaj drewnianej podłogi",
+        "w": null,
+        "txt": "Oceń, czy masz parkiet z litego drewna, deskę warstwową, laminat czy panele winylowe. Klasyczne cyklinowanie polega na mechanicznym usuwaniu części powierzchni, dlatego nie każda podłoga się do niego nadaje. Barlinek odróżnia delikatne przeszlifowanie zniszczonej warstwy lakierniczej deski warstwowej od pełnego cyklinowania litego parkietu. Przy niepewnej konstrukcji nie wykonuj próby na dużej powierzchni, lecz sprawdź dokumentację lub poradź się parkieciarza."
+      },
+      {
+        "t": "Oceń stan lakieru, drewna i mocowania",
+        "w": null,
+        "txt": "Drobne matowe rysy mogą wymagać tylko odświeżenia powłoki, bez głębokiego szlifowania. Sprawdź, czy klepki nie ruszają się pod stopą, czy deski nie puchną przy ścianach i czy nie ma oznak zawilgocenia. Zaznacz głębokie wgniecenia, plamy oraz fragmenty z rozwarstwionym drewnem. Cyklinowanie nie naprawia problemu wilgoci i nie przykleja ponownie luźnych elementów."
+      },
+      {
+        "t": "Usuń przyczynę wilgoci i napraw klepki",
+        "w": null,
+        "txt": "Jeżeli podłoga była zalana, przed renowacją wykonaj właściwe pomiary wilgotności i usuń źródło zawilgocenia. Luźne elementy wymagają ponownego zamocowania lub wymiany, a większe ubytki — dopasowanego materiału. Przy renowacji warto sprawdzić, czy poprzednie warstwy wykończenia nie reagują z nowym produktem. Nie maskuj aktywnego przecieku lakierem, bo zamknięcie wilgoci pod powłoką może pogłębić szkody."
+      },
+      {
+        "t": "Zabezpiecz wnętrze i przygotuj bezpieczne stanowisko",
+        "w": null,
+        "txt": "Wynieś meble, dywany i tekstylia; sąsiednie pomieszczenia oddziel od pyłu. Usuń wystające gwoździe oraz elementy mogące uszkodzić maszynę. Stosuj odpowiedni odkurzacz i środki ochrony słuchu, oczu i dróg oddechowych. Pył drzewny jest łatwopalny, dlatego nie dopuszczaj do jego nagromadzenia przy źródłach ognia lub w niewłaściwych urządzeniach. W przypadku lakierów przestrzegaj również zaleceń wentylacyjnych."
+      },
+      {
+        "t": "Wykonaj wstępne szlifowanie parkietu",
+        "w": "cyklinowanie",
+        "txt": "Cykliniarkę dobierz do rodzaju i grubości podłogi oraz jej układu. Zacznij od odpowiedniej gradacji materiału ściernego, prowadząc maszynę płynnie i bez zatrzymywania bębna na jednym miejscu. Krawędzie i naroża obrabiaj przeznaczonymi do tego narzędziami. Zbyt agresywne szlifowanie może wybrać miękkie części drewna lub pozostawić wgłębienia. W razie niepewności co do grubości materiału pracę lepiej zlecić fachowcowi."
+      },
+      {
+        "t": "Szlifuj stopniowo i sprawdź jakość w bocznym świetle",
+        "w": null,
+        "txt": "Kolejne przejścia wykonuj coraz drobniejszym materiałem ściernym. Nie pomijaj etapów, ponieważ głębokie rysy po pierwszym szlifie będą widoczne pod bezbarwnym lakierem. Obejrzyj miejsca przy listwach i progach, gdzie różnice jakości najłatwiej przeoczyć. Szczeliny uzupełniaj odpowiednią masą tylko wtedy, gdy technologia i naturalna praca drewna na to pozwalają."
+      },
+      {
+        "t": "Dokładnie odpyl powierzchnię",
+        "w": null,
+        "txt": "Po zakończeniu szlifowania odkurz podłogę, szczeliny i otoczenie. Pył pozostawiony na drewnie tworzy grudki pod lakierem i pogarsza przyczepność powłoki. Nie myj surowego drewna mokrym mopem, jeśli nie przewiduje tego system wykończenia. Zrób próbę koloru i połysku na niewielkim fragmencie, szczególnie jeśli zmieniasz rodzaj lakieru lub gatunek drewna ma tendencję do przebarwień."
+      },
+      {
+        "t": "Zastosuj kompatybilny system gruntowania i lakierowania",
+        "w": "cyklinowanie",
+        "txt": "Wybierz lakier odpowiedni do obciążenia podłogi i gatunku drewna. Stosuj podkład, liczbę warstw, czas między aplikacjami oraz ewentualne szlifowanie międzywarstwowe zgodnie z kartą techniczną konkretnego produktu. Lakiery wodne, rozpuszczalnikowe i oleje różnią się technologią oraz zapachem. Nie mieszaj produktów z różnych systemów bez potwierdzonej zgodności. Pełne utwardzenie trwa dłużej niż wyschnięcie dotykowe."
+      },
+      {
+        "t": "Odbierz renowację i zaplanuj pielęgnację",
+        "w": null,
+        "txt": "Sprawdź równomierność powłoki, brak śladów po szlifowaniu oraz staranność przy ścianach. Dopiero po terminie określonym przez producenta wstaw ciężkie meble i dywany. Pod nogi krzeseł zamontuj podkładki, a podłogę pielęgnuj środkami przeznaczonymi do danego lakieru. Zachowaj nazwę produktu i kartę techniczną: pomoże to przy przyszłym odświeżaniu powłoki bez niepotrzebnego ponownego cyklinowania."
+      }
+    ],
+    "faq": [
+      [
+        "Ile kosztuje cyklinowanie parkietu za m²?",
+        "Stawka orientacyjna z naszego cennika uwzględnia szlifowanie i lakierowanie, ale naprawy klepek, usuwanie listew czy dodatkowe prace mogą być wyceniane osobno. Porównaj kwoty robocizny i materiału dla swojego miasta na stronie usługi."
+      ],
+      [
+        "Czy deskę warstwową Barlinek można cyklinować?",
+        "Nie powinno się traktować jej jak litego parkietu. Producent rozróżnia odnowienie warstwy lakierniczej i delikatne przeszlifowanie od klasycznego głębokiego cyklinowania. Przed obróbką sprawdź konkretny produkt i zalecenia jego producenta."
+      ],
+      [
+        "Czy każda porysowana podłoga wymaga cyklinowania?",
+        "Nie. Jeśli uszkodzony jest tylko lakier, czasem można go odnowić bez mechanicznego usuwania warstwy drewna. Przy głębokich rysach, odspojonych klepkach lub zawilgoceniu potrzebna jest odrębna diagnostyka."
+      ],
+      [
+        "Jak szybko po lakierowaniu można używać podłogi?",
+        "Czas ostrożnego chodzenia, ustawiania mebli i pełnego utwardzenia różni się w zależności od lakieru. Kieruj się kartą techniczną konkretnego produktu, nie samą suchością w dotyku."
+      ],
+      [
+        "Czy cyklinowanie usunie skrzypienie parkietu?",
+        "Nie. Skrzypienie często wynika z ruchu elementów lub problemu z podłożem. Przed szlifowaniem trzeba zdiagnozować i naprawić przyczynę, a dopiero później odnawiać wykończenie."
+      ]
+    ],
+    "zrodla": [
+      [
+        "Barlinek — cyklinowanie a odnowienie podłogi warstwowej",
+        "https://www.barlinek.com.pl/pielegnacja/pielegnacja-podlogi-drewniane/faq-drewno/czy-mozna-cyklinowac-tylko-deske-przyklejona-do-podloza/"
+      ],
+      [
+        "Barlinek — ponowne lakierowanie deski",
+        "https://www.barlinek.com.pl/pielegnacja/pielegnacja-podlogi-drewniane/faq-drewno/ponowne-lakierowanie-deski-barlineckiej/"
+      ]
+    ]
+  }
+]
