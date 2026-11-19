@@ -1084,3 +1084,13 @@ details > .board-wrap, details .board-wrap { width: 100%; }
 .service-category-image:focus-visible{outline:3px solid var(--signal-d);outline-offset:3px}
 .service-category-count{display:inline-block;color:#216F74;background:#ECF5F1;padding:.3rem .55rem;border-radius:7px;font-size:.82rem;font-weight:700}
 @media(max-width:600px){.service-category-entry-head{grid-template-columns:minmax(0,1fr);gap:.75rem}.service-category-image{max-width:100%}.service-category-cover{border-radius:12px}.service-category-cover figcaption{font-size:.78rem}}
+
+/* Wizualne przejście ze stawki robót do powiązanego poradnika, tylko gdy temat jest identyczny. */
+.service-guide-teaser{display:grid;grid-template-columns:minmax(125px,230px) minmax(0,1fr);gap:1.2rem;align-items:center;margin:2rem 0;border:1px solid var(--line);border-radius:16px;background:#F7F9F6;padding:.85rem}
+.service-guide-thumb{display:block;overflow:hidden;border-radius:10px;border:1px solid #DDE8E3}
+.service-guide-thumb img{width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;display:block}
+.service-guide-thumb:focus-visible{outline:3px solid var(--signal-d);outline-offset:3px}
+.service-guide-copy h2{font-size:1.17rem;line-height:1.35;margin:.1rem 0 .7rem}
+.service-guide-copy p{margin:.2rem 0 .65rem}
+.service-guide-copy .section-note{margin:.55rem 0 0}
+@media(max-width:600px){.service-guide-teaser{grid-template-columns:minmax(0,1fr);gap:.8rem}.service-guide-thumb{max-width:100%}}

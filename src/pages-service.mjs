@@ -43,10 +43,19 @@ for (const [id, slug] of [
 }
 const poradnikDlaPracy = (w) => {
   const p = ODNOSNIKI_DO_PORADNIKOW.get(w.id);
-  return p
-    ? `<h2 style="margin-top:2rem">Jak wykonać tę pracę krok po kroku</h2>
-  <p class="section-note">Zanim porównasz oferty, sprawdź zakres i kolejność etapów: <a href="${R}poradnik/${p.slug}/">${p.h1}</a>. Instrukcja pokazuje typowe błędy, warunki odbioru i prace, które bywają wyceniane osobno.</p>`
-    : '';
+  if (!p) return '';
+  const path = `${R}poradnik/${p.slug}/`;
+  const visual = `${R}assets/media/${p.slug}.svg`;
+  return `<section class="service-guide-teaser" aria-label="Powiązany poradnik">
+    <a href="${path}" class="service-guide-thumb" aria-label="Zobacz poradnik: ${p.h1}">
+      <img src="${visual}" width="1200" height="675" alt="${p.h1} — ilustrowany schemat" loading="lazy" decoding="async">
+    </a>
+    <div class="service-guide-copy">
+      <h2>Jak wykonać tę pracę krok po kroku</h2>
+      <p><a href="${path}">${p.h1}</a></p>
+      <p class="section-note">Sprawdź kolejność etapów, warunki odbioru i prace, które bywają wyceniane osobno. Poradnik zawiera również schemat techniczny.</p>
+    </div>
+  </section>`;
 };
 
 
