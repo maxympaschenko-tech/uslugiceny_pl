@@ -139,7 +139,7 @@
       },
       {
         "t": "Zastosuj kompatybilny system gruntowania i lakierowania",
-        "w": "cyklinowanie",
+        "w": null,
         "txt": "Wybierz lakier odpowiedni do obciążenia podłogi i gatunku drewna. Stosuj podkład, liczbę warstw, czas między aplikacjami oraz ewentualne szlifowanie międzywarstwowe zgodnie z kartą techniczną konkretnego produktu. Lakiery wodne, rozpuszczalnikowe i oleje różnią się technologią oraz zapachem. Nie mieszaj produktów z różnych systemów bez potwierdzonej zgodności. Pełne utwardzenie trwa dłużej niż wyschnięcie dotykowe."
       },
       {
@@ -178,6 +178,95 @@
       [
         "Barlinek — ponowne lakierowanie deski",
         "https://www.barlinek.com.pl/pielegnacja/pielegnacja-podlogi-drewniane/faq-drewno/ponowne-lakierowanie-deski-barlineckiej/"
+      ]
+    ]
+  },
+  {
+    "slug": "ukladanie-plytek-podlogowych-krok-po-kroku",
+    "h1": "Układanie płytek podłogowych krok po kroku",
+    "title": "Układanie płytek na podłodze: etapy, błędy i cena za m²",
+    "desc": "Jak układać płytki podłogowe: przygotowanie podłoża, planowanie docinek, klej, dylatacje, fugowanie i koszt układania za m².",
+    "lede": "Trwałość podłogi z płytek zależy od rzeczy, których po zakończeniu pracy nie widać: równości podłoża, odpowiedniego kleju, podparcia okładziny oraz zachowania dylatacji.",
+    "czas": "P3D",
+    "opracowano": "2026-11",
+    "kosztWorkId": "plytki_podloga",
+    "kroki": [
+      {
+        "t": "Wybierz płytki i sprawdź przeznaczenie",
+        "w": null,
+        "txt": "Dobierz rodzaj okładziny do pomieszczenia, sposobu użytkowania i ogrzewania podłogowego. Zwróć uwagę na format, klasę ścieralności i antypoślizgowość odpowiednią do miejsca. Płytki wielkoformatowe wymagają szczególnie starannej kontroli płaskości podłoża i technologii klejenia. Przed zakupem sprawdź oznaczenia partii, tonacji i kalibracji; nawet bardzo podobne płytki mogą różnić się odcieniem lub wymiarem. Zamów rozsądny zapas na docinki i przyszłe naprawy."
+      },
+      {
+        "t": "Oceń nośność i wilgotność podłoża",
+        "w": null,
+        "txt": "Podłoże powinno być stabilne, suche, czyste i odpowiednio przygotowane. Sprawdź pęknięcia, odspojenia, nierówności oraz wilgotność nowej wylewki zgodnie z wymaganiami użytego systemu. Płytki nie naprawią problemu pracującej posadzki. Przy ogrzewaniu podłogowym zwróć uwagę na wykonanie i udokumentowanie procedury wygrzewania podkładu, jeśli wymaga jej technologia. Na podłożu zawilgoconym albo osłabionym nie wolno po prostu przykleić nowej warstwy ceramiki."
+      },
+      {
+        "t": "Usuń starą okładzinę i napraw nierówności",
+        "w": "skuwanie_plytek",
+        "txt": "Jeśli istniejące płytki są luźne albo nie nadają się do pozostawienia, usuń je wraz z niewłaściwie związanymi fragmentami kleju. Do napraw ubytków i wyrównania stosuj masę zgodną z rodzajem podłoża; większych różnic poziomu nie maskuj przypadkowo zbyt grubą warstwą kleju. Sprawdź miejsca przy progach i drzwi, żeby po montażu nie powstał nieplanowany stopień. Jeżeli producent dopuszcza klejenie na starej okładzinie, potrzebne jest inne przygotowanie niż na świeżej wylewce."
+      },
+      {
+        "t": "Zaplanuj układ spoin, osi i docinek",
+        "w": null,
+        "txt": "Rozrysuj pomieszczenie i ułóż płytki na sucho w krytycznych miejscach: przy drzwiach, wnękach, odpływie i widocznych ścianach. Unikaj przypadkowych bardzo wąskich docinek w głównym polu widzenia. Sprawdź szerokość spoin wymaganą dla typu i kalibracji płytek. Dylatacje konstrukcyjne podłoża muszą zostać uwzględnione w układzie okładziny, a szczeliny brzegowe nie mogą zostać sztywno zalane fugą cementową."
+      },
+      {
+        "t": "Wykonaj uszczelnienie tam, gdzie jest wymagane",
+        "w": "hydroizolacja",
+        "txt": "W łazience, strefie prysznica i innych miejscach narażonych na wodę zaplanuj kompatybilny system hydroizolacji pod płytkami. Szczególnego uszczelnienia wymagają naroża, styki ze ścianą oraz odpływy. Sama fuga nie zastępuje hydroizolacji. Liczbę warstw, zużycie materiału i czas schnięcia ustal według instrukcji systemu, nie według ogólnych porad. W suchym pokoju technologia może być inna, więc nie należy automatycznie doliczać izolacji do każdego metra kwadratowego płytek."
+      },
+      {
+        "t": "Dobierz klej i przygotuj właściwą porcję zaprawy",
+        "w": null,
+        "txt": "Klej dobiera się do formatu ceramiki, podłoża, warunków pracy i ewentualnego ogrzewania podłogowego. Sprawdź oznaczenia oraz przydatność konkretnego produktu według danych producenta. Zaprawę mieszaj z odmierzoną ilością wody, przestrzegając zalecanego czasu mieszania i dojrzewania. Nie dolewaj wody do masy, która zaczęła wiązać. Nie przygotowuj większej ilości kleju, niż zdołasz wykorzystać w jego czasie użycia, szczególnie latem lub przy przeciągu."
+      },
+      {
+        "t": "Układaj płytki z odpowiednim podparciem",
+        "w": "plytki_podloga",
+        "txt": "Rozprowadzaj klej pacą dobraną do formatu, a płytki osadzaj we właściwym czasie otwartym zaprawy. W wymagających zastosowaniach i przy większych formatach potrzebne może być nanoszenie kleju również na spód płytki, aby uzyskać odpowiedni kontakt z podłożem. Kontroluj płaszczyznę i uskoki na sąsiadujących krawędziach, a nie tylko równość spoin. Nie chodź po świeżej okładzinie i nie przesuwaj po niej ciężkiego sprzętu przed uzyskaniem wymaganej wytrzymałości kleju."
+      },
+      {
+        "t": "Zachowaj dylatacje oraz właściwy czas przed fugowaniem",
+        "w": null,
+        "txt": "Szczeliny obwodowe i konstrukcyjne powinny przejść przez wykończenie zgodnie z projektem. Nie wypełniaj ich na sztywno zwykłą fugą. Do spoinowania przystąp dopiero po związaniu kleju w czasie wymaganym w karcie technicznej, biorąc pod uwagę chłonność podłoża, format płytek i warunki pomieszczenia. Zbyt wczesne fugowanie może zakłócić schnięcie kleju oraz utrudnić osiągnięcie właściwej przyczepności. Nie każda zaprawa ma taki sam minimalny czas oczekiwania."
+      },
+      {
+        "t": "Wypełnij spoiny, uszczelnij krawędzie i odbierz pracę",
+        "w": "silikonowanie",
+        "txt": "Dobierz fugę do szerokości szczelin i sposobu użytkowania posadzki. Naroża, połączenia z urządzeniami i wybrane szczeliny dylatacyjne wymagają elastycznego uszczelnienia w odpowiednim systemie. Po czyszczeniu oceń jednolitość spoin, przyczepność płytek i ewentualne uskoki. W zakres odbioru wlicz także profile przejściowe oraz prawidłowy odpływ wody tam, gdzie posadzka ma spadek. Czas rozpoczęcia użytkowania ustal według zaleceń producentów kleju i fugi."
+      }
+    ],
+    "faq": [
+      [
+        "Ile kosztuje układanie płytek na podłodze za m²?",
+        "W cenniku uslugiceny.pl znajdziesz orientacyjną cenę za m² płytek podłogowych, z podziałem na robociznę i materiał. Demontaż starej okładziny, hydroizolacja, wyrównanie podłoża, docinki i dodatkowe detale mogą wymagać osobnych pozycji, zależnie od oferty."
+      ],
+      [
+        "Czy można położyć płytki na stare płytki?",
+        "W niektórych systemach jest to dopuszczalne, jeśli poprzednia okładzina jest stabilna, czysta, odpowiednio przygotowana i nie powoduje niedopuszczalnego podniesienia poziomu podłogi. Trzeba zastosować zaprawę odpowiednią do podłoża niechłonnego i sprawdzić instrukcję producenta."
+      ],
+      [
+        "Czy w łazience trzeba zrobić hydroizolację pod płytkami?",
+        "W strefach mokrych konieczne jest zaplanowanie odpowiedniego uszczelnienia, ponieważ płytka i fuga nie tworzą niezawodnej bariery przeciwwodnej. Szczególnej uwagi wymagają odpływy, naroża i połączenia ścian z podłogą."
+      ],
+      [
+        "Kiedy można fugować świeżo ułożoną podłogę?",
+        "Po czasie wymaganym przez producenta kleju dla danych warunków i podłoża. Nie ma jednego terminu dla wszystkich produktów. Zaprawy szybkowiążące i standardowe mogą wymagać różnych przerw technologicznych."
+      ],
+      [
+        "Czy dylatacje podłoża można przykryć płytkami?",
+        "Dylatacji konstrukcyjnych nie można po prostu sztywno zasklepić okładziną. Trzeba zaprojektować ich przeniesienie do warstwy płytek oraz zastosować odpowiednie elastyczne wypełnienie lub profil. Szczegóły zależą od geometrii i konstrukcji posadzki."
+      ]
+    ],
+    "zrodla": [
+      [
+        "ATLAS — kleje do płytek i zakres zastosowań",
+        "https://www.atlas.com.pl/kategoria-produktu/kleje-do-plytek/"
+      ],
+      [
+        "MAPEI — rysunki techniczne, dylatacje i rozwiązania posadzek",
+        "https://www.mapei.com/pl/pl/narzedzia-i-materialy-do-pobrania/rysunki-techniczne"
       ]
     ]
   }
