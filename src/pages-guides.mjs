@@ -10,6 +10,8 @@ const YEAR = new Date().getFullYear();
 
 // Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
 const NARZEDZIA_PORADNIKA = {
+  "sufit-podwieszany-z-plyt-gk-krok-po-kroku": [["uslugi/sciany-i-sufity/","Cennik sufitów i zabudów g-k"],["kalkulator/wykonczenie-pod-klucz/","Kalkulator wykończenia mieszkania"]],
+  "wylewka-cementowa-krok-po-kroku": [["kalkulator/wylewka/","Kalkulator wylewki"],["kalkulator/materialy/","Kalkulator materiałów"]],
   "ukladanie-plytek-podlogowych-krok-po-kroku": [["kalkulator/plytki/","Kalkulator płytek"],["kalkulator/lazienka/","Kalkulator łazienki"]],
   "montaz-drzwi-wewnetrznych-krok-po-kroku": [["uslugi/stolarka-i-wykonczenia/","Cennik montażu stolarki"],["kalkulator/wykonczenie-pod-klucz/","Kalkulator wykończenia mieszkania"]],
   "cyklinowanie-parkietu-i-lakierowanie-krok-po-kroku": [["uslugi/podlogi/","Cennik robót podłogowych"],["kalkulator/pokoj/","Kalkulator remontu pokoju"]],
@@ -916,7 +918,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   const kosztZCennika = stawka && !ileKosztuje
     ? '<h2 style="margin-top:2.2rem">Ile kosztuje ta praca</h2>' +
       '<p class="section-note">Orientacyjna stawka krajowa za ' + units[cenaZaRobote.unit].name +
-      ': <strong>' + money(Math.round(stawka.labour + stawka.material)) + ' zł</strong> (' +
+      (cenaZaRobote.perCm ? ' przy warstwie 5 cm' : '') + ': <strong>' + money(Math.round(stawka.labour + stawka.material)) + ' zł</strong> (' +
       money(Math.round(stawka.labour)) + ' zł robocizny i ' +
       (stawka.material ? money(Math.round(stawka.material)) + ' zł materiału' : 'cena materiałów lub produktu nie jest wliczona') + '). To cena za samą pozycję, bez dodatkowych prac przygotowawczych. Porównaj warianty dla miast na <a href="' +
       R + catSlug(cenaZaRobote.cat) + '/' + slugify(cenaZaRobote.name) + '/">stronie usługi</a>.</p>'
@@ -949,7 +951,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
       ...k,
       cena: Math.round(pr.labour + pr.material),
       nazwa: w.name,
-      jedn: units[w.unit].name,
+      jedn: units[w.unit].name + (w.perCm ? ' (warstwa 5 cm)' : ''),
       link: `${R}${catSlug(w.cat)}/${slugify(w.name)}/`,
     };
   });
