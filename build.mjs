@@ -1288,12 +1288,19 @@ const urls = [
 // Wyszukiwarka nie jest stroną docelową do indeksowania. Nie podajemy lastmod:
 // znamy miesiąc kalibracji danych, ale nie datę zmiany każdej strony.
 const indexableUrls = [...new Set(urls)].filter((u) => u !== '/szukaj/');
+const imageByPage = new Map([
+  ...PORADNIKI.map((p) => [`/poradnik/${p.slug}/`, `/assets/media/${p.slug}.svg`]),
+  ...categories.map((c) => [`/uslugi/${c.slug}/`, `/assets/category/${c.id}.svg`]),
+]);
+const sitemapXml = (value) => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 await writeFile(
   join(OUT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${indexableUrls
-    .map((u) => `  <url><loc>${SITE.url(u).replace(/&/g, '&amp;').replace(/</g, '&lt;')}</loc></url>`)
+    .map((u) => `  <url><loc>${sitemapXml(SITE.url(u))}</loc>${imageByPage.has(u)
+      ? `<image:image><image:loc>${sitemapXml(SITE.url(imageByPage.get(u)))}</image:loc></image:image>`
+      : ''}</url>`)
     .join('\n')}
 </urlset>`
 );
