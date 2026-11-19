@@ -3,12 +3,15 @@
 // przypiętą pozycję z cennika, więc poradnik prowadzi wprost do kalkulatora.
 import { layout, money } from './templates.mjs';
 import { SITE } from './config.mjs';
+import EXTRA_PORADNIKI from './data/guides-more.json' with { type: 'json' };
 
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
 
 // Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
 const NARZEDZIA_PORADNIKA = {
+  "montaz-drzwi-wewnetrznych-krok-po-kroku": [["uslugi/stolarka-i-wykonczenia/","Cennik montażu stolarki"],["kalkulator/wykonczenie-pod-klucz/","Kalkulator wykończenia mieszkania"]],
+  "cyklinowanie-parkietu-i-lakierowanie-krok-po-kroku": [["uslugi/podlogi/","Cennik robót podłogowych"],["kalkulator/pokoj/","Kalkulator remontu pokoju"]],
   "hydroizolacja-lazienki-pod-plytki-krok-po-kroku": [["kalkulator/lazienka/","Kalkulator remontu łazienki"],["kalkulator/plytki/","Kalkulator płytek"]],
   "gladz-gipsowa-sciany-krok-po-kroku": [["kalkulator/gladzie-i-tynki/","Kalkulator gładzi i tynków"],["kalkulator/malowanie/","Kalkulator malowania"]],
   "remont-pokoju-krok-po-kroku": [
@@ -902,6 +905,7 @@ export const PORADNIKI = [
     ]
   ]
 },
+  ...EXTRA_PORADNIKI,
 ];
 
 export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podlinkuj = (x) => x, ileKosztuje = '' }) {
@@ -913,7 +917,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
       '<p class="section-note">Orientacyjna stawka krajowa za ' + units[cenaZaRobote.unit].name +
       ': <strong>' + money(Math.round(stawka.labour + stawka.material)) + ' zł</strong> (' +
       money(Math.round(stawka.labour)) + ' zł robocizny i ' +
-      money(Math.round(stawka.material)) + ' zł materiału). To cena za samą pozycję, bez dodatkowych prac przygotowawczych. Porównaj warianty dla miast na <a href="' +
+      (stawka.material ? money(Math.round(stawka.material)) + ' zł materiału' : 'cena materiałów lub produktu nie jest wliczona') + '). To cena za samą pozycję, bez dodatkowych prac przygotowawczych. Porównaj warianty dla miast na <a href="' +
       R + catSlug(cenaZaRobote.cat) + '/' + slugify(cenaZaRobote.name) + '/">stronie usługi</a>.</p>'
     : '';
 
@@ -956,7 +960,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
     breadcrumb: [{ name: 'Cennik', path: '/' }, { name: 'Poradniki', path: '/poradnik/' }, { name: p.h1 }],
     body: `
 <section><div class="wrap">
-  <p class="eyebrow">Poradnik · aktualizacja ${SITE.updated}</p>
+  <p class="eyebrow">Poradnik${p.opracowano ? ` · opracowano ${p.opracowano}` : ""} · dane cenowe ${SITE.updated}</p>
   <h1>${p.h1}</h1>
   <p class="lede">${p.lede}</p>
   <p class="section-note">${p.wstep}</p>
@@ -973,6 +977,9 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
     </li>`).join('')}
   </ol>
 
+  ${p.wideo ? `<h2 style="margin-top:2.4rem">Film instruktażowy producenta</h2>
+  <div style="aspect-ratio:16/9;max-width:850px"><iframe loading="lazy" title="${p.wideo.title}" src="https://www.youtube-nocookie.com/embed/${p.wideo.id}" style="width:100%;height:100%;border:0" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+  <p class="section-note">Film dotyczy konkretnego systemu producenta. Przed montażem sprawdź instrukcję swojego modelu.</p>` : ''}
   ${ileKosztuje}
   ${kosztZCennika}
 
