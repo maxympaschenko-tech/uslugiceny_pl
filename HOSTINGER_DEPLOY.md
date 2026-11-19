@@ -56,3 +56,24 @@ Ustalone wdrożenie produkcyjne: **od razu na domenie `uslugiceny.pl`**, bez dom
 
 - https://www.hostinger.com/support/how-to-deploy-a-nodejs-website-in-hostinger/
 - https://www.hostinger.com/support/1863967-how-to-point-a-domain-to-hostinger/
+
+
+## Kontrola, czy nowy commit jest rzeczywiście wdrożony
+
+Po push do `main` generator zapisuje plik `/stan-wdrozenia.json` zawierający
+`build_id` (odcisk kodu i danych), `generated_at_utc`, liczbę poradników,
+pozycji cennika, miast i liczbę zainstalowanych zdjęć WebP. To bezpieczna
+publiczna diagnostyka bez kluczy API. Plik ma nagłówek `no-store` oraz
+`X-Robots-Tag: noindex` w konfiguracji Apache.
+
+Otwórz `https://uslugiceny.pl/stan-wdrozenia.json` i sprawdź `generated_at_utc`.
+Gdy plik ma starą datę albo nie istnieje, **najnowszy build jeszcze nie trafił
+na produkcję**. W Hostinger hPanel → Websites → Web App → Deployments sprawdź
+ostatnią próbę: czy pobrano właściwą gałąź `main`, czy `npm run build`
+zakończyło się `0` i czy katalog wyjściowy to `dist`. W razie błędu
+zobacz log tego wdrożenia; ponowny push nie naprawi błędu kompilacji.
+
+Przed wygenerowaniem witryny `npm run build` weryfikuje treść poradników,
+a po wygenerowaniu sprawdza brakujące strony, pliki mediów, sitemap oraz
+grafiki udziału kosztów na stronach usług. Błędny wynik przerywa build,
+dzięki czemu brakujący plik nie staje się nową wersją produkcyjną.

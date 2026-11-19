@@ -1350,7 +1350,31 @@ for (const f of await wszystkiePliki(OUT)) {
 
 // Pliki kopiowane do korzenia (ikony, .htaccess, sitemap) zawsze traktujemy
 // jako zmienione: sa male, a ich pominiecie bylo by trudne do wykrycia.
-const zawszeWysylaj = [...doKorzenia, '404.html', 'sitemap.xml', 'robots.txt', 'search-index.json', 'assets/style.css', 'assets/kalkulator.js'];
+// Wersja wydania widoczna bez logowania: pozwala odróżnić błąd budowania
+// od starej wersji Hostinger/CDN. Odcisk dotyczy kodu i danych, nie czasu.
+const fingerprintFiles = [
+  'build.mjs', 'src/pages-service.mjs', 'src/pages-guides.mjs',
+  'src/data/works.json', 'src/home-media.mjs',
+  'src/photo-guides.mjs', 'src/assets/style.css',
+];
+const sourceHash = createHash('sha256');
+for (const file of fingerprintFiles) {
+  sourceHash.update(file + '\\n');
+  sourceHash.update(await readFile(file));
+}
+const releaseInfo = {
+  build_id: sourceHash.digest('hex').slice(0, 16),
+  generated_at_utc: new Date().toISOString(),
+  price_data_checked: meta.checked || meta.updated,
+  total_services: works.length,
+  city_count: cities.length,
+  guide_count: PORADNIKI.length,
+  category_count: categories.length,
+  guide_photos: PORADNIKI.filter((p) => guideImage(p.slug).endsWith('.webp')).length,
+};
+await writeFile(join(OUT, 'stan-wdrozenia.json'), JSON.stringify(releaseInfo, null, 2) + '\\n');
+
+const zawszeWysylaj = [...doKorzenia, '404.html', 'sitemap.xml', 'robots.txt', 'search-index.json', 'assets/style.css', 'assets/kalkulator.js', 'stan-wdrozenia.json'];
 await writeFile('zmienione.txt', [...zmienione, ...zawszeWysylaj].join('\n') + '\n');
 
 console.log(

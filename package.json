@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Baza cen robót remontowych w 10 największych miastach Polski",
   "scripts": {
-    "build": "node narzedzia/sprawdz-poradniki.mjs && node build.mjs",
+    "build": "node narzedzia/sprawdz-poradniki.mjs && node build.mjs && node narzedzia/sprawdz-dist.mjs",
     "dev": "npm run build && node narzedzia/serwer.mjs",
     "serve": "node narzedzia/serwer.mjs",
     "check:guides": "node narzedzia/sprawdz-poradniki.mjs"

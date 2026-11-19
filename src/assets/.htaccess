@@ -45,6 +45,11 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 <IfModule mod_headers.c>
+  # Diagnostyka wydania nie powinna być cache'owana przez CDN.
+  <Files "stan-wdrozenia.json">
+    Header set Cache-Control "no-store, max-age=0, must-revalidate"
+    Header set X-Robots-Tag "noindex, nofollow"
+  </Files>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
