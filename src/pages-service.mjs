@@ -159,8 +159,7 @@ const splitTable = (w, units, lab, mat) => `
 <tr><td>Robocizna</td><td class="num">${money(Math.round(lab))} zł</td><td class="num">${Math.round((lab / (lab + mat)) * 100)}%</td></tr>
 <tr><td>${w.materialLabel ? w.materialLabel[0].toUpperCase() + w.materialLabel.slice(1) : 'Materiał'}${w.material ? '' : ' (kupuje inwestor)'}</td><td class="num">${w.material ? money(Math.round(mat)) + ' zł' : 'własny'}</td><td class="num">${w.material ? Math.round((mat / (lab + mat)) * 100) + '%' : '0%'}</td></tr>
 <tr><td><b>Razem</b></td><td class="num"><b>${money(Math.round(lab + mat))} zł</b></td><td class="num">100%</td></tr>
-</tbody></table></div>
-${pasekPodzialu(lab, mat)}`;
+</tbody></table></div>`;
 
 const calcBox = (w, units, cities, cityOptions, preset = null) => `
 <div class="panel service-calculator service-section" id="policz-koszt" tabindex="-1">
