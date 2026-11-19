@@ -19,6 +19,12 @@ Stary workflow FTP do Ukraine.com.ua został usunięty po migracji.
 - Kontrola przed publikacją: `npm run check:guides` sprawdza unikatowość URL, kompletność treści, powiązania cen i źródła.
 - Migracja i domena: [HOSTINGER_DEPLOY.md](HOSTINGER_DEPLOY.md). Dawne akapity dokumentujące FTP na dole tego pliku są **archiwalne**.
 
+## Dodatkowe fotografie WebP w poradnikach
+
+Osiem tematów wskazanych w `src/photo-guides.mjs` obsługuje dodatkowe ilustracje redakcyjne w formacie **WebP 1600 × 900**. Plik należy umieścić jako `src/assets/photos/<slug>.webp`, gdzie `slug` to adres poradnika. Istniejące schematy pozostają w `src/assets/media/<slug>.svg`.
+
+Bez WebP strona zachowuje schemat SVG — nie ma pustych obrazów. Po umieszczeniu WebP i wypchnięciu go do `main` generator umieszcza zdjęcie na początku artykułu i na karcie, a techniczny schemat po trzecim kroku. Mapa witryny pokazuje użyty obraz. Weryfikacja sprawdza format, wielkość i brak duplikatów. Ilustracje redakcyjne nie stanowią fotodokumentacji prawdziwego zlecenia.
+
 ## Uruchomienie
 
 ```bash

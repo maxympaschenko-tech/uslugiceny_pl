@@ -2,6 +2,7 @@ import { PORADNIKI } from '../src/pages-guides.mjs';
 import works from '../src/data/works.json' with { type: 'json' };
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { PHOTO_GUIDES, photoForGuide } from '../src/photo-guides.mjs';
 
 // Jeden test bez sieci, uruchamiany: npm run check:guides
 const prace = new Set(works.works.map(w => w.id));
@@ -52,6 +53,19 @@ for (const p of PORADNIKI) {
 
 }
 
+let nPhotos = 0;
+const photoHashes = new Set();
+for (const slug of PHOTO_GUIDES) {
+  const image = photoForGuide(slug);
+  if (!image) continue;
+  const buf = readFileSync('src/' + image);
+  if (buf.length < 8000 || buf.length > 500000) errors.push(slug + ': rozmiar WebP poza 8–500 KB');
+  if (buf.toString('ascii', 0, 4) !== 'RIFF' || buf.toString('ascii', 8, 12) !== 'WEBP') errors.push(slug + ': błędny plik WebP');
+  const sha = createHash('sha256').update(buf).digest('hex');
+  if (photoHashes.has(sha)) errors.push(slug + ': zdjęcie powtórzone');
+  photoHashes.add(sha);
+  nPhotos++;
+}
 const kategorieHashes = new Set();
 let nKategorii = 0;
 for (const cat of works.categories) {
@@ -75,5 +89,5 @@ if (errors.length) {
   errors.forEach(x => console.error('BŁĄD: ' + x));
   process.exitCode = 1;
 } else {
-  console.log('Poradniki OK: ' + seen.size + ' artykułów, ' + nImages + ' ilustracji artykułów, ' + nKategorii + ' schematów kategorii, ' + nSteps + ' etapów, ' + nFAQ + ' FAQ.');
+  console.log('Poradniki OK: ' + seen.size + ' artykułów, ' + nImages + ' ilustracji artykułów, ' + nPhotos + ' obrazów WebP, ' + nKategorii + ' schematów kategorii, ' + nSteps + ' etapów, ' + nFAQ + ' FAQ.');
 }

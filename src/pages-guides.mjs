@@ -5,6 +5,7 @@ import { layout, money } from './templates.mjs';
 import { SITE } from './config.mjs';
 import EXTRA_PORADNIKI from './data/guides-more.json' with { type: 'json' };
 import MIASTA from './data/cities.json' with { type: 'json' };
+import { photoForGuide, guideImage } from './photo-guides.mjs';
 
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
@@ -37,10 +38,16 @@ const MEDIA_PORADNIKI = {
 const grafikaPoradnika = (p, mini = false) => {
   const m = MEDIA_PORADNIKI[p.slug];
   if (!m) return '';
-  const src = `${R}assets/media/${p.slug}.svg`;
-  return mini
-    ? `<a href="${R}poradnik/${p.slug}/" class="guide-card-media" aria-label="Otwórz poradnik: ${p.h1}"><img src="${src}" alt="${m.alt}" width="1200" height="675" loading="lazy" decoding="async"></a>`
-    : `<figure class="guide-visual"><img src="${src}" alt="${m.alt}" width="1200" height="675" loading="eager" decoding="async" fetchpriority="high"><figcaption>${m.caption} Schemat poglądowy; szczegóły w dokumentacji systemu.</figcaption></figure>`;
+  const photo = photoForGuide(p.slug);
+  const scheme = `${R}assets/media/${p.slug}.svg`;
+  if (mini) return `<a href="${R}poradnik/${p.slug}/" class="guide-card-media" aria-label="Otwórz poradnik: ${p.h1}">
+    <img src="${photo ? R + photo : scheme}" alt="${photo ? p.h1 + ' — ilustracja redakcyjna' : m.alt}" width="1200" height="675" loading="lazy" decoding="async"></a>`;
+  return `<figure class="guide-visual"><img src="${scheme}" alt="${m.alt}" width="1200" height="675" loading="${photo ? 'lazy' : 'eager'}" decoding="async"${photo ? '' : ' fetchpriority="high"'}><figcaption>${m.caption} Schemat poglądowy; szczegóły w dokumentacji systemu.</figcaption></figure>`;
+};
+const fotoPoradnika = p => {
+  const src = photoForGuide(p.slug);
+  if (!src) return '';
+  return `<figure class="guide-photo-hero"><img src="${R}${src}" width="1600" height="900" alt="${p.h1} — ilustracja redakcyjna przykładowych prac" decoding="async" fetchpriority="high"><figcaption>Ilustracja redakcyjna. Schemat techniczny poniżej wyjaśnia kolejność prac.</figcaption></figure>`;
 };
 
 // Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
@@ -996,6 +1003,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
     </section>`
     : '';
 
+  const maFoto = Boolean(photoForGuide(p.slug));
   const narzedzia = NARZEDZIA_PORADNIKA[p.slug] || [['kalkulator/remont-mieszkania/', 'Kalkulator remontu mieszkania']];
   const linkiNastepne = narzedzia.map(([path, name]) => '<a href="' + R + path + '">' + name + '</a>').join(' lub ');
   // Podpowiedzi z tej samej tematyki wynikają ze wspólnych pozycji cennika.
@@ -1048,7 +1056,8 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   <h1>${p.h1}</h1>
   <p class="lede">${p.lede}</p>
   <p class="section-note">${p.wstep}</p>
-  ${grafikaPoradnika(p)}
+  ${fotoPoradnika(p)}
+  ${maFoto ? '' : grafikaPoradnika(p)}
   ${szybkaNawigacja}
 
   <ol class="kroki">
@@ -1060,7 +1069,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
         <p>${podlinkuj(k.txt)}</p>
         ${k.cena ? `<p class="krok-cena"><a href="${k.link}">${k.nazwa}</a> <b>${money(k.cena)} zł</b> za ${k.jedn}</p>` : '<p class="krok-cena">Etap bez osobnej pozycji w cenniku; koszt zależy od zakresu.</p>'}
       </div>
-    </li>`).join('')}
+    </li>${maFoto && i === Math.min(2, kroki.length - 1) ? grafikaPoradnika(p) : ''}`).join('')}
   </ol>
 
   ${p.wideo ? `<h2 style="margin-top:2.4rem">Film instruktażowy producenta</h2>
@@ -1089,7 +1098,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
         '@type': 'HowTo',
         name: p.h1,
         description: p.desc,
-        image: SITE.url(`/assets/media/${p.slug}.svg`),
+        image: SITE.url('/' + guideImage(p.slug)),
         inLanguage: 'pl',
         totalTime: p.czas,
         step: kroki.map((k, i) => ({

@@ -14,6 +14,7 @@ import { createGlossaryLinker } from './src/linkowanie.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
 import { homeFeaturedGuides, homeFeaturedCategories } from './src/home-media.mjs';
+import { guideImage } from './src/photo-guides.mjs';
 import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage, PODDASZA, poddaszeMetrazPage, BALKONY, balkonMetrazPage, POKOJE, pokojMetrazPage, DACHY, dachMetrazPage, PODJAZDY, podjazdMetrazPage, OGRODZENIA, ogrodzenieMetrazPage, wyliczeniaIndexPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
@@ -1289,7 +1290,7 @@ const urls = [
 // znamy miesiąc kalibracji danych, ale nie datę zmiany każdej strony.
 const indexableUrls = [...new Set(urls)].filter((u) => u !== '/szukaj/');
 const imageByPage = new Map([
-  ...PORADNIKI.map((p) => [`/poradnik/${p.slug}/`, `/assets/media/${p.slug}.svg`]),
+  ...PORADNIKI.map((p) => [`/poradnik/${p.slug}/`, '/' + guideImage(p.slug)]),
   ...categories.map((c) => [`/uslugi/${c.slug}/`, `/assets/category/${c.id}.svg`]),
 ]);
 const sitemapXml = (value) => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;');
