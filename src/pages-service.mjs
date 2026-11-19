@@ -2,6 +2,7 @@
 // To ta część, która daje skalę: 42 roboty × (1 + 10 miast) = 462 strony.
 import { layout, odmien, estimateSheet, calcScript, field, select, money, tytul } from './templates.mjs';
 import { SITE } from './config.mjs';
+import { PORADNIKI } from './pages-guides.mjs';
 import { ikona, pasekPodzialu, slupkiMiast } from './icons.mjs';
 
 const R = SITE.root;
@@ -16,6 +17,29 @@ export const slugify = (s) =>
     .replace(/^-|-$/g, '');
 
 const unitPl = (units, w) => units[w.unit].name;
+
+// Cennik prowadzi do poradnika tylko gdy temat dotyczy tej samej pozycji.
+const ODNOSNIKI_DO_PORADNIKOW = new Map(
+  PORADNIKI.filter((p) => p.kosztWorkId)
+    .map((p) => [p.kosztWorkId, p])
+);
+for (const [id, slug] of [
+  ['malowanie', 'malowanie-scian-krok-po-kroku'],
+  ['montaz_okna', 'wymiana-okien-krok-po-kroku'],
+  ['blachodachowka', 'wymiana-dachu-krok-po-kroku'],
+  ['montaz_split', 'montaz-klimatyzacji-krok-po-kroku']
+]) {
+  const poradnik = PORADNIKI.find((p) => p.slug === slug);
+  if (poradnik && !ODNOSNIKI_DO_PORADNIKOW.has(id)) ODNOSNIKI_DO_PORADNIKOW.set(id, poradnik);
+}
+const poradnikDlaPracy = (w) => {
+  const p = ODNOSNIKI_DO_PORADNIKOW.get(w.id);
+  return p
+    ? `<h2 style="margin-top:2rem">Jak wykonać tę pracę krok po kroku</h2>
+  <p class="section-note">Zanim porównasz oferty, sprawdź zakres i kolejność etapów: <a href="${R}poradnik/${p.slug}/">${p.h1}</a>. Instrukcja pokazuje typowe błędy, warunki odbioru i prace, które bywają wyceniane osobno.</p>`
+    : '';
+};
+
 
 // Strona usługi bez wyjścia do kalkulatora jest ślepym zaułkiem: czytelnik pozna
 // stawkę za jednostkę, ale nie dowie się, ile wyjdzie u niego. Ta mapa łączy
@@ -265,6 +289,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
       ${doKalkulatora(cat.id)}
       ${doWyliczen(cat.id)}
       ${factorsBlock(w, podlinkuj)}
+      ${poradnikDlaPracy(w)}
     </div>
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions)}</div>
   </div>
