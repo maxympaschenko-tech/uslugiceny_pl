@@ -17,6 +17,15 @@ export const slugify = (s) =>
     .replace(/^-|-$/g, '');
 
 const unitPl = (units, w) => units[w.unit].name;
+// Każdy dział ma własny schemat, dzięki czemu indeks 13 kategorii nie powiela jednej grafiki.
+const grafikaKategorii = (cat, mini = false) => {
+  const src = `${R}assets/category/${cat.id}.svg`;
+  const alt = `${cat.name} — schemat zakresu prac`;
+  return mini
+    ? `<a class="service-category-image" href="${R}uslugi/${cat.slug}/" aria-label="Zobacz cennik: ${cat.name}"><img src="${src}" alt="${alt}" width="1200" height="675" loading="lazy" decoding="async"></a>`
+    : `<figure class="service-category-cover"><img src="${src}" alt="${alt}" width="1200" height="675" loading="eager" decoding="async" fetchpriority="high"><figcaption>${cat.name}: schemat poglądowy. Szczegółowy zakres i ceny znajdziesz poniżej.</figcaption></figure>`;
+};
+
 
 // Cennik prowadzi do poradnika tylko gdy temat dotyczy tej samej pozycji.
 const ODNOSNIKI_DO_PORADNIKOW = new Map(
@@ -562,6 +571,7 @@ export function categoryPage({ cat, works, units, unitPrice, podlinkuj = (x) => 
 <section><div class="wrap">
   <h1>${ikona(cat.id)} ${cat.name}</h1>
   <p class="lede">${cat.lead}</p>
+  ${grafikaKategorii(cat)}
   ${(() => {
     const uzyteWKategorii = new Set();
     return (cat.opis || [])
@@ -626,14 +636,16 @@ export function servicesIndex({ categories, works, units, unitPrice }) {
   ${categories
     .map((cat) => {
       const list = works.filter((w) => w.cat === cat.id);
-      return `<h2 style="margin-top:1.8rem">${ikona(cat.id)}<a href="${R}uslugi/${cat.slug}/">${cat.name}</a></h2>
-<p class="section-note">${cat.lead}</p>
-<div class="city-links">${list
+      return `<div class="service-category-entry"><div class="service-category-entry-head">
+${grafikaKategorii(cat, true)}
+<div><h2>${ikona(cat.id)}<a href="${R}uslugi/${cat.slug}/">${cat.name}</a></h2>
+<p class="section-note">${cat.lead}</p><p class="service-category-count">${list.length} pozycji w cenniku</p></div>
+</div><div class="city-links">${list
         .map((w) => {
           const p = unitPrice(w.id, 1, 1, w.perCm ? 5 : 1);
           return `<a href="${R}${cat.slug}/${slugify(w.name)}/">${w.name} <b>${money(Math.round(p.labour + p.material))} zł/${units[w.unit].name}</b></a>`;
         })
-        .join('')}</div>`;
+        .join('')}</div></div>`;
     })
     .join('')}
 </div></section>`,

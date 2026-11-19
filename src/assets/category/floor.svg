@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+<title id="title">Podłogi</title><desc id="description">Warstwy podkładu, izolacji i okładziny. Schemat poglądowy.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#FCFCF9"/><stop offset="1" stop-color="#EEF4F0"/></linearGradient></defs>
+<rect x="0" y="0" width="1200" height="675" rx="0" fill="url(#bg)" stroke="none" stroke-width="1"/>
+<rect x="31" y="30" width="1138" height="613" rx="27" fill="#FFFFFF" stroke="#DCE7E1" stroke-width="1"/>
+<rect x="75" y="67" width="9" height="70" rx="5" fill="#FFC93D" stroke="none" stroke-width="1"/>
+<text x="106" y="94" font-family="Arial,sans-serif" fill="#238185" font-size="18" font-weight="800">CENNIK I PRACE REMONTOWE</text>
+<text x="106" y="143" font-family="Arial,sans-serif" fill="#172D35" font-size="42" font-weight="750">Podłogi</text>
+<text x="106" y="185" font-family="Arial,sans-serif" fill="#607478" font-size="21" font-weight="450">Warstwy podkładu, izolacji i okładziny</text>
+<rect x="62" y="219" width="762" height="356" rx="19" fill="#F1F6F3" stroke="#E1E9E3" stroke-width="1"/>
+<g transform="translate(82 227)"><rect x="72" y="46" width="595" height="81" rx="6" fill="#C4A17B" stroke="none" stroke-width="1"/>
+<line x1="93" y1="49" x2="93" y2="122" stroke="#A58460" stroke-width="4" stroke-linecap="round"/><line x1="173" y1="49" x2="173" y2="122" stroke="#A58460" stroke-width="4" stroke-linecap="round"/><line x1="253" y1="49" x2="253" y2="122" stroke="#A58460" stroke-width="4" stroke-linecap="round"/><line x1="333" y1="49" x2="333" y2="122" stroke="#A58460" stroke-width="4" stroke-linecap="round"/><line x1="413" y1="49" x2="413" y2="122" stroke="#A58460" stroke-width="4" stroke-linecap="round"/><line x1="493" y1="49" x2="493" y2="122" stroke="#A58460" stroke-width="4" stroke-linecap="round"/><line x1="573" y1="49" x2="573" y2="122" stroke="#A58460" stroke-width="4" stroke-linecap="round"/>
+<rect x="72" y="132" width="595" height="18" rx="2" fill="#EAD3A7" stroke="none" stroke-width="1"/><rect x="72" y="155" width="595" height="17" rx="2" fill="#85AAAC" stroke="none" stroke-width="1"/>
+<rect x="72" y="179" width="595" height="81" rx="5" fill="#C9CEC7" stroke="none" stroke-width="1"/>
+<rect x="72" y="268" width="595" height="34" rx="5" fill="#A5B5AC" stroke="none" stroke-width="1"/>
+<text x="89" y="97" font-family="Arial,sans-serif" fill="#20343A" font-size="26" font-weight="600">PODŁOGA</text>
+<text x="344" y="147" font-family="Arial,sans-serif" fill="#20343A" font-size="20" font-weight="600">PODKŁAD</text><text x="344" y="169" font-family="Arial,sans-serif" fill="#20343A" font-size="17" font-weight="600">FOLIA</text><text x="333" y="225" font-family="Arial,sans-serif" fill="#20343A" font-size="22" font-weight="600">JASTRYCH</text>
+<text x="339" y="291" font-family="Arial,sans-serif" fill="#20343A" font-size="21" font-weight="600">PODŁOŻE</text></g>
+<rect x="838" y="219" width="299" height="356" rx="19" fill="#F5F8F5" stroke="none" stroke-width="1"/>
+<text x="851" y="258" font-family="Arial,sans-serif" fill="#238185" font-size="18" font-weight="750">NA CO ZWRÓCIĆ UWAGĘ</text><rect x="846" y="274" width="275" height="65" rx="10" fill="#FFFFFF" stroke="#DDE9E1" stroke-width="1"/><circle cx="870" cy="307" r="14" fill="#237F83" stroke="none" stroke-width="1"/><text x="865" y="313" font-family="Arial,sans-serif" fill="#fff" font-size="16" font-weight="800">1</text><text x="890" y="314" font-family="Arial,sans-serif" fill="#243E45" font-size="16" font-weight="600">nośność podłoża</text><rect x="846" y="355" width="275" height="65" rx="10" fill="#FFFFFF" stroke="#DDE9E1" stroke-width="1"/><circle cx="870" cy="388" r="14" fill="#237F83" stroke="none" stroke-width="1"/><text x="865" y="394" font-family="Arial,sans-serif" fill="#fff" font-size="16" font-weight="800">2</text><text x="890" y="395" font-family="Arial,sans-serif" fill="#243E45" font-size="16" font-weight="600">izolacja i wylewka</text><rect x="846" y="436" width="275" height="65" rx="10" fill="#FFFFFF" stroke="#DDE9E1" stroke-width="1"/><circle cx="870" cy="469" r="14" fill="#237F83" stroke="none" stroke-width="1"/><text x="865" y="475" font-family="Arial,sans-serif" fill="#fff" font-size="16" font-weight="800">3</text><text x="890" y="476" font-family="Arial,sans-serif" fill="#243E45" font-size="16" font-weight="600">okładzina podłogi</text>
+<line x1="70" y1="602" x2="1126" y2="602" stroke="#DFE7E1" stroke-width="2" stroke-linecap="round"/>
+<text x="92" y="629" font-family="Arial,sans-serif" fill="#607377" font-size="17" font-weight="450">Schemat orientacyjny — zakres i technologię uzgodnij z wykonawcą</text>
+</svg>

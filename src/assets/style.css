@@ -1070,3 +1070,17 @@ details > .board-wrap, details .board-wrap { width: 100%; }
 .guide-back-top a{display:inline-block;padding:.55rem .8rem;border-radius:9px;background:#F2F7F4;font-weight:650}
 @media(max-width:850px){.guide-step-nav-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.guide-step-nav{padding:.8rem}.guide-step-jump{padding:.6rem;gap:.4rem}.guide-step-jump b{font-size:.8rem}}
+
+/* Tematyczne schematy dla 13 kategorii w katalogu usług. */
+.service-category-cover{max-width:860px;margin:1.25rem 0 1.75rem;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#F5F8F6}
+.service-category-cover img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}
+.service-category-cover figcaption{padding:.65rem 1rem;background:#fff;color:var(--ink-soft);font-size:.85rem}
+.service-category-entry{margin:2rem 0 2.2rem}
+.service-category-entry-head{display:grid;grid-template-columns:minmax(160px,248px) minmax(0,1fr);gap:1.25rem;align-items:center;margin-bottom:1rem}
+.service-category-entry-head h2{margin:0 0 .5rem}
+.service-category-entry-head .section-note{margin:.25rem 0 .65rem}
+.service-category-image{display:block;border:1px solid var(--line);background:#F3F7F3;border-radius:12px;overflow:hidden}
+.service-category-image img{width:100%;height:auto;aspect-ratio:16/9;display:block;object-fit:contain}
+.service-category-image:focus-visible{outline:3px solid var(--signal-d);outline-offset:3px}
+.service-category-count{display:inline-block;color:#216F74;background:#ECF5F1;padding:.3rem .55rem;border-radius:7px;font-size:.82rem;font-weight:700}
+@media(max-width:600px){.service-category-entry-head{grid-template-columns:minmax(0,1fr);gap:.75rem}.service-category-image{max-width:100%}.service-category-cover{border-radius:12px}.service-category-cover figcaption{font-size:.78rem}}
