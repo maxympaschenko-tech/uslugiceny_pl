@@ -257,7 +257,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
 
   return layout({
     title: tytul(`${w.name} - cena ${YEAR}`, `: stawka za ${u}`),
-    description: `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}, w przedziale od ${money(Math.round(min))} do ${money(Math.round(max))} zł. Robocizna i materiał osobno, stawki w 10 miastach.`,
+    description: `${w.name}: średnio ${money(Math.round(avg))} zł za ${u}${w.perCm ? ' dla warstwy 5 cm' : ''}, w przedziale od ${money(Math.round(min))} do ${money(Math.round(max))} zł. Robocizna i materiał osobno, stawki w 10 miastach.`,
     path,
     breadcrumb: [
       { name: 'Cennik', path: '/' },
@@ -275,6 +275,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     </div>
     <div class="service-summary">
       <p class="service-price-label">Orientacyjna stawka za ${u}</p>
+      ${w.perCm ? `<p class="section-note" style="margin-top:.7rem">Cena za m² zakłada warstwę 5 cm. Inna grubość zmienia zużycie materiału — sprawdź kalkulator poniżej.</p>` : ""}
       ${priceCard(w, units, avg, min, max)}
     </div>
   </div>
@@ -410,7 +411,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
 
   return layout({
     title: tytul(`${w.name} ${city.loc}`, ` - cennik ${YEAR}`, ''),
-    description: `${w.name} ${city.loc}: średnio ${money(Math.round(t))} zł za ${u}, w przedziale od ${money(Math.round(t * (1 - spread)))} do ${money(Math.round(t * (1 + spread)))} zł.`,
+    description: `${w.name} ${city.loc}: średnio ${money(Math.round(t))} zł za ${u}${w.perCm ? ' dla warstwy 5 cm' : ''}, w przedziale od ${money(Math.round(t * (1 - spread)))} do ${money(Math.round(t * (1 + spread)))} zł.`,
     path,
     breadcrumb: [
       { name: 'Cennik', path: '/' },
@@ -429,6 +430,7 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     </div>
     <div class="service-summary">
       <p class="service-price-label">Orientacyjna stawka za ${u}</p>
+      ${w.perCm ? `<p class="section-note" style="margin-top:.7rem">Cena za m² zakłada warstwę 5 cm. Inna grubość zmienia zużycie materiału — sprawdź kalkulator poniżej.</p>` : ""}
       ${priceCard(w, units, t, t * (1 - spread), t * (1 + spread))}
     </div>
   </div>
