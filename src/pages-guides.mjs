@@ -994,6 +994,15 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
       zwiazane.map(({ kandydat }) => '<li><a href="' + R + 'poradnik/' + kandydat.slug + '/">' +
         kandydat.h1 + '</a></li>').join('') + '</ul>'
     : '';
+  // Nawigacja do czterech kluczowych momentów prac, bez długiego spisu treści.
+  const krokiNawigacji = [...new Set([0, Math.floor((p.kroki.length - 1) / 3), Math.floor(2 * (p.kroki.length - 1) / 3), p.kroki.length - 1])];
+  const szybkaNawigacja = `<nav class="guide-step-nav" aria-label="Skróty do etapów">
+    <p class="guide-step-nav-title">Przejdź do etapu</p>
+    <div class="guide-step-nav-items">${krokiNawigacji.map((idx) => `<a href="#etap-${idx + 1}" class="guide-step-jump">
+    <span>${String(idx + 1).padStart(2, '0')}</span><b>${p.kroki[idx].t}</b>
+    </a>`).join('')}</div>
+  </nav>`;
+
   const kroki = p.kroki.map((k) => {
     if (!k.w) return { ...k, cena: null };
     const w = byId[k.w];
@@ -1019,10 +1028,11 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   <p class="lede">${p.lede}</p>
   <p class="section-note">${p.wstep}</p>
   ${grafikaPoradnika(p)}
+  ${szybkaNawigacja}
 
   <ol class="kroki">
     ${kroki.map((k, i) => `
-    <li>
+    <li id="etap-${i + 1}">
       <span class="krok-nr">${String(i + 1).padStart(2, '0')}</span>
       <div class="krok-tresc">
         <h2>${k.t}</h2>
@@ -1046,6 +1056,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   <h2 style="margin-top:2.5rem">Częste pytania</h2>
   ${p.faq.map(([q, a]) => `<h3 style="margin:1.2rem 0 .3rem">${q}</h3><p class="section-note">${a}</p>`).join('')}
 
+  <p class="guide-back-top"><a href="#etap-1">Wróć do początku etapów ↑</a></p>
   ${innePoradniki}
 
   <p class="receipt-foot" style="margin-top:1.6rem">Przydatne narzędzia i cenniki: ${linkiNastepne}.</p>

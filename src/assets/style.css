@@ -1055,3 +1055,18 @@ details > .board-wrap, details .board-wrap { width: 100%; }
 .guide-cost-marker.material{background:#DFE9E4;border:1px solid #C4D5CD}
 .guide-cost-disclaimer{color:var(--ink-soft);font-size:.8rem;line-height:1.5;margin:.7rem 0 0}
 @media(max-width:600px){.guide-cost-visual{padding:.85rem}}
+
+/* Szybki wizualny spis kluczowych etapów dla długich poradników. */
+.guide-step-nav{margin:1.35rem 0 2.4rem;max-width:1050px;border:1px solid var(--line);border-radius:16px;padding:1rem 1.15rem;background:#fff}
+.guide-step-nav-title{font-weight:750;color:var(--ink);margin:0 0 .8rem;font-size:.95rem}
+.guide-step-nav-items{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem}
+.guide-step-jump{display:flex;gap:.65rem;align-items:flex-start;min-width:0;padding:.75rem;background:#F4F8F5;border:1px solid #DDE8E0;border-radius:10px;color:var(--ink);text-decoration:none;transition:border-color .15s,background .15s}
+.guide-step-jump:hover{background:#ECF4F0;border-color:#73A6A2}
+.guide-step-jump:focus-visible{outline:3px solid var(--signal-d);outline-offset:2px}
+.guide-step-jump span{font-size:.84rem;font-weight:800;line-height:1.5;color:#167D80;flex:none}
+.guide-step-jump b{font-size:.85rem;line-height:1.45;overflow-wrap:anywhere}
+.kroki>li[id]{scroll-margin-top:96px}
+.guide-back-top{margin:1.75rem 0}
+.guide-back-top a{display:inline-block;padding:.55rem .8rem;border-radius:9px;background:#F2F7F4;font-weight:650}
+@media(max-width:850px){.guide-step-nav-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.guide-step-nav{padding:.8rem}.guide-step-jump{padding:.6rem;gap:.4rem}.guide-step-jump b{font-size:.8rem}}
