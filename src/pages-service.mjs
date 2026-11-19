@@ -27,7 +27,7 @@ for (const [id, slug] of [
   ['malowanie', 'malowanie-scian-krok-po-kroku'],
   ['montaz_okna', 'wymiana-okien-krok-po-kroku'],
   ['blachodachowka', 'wymiana-dachu-krok-po-kroku'],
-  ['montaz_split', 'montaz-klimatyzacji-krok-po-kroku']
+  ['klimatyzacja_split', 'montaz-klimatyzacji-krok-po-kroku']
 ]) {
   const poradnik = PORADNIKI.find((p) => p.slug === slug);
   if (poradnik && !ODNOSNIKI_DO_PORADNIKOW.has(id)) ODNOSNIKI_DO_PORADNIKOW.set(id, poradnik);
