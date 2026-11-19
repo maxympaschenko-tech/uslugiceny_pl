@@ -13,6 +13,7 @@ import { HASLA, slownikPage } from './src/pages-slownik.mjs';
 import { createGlossaryLinker } from './src/linkowanie.mjs';
 import { METRAZE, metrazPage, POROWNANIA, porownaniePage, porownaniaIndex, setCats } from './src/pages-extra.mjs';
 import { PORADNIKI, poradnikPage, poradnikiIndex } from './src/pages-guides.mjs';
+import { homeFeaturedGuides, homeFeaturedCategories } from './src/home-media.mjs';
 import { DOMY, ocieplenieMetrazPage, WYKONCZENIA, wykonczenieMetrazPage, DOMY_REMONT, remontDomuPage, LAZIENKI, lazienkaMetrazPage, KUCHNIE, kuchniaMetrazPage, PODDASZA, poddaszeMetrazPage, BALKONY, balkonMetrazPage, POKOJE, pokojMetrazPage, DACHY, dachMetrazPage, PODJAZDY, podjazdMetrazPage, OGRODZENIA, ogrodzenieMetrazPage, wyliczeniaIndexPage } from './src/pages-extra.mjs';
 
 const OUT = 'dist';
@@ -220,6 +221,8 @@ await write(
   </div>
 </div></section>
 
+${homeFeaturedGuides(PORADNIKI, R)}
+
 <section class="city-section" id="ceny-miast"><div class="wrap">
   <p class="eyebrow">Ten sam remont, różne miasta</p>
   <h2>Remont pod klucz, zł za m²</h2>
@@ -253,6 +256,7 @@ await write(
 <section><div class="wrap">
   <h2>Katalog robót</h2>
   <p class="section-note">Każda pozycja ma własną stronę z rozbiciem stawki na robociznę i materiał, listą czynników cenotwórczych i cenami w dziesięciu miastach.</p>
+  ${homeFeaturedCategories(categories, works, R)}
   <ul class="kategorie">${categories
     .map((c) => {
       const n = works.filter((w) => w.cat === c.id).length;
