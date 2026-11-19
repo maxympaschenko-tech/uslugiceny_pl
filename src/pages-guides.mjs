@@ -57,6 +57,9 @@ const fotoPoradnika = p => {
 
 // Przejścia tematyczne, zamiast odnośników do łazienki pod każdym poradnikiem.
 const NARZEDZIA_PORADNIKA = {
+  "montaz-listew-przypodlogowych-krok-po-kroku": [["uslugi/podlogi/", "Cennik robót podłogowych"], ["kalkulator/pokoj/", "Kalkulator remontu pokoju"]],
+  "wymiana-silikonu-w-lazience-krok-po-kroku": [["uslugi/plytki-i-hydroizolacja/", "Cennik płytek i uszczelnień"], ["kalkulator/lazienka/", "Kalkulator remontu łazienki"]],
+  "gruntowanie-scian-przed-malowaniem-krok-po-kroku": [["kalkulator/malowanie/", "Kalkulator malowania"], ["kalkulator/gladzie-i-tynki/", "Kalkulator gładzi i tynków"]],
   "sufit-podwieszany-z-plyt-gk-krok-po-kroku": [["uslugi/sciany-i-sufity/","Cennik sufitów i zabudów g-k"],["kalkulator/wykonczenie-pod-klucz/","Kalkulator wykończenia mieszkania"]],
   "wylewka-cementowa-krok-po-kroku": [["kalkulator/wylewka/","Kalkulator wylewki"],["kalkulator/materialy/","Kalkulator materiałów"]],
   "ukladanie-plytek-podlogowych-krok-po-kroku": [["kalkulator/plytki/","Kalkulator płytek"],["kalkulator/lazienka/","Kalkulator łazienki"]],

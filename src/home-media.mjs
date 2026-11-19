@@ -1,6 +1,6 @@
 // Główna: autorskie ilustracje i opcjonalne WebP.
 import { photoForGuide } from './photo-guides.mjs';
-const GUIDE_SLUGS = ['remont-lazienki-krok-po-kroku','wylewka-cementowa-krok-po-kroku','sufit-podwieszany-z-plyt-gk-krok-po-kroku','montaz-drzwi-wewnetrznych-krok-po-kroku'];
+const GUIDE_SLUGS = ['montaz-listew-przypodlogowych-krok-po-kroku','wymiana-silikonu-w-lazience-krok-po-kroku','gruntowanie-scian-przed-malowaniem-krok-po-kroku','wylewka-cementowa-krok-po-kroku'];
 const CAT_IDS = ['walls','floor','tiles','electric','instalacje','dach'];
 const esc = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 
