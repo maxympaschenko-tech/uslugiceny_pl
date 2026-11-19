@@ -269,5 +269,208 @@
         "https://www.mapei.com/pl/pl/narzedzia-i-materialy-do-pobrania/rysunki-techniczne"
       ]
     ]
+  },
+  {
+    "slug": "sufit-podwieszany-z-plyt-gk-krok-po-kroku",
+    "h1": "Sufit podwieszany z płyt g-k krok po kroku",
+    "title": "Sufit podwieszany g-k: montaż, błędy i koszt za m²",
+    "desc": "Montaż sufitu podwieszanego z płyt g-k: ruszt CD/UD, wieszaki, poziomowanie, płyty, spoinowanie, oświetlenie i koszt za m².",
+    "lede": "Sufit podwieszany pozwala ukryć instalacje i wyrównać strop, ale jego niezawodność zależy od prawidłowych mocowań i rozstawów systemowych. Samo przykręcenie płyt jest dopiero końcowym etapem.",
+    "wstep": "Instrukcja opisuje typowy sufit z płyt gipsowo-kartonowych na metalowej konstrukcji w pomieszczeniu mieszkalnym. Konkretne rozstawy profili, wieszaków, grubości i liczba warstw płyt zależą od wybranego systemu, obciążenia oraz wymaganej odporności ogniowej i akustycznej. Nie przenoś parametrów jednego zestawu na inny bez sprawdzenia dokumentacji producenta.",
+    "czas": "P3D",
+    "opracowano": "2026-11",
+    "kosztWorkId": "gk_sufit",
+    "kroki": [
+      {
+        "t": "Ustal, po co obniżasz sufit i jakie ma przenosić obciążenia",
+        "w": null,
+        "txt": "Zdecyduj, czy celem jest tylko wyrównanie płaszczyzny, ukrycie kanałów, poprawa akustyki czy uzyskanie określonej odporności ogniowej. Każdy z tych wariantów może wymagać innego rusztu, łączników i liczby warstw płyt. Zmierz wysokość po wykonaniu posadzki i sprawdź, czy planowane obniżenie nie koliduje z oknami, wysokimi szafami oraz wentylacją. Ciężkich opraw lub innych urządzeń nie należy wieszać na przypadkowych wkrętach w płycie."
+      },
+      {
+        "t": "Sprawdź strop i zaplanuj bezpieczne kotwienie",
+        "w": null,
+        "txt": "Rozpoznaj rodzaj stropu: żelbet, cegła, konstrukcja drewniana i pustaki wymagają odmiennych łączników. Wykonaj rozpoznanie przebiegu przewodów oraz rur przed wierceniem. Dobierz mocowania dopuszczone przez system producenta i podłoże, uwzględniając obciążenie konstrukcji. W stropach o niepewnej nośności, przy instalacjach technicznych albo wymaganej odporności ogniowej nie projektuj kotwienia metodą prób i błędów, lecz zleć dobór rozwiązania osobie z odpowiednimi kwalifikacjami."
+      },
+      {
+        "t": "Rozrysuj wysokość i układ rusztu przed zakupem materiałów",
+        "w": null,
+        "txt": "Wyznacz laserem linię gotowego sufitu na ścianach i rozrysuj kierunek płyt, profili CD, profili przyściennych UD oraz miejsc zamocowania wieszaków. Rozstawy wynikają z konkretnej karty systemowej, nie z uniwersalnej odległości obowiązującej w każdym pokoju. Zaznacz położenie lamp, nawiewników, klap rewizyjnych i instalacji. Unikniesz sytuacji, w której po wykonaniu rusztu okaże się, że pod lampą nie ma miejsca na oprawę albo przewód wymaga niedozwolonego przecięcia profilu."
+      },
+      {
+        "t": "Zamontuj elementy przyścienne zgodnie z systemem",
+        "w": null,
+        "txt": "Profile obwodowe montuj na przygotowanym podłożu w poziomie, z użyciem łączników i ewentualnej taśmy uszczelniającej przewidzianej przez projekt. Sprawdź, czy ściana ma wystarczającą nośność; pękający tynk nie jest stabilnym punktem zamocowania. W rozwiązaniach akustycznych i przeciwpożarowych szczegóły połączenia ze ścianą mają znaczenie dla deklarowanych parametrów. Nie zakładaj, że wszystkie sufity mają taki sam rodzaj połączenia obwodowego."
+      },
+      {
+        "t": "Zamocuj wieszaki i wyreguluj profile główne",
+        "w": null,
+        "txt": "Wieszaki umieść w punktach wyznaczonych według dokumentacji wybranego systemu. Ich typ i nośność muszą odpowiadać konstrukcji stropu oraz ciężarowi całego sufitu. Dopiero po bezpiecznym zamocowaniu wypoziomuj profile, aby nie przenosić nierówności stropu na nową okładzinę. Nie łącz elementów różnych producentów bez potwierdzenia kompatybilności. Przy podejrzeniu źle zamocowanego wieszaka wstrzymaj prace zamiast ukrywać problem płytą."
+      },
+      {
+        "t": "Złóż i sprawdź ruszt nośny",
+        "w": "gk_sufit",
+        "txt": "Połącz profile główne i nośne właściwymi łącznikami. Zachowaj rozstaw wymagany przez zastosowane płyty i ich orientację; w konstrukcji krzyżowej szczególnie ważne są połączenia między poziomami. Sprawdź wypoziomowanie całej powierzchni oraz sztywność rusztu przed rozpoczęciem płytowania. Nie doczepiaj dodatkowych obciążeń do losowego profilu. Jeżeli mają pojawić się ciężkie oprawy, jednostki wentylacyjne lub projektor, przewidź ich niezależne mocowanie do odpowiedniej konstrukcji."
+      },
+      {
+        "t": "Ułóż przewidziane instalacje i izolację w przestrzeni nad sufitem",
+        "w": null,
+        "txt": "Przewody elektryczne i kanały wentylacyjne zaplanuj zgodnie z projektem, pozostawiając dostęp serwisowy do wymagających tego urządzeń. Podłączenia elektryczne powinien wykonać wykwalifikowany elektryk. Wełnę mineralną układaj tak, aby nie obciążała przypadkowo okładziny ani nie zatykała wentylacji. Jeśli projekt wymaga paroizolacji, zastosuj ją we właściwym miejscu przegrody zgodnie z analizą wilgotnościową. Nie zamykaj w suficie mokrych instalacji lub niewyjaśnionych przecieków."
+      },
+      {
+        "t": "Zamocuj płyty g-k odpowiednimi wkrętami",
+        "w": null,
+        "txt": "Płyty układaj zgodnie z kierunkiem przewidzianym w wybranym systemie i mocuj do profili nośnych dopuszczonymi wkrętami. Prawidłowe odsunięcie od krawędzi, rozstaw wkrętów oraz przesunięcie spoin ograniczają ryzyko spękań; szczegółowe wartości sprawdź w karcie systemowej Rigips lub Knauf. Nie dociskaj płyt na siłę do nierównego rusztu i nie przecinaj kartonu łbem wkrętu. Przy wielowarstwowej okładzinie stosuj oddzielne zasady mocowania kolejnych warstw."
+      },
+      {
+        "t": "Wykonaj spoinowanie, narożniki i kontrolę rys",
+        "w": null,
+        "txt": "Zasznuruj spoiny odpowiednią masą i zastosuj taśmy lub inne rozwiązania zbrojące wymagane w systemie. Wypełnij łby wkrętów, naroża oraz miejsca połączenia z innymi przegrodami. Szczególnej uwagi wymagają styki różnych materiałów oraz otwory oświetleniowe. Nie zakrywaj od razu widocznych pęknięć kolejną warstwą masy: sprawdź, czy nie wynikają z pracy konstrukcji lub błędnego zamocowania. Do szlifowania stosuj odciąg pyłu i ochronę dróg oddechowych."
+      },
+      {
+        "t": "Przygotuj sufit do malowania i odbierz wykonanie",
+        "w": "malowanie",
+        "txt": "Po pełnym wyschnięciu masy spoinującej usuń pył, dobierz grunt lub farbę podkładową do zastosowanego systemu i wykonaj warstwy malarskie zgodnie z kartą produktu. W bocznym świetle sprawdź płaszczyznę, krawędzie, naroża oraz ewentualne prześwity i rysy. Ustal, czy koszt usługi obejmuje wykończenie malarskie, izolację, otwory pod lampy i osprzęt; często są to odrębne pozycje w kosztorysie. Zachowaj dokumentację systemu i rozmieszczenie instalacji na przyszłe prace serwisowe."
+      }
+    ],
+    "faq": [
+      [
+        "Ile kosztuje sufit podwieszany z płyt g-k za m²?",
+        "Orientacyjną stawkę montażu sufitu podwieszanego z rozbiciem na robociznę i materiały podajemy w naszym cenniku. Ostateczny koszt zmienia się wraz z wysokością, liczbą poziomów, typem płyt, izolacją i oprawami. Malowanie lub dodatkowe wymagania przeciwpożarowe mogą być wyceniane osobno."
+      ],
+      [
+        "Co ile montować profile CD i wieszaki?",
+        "Nie ma jednego rozstawu dobrego dla wszystkich sufitów. Odległości zależą od systemu, układu rusztu, liczby warstw płyt oraz obciążenia. Przy montażu należy korzystać z aktualnej karty systemowej producenta, a nie kopiować wymiary z przypadkowej realizacji."
+      ],
+      [
+        "Czy do sufitu podwieszanego można przykręcić ciężki żyrandol?",
+        "Ciężkie elementy wymagają mocowania do odpowiednio zaprojektowanej konstrukcji nośnej, zwykle niezależnie od samej płyty gipsowo-kartonowej. Dopuszczalne obciążenia lekkich elementów i sposób montażu sprawdza się w dokumentacji systemu."
+      ],
+      [
+        "Czy sufit podwieszany poprawia akustykę?",
+        "Może poprawiać izolacyjność lub pochłanianie dźwięku, ale efekt zależy od całego układu: profili, wieszaków, warstw płyt, wełny i połączeń ze ścianami. Sama dodatkowa płyta bez prawidłowego projektu nie gwarantuje konkretnego wyniku."
+      ],
+      [
+        "Czy w łazience wystarczy zwykła biała płyta g-k?",
+        "Do pomieszczeń o podwyższonej wilgotności trzeba dobrać rozwiązanie dopuszczone do danych warunków. Sama impregnacja płyty nie zwalnia z zapewnienia wentylacji i ochrony przed bezpośrednim działaniem wody. Typ i układ płyt określa system producenta."
+      ]
+    ],
+    "zrodla": [
+      [
+        "Rigips — sufit podwieszany krzyżowy krok po kroku",
+        "https://www.rigips.pl/aktualnosci/jak-zrobic-sufit-podwieszany-z-plyt-gipsowych-rigips-prezentuje-instrukcje-montazu"
+      ],
+      [
+        "Knauf — systemy sufitów podwieszanych D112",
+        "https://knauf.com/pl-PL/systemy/systemy-suchej-zabudowy/systemy-sufitowe-i-zabudowy-poddaszy/systemy-sufitow-podwieszanych"
+      ]
+    ],
+    "wideo": {
+      "id": "vjAB-6WwnDg",
+      "title": "Rigips — montaż sufitu podwieszanego krok po kroku"
+    }
+  },
+  {
+    "slug": "wylewka-cementowa-krok-po-kroku",
+    "h1": "Wylewka cementowa krok po kroku",
+    "title": "Wylewka cementowa: wykonanie, schnięcie i koszt za m²",
+    "desc": "Wylewka cementowa krok po kroku: dobór grubości, izolacje, dylatacje, mixokret, zacieranie, pielęgnacja i koszt jastrychu za m².",
+    "lede": "Dobra posadzka nie zaczyna się od zacierania, tylko od poprawnego układu warstw. Niewłaściwa grubość lub brak dylatacji potrafią doprowadzić do pękania jastrychu już pod gotową podłogą.",
+    "wstep": "Poradnik dotyczy typowych cementowych podkładów podłogowych w budownictwie mieszkaniowym. Wylewka związana z podłożem, oddzielona warstwą rozdzielającą i pływająca na izolacji mają różne wymagania. Minimalne grubości, zbrojenie, pielęgnację i czas schnięcia należy dobrać do projektu, obciążeń i konkretnego produktu. Orientacyjne ceny na stronie odnoszą się do przyjętego przez cennik wariantu o grubości 5 cm.",
+    "czas": "P14D",
+    "opracowano": "2026-11",
+    "kosztWorkId": "wylewka_cem",
+    "kroki": [
+      {
+        "t": "Wybierz rodzaj jastrychu i zaplanuj układ warstw",
+        "w": null,
+        "txt": "Rozstrzygnij, czy podkład będzie związany z nośną płytą, położony na warstwie rozdzielającej, czy pływający na izolacji termicznej lub akustycznej. Każdy z tych układów ma inną minimalną grubość i wymagania dotyczące nośności. Przy ogrzewaniu podłogowym uwzględnij przykrycie rur oraz projekt instalacji. Nie zakładaj uniwersalnej grubości dla wszystkich pomieszczeń: np. Cemex CX-P420 ma odmienne wymagania dla jastrychu związanego i pływającego."
+      },
+      {
+        "t": "Oceń podłoże i poziomy posadzek w całym mieszkaniu",
+        "w": null,
+        "txt": "Zaznacz docelowy poziom gotowej podłogi we wszystkich pomieszczeniach i odejmij grubość okładziny, kleju oraz warstw podkładowych. Oceń stabilność i czystość podłoża, wystające elementy oraz miejsca przejścia instalacji. Nie wykonuj wylewki na osypującym się, zakurzonym lub zawilgoconym układzie warstw bez usunięcia przyczyny. Jeśli na podłodze pojawiają się lokalne uskoki, rozplanuj grubość wylewki tak, żeby nie stworzyć warstwy cieńszej niż dopuszcza producent."
+      },
+      {
+        "t": "Ułóż izolację termiczną lub akustyczną, jeśli przewiduje ją projekt",
+        "w": "izolacja_styropian",
+        "txt": "W podłodze pływającej izolację układa się stabilnie, bez przypadkowych pustek i kołyszących się płyt. Dobierz materiał o parametrach odpowiednich do obciążeń i projektowanej konstrukcji podłogi, nie na podstawie samej ceny za paczkę. Rury i przewody muszą być osłonięte zgodnie z wymaganiami instalacji. Podłoże pod izolacją powinno być wyrównane, aby warstwa nie uginała się punktowo pod ciężarem świeżego jastrychu."
+      },
+      {
+        "t": "Wykonaj warstwy oddzielające oraz taśmy dylatacyjne",
+        "w": null,
+        "txt": "Przed ułożeniem jastrychu pływającego oddziel go od ścian, słupów i innych sztywnych elementów taśmami brzegowymi odpowiedniej grubości. Warstwę rozdzielającą lub folię wykonuj z zakładami przewidzianymi w projekcie i karcie systemu, bez przerwań, przez które mieszanka mogłaby przedostać się pod izolację. Dylatacje konstrukcyjne muszą zostać przeniesione we właściwe miejsca podkładu, a podłogówka wymaga uwzględnienia stref grzewczych."
+      },
+      {
+        "t": "Przygotuj ogrzewanie podłogowe i sprawdź jego szczelność",
+        "w": null,
+        "txt": "Jeżeli wylewka zakrywa ogrzewanie podłogowe, przed betonowaniem sprawdź zgodnie z projektem kompletność obwodów, izolację rur i protokół próby szczelności. Zaznacz miejsca przebiegu instalacji, aby podczas poziomowania i późniejszego montażu nie uszkodzić przewodów. Warstwa nad rurami musi odpowiadać wymaganiom systemu; nie wystarczy grubość mierzona od wierzchu izolacji. Harmonogram pierwszego wygrzewania zależy od produktu i zaleceń instalatora."
+      },
+      {
+        "t": "Dobierz mieszankę i sprawdź recepturę",
+        "w": null,
+        "txt": "Jastrychy półsuche układane mixokretem i gotowe zaprawy workowane różnią się technologią, zawartością wody oraz sposobem zacierania. Stosuj mieszankę o wymaganej klasie wytrzymałości i przeznaczeniu, a przy produkcie gotowym odmierzaj wodę dokładnie według karty technicznej. Nie dolewaj dodatkowej wody tylko po to, żeby mieszanka łatwiej się rozprowadzała: nadmiar może zwiększać skurcz i ryzyko pękania. Przy dużym metrażu zorganizuj dostawy tak, aby kolejne pola łączyły się zgodnie z technologią."
+      },
+      {
+        "t": "Wyznacz repery i rozprowadź jastrych na wymaganą grubość",
+        "w": "wylewka_cem",
+        "txt": "Przed rozpoczęciem pracy wyznacz poziomy za pomocą niwelatora lub lasera. Rozłóż mieszankę na przygotowanym podłożu, zagęść i ściągnij odpowiednią łatą do zadanej wysokości. Wylewka nie może mieć lokalnych zaników grubości, szczególnie nad instalacją. Zachowaj dylatacje i plan podziału pól. Jeżeli pomieszczenie wymaga spadku do odpływu, zaprojektuj go jeszcze przed rozprowadzeniem zaprawy, aby nie wyrównywać go później cienką przypadkową warstwą kleju."
+      },
+      {
+        "t": "Zatrzyj powierzchnię i skontroluj równość",
+        "w": null,
+        "txt": "Moment zacierania wynika z konsystencji i procesu wiązania danej mieszanki. Zbyt wczesne lub nadmierne zacieranie może pogorszyć jakość wierzchniej warstwy, a przerwy robocze powinny być zaplanowane. Sprawdź równość łatą, miejsca styku z progami, krawędzie dylatacji i ewentualne spadki. Jeśli podkład ma przyjąć bardzo cienką okładzinę, np. winyl, może być potrzebna oddzielna warstwa wyrównawcza, jednak nie należy zakładać tego automatycznie dla każdej posadzki."
+      },
+      {
+        "t": "Pielęgnuj świeżą wylewkę bez gwałtownego wysychania",
+        "w": null,
+        "txt": "Chroń podkład przed przeciągami, bezpośrednim słońcem i zbyt wysoką temperaturą. Warunki pielęgnacji oraz termin rozpoczęcia kontrolowanego wietrzenia wynikają z karty producenta. Nie stosuj przyspieszonego ogrzewania albo osuszania na własną rękę, bo nadmierny skurcz może prowadzić do rys. To, że po podkładzie da się chodzić, nie oznacza jeszcze, że osiągnął on wilgotność odpowiednią do układania paneli albo parkietu."
+      },
+      {
+        "t": "Zmierz wilgotność i przeprowadź wygrzewanie, jeśli jest wymagane",
+        "w": null,
+        "txt": "Przed położeniem okładziny sprawdź wilgotność podkładu metodą dopuszczoną dla danego systemu, a wynik porównaj z wymaganiami producenta kleju lub paneli. W podłogach ogrzewanych postępuj zgodnie z protokołem wygrzewania właściwym dla jastrychu i instalacji, a pomiary wykonuj po zakończeniu wymaganych etapów. Kalendarium dni od wylania nie zastępuje pomiaru wilgotności: czas schnięcia zależy od grubości warstwy, temperatury, wentylacji i materiału."
+      },
+      {
+        "t": "Odbierz podkład i ustal zakres końcowego kosztorysu",
+        "w": null,
+        "txt": "Sprawdź pęknięcia, równość, grubość w miejscach kontrolnych, dylatacje oraz dokumentację wygrzewania i pomiarów. Przed montażem płytek, drewna lub paneli przekaż wykonawcy okładziny informacje o rodzaju jastrychu i użytych produktach. Porównując oferty, rozdziel koszt podkładu cementowego od termoizolacji, wzmocnień, dodatkowego wyrównania i prac przy ogrzewaniu podłogowym. Cena za m² bez wskazanej grubości warstwy jest nieporównywalna między wykonawcami."
+      }
+    ],
+    "faq": [
+      [
+        "Ile kosztuje wylewka cementowa za m²?",
+        "Cena zależy przede wszystkim od grubości warstwy, metrażu, technologii, transportu mieszanki oraz rodzaju podłoża. Nasz cennik liczy bazowy wariant przy założeniu grubości 5 cm; porównaj koszt robocizny i materiału oraz warianty miejskie w kalkulatorze wylewki."
+      ],
+      [
+        "Jaką grubość powinna mieć wylewka cementowa?",
+        "Nie istnieje jeden wymagany wymiar dla każdego układu podłogi. Jastrych związany z podłożem, na warstwie rozdzielającej i na izolacji ma różne wymagania. Przykładowo Cemex CX-P420 podaje minimalne grubości zależne od konstrukcji; parametry własnej posadzki trzeba dobrać według projektu i karty produktu."
+      ],
+      [
+        "Kiedy można układać panele po wylewce?",
+        "Dopiero po uzyskaniu wilgotności dopuszczonej przez producenta paneli i podkładu. Sam termin kilku czy kilkunastu dni nie daje gwarancji: potrzebny jest prawidłowy pomiar i ewentualne wygrzewanie posadzki."
+      ],
+      [
+        "Czy wylewka z mixokreta to to samo co samopoziomująca?",
+        "Nie. Mixokret określa sposób podawania i układania półsuchej mieszanki cementowej. Masa samopoziomująca ma inną konsystencję oraz przeznaczenie; często służy do wyrównania podłoża przed okładziną. Nie należy ich wyceniać jak identycznego produktu."
+      ],
+      [
+        "Czy podkład cementowy wymaga dylatacji?",
+        "Tak, należy zapewnić oddzielenie od elementów sztywnych i prawidłowo zaplanować dylatacje konstrukcyjne oraz pola robocze. Zakres i szczegóły zależą od konstrukcji podłogi, wielkości powierzchni i ogrzewania podłogowego."
+      ]
+    ],
+    "zrodla": [
+      [
+        "Cemex — jastrych cementowy CX-P420, zastosowanie i grubości",
+        "https://www.cemex.pl/produkty/chemia-budowlana/betony-posadzki/jastrych-cementowy"
+      ],
+      [
+        "Baumit — posadzka cementowa 10–100 mm, warunki wykonania",
+        "https://baumit.pl/produkty/produkty-w-marketach-budowlanych/posadzka-cementowa-10-100-mm"
+      ],
+      [
+        "ATLAS — posadzka cementowa POSTAR 60",
+        "https://www.atlas.com.pl/produkt/atlas-postar-60/"
+      ]
+    ]
   }
 ]
