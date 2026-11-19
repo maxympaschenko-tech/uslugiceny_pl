@@ -3,7 +3,9 @@ import { layout, odmien, calcScript, field, select, money } from './templates.mj
 import { SITE } from './config.mjs';
 
 const R = SITE.root;
-const YEAR = new Date().getFullYear();
+// Rok przy cenach odnosi się do potwierdzonej kalibracji danych,
+// nie zmienia się automatycznie 1 stycznia bez nowych źródeł.
+const YEAR = Number(SITE.updated.slice(0, 4)) || new Date().getFullYear();
 
 /* ---------- sprawdzenie oferty wykonawcy ---------- */
 

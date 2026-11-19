@@ -8,7 +8,9 @@ import MIASTA from './data/cities.json' with { type: 'json' };
 import { photoForGuide, guideImage } from './photo-guides.mjs';
 
 const R = SITE.root;
-const YEAR = new Date().getFullYear();
+// Rok przy cenach odnosi się do potwierdzonej kalibracji danych,
+// nie zmienia się automatycznie 1 stycznia bez nowych źródeł.
+const YEAR = Number(SITE.updated.slice(0, 4)) || new Date().getFullYear();
 const MEDIA_PORADNIKI = {
   "remont-pokoju-krok-po-kroku": { alt: "Remont pokoju — autorski schemat", caption: "Plan pomieszczenia i właściwa kolejność prac." },
   "remont-lazienki-krok-po-kroku": { alt: "Remont łazienki — autorski schemat", caption: "Plan łazienki i strefy wymagające uszczelnienia." },

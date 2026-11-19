@@ -27,7 +27,9 @@ const CSS_HASH = createHash('sha1')
   .digest('hex')
   .slice(0, 8);
 const R = SITE.root;
-const YEAR = new Date().getFullYear();
+// Rok przy cenach odnosi się do potwierdzonej kalibracji danych,
+// nie zmienia się automatycznie 1 stycznia bez nowych źródeł.
+const YEAR = Number(SITE.updated.slice(0, 4)) || new Date().getFullYear();
 const { works, categories, units, levels, meta, standardScope } = worksFile;
 const byId = Object.fromEntries(works.map((w) => [w.id, w]));
 // Dane dla przegladarki zawieraja tylko to, czego uzywa kalkulator: nazwe,

@@ -6,7 +6,9 @@ import { PORADNIKI } from './pages-guides.mjs';
 import { ikona, pasekPodzialu, slupkiMiast } from './icons.mjs';
 
 const R = SITE.root;
-const YEAR = new Date().getFullYear();
+// Rok przy cenach odnosi się do potwierdzonej kalibracji danych,
+// nie zmienia się automatycznie 1 stycznia bez nowych źródeł.
+const YEAR = Number(SITE.updated.slice(0, 4)) || new Date().getFullYear();
 
 export const slugify = (s) =>
   s
