@@ -90,7 +90,8 @@
     "wideo": {
       "id": "w71vlNxFg2Y",
       "title": "PORTA — montaż drzwi na ościeżnicy regulowanej"
-    }
+    },
+    "wstep": "Instrukcja dotyczy typowych drzwi wewnętrznych rozwieranych, montowanych w mieszkaniu po zakończeniu większości prac wykończeniowych. Ościeżnice ukryte, przeciwpożarowe, akustyczne i drzwi o niestandardowej masie wymagają osobnych procedur. Szczegóły mocowania, rozstawy i dopuszczalne wymiary należy sprawdzić w dokumentacji konkretnego producenta. Stawka w serwisie dotyczy pozycji montażowej, a nie automatycznie pełnego zestawu ze skrzydłem, osprzętem i remontem ościeża."
   },
   {
     "slug": "cyklinowanie-parkietu-i-lakierowanie-krok-po-kroku",
@@ -179,7 +180,8 @@
         "Barlinek — ponowne lakierowanie deski",
         "https://www.barlinek.com.pl/pielegnacja/pielegnacja-podlogi-drewniane/faq-drewno/ponowne-lakierowanie-deski-barlineckiej/"
       ]
-    ]
+    ],
+    "wstep": "Poradnik dotyczy renowacji parkietu z litego drewna oraz sposobu oceny, czy dana podłoga w ogóle nadaje się do szlifowania. Konstrukcje warstwowe, deski fabrycznie lakierowane oraz podłogi po zalaniu wymagają osobnego rozpoznania i mogą wykluczać klasyczne cyklinowanie. Wycena z cennika opisuje orientacyjny koszt usługi przy standardowym zakresie; naprawy klepek, wymiana desek i usuwanie starych powłok specjalnych mogą być rozliczane oddzielnie."
   },
   {
     "slug": "ukladanie-plytek-podlogowych-krok-po-kroku",
@@ -268,7 +270,8 @@
         "MAPEI — rysunki techniczne, dylatacje i rozwiązania posadzek",
         "https://www.mapei.com/pl/pl/narzedzia-i-materialy-do-pobrania/rysunki-techniczne"
       ]
-    ]
+    ],
+    "wstep": "Instrukcja dotyczy montażu typowych płytek ceramicznych na przygotowanym podłożu mineralnym w pomieszczeniu mieszkalnym. Inne warunki dotyczą wielkich formatów, tarasów, podłóg z intensywnym ogrzewaniem oraz okładzin z kamienia naturalnego. Zasady doboru zaprawy, dylatacji i czasu przed fugowaniem wynikają z kart produktów oraz projektu. Cena robót w serwisie odnosi się do metra kwadratowego powierzchni okładziny; dodatkowy demontaż i hydroizolację można wycenić osobno."
   },
   {
     "slug": "sufit-podwieszany-z-plyt-gk-krok-po-kroku",
