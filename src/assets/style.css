@@ -1120,3 +1120,15 @@ details > .board-wrap, details .board-wrap { width: 100%; }
 @media(max-width:720px){.home-media-head{align-items:flex-start;flex-direction:column;gap:.6rem}.home-media-categories{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.home-editorial-guide{padding:1.6rem 0 2.1rem}.home-media-guides,.home-media-categories{grid-template-columns:minmax(0,1fr)}.home-media-card-body p{display:block}.home-media-more{white-space:normal}}
 @media(prefers-reduced-motion:reduce){.home-media-photo img,.home-category-image img{transition:none}}
+
+/* Porównanie cen miast wewnątrz poradników: realne liczby z aktualnej bazy. */
+.guide-city-prices{max-width:880px;margin:2rem 0 2.5rem}
+.guide-city-prices h2{margin:0 0 .65rem}
+.guide-city-prices-rows{display:grid;gap:.5rem;margin:1.25rem 0;padding:1.1rem 1.2rem;border:1px solid var(--line);border-radius:15px;background:#fff}
+.guide-city-prices-row{display:grid;grid-template-columns:minmax(95px,132px) minmax(60px,1fr) minmax(72px,102px);gap:1rem;align-items:center;min-width:0}
+.guide-city-prices-row>a{font-size:.9rem;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.guide-city-prices-track{height:15px;border-radius:999px;overflow:hidden;background:#EAF1EB;display:block}
+.guide-city-prices-track>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#559F9C,#1C7376)}
+.guide-city-prices-row strong{font-size:.9rem;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+.guide-city-prices-note{font-size:.85rem;color:var(--ink-soft);line-height:1.6;margin:.75rem 0}
+@media(max-width:600px){.guide-city-prices-rows{padding:.8rem;gap:.6rem}.guide-city-prices-row{grid-template-columns:minmax(82px,110px) minmax(40px,1fr) minmax(65px,82px);gap:.5rem}.guide-city-prices-row>a,.guide-city-prices-row strong{font-size:.82rem}}

@@ -4,6 +4,7 @@
 import { layout, money } from './templates.mjs';
 import { SITE } from './config.mjs';
 import EXTRA_PORADNIKI from './data/guides-more.json' with { type: 'json' };
+import MIASTA from './data/cities.json' with { type: 'json' };
 
 const R = SITE.root;
 const YEAR = new Date().getFullYear();
@@ -975,6 +976,26 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
     </figure>`
     : '';
 
+  // To te same stawki i współczynniki, które napędzają miejskie strony cennika.
+  // Dzięki temu zestawienie nie wymaga ręcznych aktualizacji kwot w artykułach.
+  const stawkiMiast = cenaZaRobote ? MIASTA.map((city) => {
+    const price = unitPrice(cenaZaRobote.id, city.coef, 1, cenaZaRobote.perCm ? 5 : 1);
+    return { city, amount: Math.round(price.labour + price.material) };
+  }).sort((a, b) => a.amount - b.amount) : [];
+  const stawkaMax = Math.max(1, ...stawkiMiast.map((x) => x.amount));
+  const wykresMiast = stawkiMiast.length
+    ? `<section class="guide-city-prices" aria-labelledby="guide-city-prices-${p.slug}">
+      <h2 id="guide-city-prices-${p.slug}">Porównanie ceny w 10 miastach</h2>
+      <p class="section-note">Orientacyjna kwota za ${units[cenaZaRobote.unit].name}${cenaZaRobote.perCm ? ' dla warstwy 5 cm' : ''}, obejmująca zakres z jednej pozycji cennika. Kliknij miasto, aby zobaczyć czynniki wpływające na wycenę i zakres robót.</p>
+      <div class="guide-city-prices-rows">${stawkiMiast.map(({ city, amount }) => `<div class="guide-city-prices-row">
+        <a href="${R}${catSlug(cenaZaRobote.cat)}/${slugify(cenaZaRobote.name)}/${city.slug}/">${city.name}</a>
+        <span class="guide-city-prices-track" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, amount / stawkaMax * 100)).toFixed(1)}%"></span></span>
+        <strong>${money(amount)} zł</strong>
+      </div>`).join('')}</div>
+      <p class="guide-city-prices-note">Różnica między najniższą i najwyższą stawką: <b>${money(stawkiMiast.at(-1).amount - stawkiMiast[0].amount)} zł</b>. Stawki mają charakter orientacyjny, a ceny materiałów i robocizny są liczone według tej samej metodologii co na stronach lokalnych. <a href="${R}jak-liczymy/">Jak liczymy ceny?</a></p>
+    </section>`
+    : '';
+
   const narzedzia = NARZEDZIA_PORADNIKA[p.slug] || [['kalkulator/remont-mieszkania/', 'Kalkulator remontu mieszkania']];
   const linkiNastepne = narzedzia.map(([path, name]) => '<a href="' + R + path + '">' + name + '</a>').join(' lub ');
   // Podpowiedzi z tej samej tematyki wynikają ze wspólnych pozycji cennika.
@@ -1048,6 +1069,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
   ${ileKosztuje}
   ${kosztZCennika}
   ${kosztWykres}
+  ${wykresMiast}
 
   ${p.zrodla?.length ? `<h2 style="margin-top:2.5rem">Podstawy technologiczne i dokumentacja</h2>
   <p class="section-note">Opis jest poradnikiem ogólnym. Przy wykonaniu prac obowiązują instrukcje i karty techniczne zastosowanego systemu.</p>
@@ -1067,6 +1089,7 @@ export function poradnikPage({ p, byId, units, unitPrice, catSlug, slugify, podl
         '@type': 'HowTo',
         name: p.h1,
         description: p.desc,
+        image: SITE.url(`/assets/media/${p.slug}.svg`),
         inLanguage: 'pl',
         totalTime: p.czas,
         step: kroki.map((k, i) => ({
