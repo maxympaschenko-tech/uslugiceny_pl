@@ -1139,3 +1139,17 @@ details > .board-wrap, details .board-wrap { width: 100%; }
 .guide-photo-hero figcaption{padding:.7rem 1rem;color:var(--ink-soft);background:#fff;font-size:.85rem}
 .kroki .guide-visual{margin:1.15rem 0 1.8rem}
 @media(max-width:600px){.guide-photo-hero{border-radius:11px}.guide-photo-hero figcaption{font-size:.8rem}}
+
+/* Wizualny podział ceny na stronie robót: kraj i dziesięć miast. */
+.service-cost-chart{margin:1.25rem 0 1.6rem;padding:1.05rem 1.2rem;background:#F7FAF8;border:1px solid var(--line);border-radius:15px;max-width:790px}
+.service-cost-chart figcaption{font-size:.96rem;line-height:1.5;color:var(--ink);font-weight:750;margin-bottom:.85rem}
+.service-cost-track{height:18px;background:#DCE9E2;border-radius:999px;overflow:hidden}
+.service-cost-labour{height:100%;display:block;background:#187E83;border-radius:999px 0 0 999px}
+.service-cost-labels{margin:.9rem 0 .2rem;display:flex;align-items:center;justify-content:space-between;gap:.7rem 1.7rem;flex-wrap:wrap}
+.service-cost-labels span{font-size:.88rem;line-height:1.5;color:var(--ink-soft);display:inline-flex;gap:.42rem;align-items:center;flex-wrap:wrap}
+.service-cost-labels strong{color:var(--ink);font-variant-numeric:tabular-nums}
+.service-cost-legend-dot{display:inline-block;width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.service-cost-legend-dot.labour{background:#187E83}
+.service-cost-legend-dot.materials{background:#DCE9E2;border:1px solid #B8D5C9}
+.service-cost-hint{font-size:.81rem;line-height:1.55;color:var(--ink-soft);margin:.65rem 0 0}
+@media(max-width:550px){.service-cost-chart{padding:.85rem}.service-cost-labels{gap:.45rem}}

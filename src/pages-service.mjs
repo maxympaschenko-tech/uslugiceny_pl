@@ -17,6 +17,27 @@ export const slugify = (s) =>
     .replace(/^-|-$/g, '');
 
 const unitPl = (units, w) => units[w.unit].name;
+
+const wizualnyPodzialCeny = (w, units, labour, material) => {
+  const total = labour + material;
+  if (!Number.isFinite(total) || total <= 0) return '';
+  const udział = Math.max(0, Math.min(100, labour / total * 100)).toFixed(1);
+  const bezMaterialu = material <= 0;
+  const jednostka = unitPl(units, w) + (w.perCm ? ' (warstwa 5 cm)' : '');
+  const nazwaMaterialu = w.materialLabel || 'Materiały';
+  return `<figure class="service-cost-chart" aria-label="Wizualny podział ceny na robociznę i materiały">
+    <figcaption>Udział robocizny i materiałów w cenie za ${jednostka}</figcaption>
+    <div class="service-cost-track" role="img" aria-label="Robocizna ${money(Math.round(labour))} zł; ${bezMaterialu ? 'koszty materiałów nie są wliczone' : nazwaMaterialu + ' ' + money(Math.round(material)) + ' zł'}">
+      <span class="service-cost-labour" style="width:${udział}%"></span>
+    </div>
+    <div class="service-cost-labels">
+      <span><i class="service-cost-legend-dot labour" aria-hidden="true"></i>Robocizna <strong>${money(Math.round(labour))} zł</strong></span>
+      <span><i class="service-cost-legend-dot materials" aria-hidden="true"></i>${bezMaterialu ? 'Materiał lub produkt: poza wyceną' : `${nazwaMaterialu}: <strong>${money(Math.round(material))} zł</strong>`}</span>
+    </div>
+    <p class="service-cost-hint">Kwoty orientacyjne. Zakres robót i potrzebne materiały sprawdź w ofercie wykonawcy.</p>
+  </figure>`;
+};
+
 // Każdy dział ma własny schemat, dzięki czemu indeks 13 kategorii nie powiela jednej grafiki.
 const grafikaKategorii = (cat, mini = false) => {
   const src = `${R}assets/category/${cat.id}.svg`;
@@ -304,6 +325,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
     <div>
       <h2>Z czego składa się stawka</h2>
       ${splitTable(w, units, base.labour, base.material)}
+      ${wizualnyPodzialCeny(w, units, base.labour, base.material)}
       ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
       ${doWyliczen(cat.id)}
@@ -482,10 +504,12 @@ export function serviceCityPage({ w, cat, city, units, cities, unitPrice, cityOp
     <div>
       <h2>Robocizna i materiał ${city.loc}</h2>
       ${splitTable(w, units, p.labour, p.material)}
+      ${wizualnyPodzialCeny(w, units, p.labour, p.material)}
       ${podstawaBlock(cat, meta, w)}
       ${doKalkulatora(cat.id)}
       ${doWyliczen(cat.id)}
       ${factorsBlock(w, podlinkuj)}
+      ${poradnikDlaPracy(w)}
       <p class="section-note">Pełny cennik robót ${city.loc}: <a href="${R}ceny/${city.slug}/">zobacz wszystkie pozycje</a>.</p>
     </div>
     <div class="sticky-sheet">${calcBox(w, units, cities, cityOptions, city.slug)}</div>
