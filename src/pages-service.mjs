@@ -368,7 +368,7 @@ export function servicePage({ w, cat, units, cities, unitPrice, related, cityOpt
           name: c.name,
           v: q.labour + q.material,
           label: money(Math.round(q.labour + q.material)) + ' zł',
-          url: `${R}ceny/${c.slug}/`,
+          url: `${R}${cat.slug}/${slugify(w.name)}/${c.slug}/`,
         };
       })
       .sort((a, b) => a.v - b.v),
