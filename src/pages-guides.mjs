@@ -12,6 +12,9 @@ const R = SITE.root;
 // nie zmienia się automatycznie 1 stycznia bez nowych źródeł.
 const YEAR = Number(SITE.updated.slice(0, 4)) || new Date().getFullYear();
 const MEDIA_PORADNIKI = {
+  "montaz-listew-przypodlogowych-krok-po-kroku": { alt: "Montaż listew przypodłogowych — schemat prac", caption: "Mocowanie do ściany i ochrona szczeliny dylatacyjnej." },
+  "wymiana-silikonu-w-lazience-krok-po-kroku": { alt: "Wymiana silikonu w łazience — schemat prac", caption: "Usunięcie starej spoiny i nowa elastyczna fuga." },
+  "gruntowanie-scian-przed-malowaniem-krok-po-kroku": { alt: "Gruntowanie ścian — schemat prac", caption: "Ocena chłonności, oczyszczenie i równomierna warstwa." },
   "remont-pokoju-krok-po-kroku": { alt: "Remont pokoju — autorski schemat", caption: "Plan pomieszczenia i właściwa kolejność prac." },
   "remont-lazienki-krok-po-kroku": { alt: "Remont łazienki — autorski schemat", caption: "Plan łazienki i strefy wymagające uszczelnienia." },
   "kolejnosc-prac-remontowych": { alt: "Kolejność prac — autorski schemat", caption: "Od przygotowania pomieszczeń do odbioru robót." },

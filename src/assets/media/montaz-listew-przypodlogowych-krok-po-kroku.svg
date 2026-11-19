@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="ttl dsc"><title id="ttl">Montaż listew przypodłogowych</title><desc id="dsc">Mocowanie do ściany i ochrona szczeliny dylatacyjnej. Autorski schemat poglądowy.</desc><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#FAFCF9"/><stop offset="1" stop-color="#EBF3EE"/></linearGradient></defs><rect width="1200" height="675" fill="url(#bg)"/><rect x="38" y="34" width="1124" height="610" rx="28" fill="#FFFFFF" stroke="#DBE6DE"/><rect x="71" y="67" width="9" height="75" rx="4" fill="#FFC93D"/><text x="101" y="93" fill="#197C82" font-family="Arial" font-size="18" font-weight="700">SCHEMAT MONTAŻU</text><text x="101" y="144" fill="#172D33" font-family="Arial" font-size="40" font-weight="700">Montaż listew przypodłogowych</text><text x="101" y="185" fill="#526B72" font-family="Arial" font-size="20">Mocowanie do ściany i ochrona szczeliny dylatacyjnej</text><rect x="64" y="218" width="754" height="357" rx="18" fill="#F4F7F4" stroke="#DCE9E3"/><g transform="translate(76 228)"><rect x="100" y="45" width="480" height="228" rx="5" fill="#D4DEDA"/>
+ <rect x="118" y="58" width="448" height="198" rx="4" fill="#EAECE5"/>
+ <path d="M100 273 H622 V323 H100Z" fill="#AF9C80"/>
+ <path d="M100 267 H568 V312 H100Z" fill="#DBBD91"/>
+ <path d="M100 274 H561" stroke="#9F8766" stroke-width="6"/>
+ <rect x="110" y="155" width="78" height="120" rx="4" fill="#F8F8F0" stroke="#9DAFA7" stroke-width="4"/>
+ <path d="M124 166 V261" stroke="#D2DBD5" stroke-width="4"/>
+ <rect x="188" y="258" width="36" height="16" fill="#F8FAF7"/>
+ <rect x="215" y="267" width="350" height="12" rx="2" fill="#EFD9BA"/>
+ <circle cx="141" cy="198" r="7" fill="#5A8990"/>
+ <path d="M141 198 L185 198" stroke="#5A8990" stroke-width="7" stroke-linecap="round"/>
+ <path d="M197 286 V316" stroke="#12878B" stroke-width="4" stroke-dasharray="7 6"/>
+ <text x="244" y="138" font-size="22" fill="#335D64">ŚCIANA</text>
+ <path d="M280 145 L180 191" stroke="#178388" stroke-width="3"/>
+ <text x="280" y="238" font-size="20" fill="#315C63">LISTWA</text>
+ <path d="M281 243 L172 236" stroke="#178388" stroke-width="3"/>
+ <text x="245" y="317" font-size="19" fill="#3D6167">POSADZKA PŁYWAJĄCA</text>
+ <text x="500" y="304" font-size="18" fill="#B17527">dylatacja</text>
+ <path d="M502 282 L563 282" stroke="#B17527" stroke-width="3"/></g><rect x="830" y="218" width="306" height="358" rx="18" fill="#F4F9F5"/><text x="844" y="256" fill="#197C82" font-family="Arial" font-size="19" font-weight="700">WAŻNE ETAPY</text><rect x="839" y="267" width="285" height="64" rx="11" fill="#FFFFFF" stroke="#DBE8E2"/><circle cx="870" cy="299" r="16" fill="#1A7F84"/><text x="864" y="306" fill="#FFFFFF" font-family="Arial" font-weight="700" font-size="19">1</text><text x="896" y="306" fill="#203B42" font-family="Arial" font-size="17" font-weight="600">listwa mocowana do ściany</text><rect x="839" y="352" width="285" height="64" rx="11" fill="#FFFFFF" stroke="#DBE8E2"/><circle cx="870" cy="384" r="16" fill="#1A7F84"/><text x="864" y="391" fill="#FFFFFF" font-family="Arial" font-weight="700" font-size="19">2</text><text x="896" y="391" fill="#203B42" font-family="Arial" font-size="17" font-weight="600">szczelina pod listwą</text><rect x="839" y="437" width="285" height="64" rx="11" fill="#FFFFFF" stroke="#DBE8E2"/><circle cx="870" cy="469" r="16" fill="#1A7F84"/><text x="864" y="476" fill="#FFFFFF" font-family="Arial" font-weight="700" font-size="19">3</text><text x="896" y="476" fill="#203B42" font-family="Arial" font-size="17" font-weight="600">łączenia i narożniki</text><path d="M73 604 H1125" stroke="#E0E7E3" stroke-width="2"/><text x="91" y="631" fill="#61777C" font-family="Arial" font-size="16">Ilustracja poglądowa • szczegóły zgodnie z instrukcją producenta</text></svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="ttl dsc"><title id="ttl">Wymiana silikonu w łazience</title><desc id="dsc">Usunięcie starej spoiny i nowa elastyczna fuga. Autorski schemat poglądowy.</desc><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#FAFCF9"/><stop offset="1" stop-color="#EBF3EE"/></linearGradient></defs><rect width="1200" height="675" fill="url(#bg)"/><rect x="38" y="34" width="1124" height="610" rx="28" fill="#FFFFFF" stroke="#DBE6DE"/><rect x="71" y="67" width="9" height="75" rx="4" fill="#FFC93D"/><text x="101" y="93" fill="#197C82" font-family="Arial" font-size="18" font-weight="700">SCHEMAT MONTAŻU</text><text x="101" y="144" fill="#172D33" font-family="Arial" font-size="40" font-weight="700">Wymiana silikonu w łazience</text><text x="101" y="185" fill="#526B72" font-family="Arial" font-size="20">Usunięcie starej spoiny i nowa elastyczna fuga</text><rect x="64" y="218" width="754" height="357" rx="18" fill="#F4F7F4" stroke="#DCE9E3"/><g transform="translate(76 228)"><rect x="73" y="50" width="590" height="263" rx="7" fill="#E0E6E4"/>
+ <path d="M76 145 H662" stroke="#80979A" stroke-width="7"/>
+ <path d="M76 226 H662" stroke="#80979A" stroke-width="7"/>
+ <path d="M365 52 V308" stroke="#7A979A" stroke-width="8"/>
+ <rect x="93" y="66" width="251" height="76" fill="#F9F8F3"/>
+ <rect x="93" y="152" width="251" height="69" fill="#F9F8F3"/>
+ <rect x="93" y="232" width="251" height="60" fill="#F9F8F3"/>
+ <rect x="388" y="66" width="245" height="76" fill="#F9F8F3"/>
+ <rect x="388" y="152" width="245" height="69" fill="#F9F8F3"/>
+ <rect x="388" y="232" width="245" height="60" fill="#F9F8F3"/>
+ <path d="M350 225 L385 225 L385 262 Z" fill="#4B9BA0"/>
+ <path d="M360 151 L374 159 L358 187 L375 196 L365 223" fill="none" stroke="#CA7755" stroke-width="7"/>
+ <path d="M355 174 L382 201 M384 174 L355 201" stroke="#C15F49" stroke-width="5" stroke-linecap="round"/>
+ <path d="M440 281 L540 281" stroke="#188589" stroke-width="8" stroke-linecap="round"/>
+ <path d="M540 281 L540 245" stroke="#188589" stroke-width="8" stroke-linecap="round"/>
+ <path d="M540 245 Q540 233 552 233 H618" stroke="#188589" stroke-width="7" fill="none"/>
+ <path d="M484 195 H573" stroke="#E4C784" stroke-width="5" stroke-linecap="round"/>
+ <text x="120" y="120" font-size="23" fill="#B25D49" font-weight="700">STARA SPOINA</text>
+ <text x="423" y="120" font-size="23" fill="#148085" font-weight="700">NOWA SPOINA</text>
+ <text x="101" y="321" font-size="19" fill="#536973">USUŃ • OCZYŚĆ</text>
+ <text x="420" y="321" font-size="19" fill="#536973">USZCZELNIJ • ODBIERZ</text></g><rect x="830" y="218" width="306" height="358" rx="18" fill="#F4F9F5"/><text x="844" y="256" fill="#197C82" font-family="Arial" font-size="19" font-weight="700">WAŻNE ETAPY</text><rect x="839" y="267" width="285" height="64" rx="11" fill="#FFFFFF" stroke="#DBE8E2"/><circle cx="870" cy="299" r="16" fill="#1A7F84"/><text x="864" y="306" fill="#FFFFFF" font-family="Arial" font-weight="700" font-size="19">1</text><text x="896" y="306" fill="#203B42" font-family="Arial" font-size="17" font-weight="600">usunięcie starej spoiny</text><rect x="839" y="352" width="285" height="64" rx="11" fill="#FFFFFF" stroke="#DBE8E2"/><circle cx="870" cy="384" r="16" fill="#1A7F84"/><text x="864" y="391" fill="#FFFFFF" font-family="Arial" font-weight="700" font-size="19">2</text><text x="896" y="391" fill="#203B42" font-family="Arial" font-size="17" font-weight="600">suche i czyste brzegi</text><rect x="839" y="437" width="285" height="64" rx="11" fill="#FFFFFF" stroke="#DBE8E2"/><circle cx="870" cy="469" r="16" fill="#1A7F84"/><text x="864" y="476" fill="#FFFFFF" font-family="Arial" font-weight="700" font-size="19">3</text><text x="896" y="476" fill="#203B42" font-family="Arial" font-size="17" font-weight="600">profilowanie silikonu</text><path d="M73 604 H1125" stroke="#E0E7E3" stroke-width="2"/><text x="91" y="631" fill="#61777C" font-family="Arial" font-size="16">Ilustracja poglądowa • szczegóły zgodnie z instrukcją producenta</text></svg>
