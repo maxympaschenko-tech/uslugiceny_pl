@@ -858,7 +858,8 @@ export const PORADNIKI = [
       "Renowacja łazienki z Sopro — wykonanie warstwy uszczelnienia",
       "https://budujemydom.pl/irbj/porady/41995-renowacja-lazienki-z-sopro-prace-przed-montazem-okladziny"
     ]
-  ]
+  ],
+  "wideo": {"id":"KEidvRbqt3I","title":"ATLAS — hydroizolacja łazienki krok po kroku"}
 },
   {
   "slug": "gladz-gipsowa-sciany-krok-po-kroku",
@@ -948,7 +949,8 @@ export const PORADNIKI = [
       "Knauf MP Finish — produkt i zastosowanie",
       "https://knauf.com/pl-PL/p/produkt/knauf-mp-finish-21072_0120"
     ]
-  ]
+  ],
+  "wideo": {"id":"_exjjSTuE3M","title":"Knauf — nakładanie gładzi wałkiem"}
 },
   ...EXTRA_PORADNIKI,
 ];
